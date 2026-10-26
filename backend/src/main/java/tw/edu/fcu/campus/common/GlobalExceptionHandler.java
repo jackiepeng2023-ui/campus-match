@@ -7,6 +7,8 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.Map;
 
@@ -27,6 +29,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Map<String, Object>> unreadable(HttpMessageNotReadableException e) {
         return ResponseEntity.status(400).body(Map.of("code", "BAD_REQUEST", "message", "請求格式錯誤"));
+    }
+
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
+    public ResponseEntity<Map<String, Object>> badParam(Exception e) {
+        return ResponseEntity.status(400).body(Map.of("code", "BAD_REQUEST", "message", "參數格式錯誤"));
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<Map<String, Object>> noResource(NoResourceFoundException e) {
+        return ResponseEntity.status(404).body(Map.of("code", "NOT_FOUND", "message", "找不到資源"));
     }
 
     @ExceptionHandler(Exception.class)
