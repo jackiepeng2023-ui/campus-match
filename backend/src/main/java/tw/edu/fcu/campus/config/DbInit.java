@@ -3,8 +3,7 @@ package tw.edu.fcu.campus.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -12,9 +11,10 @@ import tw.edu.fcu.campus.common.Db;
 
 import java.nio.charset.StandardCharsets;
 
-/** Demo 模式：啟動時重建 schema 與種子資料，並將所有示範帳號密碼設為 demo 密碼 */
+/** Demo 模式：啟動時重建 schema 與種子資料，並將所有示範帳號密碼設為 demo 密碼。
+ *  以 InitializingBean 執行，確保在 Tomcat 開放連線之前完成（避免啟動瞬間登入失敗）。 */
 @Component
-public class DbInit implements ApplicationRunner {
+public class DbInit implements InitializingBean {
     private static final Logger log = LoggerFactory.getLogger(DbInit.class);
     private final Db db;
     private final PasswordEncoder encoder;
@@ -26,10 +26,13 @@ public class DbInit implements ApplicationRunner {
         this.db = db; this.encoder = encoder; this.resetOnStart = resetOnStart; this.demoPassword = demoPassword;
     }
 
+    public volatile boolean ready = false;
+
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void afterPropertiesSet() throws Exception {
         if (resetOnStart) reload();
         else log.info("reset-on-start=false，沿用現有資料");
+        ready = true;
     }
 
     public void reload() throws Exception {

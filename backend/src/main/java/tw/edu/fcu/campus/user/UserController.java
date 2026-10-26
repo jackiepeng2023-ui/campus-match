@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.edu.fcu.campus.common.Current;
 import tw.edu.fcu.campus.common.Db;
+import tw.edu.fcu.campus.config.DbInit;
 
 import java.util.List;
 import java.util.Map;
@@ -13,13 +14,14 @@ import java.util.Map;
 public class UserController {
     private final UserService users;
     private final Db db;
+    private final DbInit dbInit;
 
-    public UserController(UserService users, Db db) { this.users = users; this.db = db; }
+    public UserController(UserService users, Db db, DbInit dbInit) { this.users = users; this.db = db; this.dbInit = dbInit; }
 
     // ----- 公開 -----
     @PostMapping("/auth/register") public Map<String, Object> register(@RequestBody UserService.RegisterIn in) { return users.register(in); }
     @PostMapping("/auth/login") public Map<String, Object> login(@RequestBody UserService.LoginIn in) { return users.login(in); }
-    @GetMapping("/health") public Map<String, Object> health() { return Map.of("status", "ok"); }
+    @GetMapping("/health") public Map<String, Object> health() { return Map.of("status", dbInit.ready ? "ok" : "starting", "ready", dbInit.ready); }
 
     /** 表單用參考資料 */
     @GetMapping("/meta")

@@ -5,7 +5,7 @@ const { chromium } = require('playwright');
   const errors = [];
   page.on('pageerror', e => errors.push('pageerror: ' + e.message));
   page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
-  const base = 'http://127.0.0.1:5173/#';
+  const base = (process.env.BASE || 'http://127.0.0.1:8080') + '/#';
   async function login(account) {
     await page.goto(base + '/login'); await page.evaluate(() => localStorage.clear());
     await page.goto(base + '/login');

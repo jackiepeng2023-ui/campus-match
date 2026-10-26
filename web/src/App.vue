@@ -20,7 +20,7 @@
             </div>
           </div>
         </div>
-        <span class="sub small">{{ store.user.name }}</span>
+        <span class="sub small username">{{ store.user.name }}</span>
         <button class="btn ghost sm" @click="store.logout()">登出</button>
       </div>
     </nav>

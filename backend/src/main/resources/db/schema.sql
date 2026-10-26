@@ -1,7 +1,35 @@
 -- 跨系資源媒合平台 schema（PostgreSQL）
--- Demo 模式每次啟動會重建（app.reset-on-start=true）
-DROP SCHEMA IF EXISTS public CASCADE;
-CREATE SCHEMA public;
+-- Demo 模式每次啟動會重建（app.reset-on-start=true）；逐表刪除以相容 Azure 受管 PostgreSQL（不需 schema 擁有權）
+DROP TABLE IF EXISTS event_logs CASCADE;
+DROP TABLE IF EXISTS device_tokens CASCADE;
+DROP TABLE IF EXISTS notifications CASCADE;
+DROP TABLE IF EXISTS system_params CASCADE;
+DROP TABLE IF EXISTS credibility_coefficients CASCADE;
+DROP TABLE IF EXISTS ranking_weights CASCADE;
+DROP TABLE IF EXISTS recommendations CASCADE;
+DROP TABLE IF EXISTS reviews CASCADE;
+DROP TABLE IF EXISTS close_votes CASCADE;
+DROP TABLE IF EXISTS close_requests CASCADE;
+DROP TABLE IF EXISTS case_members CASCADE;
+DROP TABLE IF EXISTS engagements CASCADE;
+DROP TABLE IF EXISTS case_role_skills CASCADE;
+DROP TABLE IF EXISTS case_roles CASCADE;
+DROP TABLE IF EXISTS cases CASCADE;
+DROP TABLE IF EXISTS consents CASCADE;
+DROP TABLE IF EXISTS award_skills CASCADE;
+DROP TABLE IF EXISTS user_awards CASCADE;
+DROP TABLE IF EXISTS skill_level_history CASCADE;
+DROP TABLE IF EXISTS user_skills CASCADE;
+DROP TABLE IF EXISTS user_grades CASCADE;
+DROP TABLE IF EXISTS user_availability CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS award_matrix CASCADE;
+DROP TABLE IF EXISTS grade_conversion CASCADE;
+DROP TABLE IF EXISTS course_skill_map CASCADE;
+DROP TABLE IF EXISTS courses CASCADE;
+DROP TABLE IF EXISTS skills CASCADE;
+DROP TABLE IF EXISTS departments CASCADE;
+DROP TABLE IF EXISTS colleges CASCADE;
 
 -- ===== 參考資料 =====
 CREATE TABLE colleges (id SERIAL PRIMARY KEY, name VARCHAR(50) UNIQUE NOT NULL);

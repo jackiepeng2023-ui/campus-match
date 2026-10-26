@@ -25,7 +25,8 @@ public class SecurityConfig {
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(a -> a
                 .requestMatchers("/api/v1/auth/**", "/api/v1/meta/**", "/api/v1/health",
-                        "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/error").permitAll()
+                        "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/error",
+                        "/", "/index.html", "/assets/**", "/favicon.ico").permitAll()
                 .requestMatchers("/api/v1/admin/**", "/api/v1/analytics/**").hasRole("ADMIN")
                 .anyRequest().authenticated())
             .exceptionHandling(e -> e.authenticationEntryPoint((req, res, ex) -> {
