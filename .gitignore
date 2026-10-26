@@ -1,0 +1,10 @@
+backend/target/
+web/node_modules/
+web/dist/
+ios/CampusMatch.xcodeproj/
+ios/*.xcworkspace/
+.DS_Store
+*.log
+shots/*.png
+shots/dbg*.js
+.m2/

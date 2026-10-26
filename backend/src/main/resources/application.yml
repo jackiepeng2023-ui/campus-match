@@ -1,0 +1,30 @@
+server:
+  port: ${PORT:8080}
+spring:
+  application:
+    name: campus-match
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/campus}
+    username: ${SPRING_DATASOURCE_USERNAME:campus}
+    password: ${SPRING_DATASOURCE_PASSWORD:campus}
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: Asia/Taipei
+app:
+  reset-on-start: ${APP_RESET_ON_START:true}   # Demo 模式：啟動時重建 schema 與種子資料
+  jwt-secret: ${APP_JWT_SECRET:campus-match-demo-secret-key-change-me-in-production-2026}
+  demo-password: ${APP_DEMO_PASSWORD:demo1234}
+  demo-clock: ${APP_DEMO_CLOCK:true}           # 允許 /admin/clock 快轉時間
+apns:
+  key-path: ${APNS_KEY_PATH:}
+  key-id: ${APNS_KEY_ID:}
+  team-id: ${APNS_TEAM_ID:}
+  bundle-id: ${APNS_BUNDLE_ID:tw.edu.fcu.campusmatch}
+  sandbox: ${APNS_SANDBOX:true}
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+logging:
+  level:
+    tw.edu.fcu: INFO
