@@ -1,0 +1,6272 @@
+{
+  "seed": 20261120,
+  "generated_for": "Demo",
+  "students": [
+    {
+      "id": 1,
+      "student_no": "D1300101",
+      "name": "江筱涵",
+      "email": "student001@example.edu",
+      "degree": "BACHELOR",
+      "year": 3,
+      "dept": "企業管理學系",
+      "dept_id": 3,
+      "college": "商學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": "DEMO_OWNER_BIZ",
+      "demo_note": "發案方：創業競賽需要網站 Demo",
+      "hours_per_week": 4,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-28",
+      "grades": [
+        {
+          "course": "企業簡報實務",
+          "score": 88,
+          "semester": "114-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "管理學",
+          "score": 98,
+          "semester": "114-1",
+          "skills": [
+            "專案管理"
+          ]
+        },
+        {
+          "course": "創業管理",
+          "score": 92,
+          "semester": "115-1",
+          "skills": [
+            "商業企劃"
+          ]
+        },
+        {
+          "course": "財務管理",
+          "score": 96,
+          "semester": "115-2",
+          "skills": [
+            "財務分析"
+          ]
+        },
+        {
+          "course": "統計學",
+          "score": 86,
+          "semester": "113-1",
+          "skills": [
+            "統計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "簡報設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "專案管理",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "商業企劃",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "財務分析",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 2,
+      "student_no": "D1300102",
+      "name": "王雅婷",
+      "email": "student002@example.edu",
+      "degree": "BACHELOR",
+      "year": 3,
+      "dept": "資訊工程學系",
+      "dept_id": 1,
+      "college": "資電學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": "DEMO_FE_STRONG",
+      "demo_note": "推薦第 1 名：前端強、時間足、跨學院",
+      "hours_per_week": 8,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "網頁程式設計",
+          "score": 91,
+          "semester": "115-1",
+          "skills": [
+            "HTML/CSS",
+            "JavaScript",
+            "Vue"
+          ]
+        },
+        {
+          "course": "程式設計",
+          "score": 82,
+          "semester": "113-1",
+          "skills": [
+            "Java"
+          ]
+        },
+        {
+          "course": "演算法",
+          "score": 72,
+          "semester": "114-2",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "人工智慧導論",
+          "score": 87,
+          "semester": "113-2",
+          "skills": [
+            "機器學習",
+            "Python"
+          ]
+        },
+        {
+          "course": "計算機程式",
+          "score": 74,
+          "semester": "114-2",
+          "skills": [
+            "Python"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "HTML/CSS",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "JavaScript",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "Vue",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "Java",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "113-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "機器學習",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "113-2",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "校園黑客松",
+          "level": "CAMPUS",
+          "rank": "HONORABLE",
+          "award_date": "2025-04-22",
+          "skills": [
+            "JavaScript",
+            "Vue"
+          ],
+          "score": 0.25
+        }
+      ],
+      "award_score": 0.25,
+      "r_cold_start": 0.4375
+    },
+    {
+      "id": 3,
+      "student_no": "D1200103",
+      "name": "葉宇翔",
+      "email": "student003@example.edu",
+      "degree": "BACHELOR",
+      "year": 4,
+      "dept": "資訊工程學系",
+      "dept_id": 1,
+      "college": "資電學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": "DEMO_BE_STRONG",
+      "demo_note": "後端強、有全國得獎",
+      "hours_per_week": 20,
+      "available_from": "2026-10-26",
+      "available_to": "2027-01-28",
+      "grades": [
+        {
+          "course": "軟體工程",
+          "score": 94,
+          "semester": "115-2",
+          "skills": [
+            "專案管理",
+            "Spring Boot"
+          ]
+        },
+        {
+          "course": "資料庫系統",
+          "score": 90,
+          "semester": "112-2",
+          "skills": [
+            "SQL"
+          ]
+        },
+        {
+          "course": "人工智慧導論",
+          "score": 79,
+          "semester": "112-1",
+          "skills": [
+            "機器學習",
+            "Python"
+          ]
+        },
+        {
+          "course": "行動應用程式開發",
+          "score": 62,
+          "semester": "114-2",
+          "skills": [
+            "SwiftUI"
+          ]
+        },
+        {
+          "course": "演算法",
+          "score": 71,
+          "semester": "113-1",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "專業簡報",
+          "score": 62,
+          "semester": "115-1",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "Java 專題實作",
+          "score": 92,
+          "semester": "114-2",
+          "skills": [
+            "Java"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "專案管理",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "Spring Boot",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "SQL",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "112-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "機器學習",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "SwiftUI",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "Java",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "JavaScript",
+          "default_level": null,
+          "source": "SELF",
+          "level": 2,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "全國大專校院程式競賽",
+          "level": "NATIONAL",
+          "rank": "FIRST",
+          "award_date": "2026-05-18",
+          "skills": [
+            "Java",
+            "Python"
+          ],
+          "score": 0.8
+        }
+      ],
+      "award_score": 0.8,
+      "r_cold_start": 0.575
+    },
+    {
+      "id": 4,
+      "student_no": "D1300104",
+      "name": "郭昱辰",
+      "email": "student004@example.edu",
+      "degree": "BACHELOR",
+      "year": 3,
+      "dept": "統計學系",
+      "dept_id": 5,
+      "college": "商學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": "DEMO_DATAVIZ",
+      "demo_note": "專題缺資料視覺化夥伴：同學院不同系",
+      "hours_per_week": 15,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "統計軟體",
+          "score": 86,
+          "semester": "114-2",
+          "skills": [
+            "Python",
+            "SQL"
+          ]
+        },
+        {
+          "course": "資料視覺化",
+          "score": 93,
+          "semester": "115-2",
+          "skills": [
+            "資料視覺化"
+          ]
+        },
+        {
+          "course": "迴歸分析",
+          "score": 90,
+          "semester": "115-2",
+          "skills": [
+            "統計",
+            "資料分析"
+          ]
+        },
+        {
+          "course": "統計學",
+          "score": 90,
+          "semester": "113-2",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "工程數學",
+          "score": 81,
+          "semester": "113-1",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "計算機概論",
+          "score": 80,
+          "semester": "113-1",
+          "skills": [
+            "Python"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "Python",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "SQL",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料視覺化",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "全國大專校院程式競賽",
+          "level": "NATIONAL",
+          "rank": "FINALIST",
+          "award_date": "2026-02-16",
+          "skills": [
+            "Java",
+            "Python"
+          ],
+          "score": 0.25
+        }
+      ],
+      "award_score": 0.25,
+      "r_cold_start": 0.4375
+    },
+    {
+      "id": 5,
+      "student_no": "D1400105",
+      "name": "王子軒",
+      "email": "student005@example.edu",
+      "degree": "BACHELOR",
+      "year": 2,
+      "dept": "創意設計學系",
+      "dept_id": 11,
+      "college": "創意設計學院",
+      "expected_graduation": "2029-06-30",
+      "demo_tag": "DEMO_UIUX",
+      "demo_note": "短期 UI/UX 支援人選",
+      "hours_per_week": 4,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-30",
+      "grades": [
+        {
+          "course": "設計簡報",
+          "score": 76,
+          "semester": "115-1",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "視覺傳達",
+          "score": 87,
+          "semester": "114-2",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "介面原型",
+          "score": 92,
+          "semester": "114-1",
+          "skills": [
+            "Figma"
+          ]
+        },
+        {
+          "course": "作業研究",
+          "score": 81,
+          "semester": "114-2",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "品質管理",
+          "score": 83,
+          "semester": "115-1",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "UI/UX 設計 專題實作",
+          "score": 94,
+          "semester": "114-2",
+          "skills": [
+            "UI/UX 設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "簡報設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "Figma",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "Vue",
+          "default_level": null,
+          "source": "SELF",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "校園黑客松",
+          "level": "CAMPUS",
+          "rank": "FINALIST",
+          "award_date": "2026-06-17",
+          "skills": [
+            "JavaScript",
+            "Vue"
+          ],
+          "score": 0.15
+        }
+      ],
+      "award_score": 0.15,
+      "r_cold_start": 0.4125
+    },
+    {
+      "id": 6,
+      "student_no": "D1200106",
+      "name": "簡建宏",
+      "email": "student006@example.edu",
+      "degree": "BACHELOR",
+      "year": 4,
+      "dept": "創意設計學系",
+      "dept_id": 11,
+      "college": "創意設計學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": "DEMO_TIME_BLOCKED",
+      "demo_note": "技能符合但每週僅 2 小時 → 被時間閘門擋下",
+      "hours_per_week": 2,
+      "available_from": "2026-10-26",
+      "available_to": "2027-01-30",
+      "grades": [
+        {
+          "course": "介面原型",
+          "score": 90,
+          "semester": "114-1",
+          "skills": [
+            "Figma"
+          ]
+        },
+        {
+          "course": "設計簡報",
+          "score": 92,
+          "semester": "112-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "使用者經驗設計",
+          "score": 91,
+          "semester": "112-1",
+          "skills": [
+            "UI/UX 設計",
+            "Figma"
+          ]
+        },
+        {
+          "course": "視覺傳達",
+          "score": 80,
+          "semester": "112-1",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "數位行銷",
+          "score": 75,
+          "semester": "115-2",
+          "skills": [
+            "行銷企劃",
+            "資料分析"
+          ]
+        },
+        {
+          "course": "品牌與設計",
+          "score": 71,
+          "semester": "115-2",
+          "skills": [
+            "平面設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "Figma",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "112-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 7,
+      "student_no": "D1400107",
+      "name": "葉品妍",
+      "email": "student007@example.edu",
+      "degree": "BACHELOR",
+      "year": 2,
+      "dept": "資訊工程學系",
+      "dept_id": 1,
+      "college": "資電學院",
+      "expected_graduation": "2029-06-30",
+      "demo_tag": "DEMO_LOW_CRED",
+      "demo_note": "自評上調幅度大，Demo 結案後相符度低 → 可信度係數下降",
+      "hours_per_week": 15,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "軟體工程",
+          "score": 81,
+          "semester": "114-2",
+          "skills": [
+            "專案管理",
+            "Spring Boot"
+          ]
+        },
+        {
+          "course": "演算法",
+          "score": 71,
+          "semester": "114-1",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "人工智慧導論",
+          "score": 79,
+          "semester": "114-1",
+          "skills": [
+            "機器學習",
+            "Python"
+          ]
+        },
+        {
+          "course": "介面原型",
+          "score": 72,
+          "semester": "114-2",
+          "skills": [
+            "Figma"
+          ]
+        },
+        {
+          "course": "Vue 專題實作",
+          "score": 72,
+          "semester": "114-2",
+          "skills": [
+            "Vue"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "專案管理",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 1
+        },
+        {
+          "skill": "Spring Boot",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 1
+        },
+        {
+          "skill": "Python",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 5,
+          "adjustment": 2
+        },
+        {
+          "skill": "機器學習",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 5,
+          "adjustment": 2
+        },
+        {
+          "skill": "Figma",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 2
+        },
+        {
+          "skill": "Vue",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 2
+        },
+        {
+          "skill": "資料分析",
+          "default_level": null,
+          "source": "SELF",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 8,
+      "student_no": "P1300108",
+      "name": "蕭婉婷",
+      "email": "student008@example.edu",
+      "degree": "PHD",
+      "year": 3,
+      "dept": "資訊工程學系",
+      "dept_id": 1,
+      "college": "資電學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": "DEMO_PHD_OWNER",
+      "demo_note": "研究協作發案方：需要問卷與統計支援",
+      "hours_per_week": 4,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "資料庫系統",
+          "score": 87,
+          "semester": "113-1",
+          "skills": [
+            "SQL"
+          ]
+        },
+        {
+          "course": "網頁程式設計",
+          "score": 79,
+          "semester": "115-1",
+          "skills": [
+            "HTML/CSS",
+            "JavaScript",
+            "Vue"
+          ]
+        },
+        {
+          "course": "演算法",
+          "score": 77,
+          "semester": "113-1",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "人工智慧導論",
+          "score": 91,
+          "semester": "114-2",
+          "skills": [
+            "機器學習",
+            "Python"
+          ]
+        },
+        {
+          "course": "軟體工程",
+          "score": 77,
+          "semester": "114-2",
+          "skills": [
+            "專案管理",
+            "Spring Boot"
+          ]
+        },
+        {
+          "course": "行動應用程式開發",
+          "score": 86,
+          "semester": "114-2",
+          "skills": [
+            "SwiftUI"
+          ]
+        },
+        {
+          "course": "資料結構",
+          "score": 87,
+          "semester": "114-1",
+          "skills": [
+            "Java"
+          ]
+        },
+        {
+          "course": "程式設計",
+          "score": 94,
+          "semester": "115-2",
+          "skills": [
+            "Java"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 93,
+          "semester": "115-1",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 84,
+          "semester": "113-1",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "學術英文寫作",
+          "score": 73,
+          "semester": "115-1",
+          "skills": [
+            "英文寫作"
+          ]
+        },
+        {
+          "course": "建築設計",
+          "score": 77,
+          "semester": "115-2",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "數位建築",
+          "score": 85,
+          "semester": "114-1",
+          "skills": [
+            "UI/UX 設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "SQL",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "HTML/CSS",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "JavaScript",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "Vue",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "機器學習",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "專案管理",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "Spring Boot",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "SwiftUI",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "Java",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "英文寫作",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "校園黑客松",
+          "level": "CAMPUS",
+          "rank": "FINALIST",
+          "award_date": "2026-02-19",
+          "skills": [
+            "JavaScript",
+            "Vue"
+          ],
+          "score": 0.15
+        }
+      ],
+      "award_score": 0.15,
+      "r_cold_start": 0.4125
+    },
+    {
+      "id": 9,
+      "student_no": "D1200109",
+      "name": "鄭亭妤",
+      "email": "student009@example.edu",
+      "degree": "BACHELOR",
+      "year": 4,
+      "dept": "工業工程與系統管理學系",
+      "dept_id": 8,
+      "college": "工程與科學學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 20,
+      "available_from": "2026-10-26",
+      "available_to": "2027-01-28",
+      "grades": [
+        {
+          "course": "生產管理",
+          "score": 99,
+          "semester": "114-2",
+          "skills": [
+            "專案管理"
+          ]
+        },
+        {
+          "course": "作業研究",
+          "score": 91,
+          "semester": "112-1",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "人因工程",
+          "score": 81,
+          "semester": "114-1",
+          "skills": [
+            "UI/UX 設計"
+          ]
+        },
+        {
+          "course": "品質管理",
+          "score": 86,
+          "semester": "115-1",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "資料庫系統",
+          "score": 99,
+          "semester": "114-1",
+          "skills": [
+            "SQL"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "專案管理",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "SQL",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "React",
+          "default_level": null,
+          "source": "SELF",
+          "level": 2,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 10,
+      "student_no": "M1500110",
+      "name": "高思妤",
+      "email": "student010@example.edu",
+      "degree": "MASTER",
+      "year": 1,
+      "dept": "建築學系",
+      "dept_id": 7,
+      "college": "建築專業學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 4,
+      "available_from": "2026-10-26",
+      "available_to": "2027-01-30",
+      "grades": [
+        {
+          "course": "建築表現法",
+          "score": 64,
+          "semester": "115-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "數位建築",
+          "score": 65,
+          "semester": "115-1",
+          "skills": [
+            "UI/UX 設計"
+          ]
+        },
+        {
+          "course": "建築設計",
+          "score": 74,
+          "semester": "115-2",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 66,
+          "semester": "115-1",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 68,
+          "semester": "115-2",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "計算機概論",
+          "score": 65,
+          "semester": "115-2",
+          "skills": [
+            "Python"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "簡報設計",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "財務分析",
+          "default_level": null,
+          "source": "SELF",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 11,
+      "student_no": "D1200111",
+      "name": "邱承翰",
+      "email": "student011@example.edu",
+      "degree": "BACHELOR",
+      "year": 4,
+      "dept": "資訊工程學系",
+      "dept_id": 1,
+      "college": "資電學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 20,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-28",
+      "grades": [
+        {
+          "course": "行動應用程式開發",
+          "score": 83,
+          "semester": "112-2",
+          "skills": [
+            "SwiftUI"
+          ]
+        },
+        {
+          "course": "人工智慧導論",
+          "score": 77,
+          "semester": "112-1",
+          "skills": [
+            "機器學習",
+            "Python"
+          ]
+        },
+        {
+          "course": "資料結構",
+          "score": 73,
+          "semester": "115-2",
+          "skills": [
+            "Java"
+          ]
+        },
+        {
+          "course": "網頁程式設計",
+          "score": 60,
+          "semester": "114-1",
+          "skills": [
+            "HTML/CSS",
+            "JavaScript",
+            "Vue"
+          ]
+        },
+        {
+          "course": "軟體工程",
+          "score": 83,
+          "semester": "112-1",
+          "skills": [
+            "專案管理",
+            "Spring Boot"
+          ]
+        },
+        {
+          "course": "數位行銷",
+          "score": 95,
+          "semester": "114-2",
+          "skills": [
+            "行銷企劃",
+            "資料分析"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "SwiftUI",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "112-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "機器學習",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "Java",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "HTML/CSS",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "JavaScript",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "Vue",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 3,
+          "adjustment": 1
+        },
+        {
+          "skill": "專案管理",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "Spring Boot",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 12,
+      "student_no": "D1300112",
+      "name": "許詩涵",
+      "email": "student012@example.edu",
+      "degree": "BACHELOR",
+      "year": 3,
+      "dept": "電機工程學系",
+      "dept_id": 2,
+      "college": "資電學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 8,
+      "available_from": "2026-10-26",
+      "available_to": "2027-01-28",
+      "grades": [
+        {
+          "course": "嵌入式系統",
+          "score": 72,
+          "semester": "115-1",
+          "skills": [
+            "Java"
+          ]
+        },
+        {
+          "course": "訊號與系統",
+          "score": 82,
+          "semester": "113-2",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "機器學習概論",
+          "score": 77,
+          "semester": "114-1",
+          "skills": [
+            "機器學習"
+          ]
+        },
+        {
+          "course": "計算機程式",
+          "score": 75,
+          "semester": "114-2",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "數位行銷",
+          "score": 66,
+          "semester": "113-2",
+          "skills": [
+            "行銷企劃",
+            "資料分析"
+          ]
+        },
+        {
+          "course": "品牌與設計",
+          "score": 76,
+          "semester": "114-1",
+          "skills": [
+            "平面設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "Java",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "113-2",
+          "level": 5,
+          "adjustment": 1
+        },
+        {
+          "skill": "機器學習",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "113-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "JavaScript",
+          "default_level": null,
+          "source": "SELF",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "React",
+          "default_level": null,
+          "source": "SELF",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 13,
+      "student_no": "D1300113",
+      "name": "賴昱辰",
+      "email": "student013@example.edu",
+      "degree": "BACHELOR",
+      "year": 3,
+      "dept": "電機工程學系",
+      "dept_id": 2,
+      "college": "資電學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 8,
+      "available_from": "2026-10-26",
+      "available_to": "2027-01-30",
+      "grades": [
+        {
+          "course": "計算機程式",
+          "score": 70,
+          "semester": "115-2",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "訊號與系統",
+          "score": 71,
+          "semester": "113-1",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "機器學習概論",
+          "score": 67,
+          "semester": "113-1",
+          "skills": [
+            "機器學習"
+          ]
+        },
+        {
+          "course": "嵌入式系統",
+          "score": 72,
+          "semester": "113-2",
+          "skills": [
+            "Java"
+          ]
+        },
+        {
+          "course": "作業研究",
+          "score": 75,
+          "semester": "115-2",
+          "skills": [
+            "資料分析"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "Python",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "機器學習",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "Java",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "113-2",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "國際設計獎學生組",
+          "level": "INTERNATIONAL",
+          "rank": "FINALIST",
+          "award_date": "2024-02-26",
+          "skills": [
+            "平面設計",
+            "UI/UX 設計"
+          ],
+          "score": 0.3
+        },
+        {
+          "competition": "全國資料科學競賽",
+          "level": "NATIONAL",
+          "rank": "FINALIST",
+          "award_date": "2026-01-11",
+          "skills": [
+            "機器學習",
+            "資料分析"
+          ],
+          "score": 0.25
+        }
+      ],
+      "award_score": 0.55,
+      "r_cold_start": 0.5125
+    },
+    {
+      "id": 14,
+      "student_no": "D1400114",
+      "name": "羅子豪",
+      "email": "student014@example.edu",
+      "degree": "BACHELOR",
+      "year": 2,
+      "dept": "中國文學系",
+      "dept_id": 9,
+      "college": "人文社會學院",
+      "expected_graduation": "2029-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 6,
+      "available_from": "2026-10-26",
+      "available_to": "2027-01-28",
+      "grades": [
+        {
+          "course": "文案企劃",
+          "score": 87,
+          "semester": "115-1",
+          "skills": [
+            "行銷企劃"
+          ]
+        },
+        {
+          "course": "文學寫作",
+          "score": 76,
+          "semester": "115-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "專業簡報",
+          "score": 67,
+          "semester": "115-2",
+          "skills": [
+            "簡報設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "行銷企劃",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "專案管理",
+          "default_level": null,
+          "source": "SELF",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "校園黑客松",
+          "level": "CAMPUS",
+          "rank": "FINALIST",
+          "award_date": "2025-06-19",
+          "skills": [
+            "JavaScript",
+            "Vue"
+          ],
+          "score": 0.15
+        },
+        {
+          "competition": "全國 UI/UX 設計競賽",
+          "level": "NATIONAL",
+          "rank": "FINALIST",
+          "award_date": "2026-01-18",
+          "skills": [
+            "UI/UX 設計",
+            "Figma"
+          ],
+          "score": 0.25
+        }
+      ],
+      "award_score": 0.4,
+      "r_cold_start": 0.475
+    },
+    {
+      "id": 15,
+      "student_no": "D1400115",
+      "name": "蕭子軒",
+      "email": "student015@example.edu",
+      "degree": "BACHELOR",
+      "year": 2,
+      "dept": "建築學系",
+      "dept_id": 7,
+      "college": "建築專業學院",
+      "expected_graduation": "2029-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 10,
+      "available_from": "2026-10-26",
+      "available_to": "2027-01-30",
+      "grades": [
+        {
+          "course": "數位建築",
+          "score": 85,
+          "semester": "114-1",
+          "skills": [
+            "UI/UX 設計"
+          ]
+        },
+        {
+          "course": "建築表現法",
+          "score": 80,
+          "semester": "115-1",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "建築設計",
+          "score": 88,
+          "semester": "114-1",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "品質管理",
+          "score": 72,
+          "semester": "114-2",
+          "skills": [
+            "統計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 5,
+          "adjustment": 1
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 5,
+          "adjustment": 1
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 16,
+      "student_no": "D1200116",
+      "name": "吳博文",
+      "email": "student016@example.edu",
+      "degree": "BACHELOR",
+      "year": 4,
+      "dept": "企業管理學系",
+      "dept_id": 3,
+      "college": "商學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 8,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "財務管理",
+          "score": 77,
+          "semester": "115-2",
+          "skills": [
+            "財務分析"
+          ]
+        },
+        {
+          "course": "創業管理",
+          "score": 69,
+          "semester": "112-2",
+          "skills": [
+            "商業企劃"
+          ]
+        },
+        {
+          "course": "管理學",
+          "score": 70,
+          "semester": "115-2",
+          "skills": [
+            "專案管理"
+          ]
+        },
+        {
+          "course": "企業簡報實務",
+          "score": 74,
+          "semester": "113-1",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "消費者行為",
+          "score": 68,
+          "semester": "112-1",
+          "skills": [
+            "問卷設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "財務分析",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "商業企劃",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "112-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "專案管理",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "問卷設計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 2,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "校園黑客松",
+          "level": "CAMPUS",
+          "rank": "HONORABLE",
+          "award_date": "2023-06-06",
+          "skills": [
+            "JavaScript",
+            "Vue"
+          ],
+          "score": 0.25
+        },
+        {
+          "competition": "校園創新創業競賽",
+          "level": "CAMPUS",
+          "rank": "FINALIST",
+          "award_date": "2023-10-20",
+          "skills": [
+            "商業企劃",
+            "簡報設計"
+          ],
+          "score": 0.15
+        }
+      ],
+      "award_score": 0.4,
+      "r_cold_start": 0.475
+    },
+    {
+      "id": 17,
+      "student_no": "D1400117",
+      "name": "賴哲瑋",
+      "email": "student017@example.edu",
+      "degree": "BACHELOR",
+      "year": 2,
+      "dept": "行銷學系",
+      "dept_id": 4,
+      "college": "商學院",
+      "expected_graduation": "2029-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 4,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-28",
+      "grades": [
+        {
+          "course": "數位行銷",
+          "score": 86,
+          "semester": "115-2",
+          "skills": [
+            "行銷企劃",
+            "資料分析"
+          ]
+        },
+        {
+          "course": "行銷管理",
+          "score": 71,
+          "semester": "114-2",
+          "skills": [
+            "行銷企劃"
+          ]
+        },
+        {
+          "course": "品牌與設計",
+          "score": 84,
+          "semester": "114-1",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "品質管理",
+          "score": 89,
+          "semester": "114-2",
+          "skills": [
+            "統計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "行銷企劃",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 1
+        },
+        {
+          "skill": "問卷設計",
+          "default_level": null,
+          "source": "SELF",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "SQL",
+          "default_level": null,
+          "source": "SELF",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 18,
+      "student_no": "D1200118",
+      "name": "羅宗翰",
+      "email": "student018@example.edu",
+      "degree": "BACHELOR",
+      "year": 4,
+      "dept": "建築學系",
+      "dept_id": 7,
+      "college": "建築專業學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 10,
+      "available_from": "2026-10-26",
+      "available_to": "2027-01-28",
+      "grades": [
+        {
+          "course": "建築設計",
+          "score": 99,
+          "semester": "114-2",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "數位建築",
+          "score": 90,
+          "semester": "113-2",
+          "skills": [
+            "UI/UX 設計"
+          ]
+        },
+        {
+          "course": "建築表現法",
+          "score": 99,
+          "semester": "112-1",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "生產管理",
+          "score": 99,
+          "semester": "115-1",
+          "skills": [
+            "專案管理"
+          ]
+        },
+        {
+          "course": "作業研究",
+          "score": 99,
+          "semester": "114-2",
+          "skills": [
+            "資料分析"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "平面設計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "113-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "專案管理",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 19,
+      "student_no": "M1400119",
+      "name": "楊怡君",
+      "email": "student019@example.edu",
+      "degree": "MASTER",
+      "year": 2,
+      "dept": "統計學系",
+      "dept_id": 5,
+      "college": "商學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 4,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "統計學",
+          "score": 66,
+          "semester": "114-1",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "迴歸分析",
+          "score": 65,
+          "semester": "115-2",
+          "skills": [
+            "統計",
+            "資料分析"
+          ]
+        },
+        {
+          "course": "資料視覺化",
+          "score": 78,
+          "semester": "115-1",
+          "skills": [
+            "資料視覺化"
+          ]
+        },
+        {
+          "course": "統計軟體",
+          "score": 72,
+          "semester": "114-1",
+          "skills": [
+            "Python",
+            "SQL"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 74,
+          "semester": "115-1",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 72,
+          "semester": "114-2",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "計算機概論",
+          "score": 75,
+          "semester": "115-2",
+          "skills": [
+            "Python"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "統計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料視覺化",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 3,
+          "adjustment": 1
+        },
+        {
+          "skill": "SQL",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "專案管理",
+          "default_level": null,
+          "source": "SELF",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 20,
+      "student_no": "M1500120",
+      "name": "潘郁婷",
+      "email": "student020@example.edu",
+      "degree": "MASTER",
+      "year": 1,
+      "dept": "電機工程學系",
+      "dept_id": 2,
+      "college": "資電學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 20,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "嵌入式系統",
+          "score": 77,
+          "semester": "115-2",
+          "skills": [
+            "Java"
+          ]
+        },
+        {
+          "course": "計算機程式",
+          "score": 74,
+          "semester": "115-1",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "機器學習概論",
+          "score": 82,
+          "semester": "115-2",
+          "skills": [
+            "機器學習"
+          ]
+        },
+        {
+          "course": "訊號與系統",
+          "score": 81,
+          "semester": "115-2",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 71,
+          "semester": "115-2",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 82,
+          "semester": "115-2",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "專業簡報",
+          "score": 76,
+          "semester": "115-1",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "英文寫作",
+          "score": 70,
+          "semester": "115-2",
+          "skills": [
+            "英文寫作"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "Java",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 1
+        },
+        {
+          "skill": "機器學習",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "英文寫作",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "全國資料科學競賽",
+          "level": "NATIONAL",
+          "rank": "HONORABLE",
+          "award_date": "2026-08-15",
+          "skills": [
+            "機器學習",
+            "資料分析"
+          ],
+          "score": 0.4
+        }
+      ],
+      "award_score": 0.4,
+      "r_cold_start": 0.475
+    },
+    {
+      "id": 21,
+      "student_no": "D1300121",
+      "name": "郭睿哲",
+      "email": "student021@example.edu",
+      "degree": "BACHELOR",
+      "year": 3,
+      "dept": "中國文學系",
+      "dept_id": 9,
+      "college": "人文社會學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 12,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-28",
+      "grades": [
+        {
+          "course": "文案企劃",
+          "score": 79,
+          "semester": "115-1",
+          "skills": [
+            "行銷企劃"
+          ]
+        },
+        {
+          "course": "文學寫作",
+          "score": 77,
+          "semester": "113-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "資料結構",
+          "score": 86,
+          "semester": "114-1",
+          "skills": [
+            "Java"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "行銷企劃",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "113-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "Java",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "校園資料分析競賽",
+          "level": "CAMPUS",
+          "rank": "TOP3",
+          "award_date": "2026-05-14",
+          "skills": [
+            "資料分析",
+            "資料視覺化"
+          ],
+          "score": 0.4
+        }
+      ],
+      "award_score": 0.4,
+      "r_cold_start": 0.475
+    },
+    {
+      "id": 22,
+      "student_no": "M1400122",
+      "name": "羅欣妤",
+      "email": "student022@example.edu",
+      "degree": "MASTER",
+      "year": 2,
+      "dept": "企業管理學系",
+      "dept_id": 3,
+      "college": "商學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 12,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-28",
+      "grades": [
+        {
+          "course": "管理學",
+          "score": 72,
+          "semester": "114-2",
+          "skills": [
+            "專案管理"
+          ]
+        },
+        {
+          "course": "創業管理",
+          "score": 63,
+          "semester": "115-1",
+          "skills": [
+            "商業企劃"
+          ]
+        },
+        {
+          "course": "財務管理",
+          "score": 76,
+          "semester": "115-2",
+          "skills": [
+            "財務分析"
+          ]
+        },
+        {
+          "course": "企業簡報實務",
+          "score": 84,
+          "semester": "114-1",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 76,
+          "semester": "114-2",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 73,
+          "semester": "115-2",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "資料視覺化",
+          "score": 83,
+          "semester": "114-2",
+          "skills": [
+            "資料視覺化"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "專案管理",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "商業企劃",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "財務分析",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料視覺化",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "國際學生軟體創新競賽",
+          "level": "INTERNATIONAL",
+          "rank": "HONORABLE",
+          "award_date": "2026-04-27",
+          "skills": [
+            "Spring Boot",
+            "SwiftUI"
+          ],
+          "score": 0.5
+        },
+        {
+          "competition": "全國資料科學競賽",
+          "level": "NATIONAL",
+          "rank": "FINALIST",
+          "award_date": "2026-03-03",
+          "skills": [
+            "機器學習",
+            "資料分析"
+          ],
+          "score": 0.25
+        }
+      ],
+      "award_score": 0.75,
+      "r_cold_start": 0.5625
+    },
+    {
+      "id": 23,
+      "student_no": "D1200123",
+      "name": "曾宗翰",
+      "email": "student023@example.edu",
+      "degree": "BACHELOR",
+      "year": 4,
+      "dept": "中國文學系",
+      "dept_id": 9,
+      "college": "人文社會學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 4,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-30",
+      "grades": [
+        {
+          "course": "文案企劃",
+          "score": 88,
+          "semester": "114-1",
+          "skills": [
+            "行銷企劃"
+          ]
+        },
+        {
+          "course": "文學寫作",
+          "score": 75,
+          "semester": "112-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "演算法",
+          "score": 74,
+          "semester": "115-2",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "程式設計",
+          "score": 77,
+          "semester": "115-1",
+          "skills": [
+            "Java"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "行銷企劃",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "112-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 1
+        },
+        {
+          "skill": "Java",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "校園黑客松",
+          "level": "CAMPUS",
+          "rank": "FINALIST",
+          "award_date": "2024-08-08",
+          "skills": [
+            "JavaScript",
+            "Vue"
+          ],
+          "score": 0.15
+        },
+        {
+          "competition": "全國大專校院程式競賽",
+          "level": "NATIONAL",
+          "rank": "HONORABLE",
+          "award_date": "2023-04-28",
+          "skills": [
+            "Java",
+            "Python"
+          ],
+          "score": 0.4
+        }
+      ],
+      "award_score": 0.55,
+      "r_cold_start": 0.5125
+    },
+    {
+      "id": 24,
+      "student_no": "D1300124",
+      "name": "蘇承翰",
+      "email": "student024@example.edu",
+      "degree": "BACHELOR",
+      "year": 3,
+      "dept": "資訊工程學系",
+      "dept_id": 1,
+      "college": "資電學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 20,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-28",
+      "grades": [
+        {
+          "course": "軟體工程",
+          "score": 84,
+          "semester": "113-1",
+          "skills": [
+            "專案管理",
+            "Spring Boot"
+          ]
+        },
+        {
+          "course": "人工智慧導論",
+          "score": 90,
+          "semester": "115-2",
+          "skills": [
+            "機器學習",
+            "Python"
+          ]
+        },
+        {
+          "course": "網頁程式設計",
+          "score": 80,
+          "semester": "114-2",
+          "skills": [
+            "HTML/CSS",
+            "JavaScript",
+            "Vue"
+          ]
+        },
+        {
+          "course": "程式設計",
+          "score": 99,
+          "semester": "113-2",
+          "skills": [
+            "Java"
+          ]
+        },
+        {
+          "course": "視覺傳達",
+          "score": 88,
+          "semester": "114-2",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "設計簡報",
+          "score": 96,
+          "semester": "115-1",
+          "skills": [
+            "簡報設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "專案管理",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "Spring Boot",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 5,
+          "adjustment": 1
+        },
+        {
+          "skill": "機器學習",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "HTML/CSS",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "JavaScript",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "Vue",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "Java",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "113-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 5,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "全國資料科學競賽",
+          "level": "NATIONAL",
+          "rank": "HONORABLE",
+          "award_date": "2026-09-26",
+          "skills": [
+            "機器學習",
+            "資料分析"
+          ],
+          "score": 0.4
+        },
+        {
+          "competition": "校園資料分析競賽",
+          "level": "CAMPUS",
+          "rank": "FINALIST",
+          "award_date": "2026-06-03",
+          "skills": [
+            "資料分析",
+            "資料視覺化"
+          ],
+          "score": 0.15
+        }
+      ],
+      "award_score": 0.55,
+      "r_cold_start": 0.5125
+    },
+    {
+      "id": 25,
+      "student_no": "D1300125",
+      "name": "廖亭妤",
+      "email": "student025@example.edu",
+      "degree": "BACHELOR",
+      "year": 3,
+      "dept": "建築學系",
+      "dept_id": 7,
+      "college": "建築專業學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 8,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-28",
+      "grades": [
+        {
+          "course": "數位建築",
+          "score": 87,
+          "semester": "113-2",
+          "skills": [
+            "UI/UX 設計"
+          ]
+        },
+        {
+          "course": "建築表現法",
+          "score": 73,
+          "semester": "115-1",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "建築設計",
+          "score": 80,
+          "semester": "115-1",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "工程數學",
+          "score": 87,
+          "semester": "113-1",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "計算機概論",
+          "score": 92,
+          "semester": "115-1",
+          "skills": [
+            "Python"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "113-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 4,
+          "adjustment": 1
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "Java",
+          "default_level": null,
+          "source": "SELF",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "國際學生軟體創新競賽",
+          "level": "INTERNATIONAL",
+          "rank": "TOP3",
+          "award_date": "2025-06-05",
+          "skills": [
+            "Spring Boot",
+            "SwiftUI"
+          ],
+          "score": 0.8
+        }
+      ],
+      "award_score": 0.8,
+      "r_cold_start": 0.575
+    },
+    {
+      "id": 26,
+      "student_no": "D1400126",
+      "name": "周筱涵",
+      "email": "student026@example.edu",
+      "degree": "BACHELOR",
+      "year": 2,
+      "dept": "工業工程與系統管理學系",
+      "dept_id": 8,
+      "college": "工程與科學學院",
+      "expected_graduation": "2029-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 8,
+      "available_from": "2026-10-26",
+      "available_to": "2027-01-28",
+      "grades": [
+        {
+          "course": "品質管理",
+          "score": 67,
+          "semester": "114-1",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "作業研究",
+          "score": 79,
+          "semester": "114-2",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "生產管理",
+          "score": 75,
+          "semester": "115-1",
+          "skills": [
+            "專案管理"
+          ]
+        },
+        {
+          "course": "行銷管理",
+          "score": 75,
+          "semester": "115-2",
+          "skills": [
+            "行銷企劃"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "統計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "專案管理",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "Figma",
+          "default_level": null,
+          "source": "SELF",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 27,
+      "student_no": "P1300127",
+      "name": "陳郁婷",
+      "email": "student027@example.edu",
+      "degree": "PHD",
+      "year": 3,
+      "dept": "電機工程學系",
+      "dept_id": 2,
+      "college": "資電學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 8,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-30",
+      "grades": [
+        {
+          "course": "計算機程式",
+          "score": 75,
+          "semester": "115-2",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "嵌入式系統",
+          "score": 60,
+          "semester": "114-1",
+          "skills": [
+            "Java"
+          ]
+        },
+        {
+          "course": "機器學習概論",
+          "score": 76,
+          "semester": "115-1",
+          "skills": [
+            "機器學習"
+          ]
+        },
+        {
+          "course": "訊號與系統",
+          "score": 56,
+          "semester": "114-1",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 73,
+          "semester": "114-1",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 76,
+          "semester": "114-2",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "學術英文寫作",
+          "score": 77,
+          "semester": "115-2",
+          "skills": [
+            "英文寫作"
+          ]
+        },
+        {
+          "course": "行動應用程式開發",
+          "score": 78,
+          "semester": "113-1",
+          "skills": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "Python",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "Java",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 2,
+          "adjustment": 1
+        },
+        {
+          "skill": "機器學習",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 1
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "英文寫作",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "SwiftUI",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 3,
+          "adjustment": 1
+        },
+        {
+          "skill": "商業企劃",
+          "default_level": null,
+          "source": "SELF",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "校園黑客松",
+          "level": "CAMPUS",
+          "rank": "TOP3",
+          "award_date": "2025-03-21",
+          "skills": [
+            "JavaScript",
+            "Vue"
+          ],
+          "score": 0.4
+        }
+      ],
+      "award_score": 0.4,
+      "r_cold_start": 0.475
+    },
+    {
+      "id": 28,
+      "student_no": "D1500128",
+      "name": "蘇芷晴",
+      "email": "student028@example.edu",
+      "degree": "BACHELOR",
+      "year": 1,
+      "dept": "工業工程與系統管理學系",
+      "dept_id": 8,
+      "college": "工程與科學學院",
+      "expected_graduation": "2030-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 6,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-28",
+      "grades": [
+        {
+          "course": "人因工程",
+          "score": 83,
+          "semester": "115-2",
+          "skills": [
+            "UI/UX 設計"
+          ]
+        },
+        {
+          "course": "作業研究",
+          "score": 76,
+          "semester": "115-1",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "財務管理",
+          "score": 74,
+          "semester": "115-1",
+          "skills": [
+            "財務分析"
+          ]
+        },
+        {
+          "course": "管理學",
+          "score": 70,
+          "semester": "115-2",
+          "skills": [
+            "專案管理"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "財務分析",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "專案管理",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "Spring Boot",
+          "default_level": null,
+          "source": "SELF",
+          "level": 2,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 29,
+      "student_no": "D1400129",
+      "name": "莊子豪",
+      "email": "student029@example.edu",
+      "degree": "BACHELOR",
+      "year": 2,
+      "dept": "創意設計學系",
+      "dept_id": 11,
+      "college": "創意設計學院",
+      "expected_graduation": "2029-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 12,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-28",
+      "grades": [
+        {
+          "course": "使用者經驗設計",
+          "score": 71,
+          "semester": "115-1",
+          "skills": [
+            "UI/UX 設計",
+            "Figma"
+          ]
+        },
+        {
+          "course": "介面原型",
+          "score": 70,
+          "semester": "115-1",
+          "skills": [
+            "Figma"
+          ]
+        },
+        {
+          "course": "設計簡報",
+          "score": 83,
+          "semester": "114-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "建築設計",
+          "score": 86,
+          "semester": "114-1",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "建築表現法",
+          "score": 79,
+          "semester": "114-1",
+          "skills": [
+            "簡報設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "Figma",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 4,
+          "adjustment": 1
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "英文寫作",
+          "default_level": null,
+          "source": "SELF",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 30,
+      "student_no": "D1500130",
+      "name": "張子軒",
+      "email": "student030@example.edu",
+      "degree": "BACHELOR",
+      "year": 1,
+      "dept": "電機工程學系",
+      "dept_id": 2,
+      "college": "資電學院",
+      "expected_graduation": "2030-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 8,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "機器學習概論",
+          "score": 75,
+          "semester": "115-2",
+          "skills": [
+            "機器學習"
+          ]
+        },
+        {
+          "course": "計算機程式",
+          "score": 69,
+          "semester": "115-1",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "創業管理",
+          "score": 58,
+          "semester": "115-1",
+          "skills": [
+            "商業企劃"
+          ]
+        },
+        {
+          "course": "財務管理",
+          "score": 72,
+          "semester": "115-2",
+          "skills": [
+            "財務分析"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "機器學習",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "商業企劃",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "財務分析",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 31,
+      "student_no": "D1500131",
+      "name": "莊庭瑄",
+      "email": "student031@example.edu",
+      "degree": "BACHELOR",
+      "year": 1,
+      "dept": "工業工程與系統管理學系",
+      "dept_id": 8,
+      "college": "工程與科學學院",
+      "expected_graduation": "2030-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 6,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-30",
+      "grades": [
+        {
+          "course": "品質管理",
+          "score": 94,
+          "semester": "115-1",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "人因工程",
+          "score": 79,
+          "semester": "115-2",
+          "skills": [
+            "UI/UX 設計"
+          ]
+        },
+        {
+          "course": "建築設計",
+          "score": 81,
+          "semester": "115-2",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "數位建築",
+          "score": 88,
+          "semester": "115-1",
+          "skills": [
+            "UI/UX 設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "統計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 32,
+      "student_no": "D1300132",
+      "name": "蕭志明",
+      "email": "student032@example.edu",
+      "degree": "BACHELOR",
+      "year": 3,
+      "dept": "外國語文學系",
+      "dept_id": 10,
+      "college": "人文社會學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 20,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-28",
+      "grades": [
+        {
+          "course": "專業簡報",
+          "score": 88,
+          "semester": "115-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "英文寫作",
+          "score": 87,
+          "semester": "115-1",
+          "skills": [
+            "英文寫作"
+          ]
+        },
+        {
+          "course": "財務管理",
+          "score": 89,
+          "semester": "114-2",
+          "skills": [
+            "財務分析"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "簡報設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "英文寫作",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "財務分析",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": null,
+          "source": "SELF",
+          "level": 2,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "國際設計獎學生組",
+          "level": "INTERNATIONAL",
+          "rank": "HONORABLE",
+          "award_date": "2024-02-09",
+          "skills": [
+            "平面設計",
+            "UI/UX 設計"
+          ],
+          "score": 0.5
+        },
+        {
+          "competition": "校園創新創業競賽",
+          "level": "CAMPUS",
+          "rank": "TOP3",
+          "award_date": "2025-01-10",
+          "skills": [
+            "商業企劃",
+            "簡報設計"
+          ],
+          "score": 0.4
+        }
+      ],
+      "award_score": 0.9,
+      "r_cold_start": 0.6
+    },
+    {
+      "id": 33,
+      "student_no": "D1400133",
+      "name": "朱睿哲",
+      "email": "student033@example.edu",
+      "degree": "BACHELOR",
+      "year": 2,
+      "dept": "行銷學系",
+      "dept_id": 4,
+      "college": "商學院",
+      "expected_graduation": "2029-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 10,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-30",
+      "grades": [
+        {
+          "course": "品牌與設計",
+          "score": 72,
+          "semester": "114-1",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "數位行銷",
+          "score": 72,
+          "semester": "115-1",
+          "skills": [
+            "行銷企劃",
+            "資料分析"
+          ]
+        },
+        {
+          "course": "消費者行為",
+          "score": 67,
+          "semester": "115-2",
+          "skills": [
+            "問卷設計"
+          ]
+        },
+        {
+          "course": "建築表現法",
+          "score": 76,
+          "semester": "115-1",
+          "skills": [
+            "簡報設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "平面設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 4,
+          "adjustment": 1
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "問卷設計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 4,
+          "adjustment": 1
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 34,
+      "student_no": "P1500134",
+      "name": "郭哲瑋",
+      "email": "student034@example.edu",
+      "degree": "PHD",
+      "year": 1,
+      "dept": "外國語文學系",
+      "dept_id": 10,
+      "college": "人文社會學院",
+      "expected_graduation": "2030-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 6,
+      "available_from": "2026-10-26",
+      "available_to": "2027-01-28",
+      "grades": [
+        {
+          "course": "英文寫作",
+          "score": 79,
+          "semester": "115-2",
+          "skills": [
+            "英文寫作"
+          ]
+        },
+        {
+          "course": "專業簡報",
+          "score": 66,
+          "semester": "115-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 80,
+          "semester": "115-1",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 70,
+          "semester": "115-2",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "學術英文寫作",
+          "score": 67,
+          "semester": "115-2",
+          "skills": [
+            "英文寫作"
+          ]
+        },
+        {
+          "course": "統計軟體",
+          "score": 72,
+          "semester": "115-1",
+          "skills": [
+            "Python",
+            "SQL"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "英文寫作",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 4,
+          "adjustment": 1
+        },
+        {
+          "skill": "統計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 1
+        },
+        {
+          "skill": "Python",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "SQL",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "React",
+          "default_level": null,
+          "source": "SELF",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "全國資料科學競賽",
+          "level": "NATIONAL",
+          "rank": "TOP3",
+          "award_date": "2026-02-25",
+          "skills": [
+            "機器學習",
+            "資料分析"
+          ],
+          "score": 0.65
+        }
+      ],
+      "award_score": 0.65,
+      "r_cold_start": 0.5375
+    },
+    {
+      "id": 35,
+      "student_no": "D1400135",
+      "name": "潘婉婷",
+      "email": "student035@example.edu",
+      "degree": "BACHELOR",
+      "year": 2,
+      "dept": "中國文學系",
+      "dept_id": 9,
+      "college": "人文社會學院",
+      "expected_graduation": "2029-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 12,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-28",
+      "grades": [
+        {
+          "course": "文學寫作",
+          "score": 78,
+          "semester": "114-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "文案企劃",
+          "score": 63,
+          "semester": "115-1",
+          "skills": [
+            "行銷企劃"
+          ]
+        },
+        {
+          "course": "消費者行為",
+          "score": 78,
+          "semester": "115-1",
+          "skills": [
+            "問卷設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "簡報設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 4,
+          "adjustment": 1
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "問卷設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 36,
+      "student_no": "D1200136",
+      "name": "何博文",
+      "email": "student036@example.edu",
+      "degree": "BACHELOR",
+      "year": 4,
+      "dept": "電機工程學系",
+      "dept_id": 2,
+      "college": "資電學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 12,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "機器學習概論",
+          "score": 77,
+          "semester": "115-1",
+          "skills": [
+            "機器學習"
+          ]
+        },
+        {
+          "course": "計算機程式",
+          "score": 60,
+          "semester": "114-2",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "嵌入式系統",
+          "score": 71,
+          "semester": "112-1",
+          "skills": [
+            "Java"
+          ]
+        },
+        {
+          "course": "訊號與系統",
+          "score": 72,
+          "semester": "114-1",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "財務管理",
+          "score": 68,
+          "semester": "113-1",
+          "skills": [
+            "財務分析"
+          ]
+        },
+        {
+          "course": "企業簡報實務",
+          "score": 77,
+          "semester": "114-1",
+          "skills": [
+            "簡報設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "機器學習",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 3,
+          "adjustment": 1
+        },
+        {
+          "skill": "Java",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "財務分析",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 3,
+          "adjustment": 1
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "問卷設計",
+          "default_level": null,
+          "source": "SELF",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "全國 UI/UX 設計競賽",
+          "level": "NATIONAL",
+          "rank": "FINALIST",
+          "award_date": "2023-01-23",
+          "skills": [
+            "UI/UX 設計",
+            "Figma"
+          ],
+          "score": 0.25
+        },
+        {
+          "competition": "全國大專創業提案競賽",
+          "level": "NATIONAL",
+          "rank": "TOP3",
+          "award_date": "2025-05-23",
+          "skills": [
+            "商業企劃",
+            "財務分析"
+          ],
+          "score": 0.65
+        }
+      ],
+      "award_score": 0.9,
+      "r_cold_start": 0.6
+    },
+    {
+      "id": 37,
+      "student_no": "D1200137",
+      "name": "陳俊傑",
+      "email": "student037@example.edu",
+      "degree": "BACHELOR",
+      "year": 4,
+      "dept": "土木工程學系",
+      "dept_id": 6,
+      "college": "建設學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 15,
+      "available_from": "2026-10-26",
+      "available_to": "2027-01-30",
+      "grades": [
+        {
+          "course": "工程數學",
+          "score": 81,
+          "semester": "115-2",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "計算機概論",
+          "score": 79,
+          "semester": "115-1",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "營建管理",
+          "score": 84,
+          "semester": "113-1",
+          "skills": [
+            "專案管理"
+          ]
+        },
+        {
+          "course": "創業管理",
+          "score": 76,
+          "semester": "112-1",
+          "skills": [
+            "商業企劃"
+          ]
+        },
+        {
+          "course": "管理學",
+          "score": 90,
+          "semester": "115-2",
+          "skills": [
+            "專案管理"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "資料分析",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "專案管理",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "商業企劃",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "問卷設計",
+          "default_level": null,
+          "source": "SELF",
+          "level": 2,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 38,
+      "student_no": "D1200138",
+      "name": "張俊傑",
+      "email": "student038@example.edu",
+      "degree": "BACHELOR",
+      "year": 4,
+      "dept": "外國語文學系",
+      "dept_id": 10,
+      "college": "人文社會學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 20,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "英文寫作",
+          "score": 71,
+          "semester": "115-2",
+          "skills": [
+            "英文寫作"
+          ]
+        },
+        {
+          "course": "專業簡報",
+          "score": 69,
+          "semester": "112-1",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "管理學",
+          "score": 76,
+          "semester": "112-1",
+          "skills": [
+            "專案管理"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "英文寫作",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "專案管理",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": null,
+          "source": "SELF",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": null,
+          "source": "SELF",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 39,
+      "student_no": "M1400139",
+      "name": "王詩涵",
+      "email": "student039@example.edu",
+      "degree": "MASTER",
+      "year": 2,
+      "dept": "中國文學系",
+      "dept_id": 9,
+      "college": "人文社會學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 20,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-28",
+      "grades": [
+        {
+          "course": "文案企劃",
+          "score": 83,
+          "semester": "115-1",
+          "skills": [
+            "行銷企劃"
+          ]
+        },
+        {
+          "course": "文學寫作",
+          "score": 93,
+          "semester": "114-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 85,
+          "semester": "115-2",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 97,
+          "semester": "115-2",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "企業簡報實務",
+          "score": 88,
+          "semester": "115-1",
+          "skills": [
+            "簡報設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "行銷企劃",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 4,
+          "adjustment": 1
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 1
+        },
+        {
+          "skill": "統計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "專案管理",
+          "default_level": null,
+          "source": "SELF",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 40,
+      "student_no": "D1500140",
+      "name": "廖思妤",
+      "email": "student040@example.edu",
+      "degree": "BACHELOR",
+      "year": 1,
+      "dept": "中國文學系",
+      "dept_id": 9,
+      "college": "人文社會學院",
+      "expected_graduation": "2030-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 6,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-28",
+      "grades": [
+        {
+          "course": "文案企劃",
+          "score": 96,
+          "semester": "115-2",
+          "skills": [
+            "行銷企劃"
+          ]
+        },
+        {
+          "course": "文學寫作",
+          "score": 91,
+          "semester": "115-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "資料視覺化",
+          "score": 83,
+          "semester": "115-1",
+          "skills": [
+            "資料視覺化"
+          ]
+        },
+        {
+          "course": "統計學",
+          "score": 92,
+          "semester": "115-2",
+          "skills": [
+            "統計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "行銷企劃",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料視覺化",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "商業企劃",
+          "default_level": null,
+          "source": "SELF",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "UI/UX 設計",
+          "default_level": null,
+          "source": "SELF",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "國際學生軟體創新競賽",
+          "level": "INTERNATIONAL",
+          "rank": "TOP3",
+          "award_date": "2026-08-08",
+          "skills": [
+            "Spring Boot",
+            "SwiftUI"
+          ],
+          "score": 0.8
+        }
+      ],
+      "award_score": 0.8,
+      "r_cold_start": 0.575
+    },
+    {
+      "id": 41,
+      "student_no": "P1400141",
+      "name": "曾冠廷",
+      "email": "student041@example.edu",
+      "degree": "PHD",
+      "year": 2,
+      "dept": "電機工程學系",
+      "dept_id": 2,
+      "college": "資電學院",
+      "expected_graduation": "2029-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 6,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-30",
+      "grades": [
+        {
+          "course": "訊號與系統",
+          "score": 94,
+          "semester": "114-1",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "嵌入式系統",
+          "score": 64,
+          "semester": "115-2",
+          "skills": [
+            "Java"
+          ]
+        },
+        {
+          "course": "計算機程式",
+          "score": 75,
+          "semester": "114-1",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "機器學習概論",
+          "score": 81,
+          "semester": "115-2",
+          "skills": [
+            "機器學習"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 61,
+          "semester": "115-1",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 71,
+          "semester": "114-1",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "學術英文寫作",
+          "score": 84,
+          "semester": "114-2",
+          "skills": [
+            "英文寫作"
+          ]
+        },
+        {
+          "course": "專業簡報",
+          "score": 71,
+          "semester": "115-2",
+          "skills": [
+            "簡報設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "資料分析",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "Java",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "機器學習",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "英文寫作",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "UI/UX 設計",
+          "default_level": null,
+          "source": "SELF",
+          "level": 2,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "全國大專創業提案競賽",
+          "level": "NATIONAL",
+          "rank": "FINALIST",
+          "award_date": "2025-07-26",
+          "skills": [
+            "商業企劃",
+            "財務分析"
+          ],
+          "score": 0.25
+        }
+      ],
+      "award_score": 0.25,
+      "r_cold_start": 0.4375
+    },
+    {
+      "id": 42,
+      "student_no": "M1400142",
+      "name": "高怡君",
+      "email": "student042@example.edu",
+      "degree": "MASTER",
+      "year": 2,
+      "dept": "中國文學系",
+      "dept_id": 9,
+      "college": "人文社會學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 10,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "文學寫作",
+          "score": 92,
+          "semester": "114-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "文案企劃",
+          "score": 95,
+          "semester": "115-2",
+          "skills": [
+            "行銷企劃"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 85,
+          "semester": "115-2",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 86,
+          "semester": "114-1",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "視覺傳達",
+          "score": 89,
+          "semester": "115-2",
+          "skills": [
+            "平面設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "簡報設計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "Java",
+          "default_level": null,
+          "source": "SELF",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "UI/UX 設計",
+          "default_level": null,
+          "source": "SELF",
+          "level": 2,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "全國大專校院程式競賽",
+          "level": "NATIONAL",
+          "rank": "FIRST",
+          "award_date": "2026-09-13",
+          "skills": [
+            "Java",
+            "Python"
+          ],
+          "score": 0.8
+        }
+      ],
+      "award_score": 0.8,
+      "r_cold_start": 0.575
+    },
+    {
+      "id": 43,
+      "student_no": "M1400143",
+      "name": "蕭家豪",
+      "email": "student043@example.edu",
+      "degree": "MASTER",
+      "year": 2,
+      "dept": "中國文學系",
+      "dept_id": 9,
+      "college": "人文社會學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 20,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-30",
+      "grades": [
+        {
+          "course": "文學寫作",
+          "score": 78,
+          "semester": "115-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "文案企劃",
+          "score": 84,
+          "semester": "115-1",
+          "skills": [
+            "行銷企劃"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 79,
+          "semester": "115-2",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 77,
+          "semester": "115-1",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "建築表現法",
+          "score": 78,
+          "semester": "114-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "數位建築",
+          "score": 71,
+          "semester": "114-2",
+          "skills": [
+            "UI/UX 設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "簡報設計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 1
+        },
+        {
+          "skill": "統計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-2",
+          "level": 3,
+          "adjustment": 1
+        },
+        {
+          "skill": "Java",
+          "default_level": null,
+          "source": "SELF",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 44,
+      "student_no": "D1300144",
+      "name": "何建宏",
+      "email": "student044@example.edu",
+      "degree": "BACHELOR",
+      "year": 3,
+      "dept": "統計學系",
+      "dept_id": 5,
+      "college": "商學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 12,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "統計學",
+          "score": 93,
+          "semester": "114-1",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "資料視覺化",
+          "score": 88,
+          "semester": "113-2",
+          "skills": [
+            "資料視覺化"
+          ]
+        },
+        {
+          "course": "迴歸分析",
+          "score": 92,
+          "semester": "115-2",
+          "skills": [
+            "統計",
+            "資料分析"
+          ]
+        },
+        {
+          "course": "統計軟體",
+          "score": 99,
+          "semester": "114-1",
+          "skills": [
+            "Python",
+            "SQL"
+          ]
+        },
+        {
+          "course": "文案企劃",
+          "score": 86,
+          "semester": "115-2",
+          "skills": [
+            "行銷企劃"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "統計",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料視覺化",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "113-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "SQL",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "英文寫作",
+          "default_level": null,
+          "source": "SELF",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 45,
+      "student_no": "M1500145",
+      "name": "曾昱辰",
+      "email": "student045@example.edu",
+      "degree": "MASTER",
+      "year": 1,
+      "dept": "建築學系",
+      "dept_id": 7,
+      "college": "建築專業學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 10,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-28",
+      "grades": [
+        {
+          "course": "建築設計",
+          "score": 77,
+          "semester": "115-2",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "數位建築",
+          "score": 68,
+          "semester": "115-2",
+          "skills": [
+            "UI/UX 設計"
+          ]
+        },
+        {
+          "course": "建築表現法",
+          "score": 83,
+          "semester": "115-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 84,
+          "semester": "115-1",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 83,
+          "semester": "115-2",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "設計簡報",
+          "score": 72,
+          "semester": "115-1",
+          "skills": [
+            "簡報設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "平面設計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "簡報設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 1
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 4,
+          "adjustment": 1
+        },
+        {
+          "skill": "統計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "HTML/CSS",
+          "default_level": null,
+          "source": "SELF",
+          "level": 2,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 46,
+      "student_no": "D1500146",
+      "name": "江宜蓁",
+      "email": "student046@example.edu",
+      "degree": "BACHELOR",
+      "year": 1,
+      "dept": "企業管理學系",
+      "dept_id": 3,
+      "college": "商學院",
+      "expected_graduation": "2030-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 4,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-30",
+      "grades": [
+        {
+          "course": "企業簡報實務",
+          "score": 83,
+          "semester": "115-2",
+          "skills": [
+            "簡報設計"
+          ]
+        },
+        {
+          "course": "管理學",
+          "score": 83,
+          "semester": "115-2",
+          "skills": [
+            "專案管理"
+          ]
+        },
+        {
+          "course": "消費者行為",
+          "score": 86,
+          "semester": "115-2",
+          "skills": [
+            "問卷設計"
+          ]
+        },
+        {
+          "course": "行銷管理",
+          "score": 78,
+          "semester": "115-1",
+          "skills": [
+            "行銷企劃"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "簡報設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "專案管理",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "問卷設計",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "機器學習",
+          "default_level": null,
+          "source": "SELF",
+          "level": 2,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 47,
+      "student_no": "M1500147",
+      "name": "洪婉婷",
+      "email": "student047@example.edu",
+      "degree": "MASTER",
+      "year": 1,
+      "dept": "電機工程學系",
+      "dept_id": 2,
+      "college": "資電學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 12,
+      "available_from": "2026-10-26",
+      "available_to": "2027-06-28",
+      "grades": [
+        {
+          "course": "嵌入式系統",
+          "score": 76,
+          "semester": "115-2",
+          "skills": [
+            "Java"
+          ]
+        },
+        {
+          "course": "訊號與系統",
+          "score": 77,
+          "semester": "115-1",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "計算機程式",
+          "score": 99,
+          "semester": "115-1",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "機器學習概論",
+          "score": 76,
+          "semester": "115-1",
+          "skills": [
+            "機器學習"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 82,
+          "semester": "115-2",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 83,
+          "semester": "115-1",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "品牌與設計",
+          "score": 82,
+          "semester": "115-2",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "行銷管理",
+          "score": 99,
+          "semester": "115-1",
+          "skills": [
+            "行銷企劃"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "Java",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 5,
+          "adjustment": 0
+        },
+        {
+          "skill": "機器學習",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 1
+        },
+        {
+          "skill": "統計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": 5,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 5,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "全國 UI/UX 設計競賽",
+          "level": "NATIONAL",
+          "rank": "FINALIST",
+          "award_date": "2026-04-02",
+          "skills": [
+            "UI/UX 設計",
+            "Figma"
+          ],
+          "score": 0.25
+        }
+      ],
+      "award_score": 0.25,
+      "r_cold_start": 0.4375
+    },
+    {
+      "id": 48,
+      "student_no": "D1500148",
+      "name": "羅志明",
+      "email": "student048@example.edu",
+      "degree": "BACHELOR",
+      "year": 1,
+      "dept": "土木工程學系",
+      "dept_id": 6,
+      "college": "建設學院",
+      "expected_graduation": "2030-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 20,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "工程數學",
+          "score": 66,
+          "semester": "115-1",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "營建管理",
+          "score": 66,
+          "semester": "115-1",
+          "skills": [
+            "專案管理"
+          ]
+        },
+        {
+          "course": "行銷管理",
+          "score": 76,
+          "semester": "115-2",
+          "skills": [
+            "行銷企劃"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "資料分析",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "專案管理",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "機器學習",
+          "default_level": null,
+          "source": "SELF",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "JavaScript",
+          "default_level": null,
+          "source": "SELF",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [],
+      "award_score": 0,
+      "r_cold_start": 0.375
+    },
+    {
+      "id": 49,
+      "student_no": "P1200149",
+      "name": "許心怡",
+      "email": "student049@example.edu",
+      "degree": "PHD",
+      "year": 4,
+      "dept": "電機工程學系",
+      "dept_id": 2,
+      "college": "資電學院",
+      "expected_graduation": "2027-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 15,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-28",
+      "grades": [
+        {
+          "course": "機器學習概論",
+          "score": 72,
+          "semester": "112-2",
+          "skills": [
+            "機器學習"
+          ]
+        },
+        {
+          "course": "訊號與系統",
+          "score": 70,
+          "semester": "113-1",
+          "skills": [
+            "資料分析"
+          ]
+        },
+        {
+          "course": "計算機程式",
+          "score": 68,
+          "semester": "112-1",
+          "skills": [
+            "Python"
+          ]
+        },
+        {
+          "course": "嵌入式系統",
+          "score": 85,
+          "semester": "115-2",
+          "skills": [
+            "Java"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 72,
+          "semester": "115-2",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 72,
+          "semester": "113-1",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "學術英文寫作",
+          "score": 87,
+          "semester": "113-1",
+          "skills": [
+            "英文寫作"
+          ]
+        },
+        {
+          "course": "數位行銷",
+          "score": 73,
+          "semester": "114-1",
+          "skills": [
+            "行銷企劃",
+            "資料分析"
+          ]
+        },
+        {
+          "course": "品牌與設計",
+          "score": 62,
+          "semester": "112-2",
+          "skills": [
+            "平面設計"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "機器學習",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "112-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "Python",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "112-1",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "Java",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "英文寫作",
+          "default_level": 4,
+          "source": "GRADE",
+          "semester": "113-1",
+          "level": 4,
+          "adjustment": 0
+        },
+        {
+          "skill": "行銷企劃",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "114-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "112-2",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "HTML/CSS",
+          "default_level": null,
+          "source": "SELF",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "財務分析",
+          "default_level": null,
+          "source": "SELF",
+          "level": 4,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "全國大專校院程式競賽",
+          "level": "NATIONAL",
+          "rank": "FINALIST",
+          "award_date": "2023-02-10",
+          "skills": [
+            "Java",
+            "Python"
+          ],
+          "score": 0.25
+        }
+      ],
+      "award_score": 0.25,
+      "r_cold_start": 0.4375
+    },
+    {
+      "id": 50,
+      "student_no": "M1500150",
+      "name": "徐佳穎",
+      "email": "student050@example.edu",
+      "degree": "MASTER",
+      "year": 1,
+      "dept": "行銷學系",
+      "dept_id": 4,
+      "college": "商學院",
+      "expected_graduation": "2028-06-30",
+      "demo_tag": null,
+      "demo_note": null,
+      "hours_per_week": 20,
+      "available_from": "2026-10-26",
+      "available_to": "2027-03-30",
+      "grades": [
+        {
+          "course": "數位行銷",
+          "score": 71,
+          "semester": "115-1",
+          "skills": [
+            "行銷企劃",
+            "資料分析"
+          ]
+        },
+        {
+          "course": "消費者行為",
+          "score": 74,
+          "semester": "115-2",
+          "skills": [
+            "問卷設計"
+          ]
+        },
+        {
+          "course": "行銷管理",
+          "score": 82,
+          "semester": "115-2",
+          "skills": [
+            "行銷企劃"
+          ]
+        },
+        {
+          "course": "品牌與設計",
+          "score": 83,
+          "semester": "115-2",
+          "skills": [
+            "平面設計"
+          ]
+        },
+        {
+          "course": "研究方法",
+          "score": 68,
+          "semester": "115-1",
+          "skills": [
+            "研究方法"
+          ]
+        },
+        {
+          "course": "進階統計",
+          "score": 77,
+          "semester": "115-1",
+          "skills": [
+            "統計"
+          ]
+        },
+        {
+          "course": "人因工程",
+          "score": 83,
+          "semester": "115-2",
+          "skills": [
+            "UI/UX 設計"
+          ]
+        },
+        {
+          "course": "作業研究",
+          "score": 67,
+          "semester": "115-2",
+          "skills": [
+            "資料分析"
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "skill": "行銷企劃",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 4,
+          "adjustment": 1
+        },
+        {
+          "skill": "資料分析",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "問卷設計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "平面設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        },
+        {
+          "skill": "研究方法",
+          "default_level": 1,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 1,
+          "adjustment": 0
+        },
+        {
+          "skill": "統計",
+          "default_level": 2,
+          "source": "GRADE",
+          "semester": "115-1",
+          "level": 2,
+          "adjustment": 0
+        },
+        {
+          "skill": "UI/UX 設計",
+          "default_level": 3,
+          "source": "GRADE",
+          "semester": "115-2",
+          "level": 3,
+          "adjustment": 0
+        }
+      ],
+      "awards": [
+        {
+          "competition": "國際設計獎學生組",
+          "level": "INTERNATIONAL",
+          "rank": "HONORABLE",
+          "award_date": "2026-01-08",
+          "skills": [
+            "平面設計",
+            "UI/UX 設計"
+          ],
+          "score": 0.5
+        },
+        {
+          "competition": "國際學生軟體創新競賽",
+          "level": "INTERNATIONAL",
+          "rank": "TOP3",
+          "award_date": "2026-01-04",
+          "skills": [
+            "Spring Boot",
+            "SwiftUI"
+          ],
+          "score": 0.8
+        }
+      ],
+      "award_score": 1.0,
+      "r_cold_start": 0.625
+    }
+  ]
+}

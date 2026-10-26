@@ -1,0 +1,12 @@
+# 只跑資料庫：docker compose up -d   （後端用 ./mvnw spring-boot:run，網頁用 npm run dev）
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: campus
+      POSTGRES_PASSWORD: campus
+      POSTGRES_DB: campus
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+volumes:
+  pgdata: {}

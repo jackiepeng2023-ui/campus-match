@@ -1,0 +1,54 @@
+<template>
+  <div style="max-width:440px;margin:40px auto">
+    <h1 style="text-align:center">跨系資源媒合平台</h1>
+    <p class="sub" style="text-align:center;margin-bottom:24px">把分散的人才與合作需求，變成校園內可流動的資源</p>
+    <div class="card">
+      <div class="segment" style="margin-bottom:16px"><button :class="{on: mode==='login'}" @click="mode='login'">登入</button><button :class="{on: mode==='register'}" @click="mode='register'">註冊</button></div>
+      <form v-if="mode==='login'" @submit.prevent="login">
+        <div class="field"><label>Email 或學號</label><input v-model="account" placeholder="student001@example.edu" autofocus /></div>
+        <div class="field"><label>密碼</label><input v-model="password" type="password" placeholder="demo1234" /></div>
+        <button class="btn" style="width:100%" :disabled="busy">登入</button>
+        <p class="sub small" style="margin-top:14px">示範帳號（密碼皆為 demo1234）：student001（企管，發案方）、student002（資工，前端）、student003（資工，後端）、student007（資工，自評上調）、student008（資工博士）、admin@example.edu（管理員）</p>
+      </form>
+      <form v-else @submit.prevent="register">
+        <div class="grid grid-2" style="gap:12px">
+          <div class="field"><label>學號</label><input v-model="r.studentNo" required /></div>
+          <div class="field"><label>姓名</label><input v-model="r.name" required /></div>
+          <div class="field"><label>Email</label><input v-model="r.email" type="email" required /></div>
+          <div class="field"><label>密碼</label><input v-model="r.password" type="password" required /></div>
+          <div class="field"><label>學制</label><select v-model="r.degree"><option value="BACHELOR">學士</option><option value="MASTER">碩士</option><option value="PHD">博士</option></select></div>
+          <div class="field"><label>年級</label><input v-model.number="r.year" type="number" min="1" max="7" /></div>
+          <div class="field"><label>系所</label><select v-model.number="r.departmentId"><option v-for="d in meta?.departments" :key="d.id" :value="d.id">{{ d.college }}／{{ d.name }}</option></select></div>
+          <div class="field"><label>預計畢業年月（D29）</label><input v-model="r.expectedGraduation" type="date" required /></div>
+          <div class="field"><label>每週可投入時數</label><input v-model.number="r.hoursPerWeek" type="number" min="0" max="80" /></div>
+        </div>
+        <div class="field" style="background:var(--bg);padding:12px;border-radius:10px">
+          <label style="display:flex;gap:8px;align-items:flex-start;color:var(--text)"><input type="checkbox" v-model="r.consent" style="width:auto;margin-top:3px" />
+            <span class="small">我同意平台為「媒合推薦」目的蒐集我的成績、技能與得獎資料；原始成績只有我本人可見，對外只顯示技能等級。資料於畢業 3 個月後去識別化、6 個月後刪除；我可以隨時申請刪除帳號。（個資法第 19、20 條、第 11 條第 3 項）</span></label>
+        </div>
+        <button class="btn" style="width:100%" :disabled="busy">建立帳號</button>
+      </form>
+      <p v-if="error" class="small" style="color:var(--red);margin:12px 0 0">{{ error }}</p>
+    </div>
+  </div>
+</template>
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { post, setToken } from '../api'
+import { store } from '../store'
+const router = useRouter()
+const mode = ref('login'), account = ref(''), password = ref(''), busy = ref(false), error = ref(''), meta = ref(null)
+const r = ref({ studentNo: '', name: '', email: '', password: '', degree: 'BACHELOR', year: 1, departmentId: 1, expectedGraduation: '2030-06-30', hoursPerWeek: 8, consent: false })
+onMounted(async () => { meta.value = await store.loadMeta() })
+async function login() {
+  busy.value = true; error.value = ''
+  try { const res = await post('/auth/login', { account: account.value, password: password.value }); setToken(res.token); store.user = res.user; store.unread = res.user.unreadNotifications; router.push('/') }
+  catch (e) { error.value = e.message } finally { busy.value = false }
+}
+async function register() {
+  busy.value = true; error.value = ''
+  try { const res = await post('/auth/register', r.value); setToken(res.token); store.user = res.user; router.push('/profile') }
+  catch (e) { error.value = e.message } finally { busy.value = false }
+}
+</script>
