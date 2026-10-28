@@ -1,10 +1,15 @@
 package tw.edu.fcu.campus.growth;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.edu.fcu.campus.common.Current;
 import tw.edu.fcu.campus.common.Db;
 
 import java.util.LinkedHashMap;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -14,9 +19,24 @@ public class GrowthController {
     private final GrowthService growth;
     private final Db db;
 
-    public GrowthController(GrowthService growth, Db db) { this.growth = growth; this.db = db; }
+    private final GraphService graphs;
+
+    public GrowthController(GrowthService growth, GraphService graphs, Db db) { this.growth = growth; this.graphs = graphs; this.db = db; }
 
     @GetMapping("/me/growth") public Map<String, Object> growth() { return growth.growth(Current.id()); }
+
+    /** 知識圖譜：科目 → 技能 → 分類 ＋ 得獎／結案案件 → 技能（App 內力導向圖用） */
+    @GetMapping("/me/growth/graph") public Map<String, Object> graph() { return graphs.graph(Current.id()); }
+
+    /** 同一份圖譜匯出成 Obsidian Vault（zip 內含 .md 與 [[連結]]、預設圖譜顏色） */
+    @GetMapping(value = "/me/growth/obsidian", produces = "application/zip")
+    public ResponseEntity<byte[]> obsidian() throws Exception {
+        var p = Current.principal();
+        byte[] zip = graphs.obsidianZip(p.id(), p.name());
+        String ascii = "growth-vault-" + p.id() + ".zip", utf8 = URLEncoder.encode("成長儀表板-" + p.name() + ".zip", StandardCharsets.UTF_8).replace("+", "%20");
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + ascii + "\"; filename*=UTF-8''" + utf8)
+                .contentType(MediaType.parseMediaType("application/zip")).body(zip);
+    }
     @PostMapping("/me/growth-prompt") public Map<String, Object> prompt(@RequestBody GrowthService.PromptIn in) { return growth.prompt(Current.id(), in); }
 
     // ----- 資料分析（ADMIN） -----

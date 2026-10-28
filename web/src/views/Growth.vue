@@ -2,6 +2,10 @@
   <div v-if="g">
     <h1>成長儀表板</h1>
     <p class="sub">成長只來自有紀錄的事：成績換算、自評調整、成案、得獎、結案互評（D30）。</p>
+    <div class="card" style="margin-bottom:16px">
+      <h3>知識圖譜 <span class="sub small">科目 → 技能 → 分類，加上得獎與結案案件的驗證；可匯出成 Obsidian Vault 用 Graph view 檢視</span></h3>
+      <KnowledgeGraph />
+    </div>
     <div class="grid grid-2">
       <div class="card"><h3>技能雷達（各類別平均等級）</h3><canvas ref="radar" height="260"></canvas></div>
       <div class="card"><h3>技能等級變化（每月各類別最高等級）</h3><canvas ref="line" height="260"></canvas></div>
@@ -32,6 +36,7 @@ import { ref, onMounted, nextTick } from 'vue'
 import { Chart, RadarController, LineController, RadialLinearScale, LinearScale, CategoryScale, PointElement, LineElement, Filler, Tooltip, Legend } from 'chart.js'
 import { get, post } from '../api'
 import { store, fmtTime } from '../store'
+import KnowledgeGraph from '../components/KnowledgeGraph.vue'
 Chart.register(RadarController, LineController, RadialLinearScale, LinearScale, CategoryScale, PointElement, LineElement, Filler, Tooltip, Legend)
 const g = ref(null), radar = ref(null), line = ref(null), goal = ref(''), question = ref(''), prompt = ref(''), notice = ref('')
 const kindLabel = (k) => ({ SKILL: '技能', CASE_JOINED: '加入', CASE_OWNED: '發起', CASE_CLOSED: '結案', AWARD: '得獎', REVIEW: '評價' }[k] || k)

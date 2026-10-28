@@ -96,6 +96,12 @@ python3 fcu_curriculum.py sql > ../src/main/resources/db/ref-courses.sql
 ```
 已知限制：115 起的新版 PDF 以「管理單位」取得正式系所名，少數新設學程（如「資通訊與電控產業」「人工智慧科技與管理碩士學位學程」）沿用公告上的學門名，可在後台修正；碩士班分組（財經法律、經營管理在職專班、機械與電腦輔助工程）合併為同一系所清單，組別保留在 group_code。
 
+## 成長儀表板的知識圖譜與 Obsidian 匯出
+- `GET /me/growth/graph`：本人的 科目（成績）→ 技能（等級）→ 分類，加上 得獎 → 技能、結案案件（本人角色所需技能）→ 技能；只用已核准的科目→技能對照。
+- 網頁 `components/KnowledgeGraph.vue`、iOS `KnowledgeGraphView.swift`：力導向圖（無外部套件），拖曳、縮放、點選聚焦（相鄰節點亮、其餘變暗）、依類型顯示／隱藏。
+- `GET /me/growth/obsidian`：同一張圖匯出成 Obsidian Vault（zip）：`分類/`、`技能/`、`科目/`、`得獎/`、`案件/` 五個資料夾的 .md，frontmatter 含分數／等級／學期，內文以 `[[技能/Python|Python]]` 互連；另附 `我的成長地圖.md`（索引）、`README.md` 與 `.obsidian/graph.json`（節點顏色預設：科目藍、技能綠、分類紫、得獎橘、案件灰）。解壓後在 Obsidian 選 Open folder as vault → Graph view。
+- 隱私與 AI Prompt 同一原則：只含本人資料，案件只到名稱與角色，不含隊友姓名與評語。
+
 ## 部署到 Azure（驗收後）
 | 元件 | 服務 | 設定 |
 |---|---|---|
@@ -113,7 +119,7 @@ backend/src/main/java/tw/edu/fcu/campus/
   cases/    M2 案件、狀態機、申請／邀請（名額鎖定）
   ranking/  M3 推薦排序引擎（純 Java）與服務
   review/   M4 結案投票、雙盲互評
-  growth/   M5 成長儀表板、AI Prompt、資料分析
+  growth/   M5 成長儀表板、知識圖譜與 Obsidian 匯出、AI Prompt、資料分析
   admin/    M6 參數、Demo 時鐘、排程、稽核
   notify/   站內通知、APNs
 web/src/views/  Login Home Cases CaseForm CaseDetail Review Profile PublicProfile Growth Admin；components/CoursePicker.vue 科目清單填分數

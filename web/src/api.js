@@ -23,3 +23,13 @@ export const get = (p) => api('GET', p)
 export const post = (p, b = {}) => api('POST', p, b)
 export const put = (p, b) => api('PUT', p, b)
 export const del = (p) => api('DELETE', p)
+
+/** 下載檔案（帶 JWT）：檔名優先採用回應的 filename*=UTF-8'' */
+export async function download(path, fallbackName) {
+  const res = await fetch(BASE + path, { headers: token() ? { Authorization: 'Bearer ' + token() } : {} })
+  if (!res.ok) throw new Error('HTTP ' + res.status)
+  const m = /filename\*=UTF-8''([^;]+)/.exec(res.headers.get('Content-Disposition') || '')
+  const url = URL.createObjectURL(await res.blob())
+  const a = document.createElement('a'); a.href = url; a.download = m ? decodeURIComponent(m[1]) : fallbackName; document.body.appendChild(a); a.click(); a.remove()
+  setTimeout(() => URL.revokeObjectURL(url), 2000)
+}

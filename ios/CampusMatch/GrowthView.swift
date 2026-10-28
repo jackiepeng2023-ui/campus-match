@@ -13,6 +13,9 @@ struct GrowthView: View {
         NavigationStack {
             List {
                 if let g = g {
+                    Section {
+                        KnowledgeGraphView().listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    } header: { Text("知識圖譜") } footer: { Text("科目 → 技能 → 分類，加上得獎與結案案件對技能的驗證；可匯出成 Obsidian Vault 用 Graph view 檢視。") }
                     Section("技能雷達（各類別平均等級）") {
                         RadarChart(labels: g.radar.map { $0.category }, values: g.radar.map { $0.avgLevel }, maxValue: 5)
                             .frame(height: 260).frame(maxWidth: .infinity)

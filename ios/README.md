@@ -39,7 +39,8 @@ open CampusMatch.xcodeproj
 | `HomeView.swift` | 待回覆、推薦給我的案件、我的案件 |
 | `CasesView.swift` / `CaseDetailView.swift` | 案件搜尋、詳情、申請／邀請／核准、結案投票、推薦名單 |
 | `ReviewView.swift` | 雙盲互評表單 |
-| `GrowthView.swift` | 雷達圖（Canvas）、時間軸、AI Prompt |
+| `GrowthView.swift` | 知識圖譜、雷達圖（Canvas）、時間軸、AI Prompt |
+| `KnowledgeGraphView.swift` | 科目 → 技能 → 分類 ＋ 得獎／結案案件的力導向圖（Canvas）、匯出 Obsidian Vault（ShareLink） |
 | `ProfileView.swift` | 成績、技能檔、得獎、可投入時間、公開檔案、刪除帳號 |
 | `CoursePickerView.swift` | 科目清單填分數：系所 × 學制 × 入學學年度 → 必修／選修／通識／搜尋全校，點科目填分數，沒有技能對照的科目可自填技能送審 |
 | `NotificationsView.swift` | 站內通知 |
