@@ -1,17 +1,18 @@
 <template>
   <div v-if="me">
-    <div class="row between"><div><h1>我的檔案</h1><div class="sub">{{ me.studentNo }} · {{ me.college }}／{{ me.department }} · {{ labels.degree[me.degree] }}{{ me.year }}年級 · 預計畢業 {{ me.expectedGraduation }}</div></div>
+    <div class="row between"><div><h1>我的檔案</h1><div class="sub">{{ me.studentNo }} · {{ me.college }}／{{ me.department }} · {{ labels.degree[me.degree] }}{{ me.year }}年級{{ me.entryYear ? '（' + me.entryYear + ' 學年度入學）' : '' }} · 預計畢業 {{ me.expectedGraduation }}</div></div>
       <router-link :to="'/users/' + me.id" class="btn secondary">別人看到的我</router-link></div>
     <div class="grid grid-2" style="margin-top:16px">
       <div class="stack">
         <div class="card">
-          <h3>修課成績 <span class="sub small">只有你看得到；成績換算成技能預設等級（{{ me.degree === 'BACHELOR' ? '學士 90/80/70/60' : '碩博士 90/85/80/70' }}，D14）</span></h3>
-          <table><tr><th>課程</th><th>學期</th><th>分數</th><th>對應技能</th><th></th></tr>
-            <tr v-for="g in me.grades" :key="g.id"><td>{{ g.course }}</td><td class="small">{{ g.semester }}</td><td><strong>{{ g.score }}</strong></td><td class="sub small">{{ g.skills }}</td><td><button class="btn ghost sm" @click="run(() => del('/me/grades/' + g.id))">✕</button></td></tr></table>
-          <form class="row" style="margin-top:10px" @submit.prevent="addGrade">
-            <select v-model.number="ng.courseId" style="max-width:260px"><option v-for="co in courses" :key="co.id" :value="co.id">{{ co.name }}{{ co.skills ? '（' + co.skills + '）' : '' }}</option></select>
-            <input v-model="ng.semester" placeholder="學期 115-1" style="max-width:110px" /><input v-model.number="ng.score" type="number" min="0" max="100" placeholder="分數" style="max-width:90px" /><button class="btn sm">新增</button>
-          </form>
+          <div class="row between"><h3 style="margin:0">修課成績 <span class="sub small">只有你看得到；成績換算成技能預設等級（{{ me.degree === 'BACHELOR' ? '學士 90/80/70/60' : '碩博士 90/85/80/70' }}，D14）</span></h3>
+            <button class="btn sm" :class="{ secondary: picker }" @click="picker = !picker">{{ picker ? '收起科目清單' : '從科目清單填分數' }}</button></div>
+          <p class="sub small" style="margin:6px 0 0">科目清單來自學校公告的各系所「必修科目表／應修學分表」（{{ me.entryYear ? me.entryYear + ' 學年度入學' : '依年級推算' }}）；點選本系清單填入分數即可，外系選修可切換系所或搜尋全校。</p>
+          <CoursePicker v-if="picker" :me="me" @saved="load" style="margin-top:10px" />
+          <table v-if="me.grades.length" style="margin-top:10px"><tr><th>科目</th><th>學期</th><th>分數</th><th>對應技能</th><th></th></tr>
+            <tr v-for="g in me.grades" :key="g.id"><td>{{ g.course }} <span class="pill" :class="{ REQUIRED: 'blue', GENERAL: 'purple' }[g.requirement] || ''" v-if="g.requirement">{{ { REQUIRED: '必修', ELECTIVE: '選修', GENERAL: '通識' }[g.requirement] }}</span><div class="sub small" v-if="g.department && g.department !== me.department">{{ g.department }}</div></td>
+              <td class="small">{{ g.semester }}</td><td><strong>{{ g.score }}</strong></td><td class="sub small">{{ g.skills }}<span class="muted" v-if="g.pendingSkills">（待核准：{{ g.pendingSkills }}）</span></td><td><button class="btn ghost sm" @click="run(() => del('/me/grades/' + g.id))">✕</button></td></tr></table>
+          <p v-else class="sub small" style="margin-top:10px">尚未填任何成績。按「從科目清單填分數」開始。</p>
         </div>
         <div class="card">
           <h3>技能檔 <span class="sub small">預設等級來自成績；你可以調整，幅度會被記錄，由結案互評的「相符度」檢驗（D7、D10）</span></h3>
@@ -61,16 +62,15 @@
   </div>
 </template>
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { get, put, post, del } from '../api'
 import { store, labels } from '../store'
-const me = ref(null), reviews = ref(null)
-const ng = ref({ courseId: null, semester: '115-1', score: null }), ns = ref({ skillId: 1, level: 3 })
+import CoursePicker from '../components/CoursePicker.vue'
+const me = ref(null), reviews = ref(null), picker = ref(false)
+const ns = ref({ skillId: 1, level: 3 })
 const av = ref({ hoursPerWeek: 8, availableFrom: '', availableTo: '' }), na = ref({ competition: '', level: 'CAMPUS', rank: 'TOP3', awardDate: '', skillIds: [] })
-const courses = computed(() => (store.meta?.courses || []).filter(c => c.departmentId === me.value.departmentId || c.departmentId === null || true))
-async function load() { me.value = await get('/me'); store.user = me.value; reviews.value = await get('/me/reviews'); av.value = { ...me.value.availability }; if (!ng.value.courseId && courses.value.length) ng.value.courseId = courses.value[0].id }
+async function load() { me.value = await get('/me'); store.user = me.value; reviews.value = await get('/me/reviews'); av.value = { ...me.value.availability }; if (!me.value.grades.length) picker.value = true }
 async function run(fn) { try { await fn(); store.notify('已更新', 'success'); await load() } catch (e) { store.notify(e.message, 'error') } }
-const addGrade = () => run(() => put('/me/grades', [ng.value]))
 const setSkill = (skillId, level) => run(() => put('/me/skills', [{ skillId, level }]))
 async function deleteMe() { if (!confirm('確定刪除帳號？本人資料將立即去識別化並刪除。')) return; await del('/me'); store.logout() }
 onMounted(async () => { await store.loadMeta(); await load() })

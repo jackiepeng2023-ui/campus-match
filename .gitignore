@@ -8,3 +8,4 @@ ios/*.xcworkspace/
 shots/*.png
 shots/dbg*.js
 .m2/
+backend/tools/curriculum/pdf/

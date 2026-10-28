@@ -78,7 +78,7 @@ public class GrowthService {
             sb.append("- ").append(s.get("name")).append("：目前 ").append(s.get("level")).append(" 級").append(s.get("hist") == null ? "" : "；變化：" + s.get("hist")).append("\n");
         sb.append("\n【修課成績】（只有本人可見）\n");
         for (var g : db.list("""
-                SELECT co.name, g.score, g.semester, (SELECT string_agg(s.name, '、') FROM course_skill_map m JOIN skills s ON s.id = m.skill_id WHERE m.course_id = co.id) sk
+                SELECT co.name, g.score, g.semester, (SELECT string_agg(s.name, '、') FROM course_skill_map m JOIN skills s ON s.id = m.skill_id WHERE m.course_id = co.id AND m.approved) sk
                 FROM user_grades g JOIN courses co ON co.id = g.course_id WHERE g.user_id = :u ORDER BY g.semester, co.name""", "u", uid))
             sb.append("- ").append(g.get("name")).append("（").append(g.get("semester")).append("）：").append(g.get("score")).append(" 分").append(g.get("sk") == null ? "" : " → " + g.get("sk")).append("\n");
         sb.append("\n【得獎紀錄】\n");

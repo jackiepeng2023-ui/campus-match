@@ -17,8 +17,9 @@
           <div class="field"><label>Email</label><input v-model="r.email" type="email" required /></div>
           <div class="field"><label>密碼</label><input v-model="r.password" type="password" required /></div>
           <div class="field"><label>學制</label><select v-model="r.degree"><option value="BACHELOR">學士</option><option value="MASTER">碩士</option><option value="PHD">博士</option></select></div>
-          <div class="field"><label>年級</label><input v-model.number="r.year" type="number" min="1" max="7" /></div>
-          <div class="field"><label>系所</label><select v-model.number="r.departmentId"><option v-for="d in meta?.departments" :key="d.id" :value="d.id">{{ d.college }}／{{ d.name }}</option></select></div>
+          <div class="field"><label>年級</label><input v-model.number="r.year" type="number" min="1" max="7" @input="syncEntryYear" /></div>
+          <div class="field"><label>入學學年度 <span class="sub small">決定你的科目表</span></label><input v-model.number="r.entryYear" type="number" min="100" max="130" placeholder="例如 115" @input="entryTouched = true" /></div>
+          <div class="field" style="grid-column:1/-1"><label>系所</label><select v-model.number="r.departmentId"><optgroup v-for="c in colleges" :key="c.id" :label="c.name"><option v-for="d in c.depts" :key="d.id" :value="d.id">{{ d.name }}</option></optgroup></select></div>
           <div class="field"><label>預計畢業年月（D29）</label><input v-model="r.expectedGraduation" type="date" required /></div>
           <div class="field"><label>每週可投入時數</label><input v-model.number="r.hoursPerWeek" type="number" min="0" max="80" /></div>
         </div>
@@ -33,14 +34,17 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { post, setToken } from '../api'
 import { store } from '../store'
 const router = useRouter()
 const mode = ref('login'), account = ref(''), password = ref(''), busy = ref(false), error = ref(''), meta = ref(null)
-const r = ref({ studentNo: '', name: '', email: '', password: '', degree: 'BACHELOR', year: 1, departmentId: 1, expectedGraduation: '2030-06-30', hoursPerWeek: 8, consent: false })
-onMounted(async () => { meta.value = await store.loadMeta() })
+const r = ref({ studentNo: '', name: '', email: '', password: '', degree: 'BACHELOR', year: 1, departmentId: 1, entryYear: null, expectedGraduation: '2030-06-30', hoursPerWeek: 8, consent: false })
+const entryTouched = ref(false)
+const colleges = computed(() => { const m = {}; for (const d of meta.value?.departments || []) { (m[d.collegeId] ||= { id: d.collegeId, name: d.college, depts: [] }).depts.push(d) } return Object.values(m) })
+function syncEntryYear() { if (!entryTouched.value && meta.value) r.value.entryYear = meta.value.currentAcademicYear - ((r.value.year || 1) - 1) }
+onMounted(async () => { meta.value = await store.loadMeta(); r.value.departmentId = meta.value.departments[0]?.id || 1; syncEntryYear() })
 async function login() {
   busy.value = true; error.value = ''
   try { const res = await post('/auth/login', { account: account.value, password: password.value }); setToken(res.token); store.user = res.user; store.unread = res.user.unreadNotifications; router.push('/') }

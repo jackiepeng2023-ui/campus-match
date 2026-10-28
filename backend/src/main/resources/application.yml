@@ -12,7 +12,11 @@ spring:
       write-dates-as-timestamps: false
     time-zone: Asia/Taipei
 app:
-  reset-on-start: ${APP_RESET_ON_START:true}   # Demo 模式：啟動時重建 schema 與種子資料
+  seed-mode: ${APP_SEED_MODE:demo}             # demo：載入 50 位示範學生＋劇本資料；reference：正式上線，只載入學校參考資料（科目表、技能表）
+  reset-on-start: ${APP_RESET_ON_START:true}   # true：每次啟動重建 schema（Demo）；false：沿用現有資料，只在資料表不存在時初始化（正式）
+  admin-email: ${APP_ADMIN_EMAIL:}             # 正式模式：啟動時若此帳號不存在則建立管理員
+  admin-password: ${APP_ADMIN_PASSWORD:}
+  admin-name: ${APP_ADMIN_NAME:系統管理員}
   jwt-secret: ${APP_JWT_SECRET:campus-match-demo-secret-key-change-me-in-production-2026}
   demo-password: ${APP_DEMO_PASSWORD:demo1234}
   demo-clock: ${APP_DEMO_CLOCK:true}           # 允許 /admin/clock 快轉時間

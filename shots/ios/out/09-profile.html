@@ -1,0 +1,63 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#fff;font-family:-apple-system,"SF Pro TC","PingFang TC","Noto Sans CJK TC","Noto Sans TC",system-ui,sans-serif;color:#000;font-size:17px;line-height:1.3}
+.phone{width:390px;height:844px;background:#F2F2F7;position:relative;overflow:hidden}
+.status{height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 28px 8px;font-size:15px;font-weight:600}
+.island{position:absolute;left:50%;top:11px;transform:translateX(-50%);width:120px;height:35px;background:#000;border-radius:20px}
+.nav{padding:4px 16px 8px;background:#F2F2F7}
+.nav .large{font-size:34px;font-weight:700;letter-spacing:-.4px;margin:0}
+.nav .inline{font-size:17px;font-weight:600;text-align:center;position:relative}
+.nav .back{position:absolute;left:0;top:0;color:#007AFF;font-weight:400;display:flex;align-items:center;gap:4px}
+.nav .trailing{position:absolute;right:0;top:0;color:#007AFF}
+.content{position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden}.content.tabbed{bottom:83px}
+.scroll{padding:0 16px 100px}
+.hdr{font-size:13px;color:#6D6D72;padding:18px 16px 7px;text-transform:none}
+.ftr{font-size:13px;color:#6D6D72;padding:6px 16px 0}
+.group{background:#fff;border-radius:10px;overflow:hidden}
+.row{padding:11px 16px;display:flex;align-items:center;gap:10px;position:relative;min-height:44px}
+.row+.row::before{content:"";position:absolute;left:16px;right:0;top:0;height:.5px;background:#C6C6C8}
+.row .main{flex:1;min-width:0}
+.row .chev{color:#C4C4C6;font-size:17px}
+.h{font-size:17px;font-weight:600}
+.sub{font-size:12px;color:#8A8A8E;margin-top:2px}
+.cap{font-size:12px;color:#8A8A8E}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.btn{display:inline-block;font-size:15px;font-weight:600;padding:7px 14px;border-radius:8px;background:#007AFF;color:#fff;white-space:nowrap}
+.btn.sm{font-size:13px;padding:4px 10px;border-radius:7px}
+.btn.bordered{background:rgba(0,122,255,.15);color:#007AFF}
+.btn.full{display:block;text-align:center;padding:12px;font-size:17px;border-radius:12px}
+.btn.plain{background:transparent;color:#007AFF;padding:0}
+.tiles{display:flex;gap:10px;overflow:hidden;padding:6px 0}
+.tile{min-width:0;flex:1;background:#fff;border-radius:12px;padding:10px 9px}
+.tile .k{font-size:11px;color:#8A8A8E;white-space:nowrap}.tile .v{font-size:19px;font-weight:700;letter-spacing:-.3px;margin-top:2px}
+.card{background:#fff;border-radius:14px;padding:14px;margin:6px 0}
+.card .top{display:flex;align-items:flex-start;gap:8px}
+.score{font-size:22px;font-weight:700;letter-spacing:-.5px;margin-left:auto}
+.bd{display:flex;gap:8px;margin-top:8px}
+.bd div{flex:1}.bd .f{font-size:11px;color:#8A8A8E}.bd .v{font-size:12px;font-weight:600;margin:1px 0 3px}
+.bar{height:5px;border-radius:3px;background:#E5E5EA}.bar i{display:block;height:100%;border-radius:3px;background:#007AFF}
+.reason{font-size:12px;color:#8A8A8E;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:12px;background:#E9E9EB;border-radius:8px;padding:4px 8px}.chip b{color:#007AFF}.chip s{text-decoration:none;font-size:11px;color:#FF3B30;margin-left:3px}.chip s.opt{color:#8A8A8E}
+.tabbar{position:absolute;left:0;right:0;bottom:0;height:83px;background:#F9F9F9;border-top:.5px solid #C6C6C8;display:flex;justify-content:space-around;padding:8px 10px 0}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:#999;width:70px}
+.tab.on{color:#007AFF}.tab svg{width:26px;height:26px}
+.home{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#000}
+.stars{display:flex;gap:6px;margin:6px 0 2px}.stars span{width:36px;height:36px;border-radius:8px;background:#E9E9EB;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600}.stars span.on{background:#007AFF;color:#fff}
+.sheet{position:absolute;left:0;right:0;top:40px;bottom:0;background:#F2F2F7;border-radius:12px 12px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.25)}
+.dim{position:absolute;inset:0;background:rgba(0,0,0,.35)}
+.tl{display:flex;gap:10px;align-items:flex-start;padding:10px 16px;position:relative}.tl+.tl::before{content:"";position:absolute;left:16px;right:0;top:0;height:.5px;background:#C6C6C8}
+.tl .t{width:72px;font-size:12px;color:#8A8A8E;padding-top:3px}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;line-height:1.45;white-space:pre-wrap;color:#000}
+input.f{width:100%;font:inherit;font-size:17px;padding:10px 12px;border:1px solid #D1D1D6;border-radius:8px;background:#fff}
+.banner{position:absolute;left:8px;right:8px;top:62px;background:rgba(255,255,255,.92);border-radius:22px;padding:12px 14px;display:flex;gap:12px;align-items:center;box-shadow:0 6px 30px rgba(0,0,0,.25)}
+.appicon{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,#0A84FF,#5E5CE6);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px}
+.seg{display:flex;background:#E9E9EB;border-radius:9px;padding:2px;margin:6px 0}.seg span{flex:1;text-align:center;font-size:13px;font-weight:600;padding:6px;border-radius:7px;color:#000}.seg span.on{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.search{background:#E3E3E8;border-radius:10px;padding:8px 10px;color:#8A8A8E;font-size:17px;display:flex;gap:6px;align-items:center;margin:6px 0 4px}
+</style></head><body><div class="phone"><div class="island"></div><div class="status"><span>9:41</span><span>▮▮▮ ᯤ ▭</span></div><div class="content tabbed" style="top:54px"><div class="nav"><h1 class="large">我的檔案</h1></div><div class="scroll" style="height:740px;overflow:hidden">
+  <div class="hdr"></div><div class="group"><div class="row"><div class="main">學號</div><span class="cap" style="font-size:17px">D1400107</span></div><div class="row"><div class="main">系所</div><span class="cap" style="font-size:15px">資電學院／資訊工程學系</span></div><div class="row"><div class="main">學制</div><span class="cap" style="font-size:17px">學士 2 年級</span></div><div class="row"><div class="main">別人看到的我</div><span class="chev">›</span></div></div>
+  <div class="hdr">可投入時間（時間閘門）</div><div class="group"><div class="row"><div class="main">每週可投入 15 小時</div><span style="background:#E9E9EB;border-radius:8px;padding:4px 10px;font-size:15px">−　|　+</span></div></div>
+  <div class="hdr">技能檔</div><div class="group"><div class="row"><div class="main"><div>專案管理</div><div class="sub">其他 · 預設 4 · 自評上調</div></div><span class="cap" style="font-size:17px;color:#000">5 級 ⌃⌄</span></div><div class="row"><div class="main"><div>Vue</div><div class="sub">前端 · 預設 3 · 自評上調</div></div><span class="cap" style="font-size:17px;color:#000">5 級 ⌃⌄</span></div><div class="row"><div class="main"><div>Python</div><div class="sub">後端 · 預設 3 · 自評上調</div></div><span class="cap" style="font-size:17px;color:#000">5 級 ⌃⌄</span></div><div class="row"><div class="main"><div>Spring Boot</div><div class="sub">後端 · 預設 4 · 自評上調</div></div><span class="cap" style="font-size:17px;color:#000">5 級 ⌃⌄</span></div></div>
+  <div class="ftr">預設等級來自成績；你可以調整，幅度會被記錄，由結案互評的「相符度」檢驗。對外只顯示等級。</div>
+  <div class="hdr">修課成績（只有你看得到）</div><div class="group"><div class="row"><div class="main"><div>Vue 專題實作</div><div class="sub">114-2 → Vue</div></div><span class="h">72</span></div><div class="row"><div class="main"><div>介面原型</div><div class="sub">114-2 → Figma</div></div><span class="h">72</span></div><div class="row"><div class="main"><div>軟體工程</div><div class="sub">114-2 → Spring Boot、專案管理</div></div><span class="h">81</span></div></div>
+</div></div><div class="tabbar"><div class="tab "><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 2.5 11h2.8v9h5.2v-6h3v6h5.2v-9h2.8z"/></svg><span>首頁</span></div><div class="tab "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9h10M7 13h10M7 17h6"/></svg><span>案件</span></div><div class="tab "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 20h18M4 16l5-6 4 3 7-8"/></svg><span>成長</span></div><div class="tab on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="10" r="3.2"/><path d="M5.5 19c1.6-3 4-4.2 6.5-4.2s4.9 1.2 6.5 4.2"/></svg><span>我的檔案</span></div></div><div class="home"></div></div></body></html>

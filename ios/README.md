@@ -41,5 +41,6 @@ open CampusMatch.xcodeproj
 | `ReviewView.swift` | 雙盲互評表單 |
 | `GrowthView.swift` | 雷達圖（Canvas）、時間軸、AI Prompt |
 | `ProfileView.swift` | 成績、技能檔、得獎、可投入時間、公開檔案、刪除帳號 |
+| `CoursePickerView.swift` | 科目清單填分數：系所 × 學制 × 入學學年度 → 必修／選修／通識／搜尋全校，點科目填分數，沒有技能對照的科目可自填技能送審 |
 | `NotificationsView.swift` | 站內通知 |
 | `Components.swift` | ScoreCard、Pill、Stars、FlowLayout 等共用元件 |

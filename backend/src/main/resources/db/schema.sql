@@ -35,9 +35,29 @@ DROP TABLE IF EXISTS colleges CASCADE;
 CREATE TABLE colleges (id SERIAL PRIMARY KEY, name VARCHAR(50) UNIQUE NOT NULL);
 CREATE TABLE departments (id SERIAL PRIMARY KEY, college_id INT NOT NULL REFERENCES colleges(id), name VARCHAR(50) UNIQUE NOT NULL);
 CREATE TABLE skills (id SERIAL PRIMARY KEY, name VARCHAR(50) UNIQUE NOT NULL, category VARCHAR(20) NOT NULL);
-CREATE TABLE courses (id SERIAL PRIMARY KEY, department_id INT REFERENCES departments(id), name VARCHAR(80) NOT NULL,
-  is_graduate BOOLEAN NOT NULL DEFAULT FALSE, UNIQUE (department_id, name));
-CREATE TABLE course_skill_map (course_id INT REFERENCES courses(id), skill_id INT REFERENCES skills(id), PRIMARY KEY (course_id, skill_id));
+-- 正式科目表：每個入學學年度 × 系所 × 學制一份；department_id NULL = 校共同必修／通識（全校共用）
+CREATE TABLE courses (
+  id SERIAL PRIMARY KEY,
+  department_id INT REFERENCES departments(id),
+  code VARCHAR(16),
+  name VARCHAR(120) NOT NULL,
+  degree VARCHAR(10) NOT NULL DEFAULT 'BACHELOR' CHECK (degree IN ('BACHELOR','MASTER','PHD')),
+  entry_year SMALLINT,                                   -- 入學學年度；NULL = 不分年度（Demo 資料）
+  requirement VARCHAR(10) NOT NULL DEFAULT 'ELECTIVE' CHECK (requirement IN ('REQUIRED','ELECTIVE','GENERAL')),
+  group_code VARCHAR(20),
+  credits NUMERIC(3,1),
+  grade_year SMALLINT,
+  term SMALLINT,
+  is_graduate BOOLEAN NOT NULL DEFAULT FALSE,
+  source_url TEXT,
+  UNIQUE NULLS NOT DISTINCT (department_id, degree, entry_year, name));
+CREATE INDEX idx_courses_lookup ON courses (department_id, degree, entry_year, requirement);
+-- 科目 → 技能對照：ADMIN 人工、RULE 關鍵字規則、LLM 建議（待核准）、SELF 學生自填；只有 approved 的對照會換算技能等級
+CREATE TABLE course_skill_map (
+  course_id INT REFERENCES courses(id) ON DELETE CASCADE, skill_id INT REFERENCES skills(id),
+  source VARCHAR(10) NOT NULL DEFAULT 'ADMIN' CHECK (source IN ('ADMIN','RULE','LLM','SELF')),
+  confidence NUMERIC(3,2) NOT NULL DEFAULT 1.0, approved BOOLEAN NOT NULL DEFAULT TRUE,
+  PRIMARY KEY (course_id, skill_id));
 -- D14 學制換算表
 CREATE TABLE grade_conversion (degree_group VARCHAR(10) NOT NULL, min_score INT NOT NULL, level SMALLINT NOT NULL, PRIMARY KEY (degree_group, min_score));
 -- D41 得獎矩陣
@@ -53,6 +73,7 @@ CREATE TABLE users (
   degree VARCHAR(10) NOT NULL CHECK (degree IN ('BACHELOR','MASTER','PHD')),
   year SMALLINT NOT NULL,
   department_id INT NOT NULL REFERENCES departments(id),
+  entry_year SMALLINT,                                   -- 入學學年度（民國），決定適用的科目表
   expected_graduation DATE NOT NULL,
   role VARCHAR(10) NOT NULL DEFAULT 'STUDENT' CHECK (role IN ('STUDENT','ADMIN')),
   demo_tag VARCHAR(30),

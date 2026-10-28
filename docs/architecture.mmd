@@ -1,0 +1,41 @@
+flowchart LR
+  subgraph C["用戶端（共用同一套 REST API）"]
+    direction TB
+    WEB["Vue 3 SPA<br/>10 個畫面 · views / components / api.js / store.js"]
+    IOS["SwiftUI iOS App<br/>Views · AppState · APIClient · Codable Models"]
+  end
+
+  subgraph B["後端 Spring Boot 3（單一 jar，內嵌網頁）"]
+    direction TB
+    SEC["Security 層<br/>JwtFilter · 角色授權 · CORS"]
+    subgraph M["六個領域模組：Controller → Service → Db（JdbcTemplate）"]
+      direction LR
+      M1["M1 帳號與檔案<br/>成績→技能換算"]
+      M2["M2 案件與狀態機<br/>申請／邀請 · 名額鎖定"]
+      M3["M3 推薦排序<br/>RankingService"]
+      M4["M4 結案與互評<br/>投票 · 雙盲"]
+      M5["M5 成長與分析<br/>儀表板 · AI Prompt"]
+      M6["M6 管理<br/>參數 · Demo 時鐘"]
+    end
+    ENG["RankingEngine<br/>純 Java 領域核心（無框架相依，可單元測試）"]
+    SCH["SchedulerService<br/>@Scheduled 每分鐘 · 注入 DemoClock"]
+    NTF["NotificationService<br/>站內通知 + ApnsSender（ES256 JWT）"]
+    LOG["event_logs 稽核"]
+  end
+
+  DB[("PostgreSQL 16<br/>30 張表：主檔 · 流程 · 參數 · 歷史 · 稽核")]
+  APNS["Apple APNs"]
+
+  WEB -->|"HTTPS JSON /api/v1"| SEC
+  IOS -->|"HTTPS JSON /api/v1"| SEC
+  SEC --> M
+  M3 --> ENG
+  M2 -.->|"閘門與評分"| M3
+  M2 --> NTF
+  M4 --> NTF
+  SCH --> M2
+  SCH --> M4
+  SCH --> M1
+  M --> DB
+  M --> LOG
+  NTF --> APNS

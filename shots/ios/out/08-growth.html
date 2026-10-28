@@ -1,0 +1,71 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#fff;font-family:-apple-system,"SF Pro TC","PingFang TC","Noto Sans CJK TC","Noto Sans TC",system-ui,sans-serif;color:#000;font-size:17px;line-height:1.3}
+.phone{width:390px;height:844px;background:#F2F2F7;position:relative;overflow:hidden}
+.status{height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 28px 8px;font-size:15px;font-weight:600}
+.island{position:absolute;left:50%;top:11px;transform:translateX(-50%);width:120px;height:35px;background:#000;border-radius:20px}
+.nav{padding:4px 16px 8px;background:#F2F2F7}
+.nav .large{font-size:34px;font-weight:700;letter-spacing:-.4px;margin:0}
+.nav .inline{font-size:17px;font-weight:600;text-align:center;position:relative}
+.nav .back{position:absolute;left:0;top:0;color:#007AFF;font-weight:400;display:flex;align-items:center;gap:4px}
+.nav .trailing{position:absolute;right:0;top:0;color:#007AFF}
+.content{position:absolute;top:0;left:0;right:0;bottom:0;overflow:hidden}.content.tabbed{bottom:83px}
+.scroll{padding:0 16px 100px}
+.hdr{font-size:13px;color:#6D6D72;padding:18px 16px 7px;text-transform:none}
+.ftr{font-size:13px;color:#6D6D72;padding:6px 16px 0}
+.group{background:#fff;border-radius:10px;overflow:hidden}
+.row{padding:11px 16px;display:flex;align-items:center;gap:10px;position:relative;min-height:44px}
+.row+.row::before{content:"";position:absolute;left:16px;right:0;top:0;height:.5px;background:#C6C6C8}
+.row .main{flex:1;min-width:0}
+.row .chev{color:#C4C4C6;font-size:17px}
+.h{font-size:17px;font-weight:600}
+.sub{font-size:12px;color:#8A8A8E;margin-top:2px}
+.cap{font-size:12px;color:#8A8A8E}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.btn{display:inline-block;font-size:15px;font-weight:600;padding:7px 14px;border-radius:8px;background:#007AFF;color:#fff;white-space:nowrap}
+.btn.sm{font-size:13px;padding:4px 10px;border-radius:7px}
+.btn.bordered{background:rgba(0,122,255,.15);color:#007AFF}
+.btn.full{display:block;text-align:center;padding:12px;font-size:17px;border-radius:12px}
+.btn.plain{background:transparent;color:#007AFF;padding:0}
+.tiles{display:flex;gap:10px;overflow:hidden;padding:6px 0}
+.tile{min-width:0;flex:1;background:#fff;border-radius:12px;padding:10px 9px}
+.tile .k{font-size:11px;color:#8A8A8E;white-space:nowrap}.tile .v{font-size:19px;font-weight:700;letter-spacing:-.3px;margin-top:2px}
+.card{background:#fff;border-radius:14px;padding:14px;margin:6px 0}
+.card .top{display:flex;align-items:flex-start;gap:8px}
+.score{font-size:22px;font-weight:700;letter-spacing:-.5px;margin-left:auto}
+.bd{display:flex;gap:8px;margin-top:8px}
+.bd div{flex:1}.bd .f{font-size:11px;color:#8A8A8E}.bd .v{font-size:12px;font-weight:600;margin:1px 0 3px}
+.bar{height:5px;border-radius:3px;background:#E5E5EA}.bar i{display:block;height:100%;border-radius:3px;background:#007AFF}
+.reason{font-size:12px;color:#8A8A8E;margin-top:4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:12px;background:#E9E9EB;border-radius:8px;padding:4px 8px}.chip b{color:#007AFF}.chip s{text-decoration:none;font-size:11px;color:#FF3B30;margin-left:3px}.chip s.opt{color:#8A8A8E}
+.tabbar{position:absolute;left:0;right:0;bottom:0;height:83px;background:#F9F9F9;border-top:.5px solid #C6C6C8;display:flex;justify-content:space-around;padding:8px 10px 0}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:#999;width:70px}
+.tab.on{color:#007AFF}.tab svg{width:26px;height:26px}
+.home{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#000}
+.stars{display:flex;gap:6px;margin:6px 0 2px}.stars span{width:36px;height:36px;border-radius:8px;background:#E9E9EB;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600}.stars span.on{background:#007AFF;color:#fff}
+.sheet{position:absolute;left:0;right:0;top:40px;bottom:0;background:#F2F2F7;border-radius:12px 12px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.25)}
+.dim{position:absolute;inset:0;background:rgba(0,0,0,.35)}
+.tl{display:flex;gap:10px;align-items:flex-start;padding:10px 16px;position:relative}.tl+.tl::before{content:"";position:absolute;left:16px;right:0;top:0;height:.5px;background:#C6C6C8}
+.tl .t{width:72px;font-size:12px;color:#8A8A8E;padding-top:3px}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;line-height:1.45;white-space:pre-wrap;color:#000}
+input.f{width:100%;font:inherit;font-size:17px;padding:10px 12px;border:1px solid #D1D1D6;border-radius:8px;background:#fff}
+.banner{position:absolute;left:8px;right:8px;top:62px;background:rgba(255,255,255,.92);border-radius:22px;padding:12px 14px;display:flex;gap:12px;align-items:center;box-shadow:0 6px 30px rgba(0,0,0,.25)}
+.appicon{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,#0A84FF,#5E5CE6);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px}
+.seg{display:flex;background:#E9E9EB;border-radius:9px;padding:2px;margin:6px 0}.seg span{flex:1;text-align:center;font-size:13px;font-weight:600;padding:6px;border-radius:7px;color:#000}.seg span.on{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.search{background:#E3E3E8;border-radius:10px;padding:8px 10px;color:#8A8A8E;font-size:17px;display:flex;gap:6px;align-items:center;margin:6px 0 4px}
+</style></head><body><div class="phone"><div class="island"></div><div class="status"><span>9:41</span><span>▮▮▮ ᯤ ▭</span></div><div class="content tabbed" style="top:54px"><div class="nav"><h1 class="large">成長</h1></div><div class="scroll" style="height:740px;overflow:hidden">
+  <div class="hdr">技能雷達（各類別平均等級）</div><div class="group" style="padding:6px;text-align:center"><svg width="340" height="250" viewBox="0 0 340 250"><polygon points="170,106.6 187.49943989983083,119.31408730350097 180.8152486421815,139.88591269649902 159.1847513578185,139.88591269649902 152.50056010016917,119.31408730350097" fill="none" stroke="#D1D1D6" stroke-width=".8"/><polygon points="170,88.2 204.99887979966164,113.62817460700194 191.630497284363,154.77182539299807 148.369502715637,154.77182539299807 135.00112020033833,113.62817460700194" fill="none" stroke="#D1D1D6" stroke-width=".8"/><polygon points="170,69.8 222.49831969949247,107.9422619105029 202.44574592654453,169.65773808949712 137.5542540734555,169.65773808949712 117.50168030050752,107.9422619105029" fill="none" stroke="#D1D1D6" stroke-width=".8"/><polygon points="170,51.400000000000006 239.99775959932327,102.25634921400388 213.260994568726,184.54365078599614 126.739005431274,184.54365078599614 100.0022404006767,102.25634921400388" fill="none" stroke="#D1D1D6" stroke-width=".8"/><polygon points="170,33 257.49719949915414,96.57043651750485 224.07624321090753,199.42956348249515 115.92375678909248,199.42956348249515 82.50280050084586,96.57043651750485" fill="none" stroke="#D1D1D6" stroke-width=".8"/><line x1="170" y1="125" x2="170" y2="33" stroke="#D1D1D6" stroke-width=".8"/><line x1="170" y1="125" x2="257.49719949915414" y2="96.57043651750485" stroke="#D1D1D6" stroke-width=".8"/><line x1="170" y1="125" x2="224.07624321090753" y2="199.42956348249515" stroke="#D1D1D6" stroke-width=".8"/><line x1="170" y1="125" x2="115.92375678909248" y2="199.42956348249515" stroke="#D1D1D6" stroke-width=".8"/><line x1="170" y1="125" x2="82.50280050084586" y2="96.57043651750485" stroke="#D1D1D6" stroke-width=".8"/><polygon points="170,33 257.49719949915414,96.57043651750485 224.07624321090753,199.42956348249515 115.92375678909248,199.42956348249515 91.25252045076128,99.41339286575436" fill="rgba(0,122,255,.18)" stroke="#007AFF" stroke-width="2"/><text x="170" y="17" text-anchor="middle" font-size="12" fill="#000">其他</text><text x="276.5183298250572" y="94.3900966300059" text-anchor="middle" font-size="12" fill="#000">前端</text><text x="235.831948256757" y="219.60990336999413" text-anchor="middle" font-size="12" fill="#000">後端</text><text x="104.16805174324303" y="219.60990336999413" text-anchor="middle" font-size="12" fill="#000">設計</text><text x="63.48167017494279" y="94.3900966300059" text-anchor="middle" font-size="12" fill="#000">資料分析</text></svg></div>
+  <div class="tiles"><div class="tile"><div class="k">隊友評價</div><div class="v">3.7</div></div><div class="tile"><div class="k">相符度</div><div class="v">2.0</div></div><div class="tile"><div class="k">可信度</div><div class="v">0.6</div></div><div class="tile"><div class="k">回應率</div><div class="v">100%</div></div></div>
+  <div class="hdr">AI 成長建議</div><div class="group"><div class="row" style="font-size:15px">成長目標：成為前端工程師</div><div class="row" style="font-size:15px">想問的問題：下學期該補什麼？</div><div class="row" style="color:#007AFF;font-weight:600">產生 Prompt</div><div class="row" style="display:block"><div class="cap" style="color:#FF9500;margin-bottom:6px">此內容將由你選擇的外部 AI 服務處理，適用該服務的隱私政策。內容不含隊友姓名、評語原文與案件名稱；複製前可自行刪改。…</div><div class="mono">你是一位大學生涯與技能發展顧問。請根據以下學生資料，提供具體、可執行的成長建議。
+資料由學生本人從校園媒合平台匯出，技能等級為 1–5 級。
+
+【基本資料】
+學制：學士，2 年級，資電學院／資訊工程學系，預計畢業：2029-06-30
+
+【技能現況與變化】
+- Figma：目前 5 級；變化：2026-06 —→3(成績)、2026-07 3→5(自評)
+- Python：目前 5 級；變化：2026-01 —→3(成績)、2026-02 3→5(自評)
+…</div></div><div class="row" style="color:#007AFF;font-weight:600">複製到剪貼簿</div></div>
+  <div class="hdr">成長時間軸</div><div class="group"><div class="tl"><span class="t">10/30 11:58</span><span class="pill" style="background:#34C75922;color:#34C759">評價</span><span style="font-size:14px;flex:1">「創業競賽需要網站 Demo」隊友評價 3.7／5，相符度 2.0</span></div><div class="tl"><span class="t">10/30 11:58</span><span class="pill" style="background:#AF52DE22;color:#AF52DE">結案</span><span style="font-size:14px;flex:1">「創業競賽需要網站 Demo」結案（完成）</span></div><div class="tl"><span class="t">10/30 11:58</span><span class="pill" style="background:#007AFF22;color:#007AFF">技能</span><span style="font-size:14px;flex:1">Vue：5 → 5（結案驗證）</span></div></div>
+</div></div><div class="tabbar"><div class="tab "><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 2.5 11h2.8v9h5.2v-6h3v6h5.2v-9h2.8z"/></svg><span>首頁</span></div><div class="tab "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9h10M7 13h10M7 17h6"/></svg><span>案件</span></div><div class="tab on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 20h18M4 16l5-6 4 3 7-8"/></svg><span>成長</span></div><div class="tab "><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="10" r="3.2"/><path d="M5.5 19c1.6-3 4-4.2 6.5-4.2s4.9 1.2 6.5 4.2"/></svg><span>我的檔案</span></div></div><div class="home"></div></div></body></html>

@@ -26,18 +26,14 @@ public class UserController {
     /** 表單用參考資料 */
     @GetMapping("/meta")
     public Map<String, Object> meta() {
-        return Map.of(
-                "colleges", db.list("SELECT id, name FROM colleges ORDER BY id"),
-                "departments", db.list("SELECT d.id, d.name, d.college_id \"collegeId\", c.name college FROM departments d JOIN colleges c ON c.id = d.college_id ORDER BY d.id"),
-                "skills", db.list("SELECT id, name, category FROM skills ORDER BY category, id"),
-                "courses", db.list("""
-                        SELECT co.id, co.name, co.department_id "departmentId", co.is_graduate "isGraduate",
-                               (SELECT string_agg(s.name, '、' ORDER BY s.name) FROM course_skill_map m JOIN skills s ON s.id = m.skill_id WHERE m.course_id = co.id) skills
-                        FROM courses co ORDER BY co.department_id NULLS LAST, co.name"""),
-                "caseTypes", List.of(Map.of("code", "PROJECT", "label", "專題"), Map.of("code", "COMPETITION", "label", "競賽"),
-                        Map.of("code", "SHORT_TERM", "label", "短期支援"), Map.of("code", "RESEARCH", "label", "研究協作")),
-                "gradeConversion", db.list("SELECT degree_group \"degreeGroup\", min_score \"minScore\", level FROM grade_conversion ORDER BY degree_group, min_score DESC"),
-                "awardMatrix", db.list("SELECT rank, level, score FROM award_matrix ORDER BY rank, level"));
+        return Map.ofEntries(Map.entry("colleges", db.list("SELECT id, name FROM colleges ORDER BY id")),
+                Map.entry("departments", db.list("SELECT d.id, d.name, d.college_id \"collegeId\", c.name college FROM departments d JOIN colleges c ON c.id = d.college_id ORDER BY c.id, d.id")),
+                Map.entry("skills", db.list("SELECT id, name, category FROM skills ORDER BY category, id")),
+                Map.entry("currentAcademicYear", users.currentAcademicYear()),      // 科目清單改由 GET /courses 依 系所×學制×入學學年度 查詢（全校兩萬多筆，不再隨 /meta 回傳）
+                Map.entry("caseTypes", List.of(Map.of("code", "PROJECT", "label", "專題"), Map.of("code", "COMPETITION", "label", "競賽"),
+                        Map.of("code", "SHORT_TERM", "label", "短期支援"), Map.of("code", "RESEARCH", "label", "研究協作"))),
+                Map.entry("gradeConversion", db.list("SELECT degree_group \"degreeGroup\", min_score \"minScore\", level FROM grade_conversion ORDER BY degree_group, min_score DESC")),
+                Map.entry("awardMatrix", db.list("SELECT rank, level, score FROM award_matrix ORDER BY rank, level")));
     }
 
     // ----- 本人 -----

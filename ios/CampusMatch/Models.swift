@@ -4,7 +4,10 @@ import Foundation
 struct AuthResponse: Codable { let token: String; let user: Me }
 
 struct Availability: Codable { var hoursPerWeek: Int; var availableFrom: String; var availableTo: String }
-struct Grade: Codable, Identifiable { let id: Int; let courseId: Int; let course: String; let score: Int; let semester: String; let skills: String? }
+struct Grade: Codable, Identifiable {
+    let id: Int; let courseId: Int; let course: String; let score: Int; let semester: String; let skills: String?
+    let code: String?; let requirement: String?; let credits: Double?; let gradeYear: Int?; let term: Int?; let department: String?; let pendingSkills: String?
+}
 struct UserSkill: Codable, Identifiable {
     let skillId: Int; let name: String; let category: String; let defaultLevel: Int?; let level: Int; let source: String
     var id: Int { skillId }
@@ -16,7 +19,7 @@ struct Stats: Codable {
 }
 struct Me: Codable {
     let id: Int; let studentNo: String; let name: String; let email: String; let degree: String; let year: Int; let role: String
-    let departmentId: Int; let department: String; let college: String; let expectedGraduation: String
+    let departmentId: Int; let entryYear: Int?; let department: String; let college: String; let expectedGraduation: String
     let availability: Availability?; let grades: [Grade]; let skills: [UserSkill]; let awards: [Award]; let stats: Stats
     let unreadNotifications: Int
 }
@@ -28,8 +31,15 @@ struct PublicProfile: Codable {
 
 struct MetaSkill: Codable, Identifiable { let id: Int; let name: String; let category: String }
 struct MetaDepartment: Codable, Identifiable { let id: Int; let name: String; let collegeId: Int; let college: String }
-struct MetaCourse: Codable, Identifiable { let id: Int; let name: String; let departmentId: Int?; let isGraduate: Bool; let skills: String? }
-struct Meta: Codable { let skills: [MetaSkill]; let departments: [MetaDepartment]; let courses: [MetaCourse] }
+struct Meta: Codable { let skills: [MetaSkill]; let departments: [MetaDepartment]; let currentAcademicYear: Int? }
+
+// 正式科目表（GET /courses）：系所 × 學制 × 入學學年度；requirement = REQUIRED／ELECTIVE／GENERAL
+struct Course: Codable, Identifiable {
+    let id: Int; let code: String?; let name: String; let requirement: String; let groupCode: String?; let credits: Double?
+    let gradeYear: Int?; let term: Int?; let entryYear: Int?; let degree: String?; let departmentId: Int?; let department: String?
+    let skills: String?; let pendingSkills: String?; let myScore: Int?; let mySemester: String?
+}
+struct CourseOptions: Codable { let departmentId: Int; let degree: String; let entryYear: Int?; let years: [Int]; let nearestYear: Int?; let currentAcademicYear: Int }
 
 struct Engagement: Codable, Identifiable {
     let id: Int; let direction: String; let status: String; let message: String?; let score: Double?; let dueAt: String
@@ -111,6 +121,7 @@ enum Labels {
     static let status = ["DRAFT": "草稿", "OPEN": "招募中", "FORMED": "已成案", "IN_PROGRESS": "執行中", "CLOSING": "結案確認中", "CLOSED": "已結案", "CANCELLED": "已取消", "EXPIRED": "截止未成案"]
     static let eng = ["PENDING": "待回覆", "ACCEPTED": "已成立", "DECLINED": "已拒絕", "WITHDRAWN": "已撤回", "EXPIRED": "逾時放棄", "FULL": "額滿"]
     static let degree = ["BACHELOR": "學士", "MASTER": "碩士", "PHD": "博士"]
+    static let requirement = ["REQUIRED": "必修", "ELECTIVE": "選修", "GENERAL": "通識"]
     static let factor = ["S": "技能", "T": "時間", "R": "評價", "P": "回應", "C": "跨系"]
     static let level = ["CAMPUS": "校內", "NATIONAL": "全國", "INTERNATIONAL": "國際"]
     static let rank = ["FIRST": "第一名", "TOP3": "前三名", "HONORABLE": "佳作", "FINALIST": "入圍"]

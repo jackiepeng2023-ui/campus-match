@@ -17,10 +17,10 @@ rng = random.Random(SEED)
 
 # ---------- 參考資料 ----------
 COLLEGES = {
-    "資電學院": ["資訊工程學系", "電機工程學系"],
+    "資訊電機學院": ["資訊工程學系", "電機工程學系"],
     "商學院": ["企業管理學系", "行銷學系", "統計學系"],
     "建設學院": ["土木工程學系"],
-    "建築專業學院": ["建築學系"],
+    "建築專業學院": ["建築學士學位學程"],
     "工程與科學學院": ["工業工程與系統管理學系"],
     "人文社會學院": ["中國文學系", "外國語文學系"],
     "創意設計學院": ["創意設計學系"],  # 虛構學院，供 UI/UX 需求 Demo
@@ -51,7 +51,7 @@ COURSES = {
     "統計學系": [("統計學", ["統計"]), ("迴歸分析", ["統計", "資料分析"]),
               ("統計軟體", ["Python", "SQL"]), ("資料視覺化", ["資料視覺化"])],
     "土木工程學系": [("工程數學", ["資料分析"]), ("營建管理", ["專案管理"]), ("計算機概論", ["Python"])],
-    "建築學系": [("建築設計", ["平面設計"]), ("數位建築", ["UI/UX 設計"]), ("建築表現法", ["簡報設計"])],
+    "建築學士學位學程": [("建築設計", ["平面設計"]), ("數位建築", ["UI/UX 設計"]), ("建築表現法", ["簡報設計"])],
     "工業工程與系統管理學系": [("作業研究", ["資料分析"]), ("品質管理", ["統計"]),
                        ("人因工程", ["UI/UX 設計"]), ("生產管理", ["專案管理"])],
     "中國文學系": [("文學寫作", ["簡報設計"]), ("文案企劃", ["行銷企劃"])],
@@ -157,7 +157,7 @@ for i in range(50):
     entry_year = ACADEMIC_YEAR_START - (year - 1)
     sid = i + 1
     s = dict(id=sid, student_no=student_no(degree, entry_year, 100 + sid), name=name,
-             email=f"student{sid:03d}@example.edu", degree=degree, year=year,
+             email=f"student{sid:03d}@example.edu", degree=degree, year=year, entry_year=entry_year,
              dept=dept, dept_id=dept_id[dept], college=college_of[dept],
              expected_graduation=expected_grad(degree, year).isoformat(),
              demo_tag=persona["tag"] if persona else None,
@@ -298,9 +298,9 @@ def sem_adjust(sem):
     y, t = sem.split("-"); y = 1911 + int(y)
     return f"{y + 1}-02-15T20:00:00+08" if t == "1" else f"{y + 1}-07-10T20:00:00+08"
 for s in students:
-    L.append(f"INSERT INTO users (student_no, name, email, password_hash, degree, year, department_id, expected_graduation, demo_tag) "
+    L.append(f"INSERT INTO users (student_no, name, email, password_hash, degree, year, department_id, entry_year, expected_graduation, demo_tag) "
              f"VALUES ({q(s['student_no'])}, {q(s['name'])}, {q(s['email'])}, '{{RESET_ON_BOOT}}', {q(s['degree'])}, {s['year']}, "
-             f"(SELECT id FROM departments WHERE name={q(s['dept'])}), {q(s['expected_graduation'])}, {q(s['demo_tag'])});")
+             f"(SELECT id FROM departments WHERE name={q(s['dept'])}), {s['entry_year'] - 1911}, {q(s['expected_graduation'])}, {q(s['demo_tag'])});")
     uid = f"(SELECT id FROM users WHERE student_no={q(s['student_no'])})"
     L.append(f"INSERT INTO user_availability VALUES ({uid}, {s['hours_per_week']}, {q(s['available_from'])}, {q(s['available_to'])});")
     for g in s["grades"]:

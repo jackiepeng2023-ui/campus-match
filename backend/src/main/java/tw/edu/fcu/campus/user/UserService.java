@@ -28,7 +28,13 @@ public class UserService {
 
     // ---------- 註冊 / 登入 ----------
     public record RegisterIn(String studentNo, String name, String email, String password, String degree, Integer year,
-                             Integer departmentId, String expectedGraduation, Integer hoursPerWeek, Boolean consent) {}
+                             Integer departmentId, Integer entryYear, String expectedGraduation, Integer hoursPerWeek, Boolean consent) {}
+
+    /** 目前學年度（民國）：8 月起算新學年 */
+    public int currentAcademicYear() {
+        LocalDate d = LocalDate.now(clock);
+        return d.getYear() - 1911 - (d.getMonthValue() < 8 ? 1 : 0);
+    }
 
     @Transactional
     public Map<String, Object> register(RegisterIn in) {
@@ -37,15 +43,17 @@ public class UserService {
         if (!Set.of("BACHELOR", "MASTER", "PHD").contains(in.degree())) throw ApiException.badRequest("學制須為 BACHELOR／MASTER／PHD");
         if (in.year() == null || in.year() < 1 || in.year() > 7) throw ApiException.badRequest("年級須介於 1–7");
         if (in.departmentId() == null || db.count("SELECT count(*) FROM departments WHERE id = :d", "d", in.departmentId()) == 0) throw ApiException.badRequest("系所不存在");
+        int entryYear = in.entryYear() == null ? currentAcademicYear() - (in.year() - 1) : in.entryYear();   // 未填則由年級推算
+        if (entryYear < 90 || entryYear > currentAcademicYear() + 1) throw ApiException.badRequest("入學學年度須為民國年（例如 115）");
         if (db.count("SELECT count(*) FROM users WHERE student_no = :s OR email = :e", "s", in.studentNo(), "e", in.email()) > 0)
             throw ApiException.conflict("DUPLICATE", "學號或 Email 已註冊");
         LocalDate grad;
         try { grad = LocalDate.parse(in.expectedGraduation()); } catch (Exception e) { throw ApiException.badRequest("預計畢業日格式須為 YYYY-MM-DD"); }
         int id = db.insertReturningId("""
-                INSERT INTO users (student_no, name, email, password_hash, degree, year, department_id, expected_graduation)
-                VALUES (:s, :n, :e, :p, :d, :y, :dep, :g) RETURNING id""",
+                INSERT INTO users (student_no, name, email, password_hash, degree, year, department_id, entry_year, expected_graduation)
+                VALUES (:s, :n, :e, :p, :d, :y, :dep, :ey, :g) RETURNING id""",
                 "s", in.studentNo().trim(), "n", in.name().trim(), "e", in.email().trim().toLowerCase(), "p", encoder.encode(in.password()),
-                "d", in.degree(), "y", in.year(), "dep", in.departmentId(), "g", grad);
+                "d", in.degree(), "y", in.year(), "dep", in.departmentId(), "ey", entryYear, "g", grad);
         LocalDate today = LocalDate.now(clock);
         db.exec("INSERT INTO user_availability VALUES (:u, :h, :f, :t)", "u", id, "h", in.hoursPerWeek() == null ? 8 : in.hoursPerWeek(), "f", today, "t", today.plusMonths(6));
         db.exec("INSERT INTO consents (user_id, purpose, terms_version, agreed_at) VALUES (:u, 'MATCHING', 'v1', :t), (:u, 'RETENTION', 'v1', :t)", "u", id, "t", Db.ts(clock.instant()));
@@ -69,9 +77,12 @@ public class UserService {
         Map<String, Object> m = new LinkedHashMap<>(basic(uid));
         m.put("availability", db.one("SELECT hours_per_week \"hoursPerWeek\", available_from \"availableFrom\", available_to \"availableTo\" FROM user_availability WHERE user_id = :u", "u", uid));
         m.put("grades", db.list("""
-                SELECT g.id, g.course_id "courseId", co.name course, g.score, g.semester,
-                       (SELECT string_agg(s.name, '、' ORDER BY s.name) FROM course_skill_map cm JOIN skills s ON s.id = cm.skill_id WHERE cm.course_id = co.id) skills
-                FROM user_grades g JOIN courses co ON co.id = g.course_id WHERE g.user_id = :u ORDER BY g.semester DESC, co.name""", "u", uid));
+                SELECT g.id, g.course_id "courseId", co.name course, co.code, co.requirement, co.credits, co.grade_year "gradeYear", co.term,
+                       d.name department, g.score, g.semester,
+                       (SELECT string_agg(s.name, '、' ORDER BY s.name) FROM course_skill_map cm JOIN skills s ON s.id = cm.skill_id WHERE cm.course_id = co.id AND cm.approved) skills,
+                       (SELECT string_agg(s.name, '、' ORDER BY s.name) FROM course_skill_map cm JOIN skills s ON s.id = cm.skill_id WHERE cm.course_id = co.id AND NOT cm.approved) "pendingSkills"
+                FROM user_grades g JOIN courses co ON co.id = g.course_id LEFT JOIN departments d ON d.id = co.department_id
+                WHERE g.user_id = :u ORDER BY g.semester DESC, co.requirement, co.name""", "u", uid));
         m.put("skills", skills(uid));
         m.put("awards", awards(uid));
         m.put("stats", stats.of(uid).toMap());
@@ -81,7 +92,7 @@ public class UserService {
 
     private Map<String, Object> basic(int uid) {
         return db.required("""
-                SELECT u.id, u.student_no "studentNo", u.name, u.email, u.degree, u.year, u.role, u.department_id "departmentId",
+                SELECT u.id, u.student_no "studentNo", u.name, u.email, u.degree, u.year, u.role, u.department_id "departmentId", u.entry_year "entryYear",
                        d.name department, c.name college, u.expected_graduation "expectedGraduation", u.demo_tag "demoTag", u.created_at "createdAt"
                 FROM users u JOIN departments d ON d.id = u.department_id JOIN colleges c ON c.id = d.college_id WHERE u.id = :u""", "找不到使用者", "u", uid);
     }
@@ -112,16 +123,30 @@ public class UserService {
     }
 
     // ---------- 成績 → 技能等級（D10、D14） ----------
-    public record GradeIn(Integer courseId, Integer score, String semester) {}
+    /** skillIds：學生對「尚無技能對照」的科目自填對應技能 → 寫入 course_skill_map(source=SELF, approved=false)，待管理員核准後才影響排序 */
+    public record GradeIn(Integer courseId, Integer score, String semester, List<Integer> skillIds) {}
 
     @Transactional
     public Map<String, Object> upsertGrades(int uid, List<GradeIn> grades) {
+        Integer entryYear = db.scalar(Integer.class, "SELECT entry_year FROM users WHERE id = :u", "u", uid);
         for (GradeIn g : grades) {
             if (g.courseId() == null || g.score() == null || g.score() < 0 || g.score() > 100) throw ApiException.badRequest("課程與 0–100 分數為必填");
+            var co = db.one("SELECT grade_year, term FROM courses WHERE id = :c", "c", g.courseId());
+            if (co == null) throw ApiException.badRequest("科目不存在");
+            String sem = g.semester();
+            if (sem == null || sem.isBlank()) {                      // 學期預設：入學學年度 + 年級 − 1，學期依科目表
+                int base = entryYear != null ? entryYear : currentAcademicYear();
+                int gy = co.get("grade_year") == null ? 1 : Db.i(co.get("grade_year"));
+                int term = co.get("term") == null ? 1 : Db.i(co.get("term"));
+                sem = (base + gy - 1) + "-" + term;
+            }
+            if (!sem.matches("\\d{2,3}-[12]")) throw ApiException.badRequest("學期格式須為 學年度-學期，例如 115-1");
             db.exec("""
                     INSERT INTO user_grades (user_id, course_id, score, semester) VALUES (:u, :c, :s, :sem)
                     ON CONFLICT (user_id, course_id) DO UPDATE SET score = excluded.score, semester = excluded.semester""",
-                    "u", uid, "c", g.courseId(), "s", g.score(), "sem", g.semester() == null ? "115-1" : g.semester());
+                    "u", uid, "c", g.courseId(), "s", g.score(), "sem", sem);
+            if (g.skillIds() != null) for (Integer sk : g.skillIds()) if (sk != null)
+                db.exec("INSERT INTO course_skill_map (course_id, skill_id, source, confidence, approved) VALUES (:c, :s, 'SELF', 0.5, FALSE) ON CONFLICT DO NOTHING", "c", g.courseId(), "s", sk);
         }
         recomputeDefaults(uid);
         return me(uid);
@@ -135,12 +160,12 @@ public class UserService {
     }
 
     /** 每個技能的預設等級 = 對應課程成績換算後的最高等級；學生調整過的等級保留 */
-    void recomputeDefaults(int uid) {
+    public void recomputeDefaults(int uid) {
         String degree = db.scalar(String.class, "SELECT degree FROM users WHERE id = :u", "u", uid);
         String group = "BACHELOR".equals(degree) ? "BACHELOR" : "GRADUATE";
         var rows = db.list("""
                 SELECT m.skill_id, max(lv.level) lvl FROM user_grades g
-                JOIN course_skill_map m ON m.course_id = g.course_id
+                JOIN course_skill_map m ON m.course_id = g.course_id AND m.approved
                 JOIN LATERAL (SELECT level FROM grade_conversion gc WHERE gc.degree_group = :grp AND gc.min_score <= g.score ORDER BY gc.min_score DESC LIMIT 1) lv ON true
                 WHERE g.user_id = :u GROUP BY m.skill_id""", "grp", group, "u", uid);
         Set<Integer> seen = new HashSet<>();

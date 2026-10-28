@@ -62,11 +62,44 @@ cd web && npm install && npm run dev        # http://localhost:5173
 - `python3 backend/tools/demo_e2e.py`：端到端跑完閉環並斷言每一步結果（後端需在 localhost:8080）。
 - OpenAPI：http://localhost:8080/swagger-ui.html（36 支端點，依 6 個模組分組）。
 - 種子資料產生器：`backend/tools/generate_seed.py`（固定亂數種子，可重現）。
+- 科目表匯入工具：`backend/tools/fcu_curriculum.py`（fetch → parse → sql），規則表 `backend/tools/skill_rules.csv`。
+
+## 正式上線模式（reference）與科目表
+兩種啟動模式，由環境變數 `APP_SEED_MODE` 決定：
+
+| | `demo`（預設） | `reference`（正式上線） |
+|---|---|---|
+| 學生資料 | 50 位示範學生、劇本案件（`db/data.sql`） | 不載入任何假資料，學生自行註冊 |
+| 科目表 | 同右 | 逢甲大學 112–115 入學年度、79 個系所、約 22,000 門科目（必修／選修／校共同必修與通識），來源為註冊課務組公告（`db/ref-courses.sql`） |
+| 科目→技能 | 同右 | 184 條關鍵字規則自動建議（`tools/skill_rules.csv` → `db/ref-skill-map.sql`，source=RULE）；學生自填（SELF）與 AI 建議（LLM）須由管理員核准後才計入排序 |
+| 管理員 | admin@example.edu | 啟動時依 `APP_ADMIN_EMAIL`／`APP_ADMIN_PASSWORD` 建立 |
+| Demo 時鐘／重置 | 允許 | `APP_DEMO_CLOCK=false` → 403 |
+
+正式啟動範例：
+```bash
+APP_SEED_MODE=reference APP_RESET_ON_START=false APP_DEMO_CLOCK=false \
+APP_ADMIN_EMAIL=admin@o365.fcu.edu.tw APP_ADMIN_PASSWORD='改成強密碼' APP_JWT_SECRET='改成 32 字元以上亂數' \
+java -jar backend/target/campus-match-1.0.0.jar
+```
+`APP_RESET_ON_START=false` 時只在資料表不存在的第一次啟動建表；之後每次啟動只「補齊」參考資料（全部 `ON CONFLICT DO NOTHING`，不會覆蓋管理員改過的對照或系所名稱）。
+
+學生端流程：註冊時填「入學學年度」（未填則由年級推算）→ 我的檔案 →「從科目清單填分數」→ 預設顯示本系該年度的 必修／選修／校共同·通識 三個分頁，點科目填分數即可（學期自動推算：入學年度＋科目年級−1）；外系選修可切換系所或「搜尋全校」。若本系尚無該年度科目表，自動顯示最接近的年度。沒有技能對照的科目可自填技能，送交管理員核准。
+
+管理後台新增「科目表與科目→技能對照」：待核准清單（核准後立即重算相關學生的技能預設等級）、426 份科目表的覆蓋率、補登科目、修正系所名稱／學院（`PUT /admin/departments/{id}`）。
+
+重新匯入科目表（學校每年公告新年度時）：
+```bash
+cd backend/tools && export SSL_CERT_FILE=/path/to/ca.pem   # 一般環境不需要
+python3 fcu_curriculum.py fetch --year 116 --year 115 --year 114 --year 113 --year 112   # 下載索引頁與 PDF 到 curriculum/
+python3 fcu_curriculum.py parse        # 解析兩種 PDF 版式 → curriculum/courses.csv、parse_report.csv
+python3 fcu_curriculum.py sql > ../src/main/resources/db/ref-courses.sql
+```
+已知限制：115 起的新版 PDF 以「管理單位」取得正式系所名，少數新設學程（如「資通訊與電控產業」「人工智慧科技與管理碩士學位學程」）沿用公告上的學門名，可在後台修正；碩士班分組（財經法律、經營管理在職專班、機械與電腦輔助工程）合併為同一系所清單，組別保留在 group_code。
 
 ## 部署到 Azure（驗收後）
 | 元件 | 服務 | 設定 |
 |---|---|---|
-| 後端 | App Service（Java 17，Linux） | 開啟 Always On（排程才會跑）；環境變數 `SPRING_DATASOURCE_URL`、`SPRING_DATASOURCE_USERNAME`、`SPRING_DATASOURCE_PASSWORD`、`APP_JWT_SECRET`、`APP_RESET_ON_START=false`（第一次 true 建表後改 false） |
+| 後端 | App Service（Java 17，Linux） | 開啟 Always On（排程才會跑）；環境變數 `SPRING_DATASOURCE_URL`、`SPRING_DATASOURCE_USERNAME`、`SPRING_DATASOURCE_PASSWORD`、`APP_JWT_SECRET`、`APP_SEED_MODE=reference`、`APP_RESET_ON_START=false`、`APP_DEMO_CLOCK=false`、`APP_ADMIN_EMAIL`、`APP_ADMIN_PASSWORD` |
 | 資料庫 | Azure Database for PostgreSQL 彈性伺服器 | 允許 App Service 連線 |
 | 網頁 | Static Web Apps | `cd web && VITE_API_BASE=https://<app>.azurewebsites.net npm run build`，上傳 `dist/` |
 | 推播 | Key Vault 存 .p8 | 環境變數 `APNS_KEY_PATH`、`APNS_KEY_ID`、`APNS_TEAM_ID`、`APNS_SANDBOX=false`（正式）|
@@ -76,13 +109,13 @@ cd web && npm install && npm run dev        # http://localhost:5173
 backend/src/main/java/tw/edu/fcu/campus/
   common/   Db 封裝、錯誤處理、登入者
   config/   JWT、Security、Demo 時鐘、資料初始化
-  user/     M1 帳號、檔案、成績→技能、得獎、統計
+  user/     M1 帳號、檔案、科目表查詢（/courses）、成績→技能、得獎、統計
   cases/    M2 案件、狀態機、申請／邀請（名額鎖定）
   ranking/  M3 推薦排序引擎（純 Java）與服務
   review/   M4 結案投票、雙盲互評
   growth/   M5 成長儀表板、AI Prompt、資料分析
   admin/    M6 參數、Demo 時鐘、排程、稽核
   notify/   站內通知、APNs
-web/src/views/  Login Home Cases CaseForm CaseDetail Review Profile PublicProfile Growth Admin
-ios/CampusMatch/  SwiftUI 學生端
+web/src/views/  Login Home Cases CaseForm CaseDetail Review Profile PublicProfile Growth Admin；components/CoursePicker.vue 科目清單填分數
+ios/CampusMatch/  SwiftUI 學生端（CoursePickerView 科目清單填分數）
 ```

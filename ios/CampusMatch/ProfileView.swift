@@ -5,9 +5,6 @@ struct ProfileView: View {
     @State private var hours = 8
     @State private var newSkillId = 0
     @State private var newSkillLevel = 3
-    @State private var newCourseId = 0
-    @State private var newScore = ""
-    @State private var newSemester = "115-1"
     @State private var showDelete = false
 
     var body: some View {
@@ -17,7 +14,7 @@ struct ProfileView: View {
                     Section {
                         LabeledContent("學號", value: me.studentNo)
                         LabeledContent("系所", value: "\(me.college)／\(me.department)")
-                        LabeledContent("學制", value: "\(Labels.degree[me.degree] ?? me.degree) \(me.year) 年級")
+                        LabeledContent("學制", value: "\(Labels.degree[me.degree] ?? me.degree) \(me.year) 年級" + (me.entryYear.map { "（\($0) 學年度入學）" } ?? ""))
                         LabeledContent("預計畢業", value: me.expectedGraduation)
                         NavigationLink("別人看到的我", destination: PublicProfileView(userId: me.id))
                     }
@@ -50,20 +47,18 @@ struct ProfileView: View {
                     Section {
                         ForEach(me.grades) { g in
                             HStack {
-                                VStack(alignment: .leading) { Text(g.course); Text("\(g.semester)" + (g.skills.map { " → " + $0 } ?? "")).font(.caption).foregroundStyle(.secondary) }
+                                VStack(alignment: .leading, spacing: 2) {
+                                    HStack(spacing: 6) { Text(g.course); if let r = g.requirement { Text(Labels.requirement[r] ?? r).font(.caption2.weight(.semibold)).padding(.horizontal, 6).padding(.vertical, 2).background(r == "REQUIRED" ? Color.accentColor.opacity(0.12) : Color.secondary.opacity(0.12)).clipShape(Capsule()) } }
+                                    Text("\(g.semester)" + (g.skills.map { " → " + $0 } ?? "") + (g.pendingSkills.map { "（待核准：\($0)）" } ?? "") + ((g.department != nil && g.department != me.department) ? " · \(g.department!)" : "")).font(.caption).foregroundStyle(.secondary)
+                                }
                                 Spacer(); Text("\(g.score)").font(.headline).monospacedDigit()
                             }
                         }
                         .onDelete { idx in Task { for i in idx { _ = await app.run { try await app.api.delete("/me/grades/\(me.grades[i].id)") } }; await app.reloadMe() } }
-                        if let meta = app.meta {
-                            Picker("課程", selection: $newCourseId) { ForEach(meta.courses) { Text($0.name + ($0.skills.map { "（\($0)）" } ?? "")).tag($0.id) } }
-                            HStack {
-                                TextField("學期 115-1", text: $newSemester).frame(width: 90)
-                                TextField("分數", text: $newScore).keyboardType(.numberPad)
-                                Button("新增") { if let s = Int(newScore), newCourseId > 0 { Task { await put("/me/grades", [GradeBody(courseId: newCourseId, score: s, semester: newSemester)]); newScore = "" } } }.buttonStyle(.bordered).controlSize(.small)
-                            }
+                        NavigationLink { CoursePickerView() } label: {
+                            Label(me.grades.isEmpty ? "從科目清單填分數" : "從科目清單新增／修改分數", systemImage: "list.bullet.rectangle")
                         }
-                    } header: { Text("修課成績（只有你看得到）") } footer: { Text(me.degree == "BACHELOR" ? "學士換算：90→5、80→4、70→3、60→2" : "碩博士換算：90→5、85→4、80→3、70→2") }
+                    } header: { Text("修課成績（只有你看得到）") } footer: { Text("科目清單來自學校公告的各系所必修科目表／應修學分表（\(me.entryYear.map { "\($0) 學年度入學" } ?? "依年級推算")）。" + (me.degree == "BACHELOR" ? "學士換算：90→5、80→4、70→3、60→2" : "碩博士換算：90→5、85→4、80→3、70→2")) }
                     Section("得獎紀錄") {
                         if me.awards.isEmpty { Text("尚無得獎紀錄").foregroundStyle(.secondary) }
                         ForEach(me.awards) { a in
@@ -81,7 +76,7 @@ struct ProfileView: View {
                 }
             }
             .navigationTitle("我的檔案")
-            .onAppear { hours = app.me?.availability?.hoursPerWeek ?? 8; if newSkillId == 0 { newSkillId = app.meta?.skills.first?.id ?? 0 }; if newCourseId == 0 { newCourseId = app.meta?.courses.first?.id ?? 0 } }
+            .onAppear { hours = app.me?.availability?.hoursPerWeek ?? 8; if newSkillId == 0 { newSkillId = app.meta?.skills.first?.id ?? 0 } }
             .refreshable { await app.reloadMe() }
             .confirmationDialog("確定刪除帳號？", isPresented: $showDelete, titleVisibility: .visible) {
                 Button("刪除", role: .destructive) { Task { if await app.run({ try await app.api.delete("/me") }) { app.logout() } } }
