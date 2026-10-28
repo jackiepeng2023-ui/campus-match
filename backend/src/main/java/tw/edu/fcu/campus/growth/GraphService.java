@@ -81,7 +81,7 @@ public class GraphService {
                 FROM case_members m JOIN cases c ON c.id = m.case_id LEFT JOIN case_roles r ON r.id = m.case_role_id
                 WHERE m.user_id = :u AND c.status = 'CLOSED' ORDER BY c.closed_at""", "u", uid)) {
             Map<String, Object> d = new LinkedHashMap<>();
-            d.put("type", c.get("type")); d.put("result", c.get("result")); d.put("role", c.get("role")); d.put("isOwner", c.get("isOwner"));
+            d.put("caseType", c.get("type")); d.put("result", c.get("result")); d.put("role", c.get("role")); d.put("isOwner", c.get("isOwner"));
             d.put("closedAt", c.get("closedAt") == null ? null : Db.instant(c.get("closedAt")).toString());
             g.node("case:" + c.get("id"), "CASE", (String) c.get("title"), d);
             if (c.get("sids") != null) for (String sid : ((String) c.get("sids")).split(",")) g.edge("case:" + c.get("id"), "skill:" + sid, "CASE", 1.0);
