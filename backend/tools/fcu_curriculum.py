@@ -175,6 +175,7 @@ def parse_pdf(path):
                         if cname.count("(") == cname.count(")") + 1 and re.search(r"\([一二三四五六七八九十IVX\d]+$", cname): cname += ")"   # 儲存格被截斷的右括號
                         if len(cname) < 2: continue
                         if re.match(r"^[(（]\d+[)）]", cname) or "【" in cname or re.search(r"(學分|credits?)$", cname, re.I): continue   # 表尾的學分規定說明，不是科目
+                        if cname in ("科目名稱", "課程名稱", "上", "下", "必修科目", "選修科目") or re.match(r"^(第?[一二三四五六七八九十]+年級|上學期|下學期)$", cname): continue   # 表頭
                         credit = up if up not in ("", None) else down
                         term = 1 if up not in ("", None) else (2 if down not in ("", None) else None)
                         try: credits = float(credit)
