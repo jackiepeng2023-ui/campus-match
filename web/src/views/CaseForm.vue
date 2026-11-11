@@ -1,7 +1,7 @@
 <template>
   <div style="max-width:820px">
     <h1>{{ id ? '編輯案件' : '發布需求' }}</h1>
-    <p class="sub">需求不是留言板文字，而是「角色 × 技能 × 最低等級 × 名額 × 時程」的受控欄位，推薦引擎才算得出來。</p>
+    <p class="sub">需求不是留言板文字，而是「角色 × 技能 × 最低階級 × 名額 × 時程」的受控欄位，推薦引擎才算得出來。階級：{{ bandsText(store.meta?.levelBands) }}。</p>
     <form @submit.prevent="save" class="stack">
       <div class="card">
         <div class="grid grid-2" style="gap:12px">
@@ -22,14 +22,14 @@
           <div class="field"><label>名額</label><input v-model.number="r.headcount" type="number" min="1" /></div>
           <div class="field"><label>每週需投入時數（時間閘門）</label><input v-model.number="r.hoursPerWeek" type="number" min="1" /></div>
         </div>
-        <label>技能條件（必要技能未達最低等級會被閘門擋下；加分技能只影響分數）</label>
+        <label>技能條件（必要技能未達最低階級會被閘門擋下；加分技能只影響分數）</label>
         <table><tr v-for="(s, j) in r.skills" :key="j">
           <td style="width:45%"><select v-model.number="s.skillId"><option v-for="sk in store.meta?.skills" :key="sk.id" :value="sk.id">{{ sk.category }}｜{{ sk.name }}</option></select></td>
-          <td style="width:20%"><select v-model.number="s.minLevel"><option v-for="n in 5" :key="n" :value="n">≥ {{ n }} 級</option></select></td>
+          <td style="width:20%"><select v-model.number="s.minLevel"><option v-for="n in 3" :key="n" :value="n">{{ labels.tier[n] }}以上</option></select></td>
           <td style="width:25%"><select v-model="s.isRequired"><option :value="true">必要</option><option :value="false">加分</option></select></td>
           <td><button type="button" class="btn ghost sm" @click="r.skills.splice(j, 1)" v-if="r.skills.length > 1">✕</button></td>
         </tr></table>
-        <button type="button" class="btn secondary sm" style="margin-top:8px" @click="r.skills.push({ skillId: store.meta.skills[0].id, minLevel: 3, isRequired: false })">＋ 技能條件</button>
+        <button type="button" class="btn secondary sm" style="margin-top:8px" @click="r.skills.push({ skillId: store.meta.skills[0].id, minLevel: 2, isRequired: false })">＋ 技能條件</button>
       </div>
       <div class="row between">
         <button type="button" class="btn secondary" @click="f.roles.push(newRole())">＋ 新增角色</button>
@@ -43,18 +43,18 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { get, post, put } from '../api'
-import { store, labels } from '../store'
+import { store, labels, bandsText } from '../store'
 const route = useRoute(), router = useRouter()
 const id = route.params.id
-const newRole = () => ({ roleName: '', headcount: 1, hoursPerWeek: 4, skills: [{ skillId: store.meta?.skills?.[0]?.id || 1, minLevel: 3, isRequired: true }] })
-const f = ref({ title: '', type: 'PROJECT', description: '', teamSize: 3, applyDeadline: '', startDate: '', endDate: '', attribution: 'ACK', roles: [] })
+const newRole = () => ({ roleName: '', headcount: 1, hoursPerWeek: 4, skills: [{ skillId: store.meta?.skills?.[0]?.id || 1, minLevel: 2, isRequired: true }] })
+const f = ref({ title: '', type: 'PROJECT', description: '', teamSize: 3, applyDeadline: '', startDate: '', endDate: '', attribution: 'ACK', roles: [], competitionId: null, advisorTeacherId: null })
 const busy = ref(false), error = ref('')
 const totalHeadcount = computed(() => f.value.roles.reduce((a, r) => a + (r.headcount || 0), 0))
 onMounted(async () => {
   await store.loadMeta()
   if (id) {
     const c = await get('/cases/' + id)
-    f.value = { title: c.title, type: c.type, description: c.description, teamSize: c.teamSize, applyDeadline: String(c.applyDeadline).slice(0, 10), startDate: c.startDate, endDate: c.endDate, attribution: c.attribution || 'ACK',
+    f.value = { title: c.title, type: c.type, description: c.description, teamSize: c.teamSize, applyDeadline: String(c.applyDeadline).slice(0, 10), startDate: c.startDate, endDate: c.endDate, attribution: c.attribution || 'ACK', competitionId: c.competitionId || null, advisorTeacherId: c.advisorTeacherId || null,
       roles: c.roles.map(r => ({ roleName: r.roleName, headcount: r.headcount, hoursPerWeek: r.hoursPerWeek, skills: r.skills.map(s => ({ skillId: s.skillId, minLevel: s.minLevel, isRequired: s.isRequired })) })) }
   } else {
     const d = new Date(); const iso = (x) => x.toISOString().slice(0, 10)

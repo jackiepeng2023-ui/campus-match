@@ -15,9 +15,9 @@ struct GrowthView: View {
                 if let g = g {
                     Section {
                         KnowledgeGraphView().listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                    } header: { Text("知識圖譜") } footer: { Text("科目 → 技能 → 分類，加上得獎與結案案件對技能的驗證；可匯出成 Obsidian Vault 用 Graph view 檢視。") }
-                    Section("技能雷達（各類別平均等級）") {
-                        RadarChart(labels: g.radar.map { $0.category }, values: g.radar.map { $0.avgLevel }, maxValue: 5)
+                    } header: { Text("知識圖譜") } footer: { Text("證據（科目、證照與作品、得獎、結案案件）→ 技能 → 分類；可匯出成 Obsidian Vault 用 Graph view 檢視。") }
+                    Section("技能雷達（各類別平均分數，0–100）") {
+                        RadarChart(labels: g.radar.map { $0.category }, values: g.radar.map { $0.avgScore }, maxValue: 100)
                             .frame(height: 260).frame(maxWidth: .infinity)
                     }
                     Section {
@@ -40,7 +40,7 @@ struct GrowthView: View {
                             Text(p.prompt).font(.caption.monospaced()).textSelection(.enabled)
                             Button(copied ? "已複製，貼到你選擇的 AI 即可" : "複製到剪貼簿") { UIPasteboard.general.string = p.prompt; copied = true }
                         }
-                    } header: { Text("AI 成長建議") } footer: { Text("平台不串接 AI；由系統從你的資料組出 Prompt，不含隊友姓名、評語原文與案件名稱，預覽後貼到 Claude／ChatGPT／Gemini 等。") }
+                    } header: { Text("AI 成長建議") } footer: { Text("這裡不呼叫外部 AI：由系統從你的資料組出 Prompt（不含隊友姓名、評語原文與案件名稱），預覽後貼到你自己選的 AI。想讓平台直接規劃競賽與組隊，請用「AI 助理」分頁。") }
                     Section("成長時間軸") {
                         if g.timeline.isEmpty { Text("還沒有紀錄").foregroundStyle(.secondary) }
                         ForEach(g.timeline) { t in

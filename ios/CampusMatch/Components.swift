@@ -88,15 +88,23 @@ struct Stars: View {
     }
 }
 
+/// 技能 chip：level 為三階（1 初階／2 中階／3 進階）；trust 有值時顯示可信狀態（已驗證／修課成績／自述）
 struct SkillChip: View {
-    let name: String; let level: Int; var required: Bool? = nil
+    let name: String; let level: Int; var required: Bool? = nil; var trust: String? = nil; var atLeast: Bool = false
     var body: some View {
         HStack(spacing: 4) {
             Text(name).font(.caption)
-            Text("≥\(level)").font(.caption.weight(.bold)).foregroundStyle(Color.accentColor)
-            if let r = required { Text(r ? "必要" : "加分").font(.caption2).foregroundStyle(r ? .red : .secondary) }
+            Text(Labels.tierName(level) + (atLeast ? "以上" : "")).font(.caption.weight(.bold)).foregroundStyle(Color.accentColor)
+            if let t = trust { TrustBadge(label: t) }
+            if let r = required { Text(r ? "必要" : "加分").font(.caption2).foregroundStyle(r ? Color.red : Color.secondary) }
         }.padding(.horizontal, 8).padding(.vertical, 4).background(Color(.systemFill)).clipShape(RoundedRectangle(cornerRadius: 8))
     }
+}
+
+struct TrustBadge: View {
+    let label: String
+    var color: Color { label == "已驗證" ? .green : label == "自述" ? .orange : .blue }
+    var body: some View { Text(label).font(.caption2.weight(.semibold)).foregroundStyle(color).padding(.horizontal, 6).padding(.vertical, 2).background(color.opacity(0.12)).clipShape(Capsule()) }
 }
 
 /// 簡單的流式排版（技能 chips 用）

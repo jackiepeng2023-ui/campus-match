@@ -29,8 +29,8 @@ import { get, download } from '../api'
 import { store } from '../store'
 const TYPES = [
   { key: 'COURSE', label: '科目', color: '#0a84ff' }, { key: 'SKILL', label: '技能', color: '#34c759' }, { key: 'CATEGORY', label: '分類', color: '#5e5ce6' },
-  { key: 'AWARD', label: '得獎', color: '#ff9f0a' }, { key: 'CASE', label: '結案案件', color: '#8e8e93' }]
-const LEN = { GRADE: 60, CATEGORY: 95, AWARD: 70, CASE: 70 }
+  { key: 'CREDENTIAL', label: '證照與作品', color: '#30b0c7' }, { key: 'AWARD', label: '得獎', color: '#ff9f0a' }, { key: 'CASE', label: '結案案件', color: '#8e8e93' }]
+const LEN = { GRADE: 60, CATEGORY: 95, AWARD: 70, CASE: 70, CREDENTIAL: 65 }
 const stage = ref(null), canvas = ref(null)
 const nodes = ref([]), edges = ref([]), hidden = ref(new Set()), hover = ref(null), selected = ref(null), loaded = ref(false), exporting = ref(false)
 const counts = computed(() => { const c = {}; for (const n of nodes.value) c[n.type] = (c[n.type] || 0) + 1; return c })
@@ -41,7 +41,7 @@ const visible = () => nodes.value.filter(n => !hidden.value.has(n.type))
 const visEdges = () => edges.value.filter(e => !hidden.value.has(e.s.type) && !hidden.value.has(e.t.type))
 function radius(n) {
   if (n.type === 'CATEGORY') return 15
-  if (n.type === 'SKILL') return 6 + (n.data.level || 1) * 1.6
+  if (n.type === 'SKILL') return 6 + (n.data.level || 0) * 2.4
   if (n.type === 'COURSE') return 4 + (n.data.score || 60) / 22
   return 8
 }
@@ -49,8 +49,9 @@ function neighborsOf(n) { const out = []; for (const e of edges.value) { if (e.s
 function detail(n) {
   const d = n.data, esc = (s) => String(s ?? '—').replace(/</g, '&lt;')
   if (n.type === 'COURSE') return `分數 <b>${esc(d.score)}</b>　學期 ${esc(d.semester)}　${{ REQUIRED: '必修', ELECTIVE: '選修', GENERAL: '通識' }[d.requirement] || ''}${d.department ? '　' + esc(d.department) : ''}${d.code ? '　' + esc(d.code) : ''}`
-  if (n.type === 'SKILL') return `等級 <b>${esc(d.level)}／5</b>（預設 ${esc(d.defaultLevel)}，${{ GRADE: '成績換算', CASE: '結案驗證' }[d.source] || '自填'}）　分類 ${esc(d.category)}`
-  if (n.type === 'CATEGORY') return `平均等級 <b>${esc(d.avgLevel)}</b>　${esc(d.n)} 項技能`
+  if (n.type === 'SKILL') return `<b>${esc(d.tier)}</b>（${esc(d.score)} 分・${esc(d.trustLabel)}）　最高分證據：${esc(d.source)}，共 ${esc(d.evidenceCount)} 筆（不疊加）　分類 ${esc(d.category)}`
+  if (n.type === 'CATEGORY') return `平均 <b>${esc(d.avgScore)}</b> 分　${esc(d.n)} 項技能`
+  if (n.type === 'CREDENTIAL') return `${esc(d.kind)}　${esc(d.tier)}（${d.verified ? '已驗證' : '自述，尚未驗證'}）　${esc(d.issuer || '')} ${esc(d.date || '')}`
   if (n.type === 'AWARD') return `${{ CAMPUS: '校內', NATIONAL: '全國', INTERNATIONAL: '國際' }[d.level] || ''}・${{ FIRST: '第一名', TOP3: '前三名', HONORABLE: '佳作', FINALIST: '入圍' }[d.rank] || ''}　${esc(d.date)}　得獎分 +${esc(d.score)}`
   return `角色 ${esc(d.role)}　${d.result === 'COMPLETED' ? '完成' : '未完成'}　結案 ${esc((d.closedAt || '').slice(0, 10))}`
 }

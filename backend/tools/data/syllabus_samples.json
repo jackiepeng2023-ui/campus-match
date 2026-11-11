@@ -1,0 +1,2553 @@
+{
+ "generated_at": "2026-11-11T18:42:05+08:00",
+ "source": "逢甲大學課程檢索系統＋教學大綱查詢〈W320104〉（公開頁面，未登入）",
+ "year": 115,
+ "sms": 1,
+ "fallback": [
+  "114-2",
+  "114-1"
+ ],
+ "requests": 65,
+ "summary": {
+  "ok": 16,
+  "not_found": 2,
+  "error": 0
+ },
+ "aborted": null,
+ "results": [
+  {
+   "status": "ok",
+   "query": {
+    "name": "資料結構",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1"
+    ]
+   },
+   "match": "exact",
+   "candidates": 14,
+   "course": "資料結構",
+   "course_en": "DATA STRUCTURE",
+   "course_code": "IECS2001",
+   "department": "資訊二甲",
+   "class_id": "CE07121",
+   "credits": 3.0,
+   "required": "必修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "1367",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11511367&lang=cht",
+   "syllabus": {
+    "description": "本課程的目標在於讓學生經由實習課程的進行，學習程式設計的技巧與訓練程式設計的能力。本課程主要訓練學生(1)能夠以高階的抽象型式適當地來定義需要的資料結構及演算法，(2)能夠設計各種資料結構實作方法，(3)能夠正確利用各種資料結構於各種程式的練習，以及(4)具有分析各種資料結構運算時間複雜度的能力。",
+    "description_en": "The purpose of this course is to make the students, via the practical training, to learn the skills of programming and have the ability of programming. The course mainly includes (1) the ability to define at an appropriately high level of abstraction the data structures and algorithms that needed, (2) the ability to devise alternative implementations of data structures, (3) the ability to employ different data structures in algorithm design, and (4) the ability to analyze the time complexity of data structures' operation.",
+    "topic": "",
+    "prerequisites": "IEE1000計算機概論(一)、IEE1001計算機概論(二)、IEE1002計算機概論實習(一)、IEE1003計算機概論實習(二)",
+    "objectives": [
+     "學習並理解各種資料結構的知識。",
+     "應用各種資料結構的能力。",
+     "增強程式設計能力。"
+    ],
+    "core_abilities": [
+     "運用數學、科學及工程知識的能力。",
+     "使用技能、技術與現代工程工具的能力。",
+     "設計、執行實驗、分析與詮釋數據的能力。"
+    ],
+    "textbooks": [
+     "基礎資料結構使用C語言, 2nd Edition, Ellis Horowitz, Sartaj Sahni, Dinesh P. Mehta/ 開發圖書",
+     "Fundamentals of Data Structures in C, 2nd Edition, Ellis Horowitz, Sartaj Sahni, Dinesh P. Mehta"
+    ],
+    "tools": [],
+    "weekly": [
+     {
+      "week": "1-2",
+      "topic": "Basic Concepts",
+      "activity": "作業 1 - List all conditions\nfor 2 power by recursive"
+     },
+     {
+      "week": "3-4",
+      "topic": "Arrays",
+      "activity": "作業 2 - 多項式 ADT 實作"
+     },
+     {
+      "week": "5-6",
+      "topic": "Stacks and Queues",
+      "activity": "作業 3 - 刪除 ES 字串"
+     },
+     {
+      "week": "7",
+      "topic": "Linked Lists (1)",
+      "activity": "作業 4 - 中序轉後序"
+     },
+     {
+      "week": "8",
+      "topic": "期中考",
+      "activity": ""
+     },
+     {
+      "week": "9-11",
+      "topic": "Linked Lists (2)",
+      "activity": "作業 5 - 實作鏈結串列的\n新增、刪除、查詢、修改功\n能"
+     },
+     {
+      "week": "12-14",
+      "topic": "tree",
+      "activity": "作業 ：Heapsort, binany search tree"
+     },
+     {
+      "week": "15",
+      "topic": "Graph",
+      "activity": ""
+     },
+     {
+      "week": "16",
+      "topic": "期末考",
+      "activity": ""
+     }
+    ],
+    "grading": [
+     "作業 40%",
+     "隨堂測驗 20%",
+     "期中考 15%",
+     "期末考 15%",
+     "出席狀況 10%"
+    ],
+    "empty": false,
+    "raw_text": "【課程】資料結構 DATA STRUCTURE（IECS2001，3 學分，必修，資訊二甲）\n【課程描述】本課程的目標在於讓學生經由實習課程的進行，學習程式設計的技巧與訓練程式設計的能力。本課程主要訓練學生(1)能夠以高階的抽象型式適當地來定義需要的資料結構及演算法，(2)能夠設計各種資料結構實作方法，(3)能夠正確利用各種資料結構於各種程式的練習，以及(4)具有分析各種資料結構運算時間複雜度的能力。\n【前置課程】IEE1000計算機概論(一)、IEE1001計算機概論(二)、IEE1002計算機概論實習(一)、IEE1003計算機概論實習(二)\n【課程目標】1. 學習並理解各種資料結構的知識。\n2. 應用各種資料結構的能力。\n3. 增強程式設計能力。\n【基本／核心能力】運用數學、科學及工程知識的能力。；使用技能、技術與現代工程工具的能力。；設計、執行實驗、分析與詮釋數據的能力。\n【教材】基礎資料結構使用C語言, 2nd Edition, Ellis Horowitz, Sartaj Sahni, Dinesh P. Mehta/ 開發圖書\nFundamentals of Data Structures in C, 2nd Edition, Ellis Horowitz, Sartaj Sahni, Dinesh P. Mehta\n【授課進度】[1-2] Basic Concepts ／作業 1 - List all conditions for 2 power by recursive\n[3-4] Arrays ／作業 2 - 多項式 ADT 實作\n[5-6] Stacks and Queues ／作業 3 - 刪除 ES 字串\n[7] Linked Lists (1) ／作業 4 - 中序轉後序\n[8] 期中考\n[9-11] Linked Lists (2) ／作業 5 - 實作鏈結串列的 新增、刪除、查詢、修改功 能\n[12-14] tree ／作業 ：Heapsort, binany search tree\n[15] Graph\n[16] 期末考\n【評分】作業 40%、隨堂測驗 20%、期中考 15%、期末考 15%、出席狀況 10%"
+   },
+   "alternatives": [
+    {
+     "course": "資料結構實習",
+     "course_code": "IECS2061",
+     "department": "資訊二甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "1366",
+     "match": "affix"
+    },
+    {
+     "course": "資料結構與演算法",
+     "course_code": "AITA2002",
+     "department": "人工智慧二學位學程",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0888",
+     "match": "affix"
+    },
+    {
+     "course": "資料結構與演算法實習",
+     "course_code": "AITA2002P",
+     "department": "人工智慧二學位學程",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0886",
+     "match": "affix"
+    }
+   ]
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "演算法",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1",
+     "114-2",
+     "114-1"
+    ]
+   },
+   "match": "affix",
+   "candidates": 17,
+   "course": "資料結構與演算法",
+   "course_en": "DATA STRUCTURES AND ALGORITHMICS",
+   "course_code": "AITA2002",
+   "department": "人工智慧二學位學程",
+   "class_id": "CC03120",
+   "credits": 3.0,
+   "required": "必修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "0888",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11510888&lang=cht",
+   "syllabus": {
+    "description": "本課程將學習資料結構與演算法的理論與應用，藉由探討資料的不同表示方式與優缺點，學習如何設計好的資料結構及演算法，進而設計出高效率的程式，以提升程式設計和解決問題的能力。課程內容包含簡介資料結構的種類與功能特色、介紹資料結構的基本原理與應用、及介紹演算法原理說明與實際應用。",
+    "description_en": "This course will learn the theory and application of data structure and algorithm. By exploring the different representations and advantages and disadvantages of data, learning how to setup data structure and algorithm with highly efficient programs to improve problem solving skills. The course includes an introduction to the characteristics of data structures, the basic principles and applications of data structures, and algorithm principles with practical applications.",
+    "topic": "",
+    "prerequisites": "",
+    "objectives": [
+     "資料結構說明與講解其應用",
+     "介紹簡易演算法",
+     "運用合適的演算法設計AI的應用"
+    ],
+    "core_abilities": [
+     "運用人工智慧技術與工具的能力",
+     "設計與執行實驗，並分析與詮釋AI跨域應用"
+    ],
+    "textbooks": [
+     "演算法：最強彩色圖鑑 + Python程式實作 王者歸來(第二版)",
+     "Introduction to Algorithms, third edition 線上 PDF 教材"
+    ],
+    "tools": [
+     "VS Code 程式編輯器",
+     "Python 3.11 Python程式編譯與執行",
+     "miniconda Python套件管理程式"
+    ],
+    "weekly": [
+     {
+      "week": "1",
+      "topic": "課程說明、\n資料結構與演算法導論\nIntroduction to Algorithm",
+      "activity": "測試程式執行結果\n使用 Teams 錄製授課過程供同學課後復習；1.介紹演算法基本概念、歷史沿革、問題模型與正確性證明\n2.定義資料結構與演算法及其在計算機科學中的角色與重要性"
+     },
+     {
+      "week": "2",
+      "topic": "演算法分析與複雜度\nAnalyzing algorithms and Complexity Notation",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；1.時間複雜度與空間複雜度的界定與比較\n2.演算法設計思維\n3.遞迴關係式的建立與應用"
+     },
+     {
+      "week": "3",
+      "topic": "連結串列、單向環狀連結串列、雙向連結串列、雙向環狀連結串列\nLinked List、Circular Singly Linked List、Doubly Linked List、Circular Doubly Linked List",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；1.三種結構定義與記憶體配置方式\n2.節點插入、刪除、搜尋\n3.邊界條件（空表、單節點、尾節點）處理要點\n4.與陣列結構的優劣分析及應用場景"
+     },
+     {
+      "week": "4",
+      "topic": "堆疊與佇列\nStack and Queue",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；1.抽象資料型別定義與典型運算（push/pop、enqueue/dequeue）\n2.陣列級聯與指標鏈結實作差異\n3.應用範例：括號匹配、函式呼叫堆疊與廣度優先搜尋 (BFS)\n4.記憶體與效能考量：固定容量 vs. 動態擴增"
+     },
+     {
+      "week": "5",
+      "topic": "樹／二元樹\nTree / Binary Tree",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；1.樹的基本術語：根節點、葉節點、深度與高度\n2.二元樹的陣列與鏈結表現形式\n3.樹遍歷方法：先序 (Pre-order)、中序 (In-order)、後序 (Post-order)\n4.遞迴與非遞迴實作（利用堆疊模擬）之比較"
+     },
+     {
+      "week": "6",
+      "topic": "二元搜尋樹\nBinary Search Tree",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；1.BST 性質：左小右大與中序遍歷結果\n2.插入、查找與刪除節點的演算法步驟與複雜度\n3.平衡與退化：最壞情況下的鏈狀結構問題\n4.平衡樹與非平衡樹在效能上的差異"
+     },
+     {
+      "week": "7",
+      "topic": "AVL 樹\nAVL Tree\n紅黑樹\nRed-Black Tree",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；AVL Tree\n平衡因子與 AVL Tree 基本概念\nLL、RR、LR、RL 旋轉與重平衡\nAVL Tree 與 BST 比較\nRed-Black Tree\n紅黑樹基本性質\n插入、刪除與平衡調整\nRed-Black Tree、AVL Tree 與 BST 比較"
+     },
+     {
+      "week": "8",
+      "topic": "期中考\nMid-term exam",
+      "activity": ""
+     },
+     {
+      "week": "9",
+      "topic": "字典樹與雜湊技術\nTrie and Hashing",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；1.Trie 節點結構設計與字串搜尋／自動補完\n2.Hash Table 建構：雜湊函數選擇與素數表長度\n3.衝突處理策略：開放定址法 (Linear/Quadratic Probing) vs. 鏈結法\n4.記憶體使用與查找效率之平衡考量"
+     },
+     {
+      "week": "10",
+      "topic": "排序演算法\nSort Algorithms",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；排序演算法 (Sort Algorithms)\n1.穩定性 (Stability)、原地性 (In-place) 與適用情境\n2.插入 (Insertion)、選擇 (Selection)、冒泡 (Bubble) 排序原理\n3.快速 (Quick) 排序：分割策略與遞迴實作\n4.堆積 (Heap) 與歸併 (Merge) 排序效率比較"
+     },
+     {
+      "week": "11",
+      "topic": "搜尋演算法\nSearching Algorithms",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；1.線性 (Linear) 與二元 (Binary) 搜尋的原理與複雜度\n2.旋轉排序陣列 (Rotated Array) 中的改良搜尋\n3.近似搜尋 (Fuzzy Search) 概念及常見算法\n4.搜尋演算法在字串匹配與資料庫索引中的應用"
+     },
+     {
+      "week": "12",
+      "topic": "Graph Algorithms\n圖演算法",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；1.圖的表示：鄰接矩陣 (Adjacency Matrix) vs. 鄰接串列 (Adjacency List)\n2.深度優先搜尋 (DFS) 與廣度優先搜尋 (BFS) 步驟與複雜度\n3.單源最短路徑：Dijkstra、Bellman–Ford 演算法比較\n4.最小生成樹：Kruskal、Prim 演算法原理與差異"
+     },
+     {
+      "week": "13",
+      "topic": "貪婪演算法\nGreedy Algorithms",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；1.貪婪選擇性質與最優子結構證明框架\n2.典型範例：活動選擇 (Activity Selection)、找零演算法 (Change-Making)\n3.霍夫曼編碼 (Huffman Coding) 演算法步驟與樹結構\n4.貪婪法的局限性與可行性檢查"
+     },
+     {
+      "week": "14",
+      "topic": "分治演算法\nDivide and Conquer Algorithms",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；1.分治策略三步驟：分割、遞迴求解、合併\n2.快速排序 (Quick Sort) 與最大子陣列 (Maximum Subarray) 案例\n3.Strassen 矩陣乘法優化原理與複雜度\n4.與動態規劃之關係及何時選用分治法"
+     },
+     {
+      "week": "15",
+      "topic": "動態規劃\nDynamic Programming",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；1.最適子結構 (Optimal Substructure) 與重疊子問題 (Overlapping Subproblems)\n2.自頂向下 (Top-Down) 與自底向上 (Bottom-Up) 實作比較\n3.經典題目：費式數列、01 背包、最長共同子序列 (LCS)\n4.狀態壓縮與記憶化搜尋 (Memoization) 技巧"
+     },
+     {
+      "week": "16",
+      "topic": "期末考\nFinal exam",
+      "activity": ""
+     },
+     {
+      "week": "17",
+      "topic": "引導式自主學習",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；精選與課程對接的國內外數位平台（如磨課師）或進階專業文獻，引導學生進行延伸閱讀。"
+     },
+     {
+      "week": "18",
+      "topic": "引導式自主學習",
+      "activity": "Notes and exercise\n使用 Teams 錄製授課過程供同學課後復習；精選與課程對接的國內外數位平台（如磨課師）或進階專業文獻，引導學生進行延伸閱讀。"
+     }
+    ],
+    "grading": [
+     "期中考 30%",
+     "期末考 40%",
+     "出席狀況 30%"
+    ],
+    "empty": false,
+    "raw_text": "【課程】資料結構與演算法 DATA STRUCTURES AND ALGORITHMICS（AITA2002，3 學分，必修，人工智慧二學位學程）\n【課程描述】本課程將學習資料結構與演算法的理論與應用，藉由探討資料的不同表示方式與優缺點，學習如何設計好的資料結構及演算法，進而設計出高效率的程式，以提升程式設計和解決問題的能力。課程內容包含簡介資料結構的種類與功能特色、介紹資料結構的基本原理與應用、及介紹演算法原理說明與實際應用。\n【課程目標】1. 資料結構說明與講解其應用\n2. 介紹簡易演算法\n3. 運用合適的演算法設計AI的應用\n【基本／核心能力】運用人工智慧技術與工具的能力；設計與執行實驗，並分析與詮釋AI跨域應用\n【教材】演算法：最強彩色圖鑑 + Python程式實作 王者歸來(第二版)\nIntroduction to Algorithms, third edition 線上 PDF 教材\n【學習工具】VS Code 程式編輯器、Python 3.11 Python程式編譯與執行、miniconda Python套件管理程式\n【授課進度】[1] 課程說明、 資料結構與演算法導論 Introduction to Algorithm ／測試程式執行結果 使用 Teams 錄製授課過程供同學課後復習；1.介紹演算法基本概念、歷史沿革、問題模型與正確性證明 2.定義資料結構與演算法及其在計算機科學中的角色與重要性\n[2] 演算法分析與複雜度 Analyzing algorithms and Complexity Notation ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；1.時間複雜度與空間複雜度的界定與比較 2.演算法設計思維 3.遞迴關係式的建立與應用\n[3] 連結串列、單向環狀連結串列、雙向連結串列、雙向環狀連結串列 Linked List、Circular Singly Linked List、Doubly Linked List、Circular Doubly Linked List ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；1.三種結構定義與記憶體配置方式 2.節點插入、刪除、搜尋 3.邊界條件（空表、單節點、尾節點）處理要點 4.與陣列結構的優劣分析及應用場景\n[4] 堆疊與佇列 Stack and Queue ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；1.抽象資料型別定義與典型運算（push/pop、enqueue/dequeue） 2.陣列級聯與指標鏈結實作差異 3.應用範例：括號匹配、函式呼叫堆疊與廣度優先搜尋 (BFS) 4.記憶體與效能考量：固定容量 vs. 動態擴增\n[5] 樹／二元樹 Tree / Binary Tree ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；1.樹的基本術語：根節點、葉節點、深度與高度 2.二元樹的陣列與鏈結表現形式 3.樹遍歷方法：先序 (Pre-order)、中序 (In-order)、後序 (Post-order) 4.遞迴與非遞迴實作（利用堆疊模擬）之比較\n[6] 二元搜尋樹 Binary Search Tree ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；1.BST 性質：左小右大與中序遍歷結果 2.插入、查找與刪除節點的演算法步驟與複雜度 3.平衡與退化：最壞情況下的鏈狀結構問題 4.平衡樹與非平衡樹在效能上的差異\n[7] AVL 樹 AVL Tree 紅黑樹 Red-Black Tree ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；AVL Tree 平衡因子與 AVL Tree 基本概念 LL、RR、LR、RL 旋轉與重平衡 AVL Tree 與 BST 比較 Red-Black Tree 紅黑樹基本性質 插入、刪除與平衡調整 Red-Black Tree、AVL Tree 與 BST 比較\n[8] 期中考 Mid-term exam\n[9] 字典樹與雜湊技術 Trie and Hashing ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；1.Trie 節點結構設計與字串搜尋／自動補完 2.Hash Table 建構：雜湊函數選擇與素數表長度 3.衝突處理策略：開放定址法 (Linear/Quadratic Probing) vs. 鏈結法 4.記憶體使用與查找效率之平衡考量\n[10] 排序演算法 Sort Algorithms ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；排序演算法 (Sort Algorithms) 1.穩定性 (Stability)、原地性 (In-place) 與適用情境 2.插入 (Insertion)、選擇 (Selection)、冒泡 (Bubble) 排序原理 3.快速 (Quick) 排序：分割策略與遞迴實作 4.堆積 (Heap) 與歸併 (Merge) 排序效率比較\n[11] 搜尋演算法 Searching Algorithms ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；1.線性 (Linear) 與二元 (Binary) 搜尋的原理與複雜度 2.旋轉排序陣列 (Rotated Array) 中的改良搜尋 3.近似搜尋 (Fuzzy Search) 概念及常見算法 4.搜尋演算法在字串匹配與資料庫索引中的應用\n[12] Graph Algorithms 圖演算法 ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；1.圖的表示：鄰接矩陣 (Adjacency Matrix) vs. 鄰接串列 (Adjacency List) 2.深度優先搜尋 (DFS) 與廣度優先搜尋 (BFS) 步驟與複雜度 3.單源最短路徑：Dijkstra、Bellman–Ford 演算法比較 4.最小生成樹：Kruskal、Prim 演算法原理與差異\n[13] 貪婪演算法 Greedy Algorithms ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；1.貪婪選擇性質與最優子結構證明框架 2.典型範例：活動選擇 (Activity Selection)、找零演算法 (Change-Making) 3.霍夫曼編碼 (Huffman Coding) 演算法步驟與樹結構 4.貪婪法的局限性與可行性檢查\n[14] 分治演算法 Divide and Conquer Algorithms ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；1.分治策略三步驟：分割、遞迴求解、合併 2.快速排序 (Quick Sort) 與最大子陣列 (Maximum Subarray) 案例 3.Strassen 矩陣乘法優化原理與複雜度 4.與動態規劃之關係及何時選用分治法\n[15] 動態規劃 Dynamic Programming ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；1.最適子結構 (Optimal Substructure) 與重疊子問題 (Overlapping Subproblems) 2.自頂向下 (Top-Down) 與自底向上 (Bottom-Up) 實作比較 3.經典題目：費式數列、01 背包、最長共同子序列 (LCS) 4.狀態壓縮與記憶化搜尋 (Memoization) 技巧\n[16] 期末考 Final exam\n[17] 引導式自主學習 ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；精選與課程對接的國內外數位平台（如磨課師）或進階專業文獻，引導學生進行延伸閱讀。\n[18] 引導式自主學習 ／Notes and exercise 使用 Teams 錄製授課過程供同學課後復習；精選與課程對接的國內外數位平台（如磨課師）或進階專業文獻，引導學生進行延伸閱讀。\n【評分】期中考 30%、期末考 40%、出席狀況 30%"
+   },
+   "alternatives": [
+    {
+     "course": "演算法分析與設計",
+     "course_code": "COME6039",
+     "department": "通訊碩一",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2197",
+     "match": "affix"
+    },
+    {
+     "course": "計算機演算法",
+     "course_code": "IECS3002",
+     "department": "資訊三甲",
+     "year": 114,
+     "sms": 2,
+     "selcode": "1295",
+     "match": "affix"
+    },
+    {
+     "course": "演算法在生產排程之應用",
+     "course_code": "INEN6090",
+     "department": "工業碩一",
+     "year": 114,
+     "sms": 2,
+     "selcode": "1224",
+     "match": "affix"
+    },
+    {
+     "course": "建築規劃人工智慧演算法應用",
+     "course_code": "ARCH6441",
+     "department": "建築碩一學位學程",
+     "year": 115,
+     "sms": 1,
+     "selcode": "1148",
+     "match": "contains"
+    },
+    {
+     "course": "資料結構與演算法實習",
+     "course_code": "AITA2002P",
+     "department": "人工智慧二學位學程",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0886",
+     "match": "contains"
+    }
+   ]
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "資料庫系統",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1",
+     "114-2"
+    ]
+   },
+   "match": "exact",
+   "candidates": 7,
+   "course": "資料庫系統",
+   "course_en": "DATABASE SYSTEMS",
+   "course_code": "IECS3022",
+   "department": "資訊二甲",
+   "class_id": "CE07121",
+   "credits": 3.0,
+   "required": "必修",
+   "year": 114,
+   "sms": 2,
+   "selcode": "1264",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11421264&lang=cht",
+   "syllabus": {
+    "description": "瞭解資料庫的基本原理和結構。課程內容包括資料庫系統概念和架構，實體關係模型，檔案與索引結構，關連式模型，SQL，從ER轉換成關連式綱目，以及正規化。",
+    "description_en": "This course introduces the fundamental concepts and structures of databases, including database system concepts and architecture, Entity-Relationship Model, primary file organizations, index structures, relational data models. SQL, converting ER model to relational schema, and normalization.",
+    "topic": "",
+    "prerequisites": "IECS2001資料結構、IEE1002計算機概論實習(一)、IEE1003計算機概論實習(二)",
+    "objectives": [
+     "瞭解資料庫管理系統之功能",
+     "瞭解資料庫塑模和關連式資料庫之基礎與運用。",
+     "說明資料庫正規化的目的及方法",
+     "運用SQL於查詢資料庫之資料"
+    ],
+    "core_abilities": [
+     "運用數學、科學及工程知識的能力。",
+     "設計工程系統、組件或製程所需要的能力。",
+     "使用技能、技術與現代工程工具的能力。"
+    ],
+    "textbooks": [
+     "Silberschatz, A., Korth, H. F., & Sudarshan, S. (2010). Database System Concepts (6th ed.). New York, NY: McGraw-Hill. (ISBN 0-07-352332-1)",
+     "曹子殷、何楀晴 譯 (2011). 資料庫系統：理論與應用 (第六版). 東華書局. (ISBN-10: 986-157-831-5)"
+    ],
+    "tools": [
+     "PHP, MySQL, MySQL Workbench 學生需在課堂中透過 MySQL Workbench 進行即時的 SQL 語法撰寫與資料庫連線操作，透過執行結果修正邏輯。"
+    ],
+    "weekly": [
+     {
+      "week": "1-2",
+      "topic": "Syllabus & Database System Concepts and Architectures",
+      "activity": ""
+     },
+     {
+      "week": "3",
+      "topic": "Data Modeling Using the Entity-Relationship Model (ER Model)",
+      "activity": ""
+     },
+     {
+      "week": "4",
+      "topic": "Normalization for Relational Databases",
+      "activity": ""
+     },
+     {
+      "week": "5-6",
+      "topic": "Basic Structure Query Language (I) (II)",
+      "activity": ""
+     },
+     {
+      "week": "7-8",
+      "topic": "Advanced Structure Query Language (I) (II)",
+      "activity": ""
+     },
+     {
+      "week": "9",
+      "topic": "Mid exam",
+      "activity": ""
+     },
+     {
+      "week": "10",
+      "topic": "Indexing: B+ Tree",
+      "activity": ""
+     },
+     {
+      "week": "11",
+      "topic": "Transaction Management and Database Security",
+      "activity": ""
+     },
+     {
+      "week": "12",
+      "topic": "NoSQL Systems",
+      "activity": ""
+     },
+     {
+      "week": "13-14",
+      "topic": "Web Application Development with Database Integration",
+      "activity": ""
+     },
+     {
+      "week": "15-17",
+      "topic": "Final project",
+      "activity": ""
+     },
+     {
+      "week": "18",
+      "topic": "Final exam",
+      "activity": ""
+     }
+    ],
+    "grading": [
+     "點名 5%",
+     "隨堂測驗 15%",
+     "期中考 25%",
+     "期末考 25%",
+     "期末專題 30%"
+    ],
+    "empty": false,
+    "raw_text": "【課程】資料庫系統 DATABASE SYSTEMS（IECS3022，3 學分，必修，資訊二甲）\n【課程描述】瞭解資料庫的基本原理和結構。課程內容包括資料庫系統概念和架構，實體關係模型，檔案與索引結構，關連式模型，SQL，從ER轉換成關連式綱目，以及正規化。\n【前置課程】IECS2001資料結構、IEE1002計算機概論實習(一)、IEE1003計算機概論實習(二)\n【課程目標】1. 瞭解資料庫管理系統之功能\n2. 瞭解資料庫塑模和關連式資料庫之基礎與運用。\n3. 說明資料庫正規化的目的及方法\n4. 運用SQL於查詢資料庫之資料\n【基本／核心能力】運用數學、科學及工程知識的能力。；設計工程系統、組件或製程所需要的能力。；使用技能、技術與現代工程工具的能力。\n【教材】Silberschatz, A., Korth, H. F., & Sudarshan, S. (2010). Database System Concepts (6th ed.). New York, NY: McGraw-Hill. (ISBN 0-07-352332-1)\n曹子殷、何楀晴 譯 (2011). 資料庫系統：理論與應用 (第六版). 東華書局. (ISBN-10: 986-157-831-5)\n【學習工具】PHP, MySQL, MySQL Workbench 學生需在課堂中透過 MySQL Workbench 進行即時的 SQL 語法撰寫與資料庫連線操作，透過執行結果修正邏輯。\n【授課進度】[1-2] Syllabus & Database System Concepts and Architectures\n[3] Data Modeling Using the Entity-Relationship Model (ER Model)\n[4] Normalization for Relational Databases\n[5-6] Basic Structure Query Language (I) (II)\n[7-8] Advanced Structure Query Language (I) (II)\n[9] Mid exam\n[10] Indexing: B+ Tree\n[11] Transaction Management and Database Security\n[12] NoSQL Systems\n[13-14] Web Application Development with Database Integration\n[15-17] Final project\n[18] Final exam\n【評分】點名 5%、隨堂測驗 15%、期中考 25%、期末考 25%、期末專題 30%"
+   },
+   "alternatives": [
+    {
+     "course": "資料庫系統與SQL語法",
+     "course_code": "IINE6002",
+     "department": "大數據分析與實務應用碩士學",
+     "year": 114,
+     "sms": 2,
+     "selcode": "3591",
+     "match": "affix"
+    }
+   ]
+  },
+  {
+   "status": "not_found",
+   "reason": "no_offering",
+   "query": {
+    "name": "網頁程式設計",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1",
+     "114-2",
+     "114-1"
+    ]
+   },
+   "message": "115-1、114-2、114-1 沒有科目名稱含「網頁程式設計」的開課"
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "計算機概論",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1"
+    ]
+   },
+   "match": "exact",
+   "candidates": 36,
+   "course": "計算機概論",
+   "course_en": "INTRODUCTION TO COMPUTER AND COMPUTING",
+   "course_code": "FINA1080",
+   "department": "財金一甲",
+   "class_id": "CB03111",
+   "credits": 2.0,
+   "required": "選修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "0306",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11510306&lang=cht",
+   "syllabus": {
+    "description": "本課程在教授學生網路基本知識與基本網路架設、網頁設計與網路建置、網路應用與電子商務、以及網路的陷阱與省思。",
+    "description_en": "The goal of this course is to give an introduction to basic concepts concerning computing network. The construction of a network, its application, electronic commerce, as well as security issues will also be discussed.",
+    "topic": "",
+    "prerequisites": "",
+    "objectives": [
+     "認識資訊網路與應用",
+     "網路工具操作",
+     "瞭解網路安全與資訊倫理重要性"
+    ],
+    "core_abilities": [
+     "學生具備跨領域及問題解決能力"
+    ],
+    "textbooks": [
+     "計算機概論－擁抱AI，掌握新趨勢 ISBN：9786264012973",
+     "AI商業應用與實務 ISBN：9786264011822"
+    ],
+    "tools": [
+     "Orange Date Mining 跨平台 open source 免費軟體\nhttps://orangedatamining.com/download/\n官方Youtube教學頻道\nhttps://www.youtube.com/channel/UClKKWBe2SCAEyv7ZNGhIe4g"
+    ],
+    "weekly": [
+     {
+      "week": "1",
+      "topic": "9/11\n課程導論 / 資訊科技與數位轉型",
+      "activity": "- 資訊科技概論\n- 數位學習與社群媒體\n- 商業數位轉型導論"
+     },
+     {
+      "week": "2",
+      "topic": "9/18\n計算機系統",
+      "activity": "- 計算機硬體概述\n- 數位資料表示與儲存方法\n- 二進位、十進位、十六進位轉換\n- 文字、影像、音訊與視訊的儲存方式\n- Markdown 語法"
+     },
+     {
+      "week": "3",
+      "topic": "9/25 中秋節\n資安、隱私與倫理",
+      "activity": "(提供線上教材在家自主學習)\n- 資訊安全基本概念\n- 惡意程式、駭客攻擊與網路威脅\n- 資訊科技的倫理與法律問題\n- 個資保護與著作權議題\n- Markdown 作業練習"
+     },
+     {
+      "week": "4",
+      "topic": "10/2\n網路、網際網路與雲端運算",
+      "activity": "- 電腦網路與通訊協定\n- 無線與行動網路\n- 雲端運算\n- excel 操作練習(1)"
+     },
+     {
+      "week": "5",
+      "topic": "10/9 國慶日補假\n人工智慧導論",
+      "activity": "(提供線上教材在家自主學習)\n- 人工智慧的發展與應用\n- 機器學習與深度學習\n- 人工智慧對社會與商業的影響"
+     },
+     {
+      "week": "6-7",
+      "topic": "10/16、10/23\n大數據分析與機器學習在金融的應用",
+      "activity": "- 大數據的來源與分析方法\n- 機器學習的演算法與流程\n- excel 操作練習(2)\n- NotebookLM"
+     },
+     {
+      "week": "8",
+      "topic": "10/30\n期中考",
+      "activity": ""
+     },
+     {
+      "week": "9",
+      "topic": "11/6\n深度學習與類神經網路",
+      "activity": "- 類神經網路基本概念\n- Claude / ChatGPT 與 AI 對話技術"
+     },
+     {
+      "week": "10",
+      "topic": "11/13\nAI 在金融科技（FinTech）中的應用",
+      "activity": "- AI 在支付、保險、貸款、募資領域的應用\n- AI 在投資與市場資訊分析中的角色\nvibe coding 練習 (1)"
+     },
+     {
+      "week": "11",
+      "topic": "11/20\n聊天機器人與智慧客服",
+      "activity": "- 聊天機器人的設計與應用\n- vibe coding 練習 (2)\n- Gemini gem"
+     },
+     {
+      "week": "12",
+      "topic": "11/27\n區塊鏈與金融科技",
+      "activity": "- 區塊鏈技術基礎\n- 區塊鏈在金融與加密貨幣的應用\n- TEJ 介紹"
+     },
+     {
+      "week": "13-14",
+      "topic": "12/04、12/11\n常見 AI 大模型概覽",
+      "activity": "-AI 大模型概述\n-自然語言處理（NLP）模型\n-多模態 AI 模型\n- AI 在金融與商業應用的模型\n- Google 協作平台"
+     },
+     {
+      "week": "15",
+      "topic": "12/18\nAI 挑戰、資安與倫理考量\nAI 在金融領域的未來挑戰與機會",
+      "activity": "- AI 的可解釋性與偏誤問題\n- AI 安全、隱私與道德議題\n- 未來趨勢與課程總結"
+     },
+     {
+      "week": "16",
+      "topic": "12/25 行憲紀念日\n- 新興技術與創新應用",
+      "activity": "(提供線上教材在家自主學習)\n​​​​​​​- 繳交期末報告"
+     },
+     {
+      "week": "17",
+      "topic": "1/1 彈性自主學習週\n配合學校推動「16+2週彈性學習制度」，本系第17-18週擬提供系上同學多元自主學習活動之規劃方向，同學們可依建議自行規劃17-18週至少2項學習活動，並上傳「學生學習規劃書及心得」(參考格式請見ilearn上的附件)至課程之iLearn平台提交。",
+      "activity": "多元自主學習活動之規劃參考：\n1.厚植專業能力 : 建議同學搜尋並參與「TEJ財經資料庫線上影音課程」自主學習。\n2.提升國際移動力 : 同學可參與本校國際處辦理之國際交流心得分享或系上日後邀請曾參與海外交換、國際學習活動或雙聯學位之學生進行經驗分享…等相關活動。\n3.精進職場就業能力 : 同學可參與本校各單位辦理之實習經驗分享或可觀看系上大四學生校外實習與職涯經驗分享相關檔案，檔案連結將另行公告。"
+     },
+     {
+      "week": "18",
+      "topic": "1/8 彈性自主學習週\n配合學校推動「16+2週彈性學習制度」，本系第17-18週擬提供系上同學多元自主學習活動之規劃方向，同學們可依建議自行規劃17-18週至少2項學習活動，並上傳「學生學習規劃書及心得」(參考格式請見ilearn上的附件)至課程之iLearn平台提交。",
+      "activity": "多元自主學習活動之規劃參考：\n1.厚植專業能力 : 建議同學搜尋並參與「TEJ財經資料庫線上影音課程」自主學習。\n2.提升國際移動力 : 同學可參與本校國際處辦理之國際交流心得分享或系上日後邀請曾參與海外交換、國際學習活動或雙聯學位之學生進行經驗分享…等相關活動。\n3.精進職場就業能力 : 同學可參與本校各單位辦理之實習經驗分享或可觀看系上大四學生校外實習與職涯經驗分享相關檔案，檔案連結將另行公告。"
+     }
+    ],
+    "grading": [
+     "期中考 30%",
+     "期末考 30%",
+     "點名 20%",
+     "課堂討論參與 20%"
+    ],
+    "empty": false,
+    "raw_text": "【課程】計算機概論 INTRODUCTION TO COMPUTER AND COMPUTING（FINA1080，2 學分，選修，財金一合）\n【課程描述】本課程在教授學生網路基本知識與基本網路架設、網頁設計與網路建置、網路應用與電子商務、以及網路的陷阱與省思。\n【課程目標】1. 認識資訊網路與應用\n2. 網路工具操作\n3. 瞭解網路安全與資訊倫理重要性\n【基本／核心能力】學生具備跨領域及問題解決能力\n【教材】計算機概論－擁抱AI，掌握新趨勢 ISBN：9786264012973\nAI商業應用與實務 ISBN：9786264011822\n【學習工具】Orange Date Mining 跨平台 open source 免費軟體\nhttps://orangedatamining.com/download/\n官方Youtube教學頻道\nhttps://www.youtube.com/channel/UClKKWBe2SCAEyv7ZNGhIe4g\n【授課進度】[1] 9/11 課程導論 / 資訊科技與數位轉型 ／- 資訊科技概論 - 數位學習與社群媒體 - 商業數位轉型導論\n[2] 9/18 計算機系統 ／- 計算機硬體概述 - 數位資料表示與儲存方法 - 二進位、十進位、十六進位轉換 - 文字、影像、音訊與視訊的儲存方式 - Markdown 語法\n[3] 9/25 中秋節 資安、隱私與倫理 ／(提供線上教材在家自主學習) - 資訊安全基本概念 - 惡意程式、駭客攻擊與網路威脅 - 資訊科技的倫理與法律問題 - 個資保護與著作權議題 - Markdown 作業練習\n[4] 10/2 網路、網際網路與雲端運算 ／- 電腦網路與通訊協定 - 無線與行動網路 - 雲端運算 - excel 操作練習(1)\n[5] 10/9 國慶日補假 人工智慧導論 ／(提供線上教材在家自主學習) - 人工智慧的發展與應用 - 機器學習與深度學習 - 人工智慧對社會與商業的影響\n[6-7] 10/16、10/23 大數據分析與機器學習在金融的應用 ／- 大數據的來源與分析方法 - 機器學習的演算法與流程 - excel 操作練習(2) - NotebookLM\n[8] 10/30 期中考\n[9] 11/6 深度學習與類神經網路 ／- 類神經網路基本概念 - Claude / ChatGPT 與 AI 對話技術\n[10] 11/13 AI 在金融科技（FinTech）中的應用 ／- AI 在支付、保險、貸款、募資領域的應用 - AI 在投資與市場資訊分析中的角色 vibe coding 練習 (1)\n[11] 11/20 聊天機器人與智慧客服 ／- 聊天機器人的設計與應用 - vibe coding 練習 (2) - Gemini gem\n[12] 11/27 區塊鏈與金融科技 ／- 區塊鏈技術基礎 - 區塊鏈在金融與加密貨幣的應用 - TEJ 介紹\n[13-14] 12/04、12/11 常見 AI 大模型概覽 ／-AI 大模型概述 -自然語言處理（NLP）模型 -多模態 AI 模型 - AI 在金融與商業應用的模型 - Google 協作平台\n[15] 12/18 AI 挑戰、資安與倫理考量 AI 在金融領域的未來挑戰與機會 ／- AI 的可解釋性與偏誤問題 - AI 安全、隱私與道德議題 - 未來趨勢與課程總結\n[16] 12/25 行憲紀念日 - 新興技術與創新應用 ／(提供線上教材在家自主學習) ​​​​​​​- 繳交期末報告\n[17] 1/1 彈性自主學習週 配合學校推動「16+2週彈性學習制度」，本系第17-18週擬提供系上同學多元自主學習活動之規劃方向，同學們可依建議自行規劃17-18週至少2項學習活動，並上傳「學生學習規劃書及心得」(參考格式請見ilearn上的附件)至課程之iLearn平台提交。 ／多元自主學習活動之規劃參考： 1.厚植專業能力 : 建議同學搜尋並參與「TEJ財經資料庫線上影音課程」自主學習。 2.提升國際移動力 : 同學可參與本校國際處辦理之國際交流心得分享或系上日後邀請曾參與海外交換、國際學習活動或雙聯學位之學生進行經驗分享…等相關活動。 3.精進職場就業能力 : 同學可參與本校各單位辦理之實習經驗分享或可觀看系上大四學生校外實習與職涯經驗分享相關檔案，檔案連結將另行公告。\n[18] 1/8 彈性自主學習週 配合學校推動「16+2週彈性學習制度」，本系第17-18週擬提供系上同學多元自主學習活動之規劃方向，同學們可依建議自行規劃17-18週至少2項學習活動，並上傳「學生學習規劃書及心得」(參考格式請見ilearn上的附件)至課程之iLearn平台提交。 ／多元自主學習活動之規劃參考： 1.厚植專業能力 : 建議同學搜尋並參與「TEJ財經資料庫線上影音課程」自主學習。 2.提升國際移動力 : 同學可參與本校國際處辦理之國際交流心得分享或系上日後邀請曾參與海外交換、國際學習活動或雙聯學位之學生進行經驗分享…等相關活動。 3.精進職場就業能力 : 同學可參與本校各單位辦理之實習經驗分享或可觀看系上大四學生校外實習與職涯經驗分享相關檔案，檔案連結將另行公告。\n【評分】期中考 30%、期末考 30%、點名 20%、課堂討論參與 20%"
+   },
+   "alternatives": [
+    {
+     "course": "計算機概論(一)",
+     "course_code": "IEE1000",
+     "department": "電子一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "1523",
+     "match": "numbered"
+    },
+    {
+     "course": "計算機概論實習(一)",
+     "course_code": "IEE1002",
+     "department": "電子一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "1524",
+     "match": "affix"
+    },
+    {
+     "course": "計算機概論實習",
+     "course_code": "AUTO1013",
+     "department": "自控一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "1718",
+     "match": "affix"
+    }
+   ]
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "作業系統",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1"
+    ]
+   },
+   "match": "numbered",
+   "candidates": 8,
+   "course": "作業系統(一)",
+   "course_en": "OPERATING SYSTEMS (1)",
+   "course_code": "IECS3001",
+   "department": "資訊三甲",
+   "class_id": "CE07131",
+   "credits": 3.0,
+   "required": "必修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "1393",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11511393&lang=cht",
+   "syllabus": {
+    "description": "本課程旨在介紹電腦作業系統的內部組成與運作原理，也就是電腦系統內部管理的相關知識。課程內容包括作業系統的基本介紹與回顧，與硬體相關的介面需求，然後對於作業系統的各項組成元件模組，如行程管理，CPU排班，行程同步與死結，主記憶體的管理，虛擬記憶體機制的結構與運作，分別詳細解說。\n本課程要求學生結合課程所學，前往校外社區、中小學、公益機構等單位，進行12小時的「服務學習」。",
+    "description_en": "This course is aimed to introduce the principles of internal structure and operations of operating systems. The contents include the background and overview of operating systems, the requirements of hardware support and interface to operating systems, and the detailed discussion into each operating system component, like Process Management, CPU Scheduling, Process Coordination and Deadlock, Main Memory Management, and Virtual Memory Mechanism.\nThe \"Service Learning\" is required in this course. Students are requested to go to communities, junior high schools, elementary schools for their 12-hours \"service learning\".",
+    "topic": "",
+    "prerequisites": "",
+    "objectives": [
+     "理解作業系統整體運作原理與內部結構",
+     "理解作業系統各項資源之管理策略與機制"
+    ],
+    "core_abilities": [
+     "運用數學、科學及工程知識的能力。"
+    ],
+    "textbooks": [
+     "Operating System Concepts, 10th Edition, International Student Version,\nAbraham Silberschatz, Peter B. Galvin, Greg Gagne, 東華書局",
+     "Modern Operating Systems\nAndrew S Tanenbaum\nOperating Systems: Principles and Practice\nThomas Anderson & Michael Dahlin\nOperating Systems\nLinux Operating System"
+    ],
+    "tools": [
+     "自由免費軟體 For OS program assignments"
+    ],
+    "weekly": [
+     {
+      "week": "1",
+      "topic": "課程規定\n作業系統介紹 Overview",
+      "activity": ""
+     },
+     {
+      "week": "2",
+      "topic": "作業系統結構 Operating System Structure",
+      "activity": ""
+     },
+     {
+      "week": "3",
+      "topic": "行程觀念 Process Concept",
+      "activity": ""
+     },
+     {
+      "week": "4",
+      "topic": "行程管理-行程間通訊 Process Management - Interprocess Communication",
+      "activity": ""
+     },
+     {
+      "week": "5",
+      "topic": "行程管理-多執行緒 Process Management - Multithread",
+      "activity": ""
+     },
+     {
+      "week": "6",
+      "topic": "行程管理-並行性 Process Management - Concurrency",
+      "activity": ""
+     },
+     {
+      "week": "7",
+      "topic": "行程管理-CPU排班 Process Management - CPU Scheduling",
+      "activity": ""
+     },
+     {
+      "week": "8",
+      "topic": "期中考 Mid Term Exam",
+      "activity": ""
+     },
+     {
+      "week": "9",
+      "topic": "行程管理-多處理器排班 Process Management - Multi-Processor Scheduling",
+      "activity": ""
+     },
+     {
+      "week": "10",
+      "topic": "行程管理-同步工具 Process Management - Synchronization Tool",
+      "activity": ""
+     },
+     {
+      "week": "11",
+      "topic": "行程管理-號誌 Process Management - Semaphores",
+      "activity": ""
+     },
+     {
+      "week": "12",
+      "topic": "行程管理-死結 Process Management - Deadlocks",
+      "activity": ""
+     },
+     {
+      "week": "13",
+      "topic": "行程管理-預防死結 Process Management - Deadlocks Prevention",
+      "activity": ""
+     },
+     {
+      "week": "14",
+      "topic": "記憶體管理-主記憶體 Memory Management-Main Memory",
+      "activity": ""
+     },
+     {
+      "week": "15",
+      "topic": "記憶體管理-分頁 Memory Management-Paging",
+      "activity": ""
+     },
+     {
+      "week": "16",
+      "topic": "期末考 Final exams",
+      "activity": ""
+     },
+     {
+      "week": "17",
+      "topic": "彈性學習週",
+      "activity": "虛擬機環境架設自我學習"
+     },
+     {
+      "week": "18",
+      "topic": "彈性學習週",
+      "activity": "Linux作業系統管理自我學習"
+     }
+    ],
+    "grading": [
+     "期中考 30%",
+     "期末考 30%",
+     "隨堂測驗 40%"
+    ],
+    "empty": false,
+    "raw_text": "【課程】作業系統(一) OPERATING SYSTEMS (1)（IECS3001，3 學分，必修，資訊三甲）\n【課程描述】本課程旨在介紹電腦作業系統的內部組成與運作原理，也就是電腦系統內部管理的相關知識。課程內容包括作業系統的基本介紹與回顧，與硬體相關的介面需求，然後對於作業系統的各項組成元件模組，如行程管理，CPU排班，行程同步與死結，主記憶體的管理，虛擬記憶體機制的結構與運作，分別詳細解說。\n本課程要求學生結合課程所學，前往校外社區、中小學、公益機構等單位，進行12小時的「服務學習」。\n【課程目標】1. 理解作業系統整體運作原理與內部結構\n2. 理解作業系統各項資源之管理策略與機制\n【基本／核心能力】運用數學、科學及工程知識的能力。\n【教材】Operating System Concepts, 10th Edition, International Student Version,\nAbraham Silberschatz, Peter B. Galvin, Greg Gagne, 東華書局\nModern Operating Systems\nAndrew S Tanenbaum\nOperating Systems: Principles and Practice\nThomas Anderson & Michael Dahlin\nOperating Systems\nLinux Operating System\n【學習工具】自由免費軟體 For OS program assignments\n【授課進度】[1] 課程規定 作業系統介紹 Overview\n[2] 作業系統結構 Operating System Structure\n[3] 行程觀念 Process Concept\n[4] 行程管理-行程間通訊 Process Management - Interprocess Communication\n[5] 行程管理-多執行緒 Process Management - Multithread\n[6] 行程管理-並行性 Process Management - Concurrency\n[7] 行程管理-CPU排班 Process Management - CPU Scheduling\n[8] 期中考 Mid Term Exam\n[9] 行程管理-多處理器排班 Process Management - Multi-Processor Scheduling\n[10] 行程管理-同步工具 Process Management - Synchronization Tool\n[11] 行程管理-號誌 Process Management - Semaphores\n[12] 行程管理-死結 Process Management - Deadlocks\n[13] 行程管理-預防死結 Process Management - Deadlocks Prevention\n[14] 記憶體管理-主記憶體 Memory Management-Main Memory\n[15] 記憶體管理-分頁 Memory Management-Paging\n[16] 期末考 Final exams\n[17] 彈性學習週 ／虛擬機環境架設自我學習\n[18] 彈性學習週 ／Linux作業系統管理自我學習\n【評分】期中考 30%、期末考 30%、隨堂測驗 40%"
+   },
+   "alternatives": [
+    {
+     "course": "作業系統",
+     "course_code": "COME3033",
+     "department": "通訊三甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2170",
+     "match": "exact"
+    },
+    {
+     "course": "高等作業系統",
+     "course_code": "IECS6021",
+     "department": "資訊碩一",
+     "year": 115,
+     "sms": 1,
+     "selcode": "1441",
+     "match": "affix"
+    }
+   ]
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "機器學習",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1"
+    ]
+   },
+   "match": "exact",
+   "candidates": 9,
+   "course": "機器學習",
+   "course_en": "MACHINE LEARNING",
+   "course_code": "IEE6001",
+   "department": "資電學院碩士綜合班",
+   "class_id": "CI00300",
+   "credits": 3.0,
+   "required": "選修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "3634",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11513634&lang=cht",
+   "syllabus": {
+    "description": "本課程將介紹基礎機器學習與軟計算的理論與實務。學習機包含類神經網路、廣義徑向幅基函數網路、模糊神經網路及支撐向量機。進化演算則包含基因演算法、粒子群聚最佳化演算法及布穀鳥搜尋法。教學目標為建立學生在機器學習與軟計算必要的根基，以便將所學之技術應用在他/她們自己的問題上。",
+    "description_en": "In this course, the fundamental principles and applications of the machine learning and soft computing are introduced. The learning machines include the artificial neural networks, generalized radial basis function networks, fuzzy neural networks, and support vector machines. For evolutionary computation, the genetic algorithm, particle swarm optimization, and cuckoo search will be introduced. The goal is build the necessary background of the machine learning and soft computing for the students in order to apply these techniques in their own problems.",
+    "topic": "",
+    "prerequisites": "",
+    "objectives": [
+     "明白與理解機器學習的各種理論基礎",
+     "執行實驗以及分析與詮釋數據的能力"
+    ],
+    "core_abilities": [
+     "具備與運用數學、科學及工程領域專業知識的能力。",
+     "設計、執行實驗與工程實務，以及分析與詮釋數據的能力。"
+    ],
+    "textbooks": [],
+    "tools": [],
+    "weekly": [],
+    "grading": [],
+    "empty": false,
+    "raw_text": "【課程】機器學習 MACHINE LEARNING（IEE6001，3 學分，選修，資電學院碩士綜合班）\n【課程描述】本課程將介紹基礎機器學習與軟計算的理論與實務。學習機包含類神經網路、廣義徑向幅基函數網路、模糊神經網路及支撐向量機。進化演算則包含基因演算法、粒子群聚最佳化演算法及布穀鳥搜尋法。教學目標為建立學生在機器學習與軟計算必要的根基，以便將所學之技術應用在他/她們自己的問題上。\n【課程目標】1. 明白與理解機器學習的各種理論基礎\n2. 執行實驗以及分析與詮釋數據的能力\n【基本／核心能力】具備與運用數學、科學及工程領域專業知識的能力。；設計、執行實驗與工程實務，以及分析與詮釋數據的能力。"
+   },
+   "alternatives": [
+    {
+     "course": "機器學習應用導論",
+     "course_code": "IND1401",
+     "department": "建築專業一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0020",
+     "match": "affix"
+    },
+    {
+     "course": "機器學習與應用",
+     "course_code": "MATH3073",
+     "department": "應數三甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2480",
+     "match": "affix"
+    },
+    {
+     "course": "Python機器學習與數位行銷",
+     "course_code": "MKT6033",
+     "department": "行銷碩一",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0808",
+     "match": "contains"
+    },
+    {
+     "course": "人工智慧與機器學習雲端部署",
+     "course_code": "IINE3015",
+     "department": "創能學院綜合班",
+     "year": 115,
+     "sms": 1,
+     "selcode": "3616",
+     "match": "contains"
+    },
+    {
+     "course": "高等機器學習與模型部署",
+     "course_code": "AITA5005",
+     "department": "人工智慧科管碩一學位學程",
+     "year": 115,
+     "sms": 1,
+     "selcode": "3622",
+     "match": "contains"
+    }
+   ]
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "統計學",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1"
+    ]
+   },
+   "match": "numbered",
+   "candidates": 59,
+   "course": "統計學(一)",
+   "course_en": "STATISTICS (1)",
+   "course_code": "STAT1001",
+   "department": "會計二甲",
+   "class_id": "CB01121",
+   "credits": 3.0,
+   "required": "必修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "0123",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11510123&lang=cht",
+   "syllabus": {
+    "description": "統計學(一)為統計入門課程，從機率概念由淺入深導引學生進入基本統計觀念，瞭解抽樣分配與估計的演算與運用。主題包括資料整理、機率概念、常用之機率分配、抽樣分配、點估計與區間估計。",
+    "description_en": "Statistics (1) is the first introductory course in which this text starts from the concepts of probability to elementary statistics in order to understand the computation of sampling distribution and estimation methods. Topics include data management, probability concept, some common probability distributions, sampling distribution, and point and interval estimations.",
+    "topic": "",
+    "prerequisites": "",
+    "objectives": [
+     "知道何謂統計學之應用與敘述統計學",
+     "知道機率分配函數及其用法",
+     "知道抽樣、抽樣分配及點估計"
+    ],
+    "core_abilities": [
+     "學生具備跨領域及問題解決能力"
+    ],
+    "textbooks": [
+     "Essentials of Statistics for Business & Economics 10e\nAuthor : Camm, Cochran, Fry, Ohlmann, Anderson,Sweeney, Williams",
+     "統計學中文書(含翻譯版)"
+    ],
+    "tools": [],
+    "weekly": [
+     {
+      "week": "1",
+      "topic": "Data and Statistics",
+      "activity": ""
+     },
+     {
+      "week": "2-3",
+      "topic": "Descriptive Statistics:Tabular and Graphical Presentations",
+      "activity": ""
+     },
+     {
+      "week": "4-5",
+      "topic": "Descriptive Statistics: Numerical Measures",
+      "activity": ""
+     },
+     {
+      "week": "6-7",
+      "topic": "Introduction to Probability",
+      "activity": ""
+     },
+     {
+      "week": "8",
+      "topic": "Discrete Probability Distribution",
+      "activity": ""
+     },
+     {
+      "week": "9",
+      "topic": "Midterm exam",
+      "activity": ""
+     },
+     {
+      "week": "10-11",
+      "topic": "Continuous Probability Distribution",
+      "activity": ""
+     },
+     {
+      "week": "12-14",
+      "topic": "Sampling and Sampling Distribution",
+      "activity": ""
+     },
+     {
+      "week": "15-17",
+      "topic": "Interval Estimation",
+      "activity": ""
+     },
+     {
+      "week": "18",
+      "topic": "Final exam",
+      "activity": ""
+     }
+    ],
+    "grading": [],
+    "empty": false,
+    "raw_text": "【課程】統計學(一) STATISTICS (1)（STAT1001，3 學分，必修，會計二甲）\n【課程描述】統計學(一)為統計入門課程，從機率概念由淺入深導引學生進入基本統計觀念，瞭解抽樣分配與估計的演算與運用。主題包括資料整理、機率概念、常用之機率分配、抽樣分配、點估計與區間估計。\n【課程目標】1. 知道何謂統計學之應用與敘述統計學\n2. 知道機率分配函數及其用法\n3. 知道抽樣、抽樣分配及點估計\n【基本／核心能力】學生具備跨領域及問題解決能力\n【教材】Essentials of Statistics for Business & Economics 10e\nAuthor : Camm, Cochran, Fry, Ohlmann, Anderson,Sweeney, Williams\n統計學中文書(含翻譯版)\n【授課進度】[1] Data and Statistics\n[2-3] Descriptive Statistics:Tabular and Graphical Presentations\n[4-5] Descriptive Statistics: Numerical Measures\n[6-7] Introduction to Probability\n[8] Discrete Probability Distribution\n[9] Midterm exam\n[10-11] Continuous Probability Distribution\n[12-14] Sampling and Sampling Distribution\n[15-17] Interval Estimation\n[18] Final exam"
+   },
+   "alternatives": [
+    {
+     "course": "統計學",
+     "course_code": "UPSI2013",
+     "department": "都資二甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "1616",
+     "match": "exact"
+    },
+    {
+     "course": "統計學(一)實習",
+     "course_code": "STAT1001P",
+     "department": "會計二甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0124",
+     "match": "affix"
+    },
+    {
+     "course": "統計學實習",
+     "course_code": "LAND2036",
+     "department": "土管二甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2401",
+     "match": "affix"
+    },
+    {
+     "course": "應用數理統計學(一)",
+     "course_code": "STAT3001",
+     "department": "統計三甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0587",
+     "match": "contains"
+    },
+    {
+     "course": "應用數理統計學(一)實習",
+     "course_code": "STAT3001P",
+     "department": "統計三甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0588",
+     "match": "contains"
+    }
+   ]
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "行銷管理",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1"
+    ]
+   },
+   "match": "exact",
+   "candidates": 23,
+   "course": "行銷管理",
+   "course_en": "MARKETING MANAGEMENT",
+   "course_code": "MGT2020",
+   "department": "國貿二甲",
+   "class_id": "CB02121",
+   "credits": 3.0,
+   "required": "必修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "0219",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11510219&lang=cht",
+   "syllabus": {
+    "description": "從策略性的觀點，研討行銷管理的程序，包括分析行銷環境、策略性行銷決策、戰術性行銷決策，以及執行與控制等，期使能結合理論與實務，提昇行銷管理素養，並培養分析判斷之能力。",
+    "description_en": "To understand the overall concepts and theory of marketing management from strategic point of view. To discuss the marketing management process, including marketing environment analyzing, strategic marketing decision making, static marketing decision making, implementing and controlling. To apply the marketing management theory to the practical cases.",
+    "topic": "",
+    "prerequisites": "ECON1001經濟學(一)、ECON1002經濟學(二)、MKT1019行銷管理、MGT1002企業概論",
+    "objectives": [
+     "應用行銷口與溝通技巧"
+    ],
+    "core_abilities": [
+     "學生具備溝通表達能力"
+    ],
+    "textbooks": [
+     "Armstrong, G., Kotler, P., & Opresnik, M. O. (2023). Marketing: An introduction, Global Edition (15th ed.). UK: Pearson.\nISBN: 978-1-292-43310-3.",
+     "李元恕,、丁美靜、王郁彬(2018)。行銷學(第13版)。華泰文化。"
+    ],
+    "tools": [],
+    "weekly": [
+     {
+      "week": "1",
+      "topic": "Summver vacation",
+      "activity": ""
+     },
+     {
+      "week": "2",
+      "topic": "Course overview and policies\nCh 1 Marketing: Creating Customer Value\nand Engagement",
+      "activity": ""
+     },
+     {
+      "week": "3",
+      "topic": "Ch 1 Marketing: Creating Customer Value\nand Engagement",
+      "activity": "TIMS Certification"
+     },
+     {
+      "week": "4",
+      "topic": "Day off: Teacher's Day",
+      "activity": ""
+     },
+     {
+      "week": "5",
+      "topic": "Ch 2 Company and Marketing Strategy:\nPartnering to Build Customer Engagement,\nValue, and Relationships",
+      "activity": ""
+     },
+     {
+      "week": "6",
+      "topic": "Ch 3 Analyzing the Marketing Environment",
+      "activity": ""
+     },
+     {
+      "week": "7",
+      "topic": "Ch 4 Managing Marketing Information to\nGain Customer Insights\nCh 5 Understanding Consumer and Business\nBuyer Behavior",
+      "activity": ""
+     },
+     {
+      "week": "8",
+      "topic": "Memorial Day (Observed)",
+      "activity": ""
+     },
+     {
+      "week": "9",
+      "topic": "Midterm exams",
+      "activity": ""
+     },
+     {
+      "week": "10",
+      "topic": "Ch 6 Customer Value-Driven Marketing\nStrategy: Creating Value for Target\nCustomers",
+      "activity": "Exams #1"
+     },
+     {
+      "week": "11",
+      "topic": "Ch 7 Product, Services, and Brands: Building\nCustomer Value",
+      "activity": ""
+     },
+     {
+      "week": "12",
+      "topic": "Ch 8 Developing New Products and\nManaging the Product Life Cycle",
+      "activity": ""
+     },
+     {
+      "week": "13",
+      "topic": "Ch 9 Pricing: Understanding and Capturing\nCustomer Value",
+      "activity": ""
+     },
+     {
+      "week": "14",
+      "topic": "Ch10 Marketing Channels: Delivering\nCustomer Value\nCh11 Retailing and Wholesaling",
+      "activity": ""
+     },
+     {
+      "week": "15",
+      "topic": "Ch12 Engaging Customers and\nCommunicating Customer Value: Advertising\nand Public Relations",
+      "activity": ""
+     },
+     {
+      "week": "16",
+      "topic": "Ch12 Engaging Customers and\nCommunicating Customer Value: Advertising\nand Public Relations",
+      "activity": ""
+     },
+     {
+      "week": "17",
+      "topic": "Ch13 Personal Selling and Sales Promotion\nFinal-term exams",
+      "activity": "Exams #2"
+     },
+     {
+      "week": "18",
+      "topic": "跨域學習周：行銷相關主題影片",
+      "activity": ""
+     }
+    ],
+    "grading": [],
+    "empty": false,
+    "raw_text": "【課程】行銷管理 MARKETING MANAGEMENT（MGT2020，3 學分，必修，國貿二甲）\n【課程描述】從策略性的觀點，研討行銷管理的程序，包括分析行銷環境、策略性行銷決策、戰術性行銷決策，以及執行與控制等，期使能結合理論與實務，提昇行銷管理素養，並培養分析判斷之能力。\n【前置課程】ECON1001經濟學(一)、ECON1002經濟學(二)、MKT1019行銷管理、MGT1002企業概論\n【課程目標】1. 應用行銷口與溝通技巧\n【基本／核心能力】學生具備溝通表達能力\n【教材】Armstrong, G., Kotler, P., & Opresnik, M. O. (2023). Marketing: An introduction, Global Edition (15th ed.). UK: Pearson.\nISBN: 978-1-292-43310-3.\n李元恕,、丁美靜、王郁彬(2018)。行銷學(第13版)。華泰文化。\n【授課進度】[1] Summver vacation\n[2] Course overview and policies Ch 1 Marketing: Creating Customer Value and Engagement\n[3] Ch 1 Marketing: Creating Customer Value and Engagement ／TIMS Certification\n[4] Day off: Teacher's Day\n[5] Ch 2 Company and Marketing Strategy: Partnering to Build Customer Engagement, Value, and Relationships\n[6] Ch 3 Analyzing the Marketing Environment\n[7] Ch 4 Managing Marketing Information to Gain Customer Insights Ch 5 Understanding Consumer and Business Buyer Behavior\n[8] Memorial Day (Observed)\n[9] Midterm exams\n[10] Ch 6 Customer Value-Driven Marketing Strategy: Creating Value for Target Customers ／Exams #1\n[11] Ch 7 Product, Services, and Brands: Building Customer Value\n[12] Ch 8 Developing New Products and Managing the Product Life Cycle\n[13] Ch 9 Pricing: Understanding and Capturing Customer Value\n[14] Ch10 Marketing Channels: Delivering Customer Value Ch11 Retailing and Wholesaling\n[15] Ch12 Engaging Customers and Communicating Customer Value: Advertising and Public Relations\n[16] Ch12 Engaging Customers and Communicating Customer Value: Advertising and Public Relations\n[17] Ch13 Personal Selling and Sales Promotion Final-term exams ／Exams #2\n[18] 跨域學習周：行銷相關主題影片"
+   },
+   "alternatives": [
+    {
+     "course": "全球行銷管理",
+     "course_code": "EMBA6300",
+     "department": "經專碩一學位學程經管組甲班",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2755",
+     "match": "affix"
+    },
+    {
+     "course": "國際行銷管理",
+     "course_code": "ITRA3061",
+     "department": "國貿三乙",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0252",
+     "match": "affix"
+    },
+    {
+     "course": "不動產市場與行銷管理專論",
+     "course_code": "COND6054",
+     "department": "建設碩專一學位學程",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0955",
+     "match": "contains"
+    }
+   ]
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "會計學",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1"
+    ]
+   },
+   "match": "numbered",
+   "candidates": 83,
+   "course": "會計學(一)",
+   "course_en": "ACCOUNTING (1)",
+   "course_code": "ACCT1011",
+   "department": "會計一甲",
+   "class_id": "CB01111",
+   "credits": 3.0,
+   "required": "必修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "0091",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11510091&lang=cht",
+   "syllabus": {
+    "description": "本課程介紹基本會計學原則及觀念，主要包括：會計恆等式、交易分析、會計分錄、調整分錄、結帳分錄、會計循環、財務報表、買賣業會計、存貨、現金與內部控制。",
+    "description_en": "This course introduces basic accounting principle and concepts. The main topics include accounting equation, transaction analysis, journal entry, adjustment entry, closing entry, accounting cycle, financial statements, merchandising accounting, Inventory, cash and internal control 。",
+    "topic": "",
+    "prerequisites": "",
+    "objectives": [
+     "能知道會計學(一)涵蓋的主要內容及現代企業的財務報表和其限制。",
+     "能理解可應用會計學原理的情況。"
+    ],
+    "core_abilities": [
+     "學生具備商管專業的思辨學習能力"
+    ],
+    "textbooks": [
+     "Financial Accounting, IFRS 6th edition / Jerry J. Weygandt, Paul D. Kimmel",
+     "會計學：以國際會計準則為基礎之相關版本"
+    ],
+    "tools": [
+     "Kahoo\n智慧TA學習輔助系統"
+    ],
+    "weekly": [
+     {
+      "week": "1-3",
+      "topic": "Ch.1 Accounting in Action",
+      "activity": ""
+     },
+     {
+      "week": "4-5",
+      "topic": "Ch.2 The Recording Process",
+      "activity": ""
+     },
+     {
+      "week": "6",
+      "topic": "Ch.2 The Recording Process\nCh.3 Adjusting the Accounts",
+      "activity": ""
+     },
+     {
+      "week": "7-8",
+      "topic": "Ch.3 Adjusting the Accounts",
+      "activity": ""
+     },
+     {
+      "week": "9",
+      "topic": "Mid Exam.",
+      "activity": ""
+     },
+     {
+      "week": "10",
+      "topic": "Ch.4 Completing the accounting cycle",
+      "activity": ""
+     },
+     {
+      "week": "11-12",
+      "topic": "Ch.5 Accounting for Merchandising operations",
+      "activity": ""
+     },
+     {
+      "week": "13-14",
+      "topic": "Ch.6 Accounting for Inventories",
+      "activity": ""
+     },
+     {
+      "week": "15-16",
+      "topic": "Ch.7 Internal control and cash",
+      "activity": ""
+     },
+     {
+      "week": "17",
+      "topic": "Final Exam",
+      "activity": ""
+     },
+     {
+      "week": "18",
+      "topic": "自主學習：手寫習題筆記",
+      "activity": ""
+     }
+    ],
+    "grading": [
+     "期中考 40%",
+     "期末考 40%",
+     "隨堂測驗 20%"
+    ],
+    "empty": false,
+    "raw_text": "【課程】會計學(一) ACCOUNTING (1)（ACCT1011，3 學分，必修，會計一甲）\n【課程描述】本課程介紹基本會計學原則及觀念，主要包括：會計恆等式、交易分析、會計分錄、調整分錄、結帳分錄、會計循環、財務報表、買賣業會計、存貨、現金與內部控制。\n【課程目標】1. 能知道會計學(一)涵蓋的主要內容及現代企業的財務報表和其限制。\n2. 能理解可應用會計學原理的情況。\n【基本／核心能力】學生具備商管專業的思辨學習能力\n【教材】Financial Accounting, IFRS 6th edition / Jerry J. Weygandt, Paul D. Kimmel\n會計學：以國際會計準則為基礎之相關版本\n【學習工具】Kahoo\n智慧TA學習輔助系統\n【授課進度】[1-3] Ch.1 Accounting in Action\n[4-5] Ch.2 The Recording Process\n[6] Ch.2 The Recording Process Ch.3 Adjusting the Accounts\n[7-8] Ch.3 Adjusting the Accounts\n[9] Mid Exam.\n[10] Ch.4 Completing the accounting cycle\n[11-12] Ch.5 Accounting for Merchandising operations\n[13-14] Ch.6 Accounting for Inventories\n[15-16] Ch.7 Internal control and cash\n[17] Final Exam\n[18] 自主學習：手寫習題筆記\n【評分】期中考 40%、期末考 40%、隨堂測驗 20%"
+   },
+   "alternatives": [
+    {
+     "course": "會計學",
+     "course_code": "LAND1009",
+     "department": "土管一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2382",
+     "match": "exact"
+    },
+    {
+     "course": "會計學(一)實習",
+     "course_code": "ACCT1011P",
+     "department": "會計一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0092",
+     "match": "affix"
+    },
+    {
+     "course": "幸福會計學",
+     "course_code": "GEH1146",
+     "department": "通識選修",
+     "year": 115,
+     "sms": 1,
+     "selcode": "3148",
+     "match": "affix"
+    },
+    {
+     "course": "會計學實習",
+     "course_code": "LAND1009P",
+     "department": "土管一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2383",
+     "match": "affix"
+    },
+    {
+     "course": "會計學導論",
+     "course_code": "ACCT1017",
+     "department": "商學院綜合班",
+     "year": 115,
+     "sms": 1,
+     "selcode": "3703",
+     "match": "affix"
+    }
+   ]
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "微積分",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1"
+    ]
+   },
+   "match": "numbered",
+   "candidates": 115,
+   "course": "微積分(一)",
+   "course_en": "CALCULUS (1)",
+   "course_code": "MATH1005",
+   "department": "會計一甲",
+   "class_id": "CB01111",
+   "credits": 3.0,
+   "required": "必修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "0096",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11510096&lang=cht",
+   "syllabus": {
+    "description": "內容包含函數極限，導數，導函數，微分公式，鏈鎖律，隱微分，高階導數，線性近似與微分量，極大和極小值，導數與函數圖形之關係，無窮極限，水平漸近線，反導數，定積分，微積分基本定理，不定積分，代換法，曲線所圍之區域面積，自然對數函數，自然指數函數，一般對數與指數函數，反三角函數，並探討相關應用。",
+    "description_en": "Topics include the Limit of a Function, Derivatives, Differentiation Formula, the Chain Rule, Implicit Differentiation, Higher Derivatives, Linear Approximation, Maximum and Minimum Values, the Definite Integral, the Fundamental Theorem of Calculus, Indefinite Integrals, the Substitution Rule, Logarithmic and Exponential Functions, Inverse Trigonometric Functions and their applications.",
+    "topic": "",
+    "prerequisites": "",
+    "objectives": [
+     "理解單變數實數值函數之極限、連續、導數及積分定義，並建立相關定理，從中訓練學生邏輯分析能力。",
+     "理解基本函數極限、連續、導數及積分之運算規則，並使學生熟練運算技巧。",
+     "應用微積分理論及運算技巧處理相關幾何問題及極大極小值問題等，並為經濟學與物理學等跨領域學習作準備。"
+    ],
+    "core_abilities": [
+     "學生具備商管專業的思辨學習能力",
+     "學生具備溝通技巧",
+     "學生具備跨領域及問題解決能力"
+    ],
+    "textbooks": [
+     "Calculus for Business, Economics, Life Sciences, and Social Sciences (14e)\nR. A. Barnett, M. R. Ziegler, K. E. Byleen, C. J. Stocker",
+     "Essential Calculus Early Transcendentals\n(Metric Version 5e)"
+    ],
+    "tools": [],
+    "weekly": [
+     {
+      "week": "1",
+      "topic": "Exponential Functions; Logarithmic Functions; Introduction to Limits",
+      "activity": ""
+     },
+     {
+      "week": "2",
+      "topic": "Introduction to Limits;\nInfinite Limits and Limits at Infinity",
+      "activity": ""
+     },
+     {
+      "week": "3",
+      "topic": "The Derivative",
+      "activity": ""
+     },
+     {
+      "week": "4",
+      "topic": "Basic Differentiation Properties; Differentials",
+      "activity": ""
+     },
+     {
+      "week": "5",
+      "topic": "Differentials;\nDerivatives of Exponential and Logarithmic Functions",
+      "activity": ""
+     },
+     {
+      "week": "6",
+      "topic": "Derivatives of Exponential and Logarithmic Functions;\nDerivatives of Products and Quotients;\nDerivatives of Trigonometric Functions",
+      "activity": ""
+     },
+     {
+      "week": "7",
+      "topic": "The Chain Rule",
+      "activity": ""
+     },
+     {
+      "week": "8",
+      "topic": "10/28(三)統籌科目期中會考",
+      "activity": ""
+     },
+     {
+      "week": "9",
+      "topic": "Implicit Differentiation",
+      "activity": ""
+     },
+     {
+      "week": "10",
+      "topic": "First Derivative and Graphs",
+      "activity": ""
+     },
+     {
+      "week": "11",
+      "topic": "Second Derivative and Graphs",
+      "activity": ""
+     },
+     {
+      "week": "12",
+      "topic": "Absolute Maxima and Minima",
+      "activity": ""
+     },
+     {
+      "week": "13",
+      "topic": "Antiderivatives and Indefinite Integrals;\nIntegration by Substitution",
+      "activity": ""
+     },
+     {
+      "week": "14",
+      "topic": "Integration by Substitution; The Definite Integral",
+      "activity": ""
+     },
+     {
+      "week": "15",
+      "topic": "The Fundamental Theorem of Calculus",
+      "activity": ""
+     },
+     {
+      "week": "16",
+      "topic": "Area Between Curves",
+      "activity": ""
+     },
+     {
+      "week": "17",
+      "topic": "12/28(一); 12/29(二)統籌科目期末會考",
+      "activity": ""
+     },
+     {
+      "week": "18",
+      "topic": "12/28(一)~01/08(五)為彈性(自主)學習週",
+      "activity": ""
+     }
+    ],
+    "grading": [
+     "期中考 25%",
+     "期末考 25%",
+     "線上測驗 20%",
+     "實驗/實習報告 15%",
+     "課堂討論參與 15%"
+    ],
+    "empty": false,
+    "raw_text": "【課程】微積分(一) CALCULUS (1)（MATH1005，3 學分，必修，會計一甲）\n【課程描述】內容包含函數極限，導數，導函數，微分公式，鏈鎖律，隱微分，高階導數，線性近似與微分量，極大和極小值，導數與函數圖形之關係，無窮極限，水平漸近線，反導數，定積分，微積分基本定理，不定積分，代換法，曲線所圍之區域面積，自然對數函數，自然指數函數，一般對數與指數函數，反三角函數，並探討相關應用。\n【課程目標】1. 理解單變數實數值函數之極限、連續、導數及積分定義，並建立相關定理，從中訓練學生邏輯分析能力。\n2. 理解基本函數極限、連續、導數及積分之運算規則，並使學生熟練運算技巧。\n3. 應用微積分理論及運算技巧處理相關幾何問題及極大極小值問題等，並為經濟學與物理學等跨領域學習作準備。\n【基本／核心能力】學生具備商管專業的思辨學習能力；學生具備溝通技巧；學生具備跨領域及問題解決能力\n【教材】Calculus for Business, Economics, Life Sciences, and Social Sciences (14e)\nR. A. Barnett, M. R. Ziegler, K. E. Byleen, C. J. Stocker\nEssential Calculus Early Transcendentals\n(Metric Version 5e)\n【授課進度】[1] Exponential Functions; Logarithmic Functions; Introduction to Limits\n[2] Introduction to Limits; Infinite Limits and Limits at Infinity\n[3] The Derivative\n[4] Basic Differentiation Properties; Differentials\n[5] Differentials; Derivatives of Exponential and Logarithmic Functions\n[6] Derivatives of Exponential and Logarithmic Functions; Derivatives of Products and Quotients; Derivatives of Trigonometric Functions\n[7] The Chain Rule\n[8] 10/28(三)統籌科目期中會考\n[9] Implicit Differentiation\n[10] First Derivative and Graphs\n[11] Second Derivative and Graphs\n[12] Absolute Maxima and Minima\n[13] Antiderivatives and Indefinite Integrals; Integration by Substitution\n[14] Integration by Substitution; The Definite Integral\n[15] The Fundamental Theorem of Calculus\n[16] Area Between Curves\n[17] 12/28(一); 12/29(二)統籌科目期末會考\n[18] 12/28(一)~01/08(五)為彈性(自主)學習週\n【評分】期中考 25%、期末考 25%、線上測驗 20%、實驗/實習報告 15%、課堂討論參與 15%"
+   },
+   "alternatives": [
+    {
+     "course": "微積分(二)",
+     "course_code": "MATH1006",
+     "department": "工程與科學學院綜合班",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0048",
+     "match": "numbered"
+    },
+    {
+     "course": "微積分",
+     "course_code": "CEM1006",
+     "department": "營管進修一",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0933",
+     "match": "exact"
+    },
+    {
+     "course": "微積分(一)實習",
+     "course_code": "MATH1005P",
+     "department": "會計一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0095",
+     "match": "affix"
+    },
+    {
+     "course": "商學微積分",
+     "course_code": "ISTM113",
+     "department": "大數據一(SJSU)",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2804",
+     "match": "affix"
+    },
+    {
+     "course": "多變元微積分",
+     "course_code": "ISTM210",
+     "department": "電機二(SJSU)",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2826",
+     "match": "affix"
+    }
+   ]
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "工程圖學",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1"
+    ]
+   },
+   "match": "numbered",
+   "candidates": 13,
+   "course": "工程圖學(一)",
+   "course_en": "ENGINEERING GRAPHICS(1)",
+   "course_code": "CE1081",
+   "department": "土木一甲",
+   "class_id": "CE01111",
+   "credits": 2.0,
+   "required": "必修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "0978",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11510978&lang=cht",
+   "syllabus": {
+    "description": "工程圖說是所有工程建設之基礎，工程設計人員乃是藉由工程圖說傳達其設計概念與細節，施工人員則是依據工程圖說進行施工。因此，工程圖說的識讀與繪製乃是所有工程人員必備的一項基本技能。本課程內容分為上下兩學期，目的在使學生瞭解土木建築工程的製圖原理及識讀工程圖的內容，同時熟悉電腦繪圖軟體與繪圖技術，以進行工程圖的繪製。上學期講授2D工程圖識圖時，搭配3D建模軟體Sketchup；講授工程圖繪製時，則使用AutoCAD；下學期主要教授3D建模原理與技術，使用Revit。",
+    "description_en": "Engineering drawing is the foundation of architecture, engineering, and construction (AEC) industry, where designers use it to convey their design concepts to the owner and the contractors who build the product according to it. Therefore, reading and making engineering drawings are two basic skills for all civil engineers. This course spans two semesters to make the students aware about the basic principles and reading of engineering drawings as well as capable of using CAD software to perform effective and efficient drawing. During the first semester, the reading and drawing principles of 2D drawings will be taught using Sketchup and AutoCAD. Then 3D building modeling will be taught in the second semester using Revit. Above-mentioned software versions are all 2017.",
+    "topic": "",
+    "prerequisites": "",
+    "objectives": [
+     "瞭解土木建築工程的製圖原理及識讀工程圖的內容",
+     "熟悉電腦繪圖軟體與繪圖技術"
+    ],
+    "core_abilities": [
+     "應用管理技術、測量、量測、資訊處理等工具，分析方法與軟體，及土木工程材料的能力。"
+    ],
+    "textbooks": [
+     "透過案例演練學習BIM：基礎篇/謝尚賢、郭榮欽，台大出版中心",
+     "自製投影片講義與課程錄影檔。"
+    ],
+    "tools": [
+     "Autodesk Revit Autodesk Revit"
+    ],
+    "weekly": [
+     {
+      "week": "1",
+      "topic": "放樣與開挖",
+      "activity": ""
+     },
+     {
+      "week": "2",
+      "topic": "筏式基礎",
+      "activity": ""
+     },
+     {
+      "week": "3",
+      "topic": "1F結構體(梁柱版)",
+      "activity": ""
+     },
+     {
+      "week": "4",
+      "topic": "1F結構體(牆)",
+      "activity": ""
+     },
+     {
+      "week": "5",
+      "topic": "1F附屬物(樓梯、門窗)",
+      "activity": ""
+     },
+     {
+      "week": "6",
+      "topic": "1F附屬物(雨遮、冷氣口)",
+      "activity": ""
+     },
+     {
+      "week": "7",
+      "topic": "2-5F結構體",
+      "activity": ""
+     },
+     {
+      "week": "8",
+      "topic": "2-5F附屬物(樓梯)",
+      "activity": ""
+     },
+     {
+      "week": "9",
+      "topic": "2-5F附屬物(電梯開口)",
+      "activity": ""
+     },
+     {
+      "week": "10",
+      "topic": "屋頂層(樓板、女兒牆)",
+      "activity": ""
+     },
+     {
+      "week": "11",
+      "topic": "屋頂層(豎井、管道間)",
+      "activity": ""
+     },
+     {
+      "week": "12",
+      "topic": "屋突壹層",
+      "activity": ""
+     },
+     {
+      "week": "13",
+      "topic": "屋突貳層",
+      "activity": ""
+     },
+     {
+      "week": "14",
+      "topic": "調整放假一天",
+      "activity": ""
+     },
+     {
+      "week": "15",
+      "topic": "屋突參層",
+      "activity": ""
+     },
+     {
+      "week": "16",
+      "topic": "出圖",
+      "activity": ""
+     },
+     {
+      "week": "17",
+      "topic": "彩現與動畫",
+      "activity": ""
+     },
+     {
+      "week": "18",
+      "topic": "期末專案",
+      "activity": ""
+     }
+    ],
+    "grading": [
+     "作業 15%",
+     "期末專題 25%",
+     "上機操作 60%"
+    ],
+    "empty": false,
+    "raw_text": "【課程】工程圖學(一) ENGINEERING GRAPHICS(1)（CE1081，2 學分，必修，土木一甲）\n【課程描述】工程圖說是所有工程建設之基礎，工程設計人員乃是藉由工程圖說傳達其設計概念與細節，施工人員則是依據工程圖說進行施工。因此，工程圖說的識讀與繪製乃是所有工程人員必備的一項基本技能。本課程內容分為上下兩學期，目的在使學生瞭解土木建築工程的製圖原理及識讀工程圖的內容，同時熟悉電腦繪圖軟體與繪圖技術，以進行工程圖的繪製。上學期講授2D工程圖識圖時，搭配3D建模軟體Sketchup；講授工程圖繪製時，則使用AutoCAD；下學期主要教授3D建模原理與技術，使用Revit。\n【課程目標】1. 瞭解土木建築工程的製圖原理及識讀工程圖的內容\n2. 熟悉電腦繪圖軟體與繪圖技術\n【基本／核心能力】應用管理技術、測量、量測、資訊處理等工具，分析方法與軟體，及土木工程材料的能力。\n【教材】透過案例演練學習BIM：基礎篇/謝尚賢、郭榮欽，台大出版中心\n自製投影片講義與課程錄影檔。\n【學習工具】Autodesk Revit Autodesk Revit\n【授課進度】[1] 放樣與開挖\n[2] 筏式基礎\n[3] 1F結構體(梁柱版)\n[4] 1F結構體(牆)\n[5] 1F附屬物(樓梯、門窗)\n[6] 1F附屬物(雨遮、冷氣口)\n[7] 2-5F結構體\n[8] 2-5F附屬物(樓梯)\n[9] 2-5F附屬物(電梯開口)\n[10] 屋頂層(樓板、女兒牆)\n[11] 屋頂層(豎井、管道間)\n[12] 屋突壹層\n[13] 屋突貳層\n[14] 調整放假一天\n[15] 屋突參層\n[16] 出圖\n[17] 彩現與動畫\n[18] 期末專案\n【評分】作業 15%、期末專題 25%、上機操作 60%"
+   },
+   "alternatives": [
+    {
+     "course": "工程圖學(含實習)",
+     "course_code": "AUTO2031",
+     "department": "自控二甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "1747",
+     "match": "affix"
+    },
+    {
+     "course": "工程圖學及輔助軟體應用",
+     "course_code": "EES1022",
+     "department": "環境一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2487",
+     "match": "affix"
+    }
+   ]
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "管理學",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1"
+    ]
+   },
+   "match": "exact",
+   "candidates": 18,
+   "course": "管理學",
+   "course_en": "MANAGEMENT",
+   "course_code": "MGT1001",
+   "department": "會計二丙",
+   "class_id": "CB01123",
+   "credits": 3.0,
+   "required": "必修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "0143",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11510143&lang=cht",
+   "syllabus": {
+    "description": "管理學是一門兼具科學與藝術的統整性學科。其目的在培養學生成為具備國際觀、前瞻性和競爭力的經理人。課程重視管理知識的傳授和管理能力的培養。課程實施側重於實務導向。從核心概念的建立，逐步導入國內外企業管理實務，強調整合性思考和實務應用。",
+    "description_en": "Management is both a science and an art. The purpose of this course is to prepare students to be future managers with global vision and the ability to compete in this fast-paced world. The course focuses on foundational management theory education and managerial competence creation. the class emphasis is on business practice orientation. Beginning with core concepts, then learning through practice cases.",
+    "topic": "",
+    "prerequisites": "",
+    "objectives": [
+     "能夠理解何謂管理學、企業的外在環境因素、管理程序。",
+     "能夠知道外在環境因素對企業的影響和衝擊;瞭解管理功能的內涵和彼此之相關性。",
+     "能夠理解並比較各種管理理論之特性;掌握新的管理發展趨勢並應用在企業實務。",
+     "能夠理解企業如何將企業倫理和社會責任以及環保等重要議題，融入經營管理決策，強化企業永續經營理念。"
+    ],
+    "core_abilities": [
+     "學生具備商管專業的思辨學習能力",
+     "學生具備專業倫理觀念與態度"
+    ],
+    "textbooks": [
+     "管理學（十版）\n作者： Gareth 等\n譯者：吳錦錩\n出版社：華泰文化\nhttps://eshop.hwatai.com.tw/SalePage/Index/10378832?lang=zh-TW",
+     "教師自行提供相關課程補充教材"
+    ],
+    "tools": [
+     "Canva",
+     "無"
+    ],
+    "weekly": [
+     {
+      "week": "W1\n0908",
+      "topic": "課程簡介",
+      "activity": "破冰、分組、課堂規則簡介"
+     },
+     {
+      "week": "W2\n0915",
+      "topic": "企業、管理與管理者",
+      "activity": "中秋連假"
+     },
+     {
+      "week": "W3\n0922",
+      "topic": "管理理論",
+      "activity": "Text book Ch.1"
+     },
+     {
+      "week": "W4\n0929",
+      "topic": "企業倫理與社會責任(1)",
+      "activity": "Text book Ch.2"
+     },
+     {
+      "week": "W5\n1006",
+      "topic": "企業倫理與社會責任(2)",
+      "activity": "Text book Ch.4 & 補充內容\n發放ＡＡＣＳＢ個案\nAI與不倫理觀察報告 (1-8組)"
+     },
+     {
+      "week": "W6\n1013",
+      "topic": "環境分析",
+      "activity": "Text book Ch.4 & 補充內容\nAI與不倫理觀察報告 (9-16組)"
+     },
+     {
+      "week": "W7\n1020",
+      "topic": "決策、規劃與策略 (1)",
+      "activity": "Text book Ch.3\n搭配課堂活動"
+     },
+     {
+      "week": "W8\n1027",
+      "topic": "決策、規劃與策略 (2)",
+      "activity": "Text book Ch.5, Ch.6\n搭配課堂活動"
+     },
+     {
+      "week": "W9\n1103",
+      "topic": "期中考試週",
+      "activity": "Text book Ch.6\nText book Ch.7, Ch.8\n搭配課堂活動\n期中考重點複習"
+     },
+     {
+      "week": "W10\n1110",
+      "topic": "CHECK POINT",
+      "activity": "筆試\n考試章節為所授課章節 （詳細範圍由授課教師於課堂說明）"
+     },
+     {
+      "week": "W11\n1117",
+      "topic": "激勵與領導\n溝通與控制",
+      "activity": "期末報告構想發想"
+     },
+     {
+      "week": "W12\n1124",
+      "topic": "專題演講：題目暫定，講者邀約中",
+      "activity": "Text book Ch.10, Ch.11\nText book Ch.13, Ch.14\nＡＡＣＳＢ各人報告繳交\n課堂活動"
+     },
+     {
+      "week": "W13\n1201",
+      "topic": "個案討論",
+      "activity": "請各組至少攜帶一台筆電或平板，於課堂討論指定個案，並進行報告與分享"
+     },
+     {
+      "week": "W14\n1208",
+      "topic": "期末報告(一)",
+      "activity": "指定主題"
+     },
+     {
+      "week": "W15\n1215",
+      "topic": "期末報告(二)",
+      "activity": "1~8組報告"
+     },
+     {
+      "week": "W16\n1222",
+      "topic": "期末回饋與總結",
+      "activity": "9~16組報告"
+     },
+     {
+      "week": "W17\n1229",
+      "topic": "1.輔導學生參與全國性、校級或院級之競賽。\n2.舉辦定錨課程競賽、深碗專題競賽、跨學期畢業專題競賽..等。\n3.輔導進行學生線上自主學習。\n4.多元學習資源：包含專業實習廠商諮詢及輔導、企業參訪、課程演講。",
+      "activity": "期末課程回饋"
+     },
+     {
+      "week": "W18\n0105",
+      "topic": "1.輔導學生參與全國性、校級或院級之競賽。\n2.舉辦定錨課程競賽、深碗專題競賽、跨學期畢業專題競賽..等。\n3.輔導進行學生線上自主學習。\n4.多元學習資源：包含專業實習廠商諮詢及輔導、企業參訪、課程演講。",
+      "activity": "不上課"
+     }
+    ],
+    "grading": [
+     "期中考 25%",
+     "期末專題 30%",
+     "課堂討論參與 30%",
+     "出席狀況 15%"
+    ],
+    "empty": false,
+    "raw_text": "【課程】管理學 MANAGEMENT（MGT1001，3 學分，必修，會計二丙）\n【課程描述】管理學是一門兼具科學與藝術的統整性學科。其目的在培養學生成為具備國際觀、前瞻性和競爭力的經理人。課程重視管理知識的傳授和管理能力的培養。課程實施側重於實務導向。從核心概念的建立，逐步導入國內外企業管理實務，強調整合性思考和實務應用。\n【課程目標】1. 能夠理解何謂管理學、企業的外在環境因素、管理程序。\n2. 能夠知道外在環境因素對企業的影響和衝擊;瞭解管理功能的內涵和彼此之相關性。\n3. 能夠理解並比較各種管理理論之特性;掌握新的管理發展趨勢並應用在企業實務。\n4. 能夠理解企業如何將企業倫理和社會責任以及環保等重要議題，融入經營管理決策，強化企業永續經營理念。\n【基本／核心能力】學生具備商管專業的思辨學習能力；學生具備專業倫理觀念與態度\n【教材】管理學（十版）\n作者： Gareth 等\n譯者：吳錦錩\n出版社：華泰文化\nhttps://eshop.hwatai.com.tw/SalePage/Index/10378832?lang=zh-TW\n教師自行提供相關課程補充教材\n【學習工具】Canva、無\n【授課進度】[W1 0908] 課程簡介 ／破冰、分組、課堂規則簡介\n[W2 0915] 企業、管理與管理者 ／中秋連假\n[W3 0922] 管理理論 ／Text book Ch.1\n[W4 0929] 企業倫理與社會責任(1) ／Text book Ch.2\n[W5 1006] 企業倫理與社會責任(2) ／Text book Ch.4 & 補充內容 發放ＡＡＣＳＢ個案 AI與不倫理觀察報告 (1-8組)\n[W6 1013] 環境分析 ／Text book Ch.4 & 補充內容 AI與不倫理觀察報告 (9-16組)\n[W7 1020] 決策、規劃與策略 (1) ／Text book Ch.3 搭配課堂活動\n[W8 1027] 決策、規劃與策略 (2) ／Text book Ch.5, Ch.6 搭配課堂活動\n[W9 1103] 期中考試週 ／Text book Ch.6 Text book Ch.7, Ch.8 搭配課堂活動 期中考重點複習\n[W10 1110] CHECK POINT ／筆試 考試章節為所授課章節 （詳細範圍由授課教師於課堂說明）\n[W11 1117] 激勵與領導 溝通與控制 ／期末報告構想發想\n[W12 1124] 專題演講：題目暫定，講者邀約中 ／Text book Ch.10, Ch.11 Text book Ch.13, Ch.14 ＡＡＣＳＢ各人報告繳交 課堂活動\n[W13 1201] 個案討論 ／請各組至少攜帶一台筆電或平板，於課堂討論指定個案，並進行報告與分享\n[W14 1208] 期末報告(一) ／指定主題\n[W15 1215] 期末報告(二) ／1~8組報告\n[W16 1222] 期末回饋與總結 ／9~16組報告\n[W17 1229] 1.輔導學生參與全國性、校級或院級之競賽。 2.舉辦定錨課程競賽、深碗專題競賽、跨學期畢業專題競賽..等。 3.輔導進行學生線上自主學習。 4.多元學習資源：包含專業實習廠商諮詢及輔導、企業參訪、課程演講。 ／期末課程回饋\n[W18 0105] 1.輔導學生參與全國性、校級或院級之競賽。 2.舉辦定錨課程競賽、深碗專題競賽、跨學期畢業專題競賽..等。 3.輔導進行學生線上自主學習。 4.多元學習資源：包含專業實習廠商諮詢及輔導、企業參訪、課程演講。 ／不上課\n【評分】期中考 25%、期末專題 30%、課堂討論參與 30%、出席狀況 15%"
+   },
+   "alternatives": [
+    {
+     "course": "專案管理學",
+     "course_code": "PM6000",
+     "department": "專案管理碩專班一學位學程",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0968",
+     "match": "affix"
+    }
+   ]
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "經濟學",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1"
+    ]
+   },
+   "match": "numbered",
+   "candidates": 102,
+   "course": "經濟學(一)",
+   "course_en": "ECONOMICS (1)",
+   "course_code": "ECON1001",
+   "department": "會計一甲",
+   "class_id": "CB01111",
+   "credits": 3.0,
+   "required": "必修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "0093",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11510093&lang=cht",
+   "syllabus": {
+    "description": "讓學生從經濟學的課程中瞭解經濟體系中的消費者、生產者、及政府單位如何在有限制的條件下做選擇。將理論的邏輯推理運用在日常生活當中。",
+    "description_en": "Economics explains how consumers, producers, and the government make their best decisions based on the different constraints. Students can apply the theory of Economics to deal with their problems in real life.",
+    "topic": "",
+    "prerequisites": "",
+    "objectives": [
+     "1.理解基本的經濟問題，供需原理，價格機能的運作及相關實例之應用。",
+     "2. 理解市場失靈之原因及其對策。",
+     "3. 理解廠商的生產及成本理論。",
+     "4.理解不同的市場結構，及廠商的訂價行為。"
+    ],
+    "core_abilities": [
+     "學生具備商管專業的思辨學習能力"
+    ],
+    "textbooks": [
+     "Principles of Economics, N. Gregory Mankiw, Cengage/東華書局代理, 11th Edition, 2027",
+     "課程內容複習：\n積學網-經濟學(一)：https://courses.openedu.tw/courses/course-v1:FCU+ST+23008/course/\n課外補充：\n經濟學人 (The Economists), 天下雜誌\n紐約時報中文網, New York Times\n經濟學原理, 林明仁 教授, 台大開放式課程"
+    ],
+    "tools": [
+     "紙本教科書\n電子教科書\n平板電腦\n其他筆記用品 1. 為提升學習效率，同學可依個人習慣，自由選擇並使用合適的學習輔助工具（如：平板電腦、電子書、紙本書、筆記本等）。\n2. 因版權及授權問題，本課程將不提供與課本有關之紙本及數位教材，同學若有需求可自行向書商或學長姐洽詢新書或徵求二手教材。"
+    ],
+    "weekly": [
+     {
+      "week": "1",
+      "topic": "Chap. 2 Thinking Like an Economist (pp.19-33)\nChap. 3 Interdependence and the Gains from Trade (pp.45-55)",
+      "activity": "115.09.10(四)\n1. 課堂規則、本學期授課內容概覽\n2. 正課內容講授\n3. 暖身活動"
+     },
+     {
+      "week": "2",
+      "topic": "Chap. 4 The Market Forces of Supply and Demand (pp.61-83)",
+      "activity": "115.09.17(四)\n1. 正課內容講授\n2. 課堂練習"
+     },
+     {
+      "week": "3",
+      "topic": "Chap. 5 Elasticity and Its Application (pp.87-106)",
+      "activity": "115.09.24(四)\n1. 正課內容講授\n2. 課堂練習"
+     },
+     {
+      "week": "4",
+      "topic": "Chap. 6 Supply, Demand, and Government Policies (pp.109-126)",
+      "activity": "115.10.01(四)\n1. 正課內容講授\n2. 課堂練習"
+     },
+     {
+      "week": "5",
+      "topic": "Chap. 7 Consumers, Producers, and the Efficiency of Markets (pp.129-145)",
+      "activity": "115.10.08(四)\n1. 正課內容講授\n2. 課堂練習"
+     },
+     {
+      "week": "6",
+      "topic": "Chap. 10 Externalities (pp.185-203)",
+      "activity": "115.10.15(四)\n1. 正課內容講授\n2. 課堂練習"
+     },
+     {
+      "week": "7",
+      "topic": "Chap. 14 The Costs of Production (pp.261-276)",
+      "activity": "115.10.22(四)\n1. 正課內容講授\n2. Formative Assessment"
+     },
+     {
+      "week": "8",
+      "topic": "Midterm Exam (期中考試)",
+      "activity": "115.10.29(四)\n1. 期中考試\n2. 記得帶應試文具、計算機\n3. 切勿有代考或作弊等情事，否則一律依校規辦理。\n4. 請同學務必留意，115.10.29(四)為本科目期中考試日，若欲請假，建請參閱《逢甲大學學則》第26條及學生請假辦法 ，若非請假辦法中提及之相關請假事宜，恕老師將不予准假。"
+     },
+     {
+      "week": "9",
+      "topic": "Chap. 14 The Costs of Production (pp.261-276)\nChap. 15 Firms in Competition Markets (pp.281-300)",
+      "activity": "115.11.05(四)\n1. 正課內容講授\n2. 課堂練習"
+     },
+     {
+      "week": "10",
+      "topic": "Chap. 15 Firms in Competition Markets (pp.281-300)",
+      "activity": "115.11.12(四)\n1. 正課內容講授\n2. 課堂練習"
+     },
+     {
+      "week": "11",
+      "topic": "Chap. 16 Monopoly (pp.305-328)",
+      "activity": "115.11.19(四)\n1. Formative Assessment\n2. 正課內容講授\n3. 課堂練習"
+     },
+     {
+      "week": "12",
+      "topic": "Chap. 16 Monopoly (pp.305-328)\nChap. 17 Monopolistic Competition (pp.335-343)",
+      "activity": "115.11.26(四)\n1. 正課內容講授\n2. 課堂練習(Exit ticket)"
+     },
+     {
+      "week": "13",
+      "topic": "Chap. 17 Monopolistic Competition (pp.335-343)",
+      "activity": "115.12.03(四)\n1. Formative Assessment\n2. 正課內容講授\n3. 課堂練習"
+     },
+     {
+      "week": "14",
+      "topic": "Chap. 17 Monopolistic Competition (pp.335-343)\nChap. 18 Oligopoly (pp.353-365)",
+      "activity": "115.12.10(四)\n1. 正課內容講授\n2. 課堂練習"
+     },
+     {
+      "week": "15",
+      "topic": "Chap. 18 Oligopoly (pp.353-365)",
+      "activity": "115.12.17(四)\n1. 正課內容講授\n2. Formative Assessment"
+     },
+     {
+      "week": "16",
+      "topic": "Review and Practice",
+      "activity": "115.12.24(四)\n1. 期末會考前小考"
+     },
+     {
+      "week": "17",
+      "topic": "Final Exam (經濟學統籌期末會考)",
+      "activity": "115.12.28(一) or 115.12.29(二)\n1. 115學年度統籌科目期末會考日訂於115.12.28(一)~115.12.29(二)。本科目之確切會考日期將代學校公告後，公布相關資訊於ilearn上，請同學務必留意。\n2. 請同學務必留意，115.12.28(一)~115.12.29(二)為本校統籌科目會考日，若欲請假，建請參閱《逢甲大學學則》第26條及學生請假辦法 ，若非請假辦法中提及之相關請假事宜，恕老師將不予准假。"
+     },
+     {
+      "week": "18",
+      "topic": "彈性學習周次",
+      "activity": "116.01.07(二)\n1. 彈性學習周次，同學可安排欲學習之技能或探索有興趣之職涯方向。"
+     }
+    ],
+    "grading": [
+     "課堂討論參與 30%",
+     "期中考 30%",
+     "期末考 40%"
+    ],
+    "empty": false,
+    "raw_text": "【課程】經濟學(一) ECONOMICS (1)（ECON1001，3 學分，必修，會計一甲）\n【課程描述】讓學生從經濟學的課程中瞭解經濟體系中的消費者、生產者、及政府單位如何在有限制的條件下做選擇。將理論的邏輯推理運用在日常生活當中。\n【課程目標】1. 1.理解基本的經濟問題，供需原理，價格機能的運作及相關實例之應用。\n2. 2. 理解市場失靈之原因及其對策。\n3. 3. 理解廠商的生產及成本理論。\n4. 4.理解不同的市場結構，及廠商的訂價行為。\n【基本／核心能力】學生具備商管專業的思辨學習能力\n【教材】Principles of Economics, N. Gregory Mankiw, Cengage/東華書局代理, 11th Edition, 2027\n課程內容複習：\n積學網-經濟學(一)：https://courses.openedu.tw/courses/course-v1:FCU+ST+23008/course/\n課外補充：\n經濟學人 (The Economists), 天下雜誌\n紐約時報中文網, New York Times\n經濟學原理, 林明仁 教授, 台大開放式課程\n【學習工具】紙本教科書\n電子教科書\n平板電腦\n其他筆記用品 1. 為提升學習效率，同學可依個人習慣，自由選擇並使用合適的學習輔助工具（如：平板電腦、電子書、紙本書、筆記本等）。\n2. 因版權及授權問題，本課程將不提供與課本有關之紙本及數位教材，同學若有需求可自行向書商或學長姐洽詢新書或徵求二手教材。\n【授課進度】[1] Chap. 2 Thinking Like an Economist (pp.19-33) Chap. 3 Interdependence and the Gains from Trade (pp.45-55) ／115.09.10(四) 1. 課堂規則、本學期授課內容概覽 2. 正課內容講授 3. 暖身活動\n[2] Chap. 4 The Market Forces of Supply and Demand (pp.61-83) ／115.09.17(四) 1. 正課內容講授 2. 課堂練習\n[3] Chap. 5 Elasticity and Its Application (pp.87-106) ／115.09.24(四) 1. 正課內容講授 2. 課堂練習\n[4] Chap. 6 Supply, Demand, and Government Policies (pp.109-126) ／115.10.01(四) 1. 正課內容講授 2. 課堂練習\n[5] Chap. 7 Consumers, Producers, and the Efficiency of Markets (pp.129-145) ／115.10.08(四) 1. 正課內容講授 2. 課堂練習\n[6] Chap. 10 Externalities (pp.185-203) ／115.10.15(四) 1. 正課內容講授 2. 課堂練習\n[7] Chap. 14 The Costs of Production (pp.261-276) ／115.10.22(四) 1. 正課內容講授 2. Formative Assessment\n[8] Midterm Exam (期中考試) ／115.10.29(四) 1. 期中考試 2. 記得帶應試文具、計算機 3. 切勿有代考或作弊等情事，否則一律依校規辦理。 4. 請同學務必留意，115.10.29(四)為本科目期中考試日，若欲請假，建請參閱《逢甲大學學則》第26條及學生請假辦法 ，若非請假辦法中提及之相關請假事宜，恕老師將不予准假。\n[9] Chap. 14 The Costs of Production (pp.261-276) Chap. 15 Firms in Competition Markets (pp.281-300) ／115.11.05(四) 1. 正課內容講授 2. 課堂練習\n[10] Chap. 15 Firms in Competition Markets (pp.281-300) ／115.11.12(四) 1. 正課內容講授 2. 課堂練習\n[11] Chap. 16 Monopoly (pp.305-328) ／115.11.19(四) 1. Formative Assessment 2. 正課內容講授 3. 課堂練習\n[12] Chap. 16 Monopoly (pp.305-328) Chap. 17 Monopolistic Competition (pp.335-343) ／115.11.26(四) 1. 正課內容講授 2. 課堂練習(Exit ticket)\n[13] Chap. 17 Monopolistic Competition (pp.335-343) ／115.12.03(四) 1. Formative Assessment 2. 正課內容講授 3. 課堂練習\n[14] Chap. 17 Monopolistic Competition (pp.335-343) Chap. 18 Oligopoly (pp.353-365) ／115.12.10(四) 1. 正課內容講授 2. 課堂練習\n[15] Chap. 18 Oligopoly (pp.353-365) ／115.12.17(四) 1. 正課內容講授 2. Formative Assessment\n[16] Review and Practice ／115.12.24(四) 1. 期末會考前小考\n[17] Final Exam (經濟學統籌期末會考) ／115.12.28(一) or 115.12.29(二) 1. 115學年度統籌科目期末會考日訂於115.12.28(一)~115.12.29(二)。本科目之確切會考日期將代學校公告後，公布相關資訊於ilearn上，請同學務必留意。 2. 請同學務必留意，115.12.28(一)~115.12.29(二)為本校統籌科目會考日，若欲請假，建請參閱《逢甲大學學則》第26條及學生請假辦法 ，若非請假辦法中提及之相關請假事宜，恕老師將不予准假。\n[18] 彈性學習周次 ／116.01.07(二) 1. 彈性學習周次，同學可安排欲學習之技能或探索有興趣之職涯方向。\n【評分】課堂討論參與 30%、期中考 30%、期末考 40%"
+   },
+   "alternatives": [
+    {
+     "course": "經濟學",
+     "course_code": "ECON1010",
+     "department": "風保一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0379",
+     "match": "exact"
+    },
+    {
+     "course": "經濟學(一)實習",
+     "course_code": "ECON1001P",
+     "department": "會計一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0094",
+     "match": "affix"
+    },
+    {
+     "course": "個體經濟學",
+     "course_code": "ECON2011",
+     "department": "會計二甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0148",
+     "match": "affix"
+    },
+    {
+     "course": "經濟學實習",
+     "course_code": "ECON1010P",
+     "department": "風保一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0380",
+     "match": "affix"
+    },
+    {
+     "course": "土地經濟學",
+     "course_code": "LAND2053",
+     "department": "土管二甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2395",
+     "match": "affix"
+    }
+   ]
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "英文",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1"
+    ]
+   },
+   "match": "numbered",
+   "candidates": 229,
+   "course": "英文(一)",
+   "course_en": "ENGLISH(1)",
+   "course_code": "FLL1005",
+   "department": "外文一甲",
+   "class_id": "CH06111",
+   "credits": 3.0,
+   "required": "必修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "2010",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11512010&lang=cht",
+   "syllabus": {
+    "description": "這門課的主要重點是藉由課堂上不同的活動，來增進學生的英文單字量、文法分析與閱讀理解。過程當中，也會帶領同學們學習不同的閱讀技巧，來強化同學們的閱讀能力。除了單字、文法以及閱讀能力的強化外，亦將透過特定主題，來選取不同背景之文章來進行授課，以期厚實學生的文化底蘊。",
+    "description_en": "This course aims to improve students’ vocabulary, grammar, and reading abilities through various kinds of in-class activities. In order to achieve this goal, teachers will also introduce different reading strategies to enhance students’ reading comprehension. In terms of students’ cultural cultivation, teachers will choose articles revealing different cultural values.",
+    "topic": "",
+    "prerequisites": "",
+    "objectives": [
+     "具備英文聽、說、讀、寫的應用能力。",
+     "具備職涯發展的英文知識。"
+    ],
+    "core_abilities": [
+     "具有英/外語聽、說、讀、寫的溝通能力"
+    ],
+    "textbooks": [
+     "English, A. K. (2020). North Star 4: Reading & Writing (5th ed.). NJ: Pearson Education Inc.",
+     "同上"
+    ],
+    "tools": [],
+    "weekly": [
+     {
+      "week": "1",
+      "topic": "Course Description",
+      "activity": ""
+     },
+     {
+      "week": "2",
+      "topic": "Intro",
+      "activity": ""
+     },
+     {
+      "week": "3",
+      "topic": "Unit 1",
+      "activity": ""
+     },
+     {
+      "week": "4",
+      "topic": "Unit 1",
+      "activity": ""
+     },
+     {
+      "week": "5",
+      "topic": "Unit 2",
+      "activity": ""
+     },
+     {
+      "week": "6",
+      "topic": "Unit 2",
+      "activity": ""
+     },
+     {
+      "week": "7",
+      "topic": "Unit 2",
+      "activity": ""
+     },
+     {
+      "week": "8",
+      "topic": "Midterm Exam",
+      "activity": ""
+     },
+     {
+      "week": "9",
+      "topic": "Unit 3",
+      "activity": ""
+     },
+     {
+      "week": "10",
+      "topic": "Unit 3",
+      "activity": ""
+     },
+     {
+      "week": "11",
+      "topic": "Unit 3",
+      "activity": ""
+     },
+     {
+      "week": "12",
+      "topic": "Unit 4",
+      "activity": ""
+     },
+     {
+      "week": "13",
+      "topic": "Unit 4",
+      "activity": ""
+     },
+     {
+      "week": "14",
+      "topic": "Unit 4",
+      "activity": ""
+     },
+     {
+      "week": "15",
+      "topic": "Review",
+      "activity": ""
+     },
+     {
+      "week": "16",
+      "topic": "Final Exam",
+      "activity": ""
+     },
+     {
+      "week": "+1",
+      "topic": "No Class (統籌考試)",
+      "activity": ""
+     },
+     {
+      "week": "+2",
+      "topic": "Self-reflections",
+      "activity": ""
+     }
+    ],
+    "grading": [
+     "出席狀況 15%",
+     "課堂討論參與 15%",
+     "作業 20%",
+     "期中考 15%",
+     "期末考 15%",
+     "期末專題 20%"
+    ],
+    "empty": false,
+    "raw_text": "【課程】英文(一) ENGLISH(1)（FLL1005，3 學分，必修，外文一甲）\n【課程描述】這門課的主要重點是藉由課堂上不同的活動，來增進學生的英文單字量、文法分析與閱讀理解。過程當中，也會帶領同學們學習不同的閱讀技巧，來強化同學們的閱讀能力。除了單字、文法以及閱讀能力的強化外，亦將透過特定主題，來選取不同背景之文章來進行授課，以期厚實學生的文化底蘊。\n【課程目標】1. 具備英文聽、說、讀、寫的應用能力。\n2. 具備職涯發展的英文知識。\n【基本／核心能力】具有英/外語聽、說、讀、寫的溝通能力\n【教材】English, A. K. (2020). North Star 4: Reading & Writing (5th ed.). NJ: Pearson Education Inc.\n同上\n【授課進度】[1] Course Description\n[2] Intro\n[3] Unit 1\n[4] Unit 1\n[5] Unit 2\n[6] Unit 2\n[7] Unit 2\n[8] Midterm Exam\n[9] Unit 3\n[10] Unit 3\n[11] Unit 3\n[12] Unit 4\n[13] Unit 4\n[14] Unit 4\n[15] Review\n[16] Final Exam\n[+1] No Class (統籌考試)\n[+2] Self-reflections\n【評分】出席狀況 15%、課堂討論參與 15%、作業 20%、期中考 15%、期末考 15%、期末專題 20%"
+   },
+   "alternatives": [
+    {
+     "course": "英文演講",
+     "course_code": "ISTM020",
+     "department": "大數據一(SJSU)",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2803",
+     "match": "affix"
+    },
+    {
+     "course": "英文作文(一)",
+     "course_code": "FLL1003",
+     "department": "外文一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2012",
+     "match": "affix"
+    },
+    {
+     "course": "英文作文(三)",
+     "course_code": "FLL2001",
+     "department": "外文二甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2038",
+     "match": "affix"
+    },
+    {
+     "course": "英文句構與翻譯(一)",
+     "course_code": "FLL1015",
+     "department": "外文一甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2014",
+     "match": "affix"
+    },
+    {
+     "course": "職場英文",
+     "course_code": "ITRA4087",
+     "department": "國貿四甲",
+     "year": 115,
+     "sms": 1,
+     "selcode": "0272",
+     "match": "affix"
+    }
+   ]
+  },
+  {
+   "status": "not_found",
+   "reason": "no_offering",
+   "query": {
+    "name": "物件導向程式設計",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1",
+     "114-2",
+     "114-1"
+    ]
+   },
+   "message": "115-1、114-2、114-1 沒有科目名稱含「物件導向程式設計」的開課"
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "人工智慧導論",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1"
+    ]
+   },
+   "match": "exact",
+   "candidates": 5,
+   "course": "人工智慧導論",
+   "course_en": "INTRODUCTION TO ARTIFICIAL INTELLIGENCE",
+   "course_code": "COME4031",
+   "department": "通訊四甲",
+   "class_id": "CI02141",
+   "credits": 3.0,
+   "required": "選修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "2180",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11512180&lang=cht",
+   "syllabus": {
+    "description": "本課程的目標在於讓學生能對人工智慧與深度學習有清楚的認識，了解各類型系統的架構與運作原理，也對各種應用與實踐進行介紹。",
+    "description_en": "This course is designed to help students develop clear view of artificial intelligence and deep learning, which will further help them understand theorems of AI models, and implement applications.",
+    "topic": "人工智慧如何讓機器具備解決問題與做出決策的能力：人工智慧的核心目標之一，是使機器能夠感知環境、分析問題，並根據所掌握的資訊採取適當的行動。本課程以人工智慧的基本概念與方法為基礎，探究機器如何透過搜尋、知識表示、推理、機器學習等方法解決不同類型的問題，並理解各種人工智慧方法背後的基本原理與適用情境。\n課程將從智慧代理人的觀點出發，引導學生思考人工智慧系統如何定義問題、取得資訊、尋找可能的解決方案，並在不同條件下進行判斷與決策；同時結合機器學習、自然語言處理、電腦視覺等人工智慧應用，使學生理解人工智慧從基本理論到實際應用的發展脈絡。\n透過課程中的問題探究與案例討論，學生將逐步建立人工智慧的整體知識架構，並進一步思考：面對真實世界的問題時，如何將問題轉化為人工智慧可以處理的形式、如何選擇適當的方法，以及人工智慧的能力與限制。",
+    "prerequisites": "",
+    "objectives": [
+     "能了解人工智慧模式的運作原理",
+     "能對人工智慧的應用與實踐有所認識"
+    ],
+    "core_abilities": [
+     "適當之應用數學、科學與通訊工程知識之能力",
+     "在工程實務中，有使用適當的技能、技術及現代工具之能力"
+    ],
+    "textbooks": [
+     "人工智慧：現代方法(第三版)\n作者： 歐崇明、時文中、陳龍\n出版社：全華出版社\nISBN：9789864639014",
+     "自編講義\nCVPR、ICCV、AAAI 等國際頂會論文"
+    ],
+    "tools": [],
+    "weekly": [
+     {
+      "week": "1",
+      "topic": "課程介紹\n人工智慧重要發展與章節概覽",
+      "activity": ""
+     },
+     {
+      "week": "2",
+      "topic": "深度學習的產業、專題、研究應用\n線上授課，youtube 連結",
+      "activity": ""
+     },
+     {
+      "week": "3",
+      "topic": "智慧代理人",
+      "activity": ""
+     },
+     {
+      "week": "4~5",
+      "topic": "搜尋與問題求解",
+      "activity": ""
+     },
+     {
+      "week": "6~8",
+      "topic": "機器學習",
+      "activity": ""
+     },
+     {
+      "week": "9",
+      "topic": "期中考",
+      "activity": ""
+     },
+     {
+      "week": "10~11",
+      "topic": "知識與推理",
+      "activity": ""
+     },
+     {
+      "week": "12~13",
+      "topic": "不確定知識與推理",
+      "activity": ""
+     },
+     {
+      "week": "14~15",
+      "topic": "論文閱讀",
+      "activity": ""
+     },
+     {
+      "week": "16",
+      "topic": "期末考",
+      "activity": ""
+     },
+     {
+      "week": "17~18",
+      "topic": "論文報告",
+      "activity": ""
+     }
+    ],
+    "grading": [
+     "作業 20%",
+     "期中考 30%",
+     "期末專題 40%",
+     "點名 10%",
+     "課堂討論參與 5%"
+    ],
+    "empty": false,
+    "raw_text": "【課程】人工智慧導論 INTRODUCTION TO ARTIFICIAL INTELLIGENCE（COME4031，3 學分，選修，通訊四合）\n【課程描述】本課程的目標在於讓學生能對人工智慧與深度學習有清楚的認識，了解各類型系統的架構與運作原理，也對各種應用與實踐進行介紹。\n【探究主題】人工智慧如何讓機器具備解決問題與做出決策的能力：人工智慧的核心目標之一，是使機器能夠感知環境、分析問題，並根據所掌握的資訊採取適當的行動。本課程以人工智慧的基本概念與方法為基礎，探究機器如何透過搜尋、知識表示、推理、機器學習等方法解決不同類型的問題，並理解各種人工智慧方法背後的基本原理與適用情境。\n課程將從智慧代理人的觀點出發，引導學生思考人工智慧系統如何定義問題、取得資訊、尋找可能的解決方案，並在不同條件下進行判斷與決策；同時結合機器學習、自然語言處理、電腦視覺等人工智慧應用，使學生理解人工智慧從基本理論到實際應用的發展脈絡。\n透過課程中的問題探究與案例討論，學生將逐步建立人工智慧的整體知識架構，並進一步思考：面對真實世界的問題時，如何將問題轉化為人工智慧可以處理的形式、如何選擇適當的方法，以及人工智慧的能力與限制。\n【課程目標】1. 能了解人工智慧模式的運作原理\n2. 能對人工智慧的應用與實踐有所認識\n【基本／核心能力】適當之應用數學、科學與通訊工程知識之能力；在工程實務中，有使用適當的技能、技術及現代工具之能力\n【教材】人工智慧：現代方法(第三版)\n作者： 歐崇明、時文中、陳龍\n出版社：全華出版社\nISBN：9789864639014\n自編講義\nCVPR、ICCV、AAAI 等國際頂會論文\n【授課進度】[1] 課程介紹 人工智慧重要發展與章節概覽\n[2] 深度學習的產業、專題、研究應用 線上授課，youtube 連結\n[3] 智慧代理人\n[4~5] 搜尋與問題求解\n[6~8] 機器學習\n[9] 期中考\n[10~11] 知識與推理\n[12~13] 不確定知識與推理\n[14~15] 論文閱讀\n[16] 期末考\n[17~18] 論文報告\n【評分】作業 20%、期中考 30%、期末專題 40%、點名 10%、課堂討論參與 5%"
+   },
+   "alternatives": []
+  },
+  {
+   "status": "ok",
+   "query": {
+    "name": "軟體工程",
+    "dept": null,
+    "code": null,
+    "searched": [
+     "115-1",
+     "114-2",
+     "114-1"
+    ]
+   },
+   "match": "affix",
+   "candidates": 17,
+   "course": "軟體工程開發實務",
+   "course_en": "SOFTWARE ENGINEERING PRACTICES",
+   "course_code": "IECS3046",
+   "department": "資訊三甲",
+   "class_id": "CE07131",
+   "credits": 3.0,
+   "required": "選修",
+   "year": 115,
+   "sms": 1,
+   "selcode": "1407",
+   "source_url": "https://ilearntools.fcu.edu.tw/W320104/W320104_SyllabusFullVer.aspx?courseid=11511407&lang=cht",
+   "syllabus": {
+    "description": "介紹軟體工程基本的原則與觀念。學生修習此課後可以學習到軟體工程紀律、專案管理、需求、設計、測試、版本管理及軟體維護等基本觀念。學生可以透過操作軟體工程工具的方式學習這些概念。",
+    "description_en": "Introduce the basic principles and concepts of software engineering. Upon completing this course, students will have a basic understanding of software engineering disciplines, project management, requirements, software design, testing, version control, and software maintenance. Students will learn the concept by means of software engineering tools.",
+    "topic": "",
+    "prerequisites": "",
+    "objectives": [
+     "了解軟體工程紀律於軟體開發的重要性",
+     "了解開發軟體系統所需的工程原則與方法",
+     "學習使用各種軟體工程輔助工具"
+    ],
+    "core_abilities": [
+     "認知專業與道德責任的能力。",
+     "運用數學、科學及工程知識的能力。",
+     "使用技能、技術與現代工程工具的能力。"
+    ],
+    "textbooks": [
+     "本課程不指定特定教科書\n相關資料請參考閱讀教材\n但不限於以下閱讀教材內容",
+     "軟體工程－軟體開發技術與軟體專案管理，陳玄玲編譯，高立 (Ian Sommerville: Software Engineering)\n軟體工程－理論與實務應用 第七版，顏春煌，碁峯。\n現代軟體工程-物件導向軟體發展策略，郭忠義等，博碩。\nSoftware Engineering at Google, Titus Winters, Tom Manshreck, and Hyrum Wright, Oreiliy.\n持續交付2.0：實務導向的DevOps, 喬梁, 博碩。\nAzure DevOps顧問實戰，董大偉, 碁峰。"
+    ],
+    "tools": [],
+    "weekly": [
+     {
+      "week": "1",
+      "topic": "課程簡介 - 做一個AI 時代的軟體工程師！",
+      "activity": "課程介紹；• 小組活動\n分組8人、選出 Project Manager"
+     },
+     {
+      "week": "2",
+      "topic": "軟體發展生命週期與專案管理",
+      "activity": "Software Engineering Methodology；• 小組活動\n分組角色指派 完成角色分配：架構師、分析師、前端、後端、QA、DevOps\n討論目前 AI 在軟體開發中能做什麼 / 不能做什麼？\nLLM 協助 WBS 分解與風險識別"
+     },
+     {
+      "week": "3",
+      "topic": "傳統與敏捷軟體開發方法論",
+      "activity": "• 小組活動\n設計三種不同 Prompt 觀察 LLM 輸出差異\nAI 輔助敏捷開發探討\n討論並提出 3 個學期專題候選題目"
+     },
+     {
+      "week": "4",
+      "topic": "大型軟體開發需求蒐集與管理議題",
+      "activity": "• 小組活動\n利害關係人訪談演練（模擬客戶訪談）\nLLM 生成訪談問題分析回饋\n大型專案中的 Context Engineering 策略"
+     },
+     {
+      "week": "5",
+      "topic": "物件導向軟體開發方法論",
+      "activity": "• 小組活動\nAI 輔助 OOAD的應用探討\n• 學期專題競稿\n各組 5 分鐘 Pitch簡報：題目、價值主張、技術方向\n同學互評：可行性、創新性、技術挑戰度"
+     },
+     {
+      "week": "6",
+      "topic": "軟體開發實務 I - 物件導向分析設計",
+      "activity": "• 小組活動\nLLM 生成UML圖形探討\n使用 AI 輔助生成，人工審查並修正\nUse Case Diagram、Class Diagram + Sequence Diagram"
+     },
+     {
+      "week": "7",
+      "topic": "軟體架構設計與樣式應用",
+      "activity": "• 小組活動\nLLM 生成架構建議討論\n使用 AI 輔助生成，人工審查並修正\n系統架構圖（Component Diagram、Deployment Diagram）\n使用 AI 輔助評估架構方案的 Trade-off"
+     },
+     {
+      "week": "8",
+      "topic": "期中考試",
+      "activity": "•Week 1–7 課程範圍\nSDLC、需求工程、OOA/OOD、UML、 AI 輔助工程觀念（Prompt Engineering、Context Engineering）"
+     },
+     {
+      "week": "9",
+      "topic": "學期專題進度報告",
+      "activity": "• 報告內容：需求蒐集、軟體系統分析設計\n• 展示 AI 工具輔助使用心得與反思\n• 老師回饋 + 小組互評"
+     },
+     {
+      "week": "10",
+      "topic": "大型軟體開發程式碼建構議題",
+      "activity": "• 小組活動\n系統介面設計 & 功能開發啟動\n執行 AI 輔助程式碼開發"
+     },
+     {
+      "week": "11",
+      "topic": "物件導向軟體系統開發",
+      "activity": "• 小組活動\nAI Coding Agent 初探\n核心模組開發啟動、展示 Demo 雛形\n整合各模組，完成系統整合版本\n撰寫技術文件（API 文件、部署說明）\nAI輔助系統開發的實作邀請"
+     },
+     {
+      "week": "12",
+      "topic": "物件導向原則與設計重構",
+      "activity": "• 小組活動\nAI 輔助物件導向系統開發\n系統功能設計重構\nAI輔助軟體工程的辯論"
+     },
+     {
+      "week": "13",
+      "topic": "大型軟體測試導入與保固維護",
+      "activity": "• 小組活動\n使用 AI 輔助生成測試案例，\nAI 輔助系統測試 & 調校\n人工審查並補充"
+     },
+     {
+      "week": "14",
+      "topic": "軟體工程的進化與發展",
+      "activity": "• 小組活動\n所有核心功能模組完成開發\n整合各模組，完成系統整合版本\n更新技術文件（API 文件、部署說明）\nAI 輔助軟體工程完整回顧：各 SDLC 階段 AI 工具應用總覽"
+     },
+     {
+      "week": "15",
+      "topic": "期末考試",
+      "activity": "• Week 9–14 範圍為主 也包含本學期授課內容\nSDLC 生命週期\nAI 輔助軟體工程實踐"
+     },
+     {
+      "week": "16",
+      "topic": "學期專題期末發表",
+      "activity": "• 期末成果展示\n各組 15 分鐘完整 Demo + Q&A\n展示：系統功能、架構設計、AI 工具使用成果、團隊反思\n評審：老師 + TA + 同學互評\n繳交完整期末專題報告"
+     }
+    ],
+    "grading": [
+     "期中考 30%",
+     "期末考 30%",
+     "作業 40%"
+    ],
+    "empty": false,
+    "raw_text": "【課程】軟體工程開發實務 SOFTWARE ENGINEERING PRACTICES（IECS3046，3 學分，選修，資訊三合）\n【課程描述】介紹軟體工程基本的原則與觀念。學生修習此課後可以學習到軟體工程紀律、專案管理、需求、設計、測試、版本管理及軟體維護等基本觀念。學生可以透過操作軟體工程工具的方式學習這些概念。\n【課程目標】1. 了解軟體工程紀律於軟體開發的重要性\n2. 了解開發軟體系統所需的工程原則與方法\n3. 學習使用各種軟體工程輔助工具\n【基本／核心能力】認知專業與道德責任的能力。；運用數學、科學及工程知識的能力。；使用技能、技術與現代工程工具的能力。\n【教材】本課程不指定特定教科書\n相關資料請參考閱讀教材\n但不限於以下閱讀教材內容\n軟體工程－軟體開發技術與軟體專案管理，陳玄玲編譯，高立 (Ian Sommerville: Software Engineering)\n軟體工程－理論與實務應用 第七版，顏春煌，碁峯。\n現代軟體工程-物件導向軟體發展策略，郭忠義等，博碩。\nSoftware Engineering at Google, Titus Winters, Tom Manshreck, and Hyrum Wright, Oreiliy.\n持續交付2.0：實務導向的DevOps, 喬梁, 博碩。\nAzure DevOps顧問實戰，董大偉, 碁峰。\n【授課進度】[1] 課程簡介 - 做一個AI 時代的軟體工程師！ ／課程介紹；• 小組活動 分組8人、選出 Project Manager\n[2] 軟體發展生命週期與專案管理 ／Software Engineering Methodology；• 小組活動 分組角色指派 完成角色分配：架構師、分析師、前端、後端、QA、DevOps 討論目前 AI 在軟體開發中能做什麼 / 不能做什麼？ LLM 協助 WBS 分解與風險識別\n[3] 傳統與敏捷軟體開發方法論 ／• 小組活動 設計三種不同 Prompt 觀察 LLM 輸出差異 AI 輔助敏捷開發探討 討論並提出 3 個學期專題候選題目\n[4] 大型軟體開發需求蒐集與管理議題 ／• 小組活動 利害關係人訪談演練（模擬客戶訪談） LLM 生成訪談問題分析回饋 大型專案中的 Context Engineering 策略\n[5] 物件導向軟體開發方法論 ／• 小組活動 AI 輔助 OOAD的應用探討 • 學期專題競稿 各組 5 分鐘 Pitch簡報：題目、價值主張、技術方向 同學互評：可行性、創新性、技術挑戰度\n[6] 軟體開發實務 I - 物件導向分析設計 ／• 小組活動 LLM 生成UML圖形探討 使用 AI 輔助生成，人工審查並修正 Use Case Diagram、Class Diagram + Sequence Diagram\n[7] 軟體架構設計與樣式應用 ／• 小組活動 LLM 生成架構建議討論 使用 AI 輔助生成，人工審查並修正 系統架構圖（Component Diagram、Deployment Diagram） 使用 AI 輔助評估架構方案的 Trade-off\n[8] 期中考試 ／•Week 1–7 課程範圍 SDLC、需求工程、OOA/OOD、UML、 AI 輔助工程觀念（Prompt Engineering、Context Engineering）\n[9] 學期專題進度報告 ／• 報告內容：需求蒐集、軟體系統分析設計 • 展示 AI 工具輔助使用心得與反思 • 老師回饋 + 小組互評\n[10] 大型軟體開發程式碼建構議題 ／• 小組活動 系統介面設計 & 功能開發啟動 執行 AI 輔助程式碼開發\n[11] 物件導向軟體系統開發 ／• 小組活動 AI Coding Agent 初探 核心模組開發啟動、展示 Demo 雛形 整合各模組，完成系統整合版本 撰寫技術文件（API 文件、部署說明） AI輔助系統開發的實作邀請\n[12] 物件導向原則與設計重構 ／• 小組活動 AI 輔助物件導向系統開發 系統功能設計重構 AI輔助軟體工程的辯論\n[13] 大型軟體測試導入與保固維護 ／• 小組活動 使用 AI 輔助生成測試案例， AI 輔助系統測試 & 調校 人工審查並補充\n[14] 軟體工程的進化與發展 ／• 小組活動 所有核心功能模組完成開發 整合各模組，完成系統整合版本 更新技術文件（API 文件、部署說明） AI 輔助軟體工程完整回顧：各 SDLC 階段 AI 工具應用總覽\n[15] 期末考試 ／• Week 9–14 範圍為主 也包含本學期授課內容 SDLC 生命週期 AI 輔助軟體工程實踐\n[16] 學期專題期末發表 ／• 期末成果展示 各組 15 分鐘完整 Demo + Q&A 展示：系統功能、架構設計、AI 工具使用成果、團隊反思 評審：老師 + TA + 同學互評 繳交完整期末專題報告\n【評分】期中考 30%、期末考 30%、作業 40%"
+   },
+   "alternatives": [
+    {
+     "course": "軟體工程概論",
+     "course_code": "IECS1105",
+     "department": "資訊工程學士後多元專班一",
+     "year": 115,
+     "sms": 1,
+     "selcode": "2246",
+     "match": "affix"
+    },
+    {
+     "course": "高等軟體工程",
+     "course_code": "IECS6052",
+     "department": "資訊碩一",
+     "year": 115,
+     "sms": 1,
+     "selcode": "1447",
+     "match": "affix"
+    }
+   ]
+  }
+ ]
+}

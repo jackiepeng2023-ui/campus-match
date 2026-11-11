@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import tw.edu.fcu.campus.common.ApiException;
 import tw.edu.fcu.campus.common.Db;
 import tw.edu.fcu.campus.config.DbInit;
+import tw.edu.fcu.campus.common.Current;
 import tw.edu.fcu.campus.config.DemoClock;
+import tw.edu.fcu.campus.profile.SkillProfileService;
 
 import java.time.Duration;
 import java.util.LinkedHashMap;
@@ -23,10 +25,16 @@ public class AdminController {
     private final SchedulerService scheduler;
     private final DbInit dbInit;
     private final UserService users;
+    private final SkillProfileService profile;
     private final boolean demoClock;
 
-    public AdminController(Db db, DemoClock clock, SchedulerService scheduler, DbInit dbInit, UserService users, @Value("${app.demo-clock}") boolean demoClock) {
-        this.db = db; this.clock = clock; this.scheduler = scheduler; this.dbInit = dbInit; this.users = users; this.demoClock = demoClock;
+    /** 會影響 Skill Profile 的參數：變更後全體重新盤點 */
+    private static final Set<String> PROFILE_PARAMS = Set.of("self_declared_cap", "course_grade_verified", "max_skills_per_evidence",
+            "case_evidence_min_match_x10", "case_confirm_match_x10");
+
+    public AdminController(Db db, DemoClock clock, SchedulerService scheduler, DbInit dbInit, UserService users, SkillProfileService profile,
+                           @Value("${app.demo-clock}") boolean demoClock) {
+        this.db = db; this.clock = clock; this.scheduler = scheduler; this.dbInit = dbInit; this.users = users; this.profile = profile; this.demoClock = demoClock;
     }
 
     @GetMapping("/params")
@@ -36,10 +44,13 @@ public class AdminController {
         m.put("credibility", db.list("SELECT match_level \"matchLevel\", coefficient FROM credibility_coefficients ORDER BY match_level DESC"));
         m.put("awardMatrix", db.list("SELECT rank, level, score FROM award_matrix ORDER BY CASE rank WHEN 'FIRST' THEN 1 WHEN 'TOP3' THEN 2 WHEN 'HONORABLE' THEN 3 ELSE 4 END, CASE level WHEN 'CAMPUS' THEN 1 WHEN 'NATIONAL' THEN 2 ELSE 3 END"));
         m.put("params", db.list("SELECT key, value, label FROM system_params ORDER BY key"));
+        m.put("levelBands", db.list("SELECT degree_group \"degreeGroup\", tier, name, min_score \"minScore\" FROM level_bands ORDER BY degree_group, tier"));
         return m;
     }
 
-    public record ParamsIn(Map<String, Double> weights, Map<String, Double> credibility, Map<String, Integer> params, Map<String, Double> awardMatrix) {}
+    public record BandIn(String degreeGroup, Integer tier, String name, Integer minScore) {}
+    public record ParamsIn(Map<String, Double> weights, Map<String, Double> credibility, Map<String, Integer> params, Map<String, Double> awardMatrix,
+                           List<BandIn> levelBands) {}
 
     @PutMapping("/params")
     public Map<String, Object> update(@RequestBody ParamsIn in) {
@@ -49,12 +60,97 @@ public class AdminController {
             for (var e : in.weights().entrySet()) db.exec("UPDATE ranking_weights SET value = :v WHERE key = :k", "v", e.getValue(), "k", e.getKey());
         }
         if (in.credibility() != null) for (var e : in.credibility().entrySet()) db.exec("UPDATE credibility_coefficients SET coefficient = :v WHERE match_level = :k", "v", e.getValue(), "k", Integer.parseInt(e.getKey()));
-        if (in.params() != null) for (var e : in.params().entrySet()) db.exec("UPDATE system_params SET value = :v WHERE key = :k", "v", e.getValue(), "k", e.getKey());
+        boolean reprofile = false;
+        if (in.params() != null) for (var e : in.params().entrySet()) {
+            db.exec("UPDATE system_params SET value = :v WHERE key = :k", "v", e.getValue(), "k", e.getKey());
+            reprofile |= PROFILE_PARAMS.contains(e.getKey());
+        }
         if (in.awardMatrix() != null) for (var e : in.awardMatrix().entrySet()) {
             String[] rl = e.getKey().split("/");
             db.exec("UPDATE award_matrix SET score = :v WHERE rank = :r AND level = :l", "v", e.getValue(), "r", rl[0], "l", rl[1]);
+            reprofile = true;
         }
-        return params();
+        if (in.levelBands() != null && !in.levelBands().isEmpty()) {      // 等級三階的門檻（教師討論後可調）：須遞增且落在 1–100
+            Map<String, int[]> next = new LinkedHashMap<>();
+            for (var r : db.list("SELECT degree_group, tier, min_score FROM level_bands"))
+                next.computeIfAbsent((String) r.get("degree_group"), k -> new int[4])[Db.i(r.get("tier"))] = Db.i(r.get("min_score"));
+            for (BandIn b : in.levelBands()) {
+                if (b.degreeGroup() == null || !next.containsKey(b.degreeGroup()) || b.tier() == null || b.tier() < 1 || b.tier() > 3 || b.minScore() == null)
+                    throw ApiException.badRequest("levelBands 須含 degreeGroup（BACHELOR／GRADUATE）、tier（1–3）、minScore");
+                next.get(b.degreeGroup())[b.tier()] = b.minScore();
+            }
+            for (var e : next.entrySet()) {
+                int[] v = e.getValue();
+                if (v[1] < 1 || v[3] > 100 || v[1] >= v[2] || v[2] >= v[3]) throw ApiException.badRequest("等級門檻須遞增且介於 1–100（初階 < 中階 < 進階）");
+            }
+            for (BandIn b : in.levelBands()) {
+                db.exec("UPDATE level_bands SET min_score = :m WHERE degree_group = :g AND tier = :t", "m", b.minScore(), "g", b.degreeGroup(), "t", b.tier());
+                if (b.name() != null && !b.name().isBlank()) db.exec("UPDATE level_bands SET name = :n WHERE degree_group = :g AND tier = :t", "n", b.name().trim(), "g", b.degreeGroup(), "t", b.tier());
+            }
+            reprofile = true;
+        }
+        Map<String, Object> out = params();
+        if (reprofile) out.put("reprofiledStudents", profile.rebuildAll(true));
+        return out;
+    }
+
+    // ----- 證據驗證（自述 → 已驗證）：證照、作品集、得獎 -----
+
+    /** 待驗證／已驗證的證據清單（自我評估不需驗證，不列入） */
+    @GetMapping("/evidence")
+    public Object evidence(@RequestParam(defaultValue = "false") boolean verified, @RequestParam(defaultValue = "200") int limit) {
+        return db.list("""
+                SELECT * FROM (
+                  SELECT 'CREDENTIAL' kind, c.id, c.type, c.title, c.issuer detail, c.proof_url "proofUrl", c.obtained_on "occurredOn", c.claimed_score score,
+                         c.verified, c.created_at "createdAt", u.id "userId", u.name "userName", d.name department,
+                         (SELECT string_agg(s.name, '、' ORDER BY s.name) FROM credential_skills cs JOIN skills s ON s.id = cs.skill_id WHERE cs.credential_id = c.id) skills
+                  FROM user_credentials c JOIN users u ON u.id = c.user_id LEFT JOIN departments d ON d.id = u.department_id
+                  WHERE c.type <> 'SELF' AND u.purged_at IS NULL
+                  UNION ALL
+                  SELECT 'AWARD', a.id, 'COMPETITION', a.competition, a.level || '/' || a.rank, a.proof_url, a.award_date, 60 + round(40 * am.score)::int,
+                         a.verified, NULL, u.id, u.name, d.name,
+                         (SELECT string_agg(s.name, '、' ORDER BY s.name) FROM award_skills k JOIN skills s ON s.id = k.skill_id WHERE k.award_id = a.id)
+                  FROM user_awards a JOIN award_matrix am ON am.rank = a.rank AND am.level = a.level
+                  JOIN users u ON u.id = a.user_id LEFT JOIN departments d ON d.id = u.department_id WHERE u.purged_at IS NULL) x
+                WHERE verified = :v ORDER BY ("proofUrl" IS NULL), "createdAt" DESC NULLS LAST, id DESC LIMIT :n""", "v", verified, "n", Math.min(limit, 1000));
+    }
+
+    public record VerifyIn(Boolean verified) {}
+
+    @PutMapping("/evidence/credential/{id}")
+    public Map<String, Object> verifyCredential(@PathVariable int id, @RequestBody VerifyIn in) {
+        profile.verifyCredential(id, Current.id(), in.verified() == null || in.verified());
+        return Map.of("ok", true);
+    }
+
+    @PutMapping("/evidence/award/{id}")
+    public Map<String, Object> verifyAward(@PathVariable int id, @RequestBody VerifyIn in) {
+        profile.verifyAward(id, Current.id(), in.verified() == null || in.verified());
+        return Map.of("ok", true);
+    }
+
+    // ----- 證照對照表（證照 → 技能與分數） -----
+
+    public record CatalogIn(String name, String issuer, Integer score, String note, List<Integer> skillIds) {}
+
+    @PostMapping("/certificates")
+    public Map<String, Object> addCertificate(@RequestBody CatalogIn in) {
+        int max = Math.max(1, profile.param("max_skills_per_evidence", 5));
+        if (in.name() == null || in.name().isBlank() || in.score() == null || in.score() < 1 || in.score() > 100) throw ApiException.badRequest("name、score（1–100）為必填");
+        if (in.skillIds() == null || in.skillIds().isEmpty() || in.skillIds().size() > max) throw ApiException.badRequest("請對應 1–" + max + " 個技能");
+        Integer id = db.scalar(Integer.class, "INSERT INTO certificate_catalog (name, issuer, score, note) VALUES (:n, :i, :s, :no) ON CONFLICT (name) DO NOTHING RETURNING id",
+                "n", in.name().trim(), "i", in.issuer(), "s", in.score(), "no", in.note());
+        if (id == null) throw ApiException.conflict("DUPLICATE", "對照表已有同名證照");
+        for (Integer sk : in.skillIds()) db.exec("INSERT INTO certificate_catalog_skills VALUES (:c, :s) ON CONFLICT DO NOTHING", "c", id, "s", sk);
+        return Map.of("id", id);
+    }
+
+    @DeleteMapping("/certificates/{id}")
+    public Map<String, Object> deleteCertificate(@PathVariable int id) {
+        if (db.count("SELECT count(*) FROM user_credentials WHERE catalog_id = :id", "id", id) > 0) throw ApiException.conflict("IN_USE", "已有學生使用這張證照，不能刪除");
+        db.exec("DELETE FROM certificate_catalog_skills WHERE catalog_id = :id", "id", id);
+        db.exec("DELETE FROM certificate_catalog WHERE id = :id", "id", id);
+        return Map.of("ok", true);
     }
 
     @GetMapping("/clock")
@@ -127,7 +223,7 @@ public class AdminController {
 
     public record MapIn(Integer courseId, Integer skillId, Boolean approved, Double confidence) {}
 
-    /** 新增或核准對照（approved=true 才會換算技能等級）；核准後重算受影響學生的預設等級 */
+    /** 新增或核准對照（approved=true 才會成為課程證據）；核准後重新盤點受影響學生的 Skill Profile */
     @PutMapping("/course-skills")
     public Map<String, Object> upsertMap(@RequestBody MapIn in) {
         if (in.courseId() == null || in.skillId() == null) throw ApiException.badRequest("courseId、skillId 為必填");
@@ -150,11 +246,7 @@ public class AdminController {
         return Map.of("ok", true, "recomputedStudents", recomputeFor(courseId));
     }
 
-    private int recomputeFor(int courseId) {
-        var uids = db.list("SELECT DISTINCT user_id FROM user_grades WHERE course_id = :c", "c", courseId);
-        for (var r : uids) users.recomputeDefaults(Db.i(r.get("user_id")));
-        return uids.size();
-    }
+    private int recomputeFor(int courseId) { return profile.rebuildForCourse(courseId); }
 
     public record CourseIn(Integer departmentId, String code, String name, String degree, Integer entryYear, String requirement, String groupCode, Double credits, Integer gradeYear, Integer term, List<Integer> skillIds) {}
 

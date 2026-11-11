@@ -11,7 +11,8 @@ import java.util.Map;
  * 推薦排序引擎（純 Java，無框架相依，可單元測試）。
  * 規則守門：G1 身分、G2 必要技能、G3 時間、G4 名額 全部通過才排序。
  * 分數 = 100 × (wS·S + wT·T + wR·R + wP·P + wC·C)，各項 0–1（D37）。
- * S 乘上可信度係數（D38）；R = 0.75×互評 + 0.25×得獎（D41）。
+ * S 以 Skill Profile 的技能分數（0–100，由證據推估、不疊加）計算，門檻以三階（初階／中階／進階）比較（D53）；
+ * S 乘上可信度係數（D38）；R = 0.75×互評 + 0.25×得獎（D41）。理由只揭露階級與可信狀態（已驗證／修課成績／自述），不揭露分數（D16）。
  */
 public final class RankingEngine {
 
@@ -19,13 +20,21 @@ public final class RankingEngine {
         public static final Weights DEFAULT = new Weights(0.40, 0.20, 0.20, 0.10, 0.10);
     }
 
-    public record RoleSkill(int skillId, String name, int minLevel, boolean required) {}
+    public static final String[] TIER = {"未達初階", "初階", "中階", "進階"};
+    public static String tierName(int tier) { return TIER[Math.max(0, Math.min(3, tier))]; }
+
+    /** minLevel：1 初階／2 中階／3 進階；minScore：該階的分數下限（供未達標的加分技能按比例計分）；weight：計分權重（必要 2、加分 1） */
+    public record RoleSkill(int skillId, String name, int minLevel, int minScore, boolean required, double weight) {
+        public RoleSkill(int skillId, String name, int minLevel, int minScore, boolean required) { this(skillId, name, minLevel, minScore, required, required ? 2 : 1); }
+    }
 
     public record Role(int hoursPerWeek, LocalDate start, LocalDate end, List<RoleSkill> skills,
                        String ownerCollege, String ownerDept, boolean open, int remainingSeats) {}
 
+    /** skillScores：技能分數 0–100；skillLevels：階級 0–3；skillTrust：可信狀態標籤（已驗證／修課成績／自述） */
     public record Candidate(int userId, String name, String college, String dept,
-                            Map<Integer, Integer> skillLevels, int hoursPerWeek, LocalDate availFrom, LocalDate availTo,
+                            Map<Integer, Integer> skillScores, Map<Integer, Integer> skillLevels, Map<Integer, String> skillTrust,
+                            int hoursPerWeek, LocalDate availFrom, LocalDate availTo,
                             Double peerScore,      // 0–1；null = 尚無互評（冷啟動 0.5）
                             double awardScore,     // 0–1
                             double responseRate,   // 0–1
@@ -47,20 +56,23 @@ public final class RankingEngine {
         // G2 必要技能 + S 技能符合度
         double wsum = 0, ssum = 0;
         for (RoleSkill rs : role.skills()) {
+            int sc = c.skillScores().getOrDefault(rs.skillId(), 0);
             int lv = c.skillLevels().getOrDefault(rs.skillId(), 0);
-            double wgt = rs.required() ? 2 : 1;
+            String trust = c.skillTrust().get(rs.skillId());
+            String mark = trust == null ? "" : "・" + trust;
+            double wgt = rs.weight();
             double s;
             if (lv >= rs.minLevel()) {
-                s = lv / 5.0;
-                reasons.add(rs.name() + " " + lv + " 級（需求 " + rs.minLevel() + "）");
-            } else if (lv == 0) {
+                s = sc / 100.0;
+                reasons.add(rs.name() + " " + tierName(lv) + mark + "（需求 " + tierName(rs.minLevel()) + "）");
+            } else if (sc == 0) {
                 s = 0;
                 if (rs.required()) blocked.add("G2：缺少必要技能 " + rs.name());
                 else reasons.add(rs.name() + " 無此技能（加分項）");
             } else {
-                s = rs.required() ? 0 : 0.5 * lv / rs.minLevel();
-                if (rs.required()) blocked.add("G2：" + rs.name() + " " + lv + " 級未達 " + rs.minLevel() + " 級");
-                else reasons.add(rs.name() + " " + lv + " 級未達 " + rs.minLevel() + "（加分項，半計）");
+                s = rs.required() ? 0 : 0.5 * sc / Math.max(rs.minScore(), 1);
+                if (rs.required()) blocked.add("G2：" + rs.name() + " " + tierName(lv) + "，未達 " + tierName(rs.minLevel()));
+                else reasons.add(rs.name() + " " + tierName(lv) + "，未達 " + tierName(rs.minLevel()) + "（加分項，半計）");
             }
             wsum += wgt; ssum += wgt * s;
         }

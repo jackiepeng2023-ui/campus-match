@@ -52,12 +52,12 @@ public class GrowthController {
         return m;
     }
 
-    /** 技能供需缺口：供給 = 等級 ≥ 3 的人數，需求 = 招募中角色尚缺名額 */
+    /** 技能供需缺口：供給 = 中階以上的人數，需求 = 招募中角色尚缺名額 */
     @GetMapping("/analytics/skill-gap")
     public List<Map<String, Object>> skillGap() {
         return db.list("""
                 SELECT s.category, s.name skill,
-                       (SELECT count(*) FROM user_skills us JOIN users u ON u.id = us.user_id WHERE us.skill_id = s.id AND us.level >= 3 AND u.deidentified_at IS NULL) supply,
+                       (SELECT count(*) FROM user_skills us JOIN users u ON u.id = us.user_id WHERE us.skill_id = s.id AND us.level >= 2 AND u.deidentified_at IS NULL) supply,
                        (SELECT coalesce(sum(r.headcount - r.filled_count), 0) FROM case_role_skills rs JOIN case_roles r ON r.id = rs.case_role_id JOIN cases c ON c.id = r.case_id
                         WHERE rs.skill_id = s.id AND c.status = 'OPEN') demand
                 FROM skills s ORDER BY demand DESC, supply ASC, s.category, s.name""");

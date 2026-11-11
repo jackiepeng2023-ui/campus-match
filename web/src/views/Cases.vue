@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="card" style="margin-top:16px">
-      <div v-if="!items.length" class="empty">沒有符合的案件</div>
+      <div v-if="!items.length" class="empty">{{ loaded ? '沒有符合的案件' : '載入中…' }}</div>
       <table v-else><tr><th>案件</th><th>類型</th><th>發案方</th><th>需要</th><th>名額</th><th>截止</th><th>狀態</th></tr>
         <tr v-for="c in items" :key="c.id">
           <td><router-link :to="'/cases/' + c.id"><strong>{{ c.title }}</strong></router-link><div class="sub small">{{ c.roleNames }}</div></td>
@@ -32,12 +32,12 @@
 import { ref, onMounted } from 'vue'
 import { get } from '../api'
 import { store, labels, fmtDate, statusColor } from '../store'
-const items = ref([]), q = ref(''), type = ref(''), status = ref(''), skillId = ref(''), scope = ref('all')
+const items = ref([]), q = ref(''), type = ref(''), status = ref(''), skillId = ref(''), scope = ref('all'), loaded = ref(false)
 async function load() {
   const p = new URLSearchParams()
   if (q.value) p.set('q', q.value); if (type.value) p.set('type', type.value); if (status.value) p.set('status', status.value); if (skillId.value) p.set('skillId', skillId.value)
   if (scope.value === 'mine') p.set('mine', 'true'); if (scope.value === 'member') p.set('member', 'true')
-  items.value = await get('/cases?' + p.toString())
+  items.value = await get('/cases?' + p.toString()); loaded.value = true
 }
 onMounted(async () => { await store.loadMeta(); await load() })
 </script>

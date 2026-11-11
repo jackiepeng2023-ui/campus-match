@@ -7,6 +7,7 @@ import tw.edu.fcu.campus.common.ApiException;
 import tw.edu.fcu.campus.common.Db;
 import tw.edu.fcu.campus.config.DemoClock;
 import tw.edu.fcu.campus.notify.NotificationService;
+import tw.edu.fcu.campus.profile.SkillProfileService;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -20,9 +21,10 @@ public class ReviewService {
     private final DemoClock clock;
     private final NotificationService notify;
     private final CaseService cases;
+    private final SkillProfileService profile;
 
-    public ReviewService(Db db, DemoClock clock, NotificationService notify, CaseService cases) {
-        this.db = db; this.clock = clock; this.notify = notify; this.cases = cases;
+    public ReviewService(Db db, DemoClock clock, NotificationService notify, CaseService cases, SkillProfileService profile) {
+        this.db = db; this.clock = clock; this.notify = notify; this.cases = cases; this.profile = profile;
     }
 
     private int param(String k, int d) { Integer v = db.scalar(Integer.class, "SELECT value FROM system_params WHERE key = :k", "k", k); return v == null ? d : v; }
@@ -100,12 +102,7 @@ public class ReviewService {
             db.exec("INSERT INTO reviews (case_id, reviewer_id, reviewee_id, due_at) VALUES (:c, :a, :b, :d) ON CONFLICT DO NOTHING", "c", caseId, "a", a, "b", b, "d", Db.ts(due));
         var c = db.one("SELECT title FROM cases WHERE id = :c", "c", caseId);
         for (int m : members) notify.notify(m, "REVIEW", "案件已結案，請完成互評", "「" + c.get("title") + "」已結案（" + ("COMPLETED".equals(result) ? "完成" : "未完成") + "），請在 72 小時內評價隊友；雙方都送出後才會同時公開", "/cases/" + caseId + "/review");
-        // 成長紀錄：結案寫入每位成員本案角色技能的歷史（等級不變、留下事件）
-        for (var r : db.list("""
-                SELECT m.user_id, rs.skill_id, us.level FROM case_members m JOIN case_role_skills rs ON rs.case_role_id = m.case_role_id
-                JOIN user_skills us ON us.user_id = m.user_id AND us.skill_id = rs.skill_id WHERE m.case_id = :c""", "c", caseId))
-            db.exec("INSERT INTO skill_level_history (user_id, skill_id, old_level, new_level, reason, changed_at) VALUES (:u, :s, :l, :l, 'CASE_CLOSED', :t)",
-                    "u", r.get("user_id"), "s", r.get("skill_id"), "l", r.get("level"), "t", Db.ts(now));
+        // 結案證據（CASE）要等互評雙盲公開、隊友相符度達門檻才產生：見 submit() 與 reviewTimeout()
         notify.log(null, "case", caseId, "CLOSED", "{\"result\":\"" + result + "\"}");
     }
 
@@ -145,6 +142,8 @@ public class ReviewService {
                         "t", Db.ts(now), "c", caseId, "u", uid, "r", r.revieweeId());
         }
         notify.log(uid, "review", caseId, "SUBMIT", "{\"count\":" + in.size() + "}");
+        // 互評公開後重新盤點本案成員：相符度達門檻 → 角色技能得到「已驗證」的結案證據（D55）
+        if (db.count("SELECT count(*) FROM reviews WHERE case_id = :c AND revealed_at = :t", "c", caseId, "t", Db.ts(now)) > 0) profile.rebuildForCase(caseId);
         return pending(caseId, uid);
     }
 
@@ -201,7 +200,9 @@ public class ReviewService {
     public int reviewTimeout() {
         Instant now = clock.instant();
         int missed = db.exec("UPDATE reviews SET missed = TRUE WHERE submitted_at IS NULL AND NOT missed AND due_at <= :t", "t", Db.ts(now));
+        var cases = db.list("SELECT DISTINCT case_id FROM reviews WHERE submitted_at IS NOT NULL AND revealed_at IS NULL AND due_at <= :t", "t", Db.ts(now));
         db.exec("UPDATE reviews SET revealed_at = :t WHERE submitted_at IS NOT NULL AND revealed_at IS NULL AND due_at <= :t", "t", Db.ts(now));
+        for (var c : cases) profile.rebuildForCase(Db.i(c.get("case_id")));
         return missed;
     }
 }

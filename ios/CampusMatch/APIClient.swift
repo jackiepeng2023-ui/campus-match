@@ -78,4 +78,4 @@ struct SkillBody: Encodable { let skillId: Int; let level: Int }
 struct GradeBody: Encodable { let courseId: Int; let score: Int; let semester: String?; let skillIds: [Int] }
 struct AvailabilityBody: Encodable { let hoursPerWeek: Int; let availableFrom: String; let availableTo: String }
 struct DeviceTokenBody: Encodable { let token: String }
-struct AwardBody: Encodable { let competition: String; let level: String; let rank: String; let awardDate: String; let skillIds: [Int] }
+struct AwardBody: Encodable { let competition: String; let level: String; let rank: String; let awardDate: String; let skillIds: [Int]; var proofUrl: String? = nil }

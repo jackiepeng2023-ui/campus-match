@@ -14,7 +14,7 @@
     <div class="grid grid-2">
       <div class="card">
         <h2>待我處理</h2>
-        <div v-if="!pending.length" class="empty">目前沒有待回覆的申請或邀請</div>
+        <div v-if="!pending.length" class="empty">{{ loaded ? '目前沒有待回覆的申請或邀請' : '載入中…' }}</div>
         <table v-else><tr v-for="e in pending" :key="e.id">
           <td><router-link :to="'/cases/' + e.caseId"><strong>{{ e.caseTitle }}</strong></router-link><div class="sub small">{{ e.direction === 'INVITE' ? '邀請你擔任' : e.direction === 'APPLY' ? '你申請' : '申請加入' }} {{ e.roleName }} · 發案方 {{ e.ownerName }}</div></td>
           <td style="text-align:right;white-space:nowrap"><span class="pill orange">{{ hoursLeft(e.dueAt) }} 小時內回覆</span>
@@ -29,13 +29,13 @@
       <div class="card">
         <h2>推薦給我的案件</h2>
         <p class="sub small" style="margin-top:-8px">與發案方看到的推薦用同一組閘門與公式，只是方向相反。</p>
-        <div v-if="!recs.length" class="empty">目前沒有通過閘門的招募中案件；補齊技能檔或可投入時間後再試</div>
+        <div v-if="!recs.length" class="empty">{{ loaded ? '目前沒有通過閘門的招募中案件；補齊技能檔或可投入時間後再試' : '載入中…' }}</div>
         <div class="stack"><ScoreCard v-for="r in recs" :key="r.roleId" :item="r"><template #action><router-link :to="'/cases/' + r.caseId" class="btn sm secondary">查看</router-link></template></ScoreCard></div>
       </div>
     </div>
     <div class="card" style="margin-top:16px">
       <div class="row between"><h2 style="margin:0">我的案件</h2><router-link to="/cases" class="small">瀏覽全部 →</router-link></div>
-      <div v-if="!mine.length" class="empty">還沒有參與任何案件</div>
+      <div v-if="!mine.length" class="empty">{{ loaded ? '還沒有參與任何案件' : '載入中…' }}</div>
       <table v-else style="margin-top:10px"><tr><th>案件</th><th>類型</th><th>狀態</th><th>名額</th><th>截止</th></tr>
         <tr v-for="c in mine" :key="c.id"><td><router-link :to="'/cases/' + c.id">{{ c.title }}</router-link><div class="sub small">{{ c.ownerId === store.user.id ? '我發起' : '我是成員' }}<span v-if="c.pendingApplications && c.ownerId === store.user.id"> · {{ c.pendingApplications }} 筆申請待審</span></div></td>
           <td>{{ labels.type[c.type] }}</td><td><span class="pill" :class="statusColor(c.status)">{{ labels.status[c.status] }}</span></td><td>{{ c.filled }}/{{ c.headcount }}</td><td class="small">{{ fmtDate(c.applyDeadline) }}</td></tr></table>
@@ -47,13 +47,13 @@ import { ref, onMounted, computed } from 'vue'
 import { get, post } from '../api'
 import { store, labels, fmtDate, hoursLeft, statusColor } from '../store'
 import ScoreCard from '../components/ScoreCard.vue'
-const engs = ref([]), recs = ref([]), mine = ref([]), ownerPending = ref([]), toReview = ref([])
+const engs = ref([]), recs = ref([]), mine = ref([]), ownerPending = ref([]), toReview = ref([]), loaded = ref(false)
 const s = computed(() => store.user.stats)
 const pending = computed(() => [...engs.value.filter(e => e.status === 'PENDING'), ...ownerPending.value])
 async function load() {
   await store.loadMe()
   const [e, r, m] = await Promise.all([get('/me/engagements'), get('/me/recommended-cases'), get('/cases?member=true')])
-  engs.value = e; recs.value = r; mine.value = m
+  engs.value = e; recs.value = r; mine.value = m; loaded.value = true
   // 我發起的案件裡待審核的申請（由案件詳情取得）
   const owned = m.filter(c => c.ownerId === store.user.id && c.pendingApplications > 0)
   const details = await Promise.all(owned.map(c => get('/cases/' + c.id)))

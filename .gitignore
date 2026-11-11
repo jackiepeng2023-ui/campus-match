@@ -5,7 +5,10 @@ ios/CampusMatch.xcodeproj/
 ios/*.xcworkspace/
 .DS_Store
 *.log
-shots/*.png
-shots/dbg*.js
 .m2/
 backend/tools/curriculum/pdf/
+.env
+__pycache__/
+validation-out/
+docs/archive-v1-shots/*.png
+docs/archive-v1-shots/dbg*.js

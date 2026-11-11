@@ -20,6 +20,18 @@ app:
   jwt-secret: ${APP_JWT_SECRET:campus-match-demo-secret-key-change-me-in-production-2026}
   demo-password: ${APP_DEMO_PASSWORD:demo1234}
   demo-clock: ${APP_DEMO_CLOCK:true}           # 允許 /admin/clock 快轉時間
+  llm:                                          # Claude API（AI 助理入口、課綱／簡章／教師專長的 AI 擷取）；沒有金鑰時全部以規則模式運作
+    # 屬性刻意放在 app.llm.* 之下、只讀 APP_ANTHROPIC_* 環境變數：避免 Spring 的寬鬆綁定把主機上其他用途的 ANTHROPIC_* 變數當成本系統的設定
+    api-key: ${APP_ANTHROPIC_API_KEY:}
+    model: ${APP_ANTHROPIC_MODEL:claude-sonnet-5-5}          # AI 助理（多步驟工具呼叫）
+    model-fast: ${APP_ANTHROPIC_MODEL_FAST:claude-haiku-5-5}  # 擷取與對照（大量、短文）
+    version: ${APP_ANTHROPIC_VERSION:2023-06-01}
+    base-url: ${APP_ANTHROPIC_BASE_URL:https://api.anthropic.com}
+    extra-body: ${APP_ANTHROPIC_EXTRA_BODY:}        # 選用：併入請求的 JSON 物件（例如 thinking、effort 等模型參數）
+    timeout-seconds: ${APP_ANTHROPIC_TIMEOUT:90}
+    price-in: ${APP_ANTHROPIC_PRICE_IN:2.0}         # 成本估算用單價（美元／百萬 token）；換模型時請一併調整，實際以帳單為準
+    price-out: ${APP_ANTHROPIC_PRICE_OUT:10.0}
+  syllabus-fetch: ${APP_SYLLABUS_FETCH:true}      # 是否向逢甲課程檢索系統擷取公開課綱（關閉時只用科目名稱對照技能）
 apns:
   key-path: ${APNS_KEY_PATH:}
   key-id: ${APNS_KEY_ID:}

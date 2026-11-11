@@ -44,7 +44,7 @@
             </div>
             <button v-if="c.isOwner && c.status === 'OPEN'" class="btn sm secondary" @click="loadRec(r)">{{ rec[r.id] ? '重新整理推薦' : '查看推薦人選' }}</button>
           </div>
-          <div class="row" style="margin-top:8px"><span v-for="s in r.skills" :key="s.skillId" class="chip">{{ s.name }} <span class="lv">≥{{ s.minLevel }}</span> <span :class="s.isRequired ? 'tag-req' : 'tag-opt'">{{ s.isRequired ? '必要' : '加分' }}</span></span></div>
+          <div class="row" style="margin-top:8px"><span v-for="s in r.skills" :key="s.skillId" class="chip">{{ s.name }} <span class="lv">{{ labels.tier[s.minLevel] }}以上</span> <span :class="s.isRequired ? 'tag-req' : 'tag-opt'">{{ s.isRequired ? '必要' : '加分' }}</span></span></div>
           <div v-if="myEng(r.id) && myEng(r.id).status === 'PENDING'" class="row" style="margin-top:8px">
             <span class="sub small">{{ hoursLeft(myEng(r.id).dueAt) }} 小時內需回覆</span>
             <template v-if="myEng(r.id).direction === 'INVITE'"><button class="btn sm" @click="engAct(myEng(r.id).id, 'accept')">接受邀請</button><button class="btn sm secondary" @click="engAct(myEng(r.id).id, 'decline')">拒絕</button></template>

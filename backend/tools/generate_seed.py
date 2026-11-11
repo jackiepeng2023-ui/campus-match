@@ -2,14 +2,17 @@
 """
 跨系資源媒合平台 — Demo 用學生檔案產生器
 - 固定亂數種子，每次執行結果相同（可重現）
-- 產出：PostgreSQL DDL + 種子資料 (seed.sql)、students.json、students_summary.csv
-- 所有姓名、學號、Email 皆為虛構；Email 使用保留網域 example.edu
-對應決策：D5 成績/得獎/技能檔、D10 科目→技能、D11/D14 學制換算、D29 預計畢業、D41 得獎矩陣
+- 產出：db/data.sql（學生、成績、得獎、歷史案件與互評）、db/data-post.sql（需要參考資料的證照／作品集／自我評估）、
+        out/students.json、out/students_summary.csv
+- 只產生「原始證據」；Skill Profile（技能分數、三階等級、已驗證／自述）由後端能力盤點模組在啟動時依同一套規則算出，不在這裡寫死
+- 所有姓名、學號、Email 皆為虛構；Email 與證明連結使用保留網域 example.edu
+對應決策：D5 成績/得獎/技能檔、D10 科目→技能、D29 預計畢業、D41 得獎矩陣、D53–D55 三階等級與證據
 """
 import json, csv, random, os
 OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
 os.makedirs(OUT_DIR, exist_ok=True)
 OUT_SQL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src", "main", "resources", "db", "data.sql")
+OUT_POST = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src", "main", "resources", "db", "data-post.sql")
 from datetime import date
 
 SEED = 20261120
@@ -32,7 +35,7 @@ SKILLS = [  # (name, category)
     ("資料分析", "資料分析"), ("統計", "資料分析"), ("資料視覺化", "資料分析"), ("機器學習", "資料分析"),
     ("UI/UX 設計", "設計"), ("Figma", "設計"), ("平面設計", "設計"),
     ("簡報設計", "簡報"), ("商業企劃", "簡報"), ("行銷企劃", "簡報"), ("財務分析", "簡報"),
-    ("英文寫作", "其他"), ("問卷設計", "其他"), ("專案管理", "其他"), ("研究方法", "其他"),
+    ("英文寫作", "語言"), ("問卷設計", "其他"), ("專案管理", "商管"), ("研究方法", "其他"),   # 分類與 ref-base.sql 的共用 Skill 資料庫一致
 ]
 SKILL_ID = {s[0]: i + 1 for i, s in enumerate(SKILLS)}
 
@@ -61,7 +64,8 @@ COURSES = {
 }
 GRAD_COURSES = [("研究方法", ["研究方法"]), ("進階統計", ["統計"]), ("學術英文寫作", ["英文寫作"])]
 
-# D14 學制換算表（百分制 → 等級）
+# 舊版 D14 的 1–5 級換算：只用來維持亂數序列與歷史案件的角色指派（示範人物、姓名、案件不因改版而變動）；
+# 寫進資料庫的是原始證據，等級由後端依 D53 三階規則計算
 CONVERSION = {
     "BACHELOR": [(90, 5), (80, 4), (70, 3), (60, 2), (0, 1)],
     "GRADUATE": [(90, 5), (85, 4), (80, 3), (70, 2), (0, 1)],
@@ -97,6 +101,43 @@ GIVEN = ["家豪", "怡君", "志明", "雅婷", "冠宇", "佳穎", "承翰", "
 
 TODAY = date(2026, 10, 26)
 ACADEMIC_YEAR_START = 2026  # 115 學年度
+
+# ---------- D53–D55：證據（證照、作品集、自我評估） ----------
+ev_rng = random.Random(SEED + 2)          # 另一顆亂數：新增的證據不影響原有的學生／成績／得獎序列
+ai_rng = random.Random(SEED + 3)          # 第三顆：AI 與專題相關的課外證據
+CLAIM = {1: 65, 2: 78, 3: 93}             # 自選階級的代表分數（初階／中階／進階的區間中點）
+def common_score(score, degree):          # 研究所成績 → 共同量尺（預設門檻 70／80／90 → 60／70／85）
+    if degree == "BACHELOR": return score
+    a, b = [0, 70, 80, 90, 100], [0, 60, 70, 85, 100]
+    for i in range(4):
+        if score <= a[i + 1] or i == 3:
+            return int(b[i] + (score - a[i]) * (b[i + 1] - b[i]) / (a[i + 1] - a[i]) + 0.5)
+def tier_of(score): return 3 if score >= 85 else 2 if score >= 70 else 1 if score >= 60 else 0
+CERTS = {  # 名稱須與 ref-base.sql 的證照對照表一致
+    "資訊工程學系": ["TQC+ 程式語言 Python", "網頁設計丙級技術士", "AWS Certified Cloud Practitioner", "電腦軟體設計丙級技術士", "iPAS 資訊安全工程師（初級）"],
+    "電機工程學系": ["TQC+ 程式語言 Python", "ITS Python", "Microsoft Azure AI Fundamentals（AI-900）"],
+    "企業管理學系": ["TOEIC 多益 750 分以上", "CAPM 專案管理助理師", "會計事務丙級技術士"],
+    "行銷學系": ["TOEIC 多益 750 分以上", "Google Data Analytics Certificate", "Adobe Certified Professional（Photoshop／Illustrator）"],
+    "統計學系": ["iPAS 巨量資料分析師（初級）", "Tableau Desktop Specialist", "Google Data Analytics Certificate"],
+    "土木工程學系": ["Autodesk Certified User：AutoCAD", "TOEIC 多益 550 分以上"],
+    "建築學士學位學程": ["Autodesk Certified User：AutoCAD", "Adobe Certified Professional（Photoshop／Illustrator）"],
+    "工業工程與系統管理學系": ["CAPM 專案管理助理師", "SOLIDWORKS CSWA", "TOEIC 多益 750 分以上"],
+    "中國文學系": ["TOEIC 多益 550 分以上", "JLPT 日本語能力試驗 N3"],
+    "外國語文學系": ["TOEIC 多益 900 分以上", "TOEFL iBT 80 分以上", "JLPT 日本語能力試驗 N2"],
+    "創意設計學系": ["Google UX Design Certificate", "Adobe Certified Professional（Photoshop／Illustrator）"],
+}
+PERSONA_EVIDENCE = {  # 示範人物的證據（決賽 Demo 講稿會指到這幾筆）
+    "DEMO_OWNER_BIZ": [dict(type="CERTIFICATE", catalog="TOEIC 多益 750 分以上", verified=True, on="2025-11-16")],
+    "DEMO_FE_STRONG": [dict(type="CERTIFICATE", catalog="網頁設計乙級技術士", verified=True, on="2025-08-09"),
+                       dict(type="PORTFOLIO", title="作品集：社團活動報名前台（Vue 3）", tier=3, skills=["Vue", "JavaScript"], verified=False, on="2026-03-02")],
+    "DEMO_BE_STRONG": [dict(type="CERTIFICATE", catalog="AWS Certified Cloud Practitioner", verified=True, on="2026-01-24"),
+                       dict(type="PORTFOLIO", title="作品集：課程問答機器人（RAG＋Spring Boot）", tier=3, skills=["生成式 AI 應用", "Spring Boot", "Python"], verified=True, on="2026-06-08")],
+    "DEMO_DATAVIZ": [dict(type="CERTIFICATE", catalog="Tableau Desktop Specialist", verified=True, on="2026-02-21"),
+                     dict(type="PORTFOLIO", title="作品集：台中市 YouBike 站點儀表板", tier=3, skills=["資料視覺化", "資料分析"], verified=False, on="2026-04-18")],
+    "DEMO_UIUX": [dict(type="CERTIFICATE", catalog="Google UX Design Certificate", verified=False, on="2026-05-30")],
+    "DEMO_LOW_CRED": [dict(type="PORTFOLIO", title="作品集：Vue 電商前台", tier=3, skills=["Vue", "HTML/CSS"], verified=False, on="2026-09-12")],   # 課程 72 分（中階），自述進階
+    "DEMO_PHD_OWNER": [dict(type="CERTIFICATE", catalog="TOEFL iBT 80 分以上", verified=True, on="2024-12-07")],
+}
 
 # ---------- 人口組成：50 人 ----------
 # 學士 35（各年級分布）、碩士 10、博士 5
@@ -231,6 +272,63 @@ for i in range(50):
     s["r_cold_start"] = round(0.75 * 0.5 + 0.25 * s["award_score"], 4)
     students.append(s)
 
+# 學期校正（不動亂數序列）：示範時間是 115 學年度上學期，已有成績的最後一個學期是 114-2。
+# 二年級以上把 115-x 往前挪一年；一年級（115 入學）只有進行中的 115-1。
+for s in students:
+    for g in s["grades"]:
+        y, t = g["semester"].split("-")
+        if int(y) >= 115:
+            g["semester"] = "115-1" if s["year"] == 1 else f"114-{t}"
+
+# ---------- 證據：證照、作品集、自我評估（用另一顆亂數，不影響上面的序列） ----------
+def portfolio_url(s, n): return f"https://example.edu/portfolio/{s['student_no'].lower()}/{n}"
+for s in students:
+    creds, tag = [], s["demo_tag"]
+    best = {}                                   # 技能 → 課程成績換算後的最高分
+    for g in s["grades"]:
+        for k in g["skills"]:
+            best[k] = max(best.get(k, 0), common_score(g["score"], s["degree"]))
+    s["course_best"] = best
+    for k in s["skills"]:
+        if k["source"] == "SELF":               # 課外自學：作品集（附連結）或自我評估
+            tier = {2: 1, 3: 2, 4: 3}[k["level"]]
+            if ev_rng.random() < .55:
+                creds.append(dict(type="PORTFOLIO", title=f"作品集：{k['skill']} 個人專案", tier=tier, skills=[k["skill"]],
+                                  verified=ev_rng.random() < .35, on=f"2026-{ev_rng.randint(2, 9):02d}-{ev_rng.randint(1, 28):02d}"))
+            else:
+                creds.append(dict(type="SELF", title=f"自我評估：{k['skill']}", tier=tier, skills=[k["skill"]], verified=False, on="2026-09-20"))
+        elif k["adjustment"] and not tag:       # 自評上調：比課程成績高一階的自我評估
+            tier = min(3, tier_of(best.get(k["skill"], 0)) + 1)
+            if tier > tier_of(best.get(k["skill"], 0)):
+                creds.append(dict(type="SELF", title=f"自我評估：{k['skill']}", tier=tier, skills=[k["skill"]], verified=False, on="2026-09-20"))
+    if tag in PERSONA_EVIDENCE:
+        creds += [dict(c) for c in PERSONA_EVIDENCE[tag]]
+    elif not tag and ev_rng.random() < .45:     # 約四成五的學生有一到兩張證照，半數已驗證
+        for name in ev_rng.sample(CERTS[s["dept"]], 2 if ev_rng.random() < .2 else 1):
+            creds.append(dict(type="CERTIFICATE", catalog=name, verified=ev_rng.random() < .5,
+                              on=f"{ev_rng.choice([2025, 2026])}-{ev_rng.randint(1, 9):02d}-{ev_rng.randint(1, 28):02d}"))
+    # AI 與專題相關的課外證據（第三顆亂數，不影響前面已產生的證據）：讓競賽常見的需求技能在示範學生中有人具備
+    if not tag:
+        tech = s["dept"] in ("資訊工程學系", "電機工程學系", "統計學系", "工業工程與系統管理學系")
+        day = lambda: f"2026-{ai_rng.randint(2, 10):02d}-{ai_rng.randint(1, 28):02d}"
+        if tech and ai_rng.random() < .35:
+            creds.append(dict(type="PORTFOLIO", title=ai_rng.choice(["作品集：課程筆記問答機器人（RAG）", "作品集：LINE 客服聊天機器人（LLM API）", "作品集：會議紀錄摘要 Agent"]),
+                              tier=ai_rng.choice([1, 2, 2, 3]), skills=["生成式 AI 應用", "Python"], verified=ai_rng.random() < .3, on=day()))
+        if tech and ai_rng.random() < .3:
+            creds.append(dict(type="PORTFOLIO", title=ai_rng.choice(["作品集：瑕疵影像分類（CNN）", "作品集：中文新聞情緒分析（Transformer）", "作品集：手寫數字辨識"]),
+                              tier=ai_rng.choice([1, 2, 2, 3]), skills=["深度學習", "機器學習"], verified=ai_rng.random() < .3, on=day()))
+        if not tech and ai_rng.random() < .25:
+            creds.append(dict(type="SELF", title="自我評估：生成式 AI 應用", tier=ai_rng.choice([1, 1, 2]), skills=["生成式 AI 應用"], verified=False, on="2026-09-20"))
+        if s["year"] >= 3 and ai_rng.random() < .45:
+            creds.append(dict(type="PORTFOLIO", title="作品集：" + ("畢業專題" if s["degree"] == "BACHELOR" else "研究計畫") + "成果報告", tier=ai_rng.choice([2, 2, 3]),
+                              skills=["專題與實作"] + (["研究方法"] if s["degree"] != "BACHELOR" else []), verified=ai_rng.random() < .4, on=day()))
+    for n, c in enumerate(creds, 1):
+        if c["type"] != "SELF": c["proof_url"] = portfolio_url(s, f"{'cert' if c['type'] == 'CERTIFICATE' else 'work'}-{n}")
+    s["credentials"] = creds
+    for a in s["awards"]:                       # 得獎：四成附證明且已驗證；示範人物的全國第一名已驗證
+        a["verified"] = tag == "DEMO_BE_STRONG" or ev_rng.random() < .4
+        a["proof_url"] = portfolio_url(s, "award-" + a["award_date"]) if a["verified"] or ev_rng.random() < .3 else None
+
 # ---------- 輸出 JSON / CSV ----------
 with open(os.path.join(OUT_DIR, "students.json"), "w", encoding="utf-8") as f:
     json.dump(dict(seed=SEED, generated_for="Demo", students=students), f, ensure_ascii=False, indent=2)
@@ -238,11 +336,13 @@ with open(os.path.join(OUT_DIR, "students.json"), "w", encoding="utf-8") as f:
 with open(os.path.join(OUT_DIR, "students_summary.csv"), "w", encoding="utf-8-sig", newline="") as f:
     w = csv.writer(f)
     w.writerow(["id", "學號", "姓名", "學制", "年級", "學院", "系所", "預計畢業", "每週時數",
-                "修課數", "技能數", "得獎數", "得獎分數", "冷啟動R", "Demo角色", "Demo說明"])
+                "修課數", "證照", "作品集", "自我評估", "得獎數", "已驗證證據", "得獎分數", "冷啟動R", "Demo角色", "Demo說明"])
     for s in students:
+        cnt = lambda t: sum(1 for c in s["credentials"] if c["type"] == t)
         w.writerow([s["id"], s["student_no"], s["name"], s["degree"], s["year"], s["college"], s["dept"],
-                    s["expected_graduation"], s["hours_per_week"], len(s["grades"]), len(s["skills"]),
-                    len(s["awards"]), s["award_score"], s["r_cold_start"], s["demo_tag"] or "", s["demo_note"] or ""])
+                    s["expected_graduation"], s["hours_per_week"], len(s["grades"]), cnt("CERTIFICATE"), cnt("PORTFOLIO"), cnt("SELF"),
+                    len(s["awards"]), sum(1 for c in s["credentials"] if c["verified"]) + sum(1 for a in s["awards"] if a["verified"]),
+                    s["award_score"], s["r_cold_start"], s["demo_tag"] or "", s["demo_note"] or ""])
 
 # ---------- 輸出 PostgreSQL ----------
 def q(v):
@@ -258,9 +358,6 @@ for c, d in dept_list:
     L.append(f"INSERT INTO departments (college_id, name) SELECT id, {q(d)} FROM colleges WHERE name={q(c)};")
 for n, cat in SKILLS:
     L.append(f"INSERT INTO skills (name, category) VALUES ({q(n)}, {q(cat)});")
-for grp, rows in CONVERSION.items():
-    for lo, lv in rows:
-        L.append(f"INSERT INTO grade_conversion VALUES ({q(grp)}, {lo}, {lv});")
 for (rk, lvl), sc in AWARD_MATRIX.items():
     L.append(f"INSERT INTO award_matrix VALUES ({q(rk)}, {q(lvl)}, {sc});")
 
@@ -290,13 +387,7 @@ for s in students:
             add_course(s["dept"], g["course"], g["skills"])
             course_dept[g["course"]] = s["dept"]
 
-# 示範密碼統一為 demo1234（BCrypt 雜湊需由後端產生；此處以占位字串，啟動時由 DataInitializer 重設）
-def sem_end(sem):
-    y, t = sem.split("-"); y = 1911 + int(y)
-    return f"{y + 1}-01-20T10:00:00+08" if t == "1" else f"{y + 1}-06-25T10:00:00+08"
-def sem_adjust(sem):
-    y, t = sem.split("-"); y = 1911 + int(y)
-    return f"{y + 1}-02-15T20:00:00+08" if t == "1" else f"{y + 1}-07-10T20:00:00+08"
+# 示範密碼統一為 demo1234（BCrypt 雜湊由後端啟動時產生；此處放占位字串）
 for s in students:
     L.append(f"INSERT INTO users (student_no, name, email, password_hash, degree, year, department_id, entry_year, expected_graduation, demo_tag) "
              f"VALUES ({q(s['student_no'])}, {q(s['name'])}, {q(s['email'])}, '{{RESET_ON_BOOT}}', {q(s['degree'])}, {s['year']}, "
@@ -309,28 +400,39 @@ for s in students:
         else:
             csel = f"(SELECT id FROM courses WHERE name={q(g['course'])} AND department_id=(SELECT id FROM departments WHERE name={q(course_dept[g['course']])}))"
         L.append(f"INSERT INTO user_grades (user_id, course_id, score, semester) VALUES ({uid}, {csel}, {g['score']}, {q(g['semester'])}) ON CONFLICT DO NOTHING;")
-    for k in s["skills"]:
-        ssel = f"(SELECT id FROM skills WHERE name={q(k['skill'])})"
-        L.append(f"INSERT INTO user_skills VALUES ({uid}, {ssel}, {q(k['default_level'])}, {k['level']}, {q(k['source'])});")
-        if k["default_level"] is not None:
-            L.append(f"INSERT INTO skill_level_history (user_id, skill_id, old_level, new_level, reason, changed_at) VALUES ({uid}, {ssel}, NULL, {k['default_level']}, 'GRADE', {q(sem_end(k['semester']))});")
-        if k["adjustment"]:
-            L.append(f"INSERT INTO skill_level_history (user_id, skill_id, old_level, new_level, reason, changed_at) VALUES ({uid}, {ssel}, {k['default_level']}, {k['level']}, 'SELF_ADJUST', {q(sem_adjust(k['semester']))});")
-        if k["source"] == "SELF":
-            L.append(f"INSERT INTO skill_level_history (user_id, skill_id, old_level, new_level, reason, changed_at) VALUES ({uid}, {ssel}, NULL, {k['level']}, 'SELF_DECLARE', '2026-09-20T12:00:00+08');")
     for a in s["awards"]:
-        L.append(f"WITH a AS (INSERT INTO user_awards (user_id, competition, level, rank, award_date) VALUES ({uid}, {q(a['competition'])}, {q(a['level'])}, {q(a['rank'])}, {q(a['award_date'])}) RETURNING id) "
+        L.append(f"WITH a AS (INSERT INTO user_awards (user_id, competition, level, rank, award_date, proof_url, verified) VALUES ({uid}, {q(a['competition'])}, {q(a['level'])}, {q(a['rank'])}, {q(a['award_date'])}, {q(a['proof_url'])}, {'TRUE' if a['verified'] else 'FALSE'}) RETURNING id) "
                  f"INSERT INTO award_skills SELECT a.id, s.id FROM a, skills s WHERE s.name IN ({', '.join(q(x) for x in a['skills'])});")
+
+# ---------- data-post.sql：參考資料（57 項技能、證照對照表）載入後才能寫的證據 ----------
+P = ["-- 示範資料（二）：證照、作品集、自我評估 — 由 generate_seed.py 產生；在 ref-*.sql 之後載入", "BEGIN;"]
+ADMIN = "(SELECT id FROM users WHERE email='admin@example.edu')"
+for s in students:
+    uid = f"(SELECT id FROM users WHERE student_no={q(s['student_no'])})"
+    for c in s["credentials"]:
+        ver = f"TRUE, {ADMIN}, {q(c['on'] + 'T12:00:00+08')}" if c["verified"] else "FALSE, NULL, NULL"
+        if c["type"] == "CERTIFICATE":
+            P.append(f"WITH c AS (INSERT INTO user_credentials (user_id, type, title, issuer, obtained_on, catalog_id, claimed_score, proof_url, verified, verified_by, verified_at, created_at) "
+                     f"SELECT {uid}, 'CERTIFICATE', cc.name, cc.issuer, {q(c['on'])}, cc.id, cc.score, {q(c.get('proof_url'))}, {ver}, {q(c['on'] + 'T10:00:00+08')} "
+                     f"FROM certificate_catalog cc WHERE cc.name={q(c['catalog'])} RETURNING id, catalog_id) "
+                     f"INSERT INTO credential_skills SELECT c.id, cs.skill_id FROM c JOIN certificate_catalog_skills cs ON cs.catalog_id = c.catalog_id;")
+        else:
+            P.append(f"WITH c AS (INSERT INTO user_credentials (user_id, type, title, obtained_on, claimed_score, proof_url, verified, verified_by, verified_at, created_at) "
+                     f"VALUES ({uid}, {q(c['type'])}, {q(c['title'])}, {q(c['on'])}, {CLAIM[c['tier']]}, {q(c.get('proof_url'))}, {ver}, {q(c['on'] + 'T10:00:00+08')}) RETURNING id) "
+                     f"INSERT INTO credential_skills SELECT c.id, s.id FROM c, skills s WHERE s.name IN ({', '.join(q(x) for x in c['skills'])});")
 exec(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "history.py"), encoding="utf-8").read())
 with open(OUT_SQL, "w", encoding="utf-8") as f:
     f.write("\n".join(L) + "\n")
+P.append("COMMIT;")
+with open(OUT_POST, "w", encoding="utf-8") as f:
+    f.write("\n".join(P) + "\n")
 
 # ---------- 統計摘要 ----------
 from collections import Counter
 print("students:", len(students))
 print("degree:", Counter(s["degree"] for s in students))
 print("college:", Counter(s["college"] for s in students))
-print("grades:", sum(len(s["grades"]) for s in students), "skills:", sum(len(s["skills"]) for s in students),
-      "awards:", sum(len(s["awards"]) for s in students))
-print("self-adjusted skills:", sum(1 for s in students for k in s["skills"] if k["adjustment"]))
+print("grades:", sum(len(s["grades"]) for s in students), "awards:", sum(len(s["awards"]) for s in students),
+      "credentials:", Counter(c["type"] for s in students for c in s["credentials"]),
+      "verified:", sum(1 for s in students for c in s["credentials"] if c["verified"]) + sum(1 for s in students for a in s["awards"] if a["verified"]))
 print("demo personas:", [(s["id"], s["name"], s["demo_tag"]) for s in students if s["demo_tag"]])

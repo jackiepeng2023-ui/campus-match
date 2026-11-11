@@ -8,7 +8,7 @@
         <div class="field"><label>Email 或學號</label><input v-model="account" placeholder="student001@example.edu" autofocus /></div>
         <div class="field"><label>密碼</label><input v-model="password" type="password" placeholder="demo1234" /></div>
         <button class="btn" style="width:100%" :disabled="busy">登入</button>
-        <p class="sub small" style="margin-top:14px">示範帳號（密碼皆為 demo1234）：student001（企管，發案方）、student002（資工，前端）、student003（資工，後端）、student007（資工，自評上調）、student008（資工博士）、admin@example.edu（管理員）</p>
+        <p class="sub small" style="margin-top:14px">示範帳號（密碼皆為 demo1234）：student001（企管，發案方）、student002（資工，前端）、student003（資工，後端）、student007（資工，作品集自述偏高）、student008（資工博士）、admin@example.edu（管理員）</p>
       </form>
       <form v-else @submit.prevent="register">
         <div class="grid grid-2" style="gap:12px">
@@ -25,7 +25,9 @@
         </div>
         <div class="field" style="background:var(--bg);padding:12px;border-radius:10px">
           <label style="display:flex;gap:8px;align-items:flex-start;color:var(--text)"><input type="checkbox" v-model="r.consent" style="width:auto;margin-top:3px" />
-            <span class="small">我同意平台為「媒合推薦」目的蒐集我的成績、技能與得獎資料；原始成績只有我本人可見，對外只顯示技能等級。資料於畢業 3 個月後去識別化、6 個月後刪除；我可以隨時申請刪除帳號。（個資法第 19、20 條、第 11 條第 3 項）</span></label>
+            <span class="small"><strong>必要</strong>｜我同意平台為「媒合推薦」目的蒐集我的修課成績、證照、作品集、得獎與技能資料；原始成績與技能分數只有我本人可見，對外只顯示技能階級與「已驗證／自述」。資料於畢業 3 個月後去識別化、6 個月後刪除；我可以隨時申請刪除帳號。（個資法第 19、20 條、第 11 條第 3 項；條款 {{ meta?.termsVersion }}）</span></label>
+          <label style="display:flex;gap:8px;align-items:flex-start;color:var(--text);margin-top:10px"><input type="checkbox" v-model="r.aiConsent" style="width:auto;margin-top:3px" />
+            <span class="small"><strong>選填</strong>｜我同意使用「AI 助理」：我輸入的訊息與我的技能檔（學制、系所、各技能的階級與可信狀態，<u>不含姓名、學號、Email 與原始成績</u>）會傳送到外部語言模型服務（Anthropic Claude API，由境外的服務商處理）處理；其他學生以代號表示。不同意仍可使用全部功能，AI 助理改以規則模式運作、不傳送任何資料。之後可在「我的檔案」隨時撤回。</span></label>
         </div>
         <button class="btn" style="width:100%" :disabled="busy">建立帳號</button>
       </form>
@@ -40,7 +42,7 @@ import { post, setToken } from '../api'
 import { store } from '../store'
 const router = useRouter()
 const mode = ref('login'), account = ref(''), password = ref(''), busy = ref(false), error = ref(''), meta = ref(null)
-const r = ref({ studentNo: '', name: '', email: '', password: '', degree: 'BACHELOR', year: 1, departmentId: 1, entryYear: null, expectedGraduation: '2030-06-30', hoursPerWeek: 8, consent: false })
+const r = ref({ studentNo: '', name: '', email: '', password: '', degree: 'BACHELOR', year: 1, departmentId: 1, entryYear: null, expectedGraduation: '2030-06-30', hoursPerWeek: 8, consent: false, aiConsent: false })
 const entryTouched = ref(false)
 const colleges = computed(() => { const m = {}; for (const d of meta.value?.departments || []) { (m[d.collegeId] ||= { id: d.collegeId, name: d.college, depts: [] }).depts.push(d) } return Object.values(m) })
 function syncEntryYear() { if (!entryTouched.value && meta.value) r.value.entryYear = meta.value.currentAcademicYear - ((r.value.year || 1) - 1) }

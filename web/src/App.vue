@@ -4,6 +4,8 @@
       <div class="nav-inner">
         <router-link to="/" class="brand">跨系媒合</router-link>
         <router-link to="/" class="link" :class="{active: $route.path === '/'}">首頁</router-link>
+        <router-link v-if="store.user.role !== 'ADMIN'" to="/assistant" class="link" :class="{active: $route.path === '/assistant'}">AI 助理</router-link>
+        <router-link to="/competitions" class="link" :class="{active: $route.path.startsWith('/competitions')}">競賽</router-link>
         <router-link to="/cases" class="link" :class="{active: $route.path.startsWith('/cases')}">案件</router-link>
         <router-link to="/profile" class="link" :class="{active: $route.path === '/profile'}">我的檔案</router-link>
         <router-link to="/growth" class="link" :class="{active: $route.path === '/growth'}">成長</router-link>

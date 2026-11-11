@@ -66,7 +66,7 @@ async function save() {
   saving.value = true
   try {
     await put('/me/grades', changed.value.map(r => ({ courseId: r.id, score: r.score, semester: r.semester || null, skillIds: r.pickSkill ? [r.pickSkill] : [] })))
-    store.notify(`已儲存 ${changed.value.length} 筆成績，技能預設等級已重算`, 'success'); emit('saved'); await reload()
+    store.notify(`已儲存 ${changed.value.length} 筆成績，Skill Profile 已重新盤點`, 'success'); emit('saved'); await reload()
   } catch (e) { store.notify(e.message, 'error') } finally { saving.value = false }
 }
 onMounted(async () => { await store.loadMeta(); await reloadOptions() })

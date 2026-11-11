@@ -112,7 +112,7 @@ struct CaseDetailView: View {
                         }
                     }
                 }
-                FlowLayout { ForEach(r.skills) { s in SkillChip(name: s.name, level: s.minLevel, required: s.isRequired) } }
+                FlowLayout { ForEach(r.skills) { s in SkillChip(name: s.name, level: s.minLevel, required: s.isRequired, atLeast: true) } }
                 if let e = myEngagement(c, r.id), e.status == "PENDING" {
                     HStack {
                         Text("\(Fmt.hoursLeft(e.dueAt)) 小時內需回覆").font(.caption).foregroundStyle(.orange)

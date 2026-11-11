@@ -1,4 +1,4 @@
-# 由 generate_seed.py 以 exec 載入；沿用其變數 students, rng, L, q, SKILL_ID
+# 由 generate_seed.py 以 exec 載入；沿用其變數 students, rng, L, q, SKILL_ID, tier_of, CLAIM
 # 產生：(1) 12 個已結案的歷史案件（含申請、成員、互評），讓評價 R、回應率 P、儀表板一開始就有數據
 #       (2) 6 個招募中的案件，讓學生端「推薦給我的案件」一開始就有內容
 # Demo 角色 1, 4–8 不放歷史紀錄，確保劇本可預期；id 2、3 各有一筆良好紀錄
@@ -20,6 +20,12 @@ TITLES = {
     "RESEARCH": ["使用者行為問卷研究", "校園能源資料分析"],
 }
 
+def role_tier(uid, skill):
+    """歷史案件的角色門檻：成員當時在這項技能的階級（課程成績或自述），最高中階、最低初階"""
+    s = by_id[uid]
+    claimed = max([CLAIM[c["tier"]] for c in s["credentials"] if c["type"] != "CERTIFICATE" and skill in c["skills"]] or [0])
+    return max(1, min(2, tier_of(max(s["course_best"].get(skill, 0), claimed))))
+
 def add_case(owner, ctype, title, status, deadline, start, end, members_roles, closed_at=None, result=None):
     """members_roles: list of (uid, role_name, skill_name, hours)"""
     global case_id, role_id
@@ -35,7 +41,7 @@ def add_case(owner, ctype, title, status, deadline, start, end, members_roles, c
         rids.append(role_id)
         filled = 1 if uid else 0
         L.append(f"INSERT INTO case_roles (case_id, role_name, headcount, filled_count, hours_per_week) VALUES ({cid}, {q(rname)}, 1, {filled}, {hours});")
-        L.append(f"INSERT INTO case_role_skills VALUES ({role_id}, {SKILL_ID[sname]}, 3, TRUE);")
+        L.append(f"INSERT INTO case_role_skills VALUES ({role_id}, {SKILL_ID[sname]}, {role_tier(uid, sname) if uid else 2}, TRUE);")
         if uid:
             L.append(f"INSERT INTO case_members (case_id, user_id, case_role_id, joined_at) VALUES ({cid}, {uid}, {role_id}, {q(deadline)});")
     return cid, rids
@@ -88,12 +94,7 @@ for uid in hist_rng.sample(pool, 8):
     L.append(f"INSERT INTO engagements (case_role_id, user_id, direction, status, due_at, created_at, decided_at) "
              f"VALUES ({role}, {uid}, 'INVITE', 'EXPIRED', '2026-05-10T12:00:00+08', '2026-05-07T12:00:00+08', '2026-05-10T12:00:00+08');")
 
-# 歷史結案帶來的技能成長紀錄（D30 時間軸）
-for uid in sorted(set(hist_members)):
-    for k in top_skills(uid, 1):
-        if k["level"] < 5:
-            L.append(f"INSERT INTO skill_level_history (user_id, skill_id, old_level, new_level, reason, changed_at) "
-                     f"VALUES ({uid}, {SKILL_ID[k['skill']]}, {k['level']}, {k['level']}, 'CASE_CLOSED', '2026-07-25T18:00:00+08');")
+# 結案帶來的「已驗證」證據與成長紀錄由後端能力盤點模組依互評相符度計算（D55），這裡不寫死
 
 # ---------- (2) 招募中的案件 ----------
 OPEN_CASES = [
@@ -106,7 +107,7 @@ OPEN_CASES = [
 ]
 open_owners = hist_rng.sample(pool, len(OPEN_CASES))
 for (ctype, title, roles), owner in zip(OPEN_CASES, open_owners):
-    add_case(owner, ctype, title, "OPEN", "2026-11-06T23:59:00+08", "2026-11-09", "2026-12-20",
+    add_case(owner, ctype, title, "OPEN", "2026-12-10T23:59:00+08", "2026-12-14", "2027-01-24",     # 決賽（11/21）當天仍在招募中
              [(None, rname, sname, hrs) for rname, sname, hrs in roles])
 
 L.append(f"SELECT setval('cases_id_seq', {case_id});")
@@ -117,5 +118,7 @@ print("history cases:", 12, "open cases:", len(OPEN_CASES), "roles:", role_id)
 L.append("INSERT INTO users (student_no, name, email, password_hash, degree, year, department_id, expected_graduation, role) "
          "VALUES ('ADMIN', '系統管理員', 'admin@example.edu', '{RESET_ON_BOOT}', 'MASTER', 1, 1, '2030-06-30', 'ADMIN');")
 # 全員註冊同意紀錄（D26）
-L.append("INSERT INTO consents (user_id, purpose, terms_version) SELECT id, 'MATCHING', 'v1' FROM users;")
-L.append("INSERT INTO consents (user_id, purpose, terms_version) SELECT id, 'RETENTION', 'v1' FROM users;")
+L.append("INSERT INTO consents (user_id, purpose, terms_version) SELECT id, 'MATCHING', 'v2' FROM users;")
+L.append("INSERT INTO consents (user_id, purpose, terms_version) SELECT id, 'RETENTION', 'v2' FROM users;")
+# 示範帳號預設已同意「AI 助理」用途（D56），現場可直接展示；student050 留作「尚未同意」的對照
+L.append("INSERT INTO consents (user_id, purpose, terms_version) SELECT id, 'AI_ASSISTANT', 'v2' FROM users WHERE role = 'STUDENT' AND email <> 'student050@example.edu';")

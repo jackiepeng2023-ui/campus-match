@@ -40,15 +40,17 @@ public class CaseService {
     // ---------- 建立 / 編輯 ----------
     public record RoleSkillIn(Integer skillId, Integer minLevel, Boolean isRequired) {}
     public record RoleIn(String roleName, Integer headcount, Integer hoursPerWeek, List<RoleSkillIn> skills) {}
+    /** competitionId／advisorTeacherId：選填，案件對應的競賽與指導老師（由競賽頁或 AI 助理帶入） */
     public record CaseIn(String title, String type, String description, Integer teamSize, String applyDeadline,
-                         String startDate, String endDate, String attribution, List<RoleIn> roles) {}
+                         String startDate, String endDate, String attribution, List<RoleIn> roles, Integer competitionId, Integer advisorTeacherId) {}
 
     @Transactional
     public Map<String, Object> create(int uid, CaseIn in) {
         validate(in);
         int id = db.insertReturningId("""
-                INSERT INTO cases (owner_id, title, type, description, team_size, apply_deadline, start_date, end_date, attribution, status, created_at)
-                VALUES (:o, :t, :ty, :d, :n, :dl, :s, :e, :a, 'DRAFT', :c) RETURNING id""",
+                INSERT INTO cases (owner_id, title, type, description, team_size, apply_deadline, start_date, end_date, attribution, status, created_at, competition_id, advisor_teacher_id)
+                VALUES (:o, :t, :ty, :d, :n, :dl, :s, :e, :a, 'DRAFT', :c, :comp, :adv) RETURNING id""",
+                "comp", in.competitionId(), "adv", in.advisorTeacherId(),
                 "o", uid, "t", in.title().trim(), "ty", in.type(), "d", in.description() == null ? "" : in.description(), "n", in.teamSize(),
                 "dl", Db.ts(parseDeadline(in.applyDeadline())), "s", LocalDate.parse(in.startDate()), "e", LocalDate.parse(in.endDate()),
                 "a", "RESEARCH".equals(in.type()) ? in.attribution() : null, "c", Db.ts(clock.instant()));
@@ -64,7 +66,9 @@ public class CaseService {
         if (!"DRAFT".equals(c.get("status"))) throw ApiException.conflict("INVALID_STATE", "只有草稿可以編輯");
         validate(in);
         db.exec("""
-                UPDATE cases SET title = :t, type = :ty, description = :d, team_size = :n, apply_deadline = :dl, start_date = :s, end_date = :e, attribution = :a WHERE id = :id""",
+                UPDATE cases SET title = :t, type = :ty, description = :d, team_size = :n, apply_deadline = :dl, start_date = :s, end_date = :e, attribution = :a,
+                       competition_id = :comp, advisor_teacher_id = :adv WHERE id = :id""",
+                "comp", in.competitionId(), "adv", in.advisorTeacherId(),
                 "t", in.title().trim(), "ty", in.type(), "d", in.description() == null ? "" : in.description(), "n", in.teamSize(),
                 "dl", Db.ts(parseDeadline(in.applyDeadline())), "s", LocalDate.parse(in.startDate()), "e", LocalDate.parse(in.endDate()),
                 "a", "RESEARCH".equals(in.type()) ? in.attribution() : null, "id", caseId);
@@ -92,12 +96,14 @@ public class CaseService {
         try { s = LocalDate.parse(in.startDate()); e = LocalDate.parse(in.endDate()); parseDeadline(in.applyDeadline()); }
         catch (ApiException ex) { throw ex; } catch (Exception ex) { throw ApiException.badRequest("日期格式錯誤"); }
         if (e.isBefore(s)) throw ApiException.badRequest("結束日不可早於開始日");
+        if (in.competitionId() != null && db.count("SELECT count(*) FROM competitions WHERE id = :c AND approved", "c", in.competitionId()) == 0) throw ApiException.badRequest("競賽不存在");
+        if (in.advisorTeacherId() != null && db.count("SELECT count(*) FROM teachers WHERE id = :t AND active", "t", in.advisorTeacherId()) == 0) throw ApiException.badRequest("教師不存在");
         if (in.roles() == null || in.roles().isEmpty()) throw ApiException.badRequest("至少一個角色");
         int total = 0;
         for (RoleIn r : in.roles()) {
             if (r.roleName() == null || r.roleName().isBlank() || r.headcount() == null || r.headcount() < 1) throw ApiException.badRequest("角色名稱與名額為必填");
             if (r.skills() == null || r.skills().isEmpty()) throw ApiException.badRequest("角色「" + r.roleName() + "」至少一項技能條件");
-            for (RoleSkillIn sk : r.skills()) if (sk.skillId() == null || sk.minLevel() == null || sk.minLevel() < 1 || sk.minLevel() > 5) throw ApiException.badRequest("技能條件須含技能與 1–5 最低等級");
+            for (RoleSkillIn sk : r.skills()) if (sk.skillId() == null || sk.minLevel() == null || sk.minLevel() < 1 || sk.minLevel() > 3) throw ApiException.badRequest("技能條件須含技能與最低階級（1 初階／2 中階／3 進階）");
             total += r.headcount();
         }
         if (total != in.teamSize() - 1) throw ApiException.badRequest("角色名額總和（" + total + "）須等於每隊人數減 1（" + (in.teamSize() - 1) + "）");
@@ -183,8 +189,11 @@ public class CaseService {
         var c = db.required("""
                 SELECT c.id, c.title, c.type, c.description, c.status, c.team_size "teamSize", c.apply_deadline "applyDeadline", c.start_date "startDate", c.end_date "endDate",
                        c.attribution, c.close_result "closeResult", c.created_at "createdAt", c.closed_at "closedAt",
-                       u.id "ownerId", u.name "ownerName", d.name "ownerDepartment", col.name "ownerCollege"
+                       u.id "ownerId", u.name "ownerName", d.name "ownerDepartment", col.name "ownerCollege",
+                       c.competition_id "competitionId", cp.name "competitionName", cp.url "competitionUrl", cp.apply_deadline "competitionDeadline",
+                       c.advisor_teacher_id "advisorTeacherId", t.name "advisorName", t.title "advisorTitle", td.name "advisorDepartment"
                 FROM cases c JOIN users u ON u.id = c.owner_id JOIN departments d ON d.id = u.department_id JOIN colleges col ON col.id = d.college_id
+                LEFT JOIN competitions cp ON cp.id = c.competition_id LEFT JOIN teachers t ON t.id = c.advisor_teacher_id LEFT JOIN departments td ON td.id = t.department_id
                 WHERE c.id = :id""", "找不到案件", "id", caseId);
         boolean isOwner = Db.i(c.get("ownerId")) == uid;
         if ("DRAFT".equals(c.get("status")) && !isOwner && !isAdmin) throw ApiException.notFound("找不到案件");

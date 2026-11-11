@@ -417,11 +417,33 @@ def cmd_sql(args):
     print(f"colleges {len(colleges)}, departments {len(depts)}, courses {len(values)}", file=sys.stderr)
 
 
+def cmd_rules(args):
+    """skill_rules.csv（keyword, skill, confidence, exclude）→ ref-skill-map.sql：啟動時把規則套到全部科目（source=RULE，已核准）"""
+    here = os.path.dirname(os.path.abspath(__file__))
+    rules = list(csv.DictReader(open(os.path.join(here, "skill_rules.csv"), encoding="utf-8")))
+    L = ["-- 科目 → 技能對照（關鍵字規則，source=RULE，已核准；信心未達 0.5 的規則不套用）— 由 tools/skill_rules.csv 產生（exclude 欄：含該關鍵字則不套用）", "BEGIN;"]
+    skipped = 0
+    for r in rules:
+        kw, skill = (r.get("keyword") or "").strip(), (r.get("skill") or "").strip()
+        if not kw or not skill: continue
+        like = lambda t: "'%" + t.replace("'", "''").replace("%", "\\%").replace("_", "\\_") + "%'"
+        cond = f"c.name ILIKE {like(kw)}" + "".join(f" AND c.name NOT ILIKE {like(x.strip())}" for x in (r.get("exclude") or "").split("|") if x.strip())
+        conf = float(r["confidence"])
+        if conf < 0.5:                           # 信心未達 0.5 的規則太寬（例如「數位」「社會」），不套用：既不當成證據，也不塞滿管理員的待核准清單
+            skipped += 1; continue
+        L.append(f"INSERT INTO course_skill_map (course_id, skill_id, source, confidence, approved) SELECT c.id, s.id, 'RULE', {conf}, TRUE "
+                 f"FROM courses c JOIN skills s ON s.name = {q(skill)} WHERE {cond} ON CONFLICT (course_id, skill_id) DO NOTHING;")
+    L.append("COMMIT;")
+    print("\n".join(L))
+    print(f"rules applied {len(L) - 3}, skipped (confidence < 0.5) {skipped}", file=sys.stderr)
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     f = sub.add_parser("fetch"); f.add_argument("--year", type=int, action="append", required=True); f.add_argument("--out", default="curriculum")
     p = sub.add_parser("parse"); p.add_argument("--out", default="curriculum")
     s = sub.add_parser("sql"); s.add_argument("--out", default="curriculum")
+    sub.add_parser("rules")
     a = ap.parse_args()
-    {"fetch": cmd_fetch, "parse": cmd_parse, "sql": cmd_sql}[a.cmd](a)
+    {"fetch": cmd_fetch, "parse": cmd_parse, "sql": cmd_sql, "rules": cmd_rules}[a.cmd](a)

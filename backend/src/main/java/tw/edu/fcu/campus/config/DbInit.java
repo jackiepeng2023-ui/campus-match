@@ -8,6 +8,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import tw.edu.fcu.campus.common.Db;
+import tw.edu.fcu.campus.profile.SkillProfileService;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -24,16 +25,17 @@ import java.time.LocalDate;
 @Component
 public class DbInit implements InitializingBean {
     private static final Logger log = LoggerFactory.getLogger(DbInit.class);
-    private static final String[] REFERENCE = {"db/ref-base.sql", "db/ref-courses.sql", "db/ref-skill-map.sql"};
+    private static final String[] REFERENCE = {"db/ref-base.sql", "db/ref-courses.sql", "db/ref-skill-map.sql", "db/ref-competitions.sql", "db/ref-teachers.sql", "db/ref-syllabus.sql"};
     private final Db db;
     private final PasswordEncoder encoder;
+    private final SkillProfileService profile;
     private final boolean resetOnStart;
     private final String seedMode, demoPassword, adminEmail, adminPassword, adminName;
 
-    public DbInit(Db db, PasswordEncoder encoder, @Value("${app.reset-on-start}") boolean resetOnStart, @Value("${app.seed-mode}") String seedMode,
+    public DbInit(Db db, PasswordEncoder encoder, SkillProfileService profile, @Value("${app.reset-on-start}") boolean resetOnStart, @Value("${app.seed-mode}") String seedMode,
                   @Value("${app.demo-password}") String demoPassword, @Value("${app.admin-email}") String adminEmail,
                   @Value("${app.admin-password}") String adminPassword, @Value("${app.admin-name}") String adminName) {
-        this.db = db; this.encoder = encoder; this.resetOnStart = resetOnStart; this.seedMode = seedMode; this.demoPassword = demoPassword;
+        this.db = db; this.encoder = encoder; this.profile = profile; this.resetOnStart = resetOnStart; this.seedMode = seedMode; this.demoPassword = demoPassword;
         this.adminEmail = adminEmail; this.adminPassword = adminPassword; this.adminName = adminName;
     }
 
@@ -60,6 +62,13 @@ public class DbInit implements InitializingBean {
             log.info("Demo 資料載入完成：{} 位示範帳號密碼為 {}", n, demoPassword);
         }
         loadReference();
+        if (isDemo()) {
+            // 示範資料只放原始證據（成績、證照、作品集、得獎、結案與互評）；Skill Profile 由能力盤點模組依同一套規則算出
+            db.jdbc.getJdbcOperations().execute(read("db/data-post.sql"));
+            long t = System.currentTimeMillis();
+            log.info("能力盤點完成：{} 位學生、{} 筆證據、{} 項技能，{} ms", profile.rebuildAllWithHistory(),
+                    db.count("SELECT count(*) FROM skill_evidence"), db.count("SELECT count(*) FROM user_skills"), System.currentTimeMillis() - t);
+        }
         ensureAdmin();
     }
 
@@ -67,6 +76,7 @@ public class DbInit implements InitializingBean {
     private void loadReference() throws Exception {
         long t = System.currentTimeMillis();
         for (String f : REFERENCE) db.jdbc.getJdbcOperations().execute(read(f));
+        log.info("競賽 {} 筆、教師 {} 位、證照對照 {} 筆", db.count("SELECT count(*) FROM competitions"), db.count("SELECT count(*) FROM teachers"), db.count("SELECT count(*) FROM certificate_catalog"));
         log.info("參考資料完成：{} 系所、{} 科目（{} 入學年度）、{} 筆科目→技能對照，{} ms",
                 db.count("SELECT count(*) FROM departments"), db.count("SELECT count(*) FROM courses WHERE entry_year IS NOT NULL"),
                 db.scalar(String.class, "SELECT string_agg(y::text, '、' ORDER BY y) FROM (SELECT DISTINCT entry_year y FROM courses WHERE entry_year IS NOT NULL) s"),

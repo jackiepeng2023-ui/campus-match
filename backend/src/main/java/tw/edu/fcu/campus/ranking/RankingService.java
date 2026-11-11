@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tw.edu.fcu.campus.common.ApiException;
 import tw.edu.fcu.campus.common.Db;
 import tw.edu.fcu.campus.config.DemoClock;
+import tw.edu.fcu.campus.profile.SkillProfileService;
 import tw.edu.fcu.campus.user.StatsService;
 
 import java.sql.Date;
@@ -19,10 +20,13 @@ public class RankingService {
     private final Db db;
     private final StatsService stats;
     private final DemoClock clock;
+    private final SkillProfileService profile;
     private final RankingEngine engine = new RankingEngine();
     private final ObjectMapper json = new ObjectMapper();
 
-    public RankingService(Db db, StatsService stats, DemoClock clock) { this.db = db; this.stats = stats; this.clock = clock; }
+    public RankingService(Db db, StatsService stats, DemoClock clock, SkillProfileService profile) { this.db = db; this.stats = stats; this.clock = clock; this.profile = profile; }
+
+    public RankingEngine engine() { return engine; }
 
     public RankingEngine.Weights weights() {
         Map<String, Double> w = new HashMap<>();
@@ -43,10 +47,12 @@ public class RankingService {
                 FROM case_roles cr JOIN cases c ON c.id = cr.case_id
                 JOIN users u ON u.id = c.owner_id JOIN departments d ON d.id = u.department_id JOIN colleges col ON col.id = d.college_id
                 WHERE cr.id = :id""", "找不到角色", "id", roleId);
+        var bands = profile.bands();
         List<RankingEngine.RoleSkill> skills = db.list("""
                 SELECT rs.skill_id, s.name, rs.min_level, rs.is_required FROM case_role_skills rs JOIN skills s ON s.id = rs.skill_id
                 WHERE rs.case_role_id = :id ORDER BY rs.is_required DESC, s.name""", "id", roleId).stream()
-                .map(x -> new RankingEngine.RoleSkill(Db.i(x.get("skill_id")), (String) x.get("name"), Db.i(x.get("min_level")), (Boolean) x.get("is_required")))
+                .map(x -> new RankingEngine.RoleSkill(Db.i(x.get("skill_id")), (String) x.get("name"), Db.i(x.get("min_level")),
+                        bands.minScore(Db.i(x.get("min_level"))), (Boolean) x.get("is_required")))
                 .toList();
         int headcount = Db.i(r.get("headcount")), filled = Db.i(r.get("filled_count")), pend = Db.i(r.get("pending_invites"));
         var role = new RankingEngine.Role(Db.i(r.get("hours_per_week")), ((Date) r.get("start_date")).toLocalDate(), ((Date) r.get("end_date")).toLocalDate(),
@@ -56,9 +62,9 @@ public class RankingService {
     }
 
     // ---------- 候選人 ----------
-    private record UserRow(int id, String name, String college, String dept, String degree, int year, int hours, LocalDate from, LocalDate to) {}
+    public record UserRow(int id, String name, String college, String dept, String degree, int year, int hours, LocalDate from, LocalDate to) {}
 
-    private List<UserRow> loadStudents(Integer onlyUserId) {
+    public List<UserRow> loadStudents(Integer onlyUserId) {
         return db.list("""
                 SELECT u.id, u.name, u.degree, u.year, d.name dept, col.name college,
                        coalesce(a.hours_per_week, 0) hours, a.available_from, a.available_to
@@ -71,18 +77,33 @@ public class RankingService {
                         r.get("available_to") == null ? null : ((Date) r.get("available_to")).toLocalDate())).toList();
     }
 
-    private Map<Integer, Map<Integer, Integer>> loadSkillLevels(Integer onlyUserId) {
-        Map<Integer, Map<Integer, Integer>> m = new HashMap<>();
-        for (var r : db.list("SELECT user_id, skill_id, level FROM user_skills WHERE cast(:uid AS int) IS NULL OR user_id = :uid", "uid", onlyUserId))
-            m.computeIfAbsent(Db.i(r.get("user_id")), k -> new HashMap<>()).put(Db.i(r.get("skill_id")), Db.i(r.get("level")));
+    /** 一位學生的 Skill Profile（供引擎與三個媒合 Agent 共用）：分數、階級、可信狀態標籤 */
+    public record SkillSet(Map<Integer, Integer> scores, Map<Integer, Integer> levels, Map<Integer, String> trust) {
+        public static final SkillSet EMPTY = new SkillSet(Map.of(), Map.of(), Map.of());
+        public int score(int skillId) { return scores.getOrDefault(skillId, 0); }
+        public int level(int skillId) { return levels.getOrDefault(skillId, 0); }
+    }
+
+    public Map<Integer, SkillSet> loadSkills(Integer onlyUserId) {
+        Map<Integer, SkillSet> m = new HashMap<>();
+        for (var r : db.list("SELECT user_id, skill_id, score, level, trust FROM user_skills WHERE cast(:uid AS int) IS NULL OR user_id = :uid", "uid", onlyUserId)) {
+            SkillSet ss = m.computeIfAbsent(Db.i(r.get("user_id")), k -> new SkillSet(new HashMap<>(), new HashMap<>(), new HashMap<>()));
+            int sid = Db.i(r.get("skill_id"));
+            ss.scores().put(sid, Db.i(r.get("score"))); ss.levels().put(sid, Db.i(r.get("level")));
+            ss.trust().put(sid, SkillProfileService.trustLabel((String) r.get("trust")));
+        }
         return m;
     }
 
-    private RankingEngine.Candidate candidate(UserRow u, Map<Integer, Integer> levels, StatsService.Stats st,
-                                              RoleCtx ctx, Set<Integer> members, Set<Integer> pending) {
-        return new RankingEngine.Candidate(u.id(), u.name(), u.college(), u.dept(), levels == null ? Map.of() : levels,
+    public RankingEngine.Candidate candidate(UserRow u, SkillSet sk, StatsService.Stats st, int ownerId, Set<Integer> members, Set<Integer> pending) {
+        if (sk == null) sk = SkillSet.EMPTY;
+        return new RankingEngine.Candidate(u.id(), u.name(), u.college(), u.dept(), sk.scores(), sk.levels(), sk.trust(),
                 u.hours(), u.from(), u.to(), st.peerScore(), st.awardScore(), st.responseRate(), st.credibility(),
-                u.id() == ctx.ownerId(), members.contains(u.id()), pending.contains(u.id()), st.activeCases());
+                u.id() == ownerId, members.contains(u.id()), pending.contains(u.id()), st.activeCases());
+    }
+
+    private RankingEngine.Candidate candidate(UserRow u, SkillSet sk, StatsService.Stats st, RoleCtx ctx, Set<Integer> members, Set<Integer> pending) {
+        return candidate(u, sk, st, ctx.ownerId(), members, pending);
     }
 
     private Set<Integer> members(int caseId) {
@@ -98,7 +119,7 @@ public class RankingService {
         RoleCtx ctx = loadRole(roleId);
         List<UserRow> us = loadStudents(userId);
         if (us.isEmpty()) throw ApiException.notFound("找不到學生");
-        var levels = loadSkillLevels(userId).get(userId);
+        var levels = loadSkills(userId).get(userId);
         var st = stats.of(userId);
         return engine.evaluate(ctx.role(), candidate(us.get(0), levels, st, ctx, members(ctx.caseId()), pendingForRole(roleId)), weights());
     }
@@ -109,7 +130,7 @@ public class RankingService {
         RoleCtx ctx = loadRole(roleId);
         if (ctx.ownerId() != requesterId && !isAdmin) throw ApiException.forbidden("只有發案方能查看推薦名單");
         List<UserRow> users = loadStudents(null);
-        var levels = loadSkillLevels(null);
+        var levels = loadSkills(null);
         var st = stats.all(users.stream().map(UserRow::id).toList());
         Set<Integer> members = members(ctx.caseId()), pending = pendingForRole(roleId);
         var w = weights();
@@ -156,7 +177,7 @@ public class RankingService {
         List<UserRow> us = loadStudents(userId);
         if (us.isEmpty()) return List.of();
         UserRow u = us.get(0);
-        var levels = loadSkillLevels(userId).get(userId);
+        var levels = loadSkills(userId).get(userId);
         var st = stats.of(userId);
         var w = weights();
         List<Map<String, Object>> out = new ArrayList<>();

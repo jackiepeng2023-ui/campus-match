@@ -16,6 +16,9 @@ const routes = [
   { path: '/profile', component: () => import('./views/Profile.vue') },
   { path: '/users/:id', component: () => import('./views/PublicProfile.vue') },
   { path: '/growth', component: () => import('./views/Growth.vue') },
+  { path: '/assistant', component: () => import('./views/Assistant.vue') },
+  { path: '/competitions', component: () => import('./views/Competitions.vue') },
+  { path: '/competitions/:id', component: () => import('./views/CompetitionDetail.vue') },
   { path: '/admin', component: () => import('./views/Admin.vue') },
 ]
 const router = createRouter({ history: createWebHashHistory(), routes })

@@ -3,6 +3,7 @@ package tw.edu.fcu.campus.growth;
 import org.springframework.stereotype.Service;
 import tw.edu.fcu.campus.common.ApiException;
 import tw.edu.fcu.campus.common.Db;
+import tw.edu.fcu.campus.profile.SkillProfileService;
 import tw.edu.fcu.campus.user.StatsService;
 
 import java.util.*;
@@ -12,22 +13,32 @@ import java.util.*;
 public class GrowthService {
     private final Db db;
     private final StatsService stats;
+    private final SkillProfileService profile;
 
-    public GrowthService(Db db, StatsService stats) { this.db = db; this.stats = stats; }
+    public GrowthService(Db db, StatsService stats, SkillProfileService profile) { this.db = db; this.stats = stats; this.profile = profile; }
+
+    private static final String REASON = """
+            CASE h.reason WHEN 'COURSE' THEN '課程成績' WHEN 'CERTIFICATE' THEN '證照' WHEN 'PORTFOLIO' THEN '作品集' WHEN 'SELF' THEN '自我評估'
+                          WHEN 'COMPETITION' THEN '競賽得獎' WHEN 'CASE' THEN '結案驗證' WHEN 'VERIFIED' THEN '已驗證' ELSE h.reason END""";
 
     public Map<String, Object> growth(int uid) {
         Map<String, Object> m = new LinkedHashMap<>();
+        var bands = profile.bands();
+        m.put("levelBands", bands.list());
         m.put("radar", db.list("""
-                SELECT s.category, round(avg(us.level), 2) "avgLevel", max(us.level) "maxLevel", count(*) n
+                SELECT s.category, round(avg(us.score), 1) "avgScore", max(us.score) "maxScore", count(*) n,
+                       count(*) FILTER (WHERE us.trust = 'VERIFIED') verified
                 FROM user_skills us JOIN skills s ON s.id = us.skill_id WHERE us.user_id = :u GROUP BY s.category ORDER BY s.category""", "u", uid));
-        m.put("skills", db.list("""
-                SELECT us.skill_id "skillId", s.name, s.category, us.default_level "defaultLevel", us.level, us.source,
-                       (SELECT count(*) FROM skill_level_history h WHERE h.user_id = us.user_id AND h.skill_id = us.skill_id) changes
-                FROM user_skills us JOIN skills s ON s.id = us.skill_id WHERE us.user_id = :u ORDER BY s.category, us.level DESC""", "u", uid));
+        List<Map<String, Object>> skills = profile.ownerSkills(uid);
+        Map<Integer, Integer> changes = new HashMap<>();
+        for (var r : db.list("SELECT skill_id, count(*) n FROM skill_level_history WHERE user_id = :u GROUP BY 1", "u", uid)) changes.put(Db.i(r.get("skill_id")), Db.i(r.get("n")));
+        for (var sk : skills) sk.put("changes", changes.getOrDefault(Db.i(sk.get("skillId")), 0));
+        m.put("skills", skills);
         m.put("timeline", db.list("""
                 SELECT * FROM (
-                  SELECT h.changed_at ts, 'SKILL' kind, s.name || '：' || coalesce(h.old_level::text, '—') || ' → ' || h.new_level ||
-                         CASE h.reason WHEN 'GRADE' THEN '（成績換算）' WHEN 'SELF_ADJUST' THEN '（自評調整）' WHEN 'SELF_DECLARE' THEN '（自行宣告）' WHEN 'CASE_CLOSED' THEN '（結案驗證）' ELSE '' END AS text,
+                  SELECT h.changed_at ts, 'SKILL' kind, s.name || '：' ||
+                         CASE WHEN h.reason = 'VERIFIED' THEN h.new_score || ' 分，由隊友互評或審核確認' ELSE coalesce(h.old_score::text, '—') || ' → ' || h.new_score END ||
+                         '（' || """ + REASON + " || '）' AS text,\n" + """
                          NULL::int AS ref
                   FROM skill_level_history h JOIN skills s ON s.id = h.skill_id WHERE h.user_id = :u
                   UNION ALL
@@ -49,7 +60,7 @@ public class GrowthService {
                 ) t WHERE ts IS NOT NULL ORDER BY ts DESC LIMIT 100""", "u", uid));
         m.put("stats", stats.of(uid).toMap());
         m.put("semesters", db.list("""
-                SELECT to_char(h.changed_at AT TIME ZONE 'Asia/Taipei', 'YYYY-MM') AS month, s.category, max(h.new_level) AS level
+                SELECT to_char(h.changed_at AT TIME ZONE 'Asia/Taipei', 'YYYY-MM') AS month, s.category, max(h.new_score) AS score
                 FROM skill_level_history h JOIN skills s ON s.id = h.skill_id WHERE h.user_id = :u GROUP BY 1, 2 ORDER BY 1, 2""", "u", uid));
         return m;
     }
@@ -65,17 +76,28 @@ public class GrowthService {
                 FROM users u JOIN departments d ON d.id = u.department_id JOIN colleges c ON c.id = d.college_id WHERE u.id = :u""", "找不到使用者", "u", uid);
         StringBuilder sb = new StringBuilder();
         sb.append("你是一位大學生涯與技能發展顧問。請根據以下學生資料，提供具體、可執行的成長建議。\n");
-        sb.append("資料由學生本人從校園媒合平台匯出，技能等級為 1–5 級。\n\n");
+        var bands = profile.bands();
+        sb.append("資料由學生本人從校園媒合平台匯出。技能分數為 0–100，依證據（課程成績、證照、作品集、競賽、結案）推估，同一技能取最高分、不疊加；")
+          .append("等級三階：").append(bands.nameOf(1)).append(" ").append(bands.minScore(1)).append("–").append(bands.minScore(2) - 1)
+          .append("、").append(bands.nameOf(2)).append(" ").append(bands.minScore(2)).append("–").append(bands.minScore(3) - 1)
+          .append("、").append(bands.nameOf(3)).append(" ").append(bands.minScore(3)).append("–100。「已驗證」表示有審核過的證明或結案時隊友互評確認，「自述」表示尚未驗證。\n\n");
         sb.append("【基本資料】\n學制：").append(degree((String) u.get("degree"))).append("，").append(u.get("year")).append(" 年級，")
           .append(u.get("college")).append("／").append(u.get("dept")).append("，預計畢業：").append(u.get("grad")).append("\n\n");
         sb.append("【技能現況與變化】\n");
         for (var s : db.list("""
-                SELECT s.name, us.level, us.default_level dl, us.source,
-                       (SELECT string_agg(to_char(h.changed_at AT TIME ZONE 'Asia/Taipei', 'YYYY-MM') || ' ' || coalesce(h.old_level::text, '—') || '→' || h.new_level || '(' ||
-                          CASE h.reason WHEN 'GRADE' THEN '成績' WHEN 'SELF_ADJUST' THEN '自評' WHEN 'SELF_DECLARE' THEN '自填' ELSE '結案' END || ')', '、' ORDER BY h.changed_at)
+                SELECT s.name, us.score, us.level, us.trust,
+                       (SELECT string_agg(x.t || '×' || x.n, '、') FROM (SELECT e.type t, count(*) n FROM skill_evidence e
+                          WHERE e.user_id = us.user_id AND e.skill_id = us.skill_id GROUP BY e.type ORDER BY e.type) x) ev,
+                       (SELECT string_agg(to_char(h.changed_at AT TIME ZONE 'Asia/Taipei', 'YYYY-MM') || ' ' || coalesce(h.old_score::text, '—') || '→' || h.new_score || '(' ||
+                          """ + REASON + " || ')', '、' ORDER BY h.changed_at)\n" + """
                         FROM skill_level_history h WHERE h.user_id = us.user_id AND h.skill_id = us.skill_id) hist
-                FROM user_skills us JOIN skills s ON s.id = us.skill_id WHERE us.user_id = :u ORDER BY us.level DESC, s.name""", "u", uid))
-            sb.append("- ").append(s.get("name")).append("：目前 ").append(s.get("level")).append(" 級").append(s.get("hist") == null ? "" : "；變化：" + s.get("hist")).append("\n");
+                FROM user_skills us JOIN skills s ON s.id = us.skill_id WHERE us.user_id = :u ORDER BY us.score DESC, s.name""", "u", uid)) {
+            String ev = s.get("ev") == null ? "" : String.valueOf(s.get("ev"));
+            for (String t : List.of("COURSE", "CERTIFICATE", "PORTFOLIO", "COMPETITION", "CASE", "SELF")) ev = ev.replace(t, SkillProfileService.typeLabel(t));
+            sb.append("- ").append(s.get("name")).append("：").append(s.get("score")).append(" 分（").append(bands.nameOf(Db.i(s.get("level")))).append("，")
+              .append(SkillProfileService.trustLabel((String) s.get("trust"))).append("）")
+              .append(ev.isEmpty() ? "" : "；證據：" + ev).append(s.get("hist") == null ? "" : "；變化：" + s.get("hist")).append("\n");
+        }
         sb.append("\n【修課成績】（只有本人可見）\n");
         for (var g : db.list("""
                 SELECT co.name, g.score, g.semester, (SELECT string_agg(s.name, '、') FROM course_skill_map m JOIN skills s ON s.id = m.skill_id WHERE m.course_id = co.id AND m.approved) sk

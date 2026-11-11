@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1900 880" width="1900" height="880" font-family="-apple-system, 'PingFang TC', 'Noto Sans CJK TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3a3a3c"/></marker><marker id="b" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M10,0 L0,5 L10,10 z" fill="#3a3a3c"/></marker></defs>
+<rect width="1900" height="880" fill="#ffffff"/>
+<rect x="300" y="140" width="1290" height="700" rx="18" fill="#f5f5f7" stroke="#d2d2d7" stroke-width="1.5"/>
+<text x="792" y="172" font-size="15" font-weight="700" fill="#515154">後端 Spring Boot 3（單一 jar，內嵌網頁）</text>
+<rect x="40" y="250" width="210" height="120" rx="12" fill="#eef4ff" stroke="#a9c4f5" stroke-width="1.5"/>
+<text x="58" y="280" font-size="17" font-weight="700" fill="#1d1d1f">學生</text>
+<text x="58" y="306" font-size="14" fill="#515154">網頁 Vue 3</text>
+<text x="58" y="328" font-size="14" fill="#515154">iOS SwiftUI</text>
+<rect x="40" y="690" width="210" height="100" rx="12" fill="#eef4ff" stroke="#a9c4f5" stroke-width="1.5"/>
+<text x="58" y="720" font-size="17" font-weight="700" fill="#1d1d1f">管理員</text>
+<text x="58" y="746" font-size="14" fill="#515154">核准・驗證・參數・指標</text>
+<rect x="340" y="24" width="380" height="84" rx="12" fill="#f3ecff" stroke="#c9b3f5" stroke-width="1.5"/>
+<text x="358" y="54" font-size="17" font-weight="700" fill="#1d1d1f">Claude API</text>
+<text x="358" y="80" font-size="14" fill="#515154">Messages：工具呼叫、結構化輸出</text>
+<rect x="1650" y="630" width="220" height="124" rx="12" fill="#eef4ff" stroke="#a9c4f5" stroke-width="1.5"/>
+<text x="1668" y="660" font-size="17" font-weight="700" fill="#1d1d1f">公開資料</text>
+<text x="1668" y="686" font-size="14" fill="#515154">逢甲科目表、課綱</text>
+<text x="1668" y="708" font-size="14" fill="#515154">系所教師簡介</text>
+<text x="1668" y="730" font-size="14" fill="#515154">競賽官方公告</text>
+<rect x="340" y="190" width="368" height="220" rx="12" fill="#fff7e6" stroke="#f0c36d" stroke-width="1.5"/>
+<text x="358" y="220" font-size="17" font-weight="700" fill="#1d1d1f">AI 助理入口（Agentic）</text>
+<text x="358" y="246" font-size="14" fill="#515154">① 理解目標　② 拆解成有相依的步驟</text>
+<text x="358" y="268" font-size="14" fill="#515154">③ 依序呼叫工具　④ 依中間結果調整</text>
+<text x="358" y="290" font-size="14" fill="#515154">⑤ 起草動作，交給使用者確認</text>
+<text x="358" y="312" font-size="14" fill="#515154"></text>
+<text x="358" y="334" font-size="14" fill="#515154">LLM 模式：Claude 規劃與呼叫工具</text>
+<text x="358" y="356" font-size="14" fill="#515154">規則模式：沒有金鑰／未同意／API 失敗時</text>
+<rect x="340" y="440" width="368" height="200" rx="12" fill="#ffffff" stroke="#c7c7cc" stroke-width="1.5"/>
+<text x="358" y="470" font-size="17" font-weight="700" fill="#1d1d1f">治理（每一回合都套用）</text>
+<text x="358" y="496" font-size="14" fill="#515154">工具白名單 7 個，沒有工具能直接改資料</text>
+<text x="358" y="518" font-size="14" fill="#515154">去識別化：其他學生用代號、只給階級</text>
+<text x="358" y="540" font-size="14" fill="#515154">步數上限 8、每人每日 60 則</text>
+<text x="358" y="562" font-size="14" fill="#515154">輸出檢核：分數、日期、代號要對得上</text>
+<text x="358" y="584" font-size="14" fill="#515154">操作軌跡與指標（成功率、延遲、成本…）</text>
+<path d="M524,410 L524,440" stroke="#3a3a3c" stroke-width="1.8"/>
+<rect x="790" y="190" width="392" height="610" rx="14" fill="none" stroke="#8e8e93" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="806" y="216" font-size="14.5" font-weight="700" fill="#515154">四個獨立模組（助理的工具；頁面也可直接使用）</text>
+<rect x="804" y="232" width="364" height="126" rx="12" fill="#eaf7ee" stroke="#9fd3ad" stroke-width="1.5"/>
+<text x="822" y="262" font-size="17" font-weight="700" fill="#1d1d1f">能力盤點模組</text>
+<text x="822" y="288" font-size="14" fill="#515154">證據（課程、證照、作品集、競賽、結案）</text>
+<text x="822" y="310" font-size="14" fill="#515154">→ Skill Profile：Skill／Level／Evidence</text>
+<text x="822" y="332" font-size="14" fill="#515154">0–100 分、三階；自述｜已驗證；不疊加</text>
+<rect x="804" y="374" width="364" height="126" rx="12" fill="#ffffff" stroke="#c7c7cc" stroke-width="1.5"/>
+<text x="822" y="404" font-size="17" font-weight="700" fill="#1d1d1f">競賽 Agent</text>
+<text x="822" y="430" font-size="14" fill="#515154">學生 Skill × 競賽資格 × 競賽所需 Skill</text>
+<text x="822" y="452" font-size="14" fill="#515154">→ 推薦競賽、AI 理由、優點、弱項、</text>
+<text x="822" y="474" font-size="14" fill="#515154">　 能力缺口</text>
+<rect x="804" y="516" width="364" height="126" rx="12" fill="#ffffff" stroke="#c7c7cc" stroke-width="1.5"/>
+<text x="822" y="546" font-size="17" font-weight="700" fill="#1d1d1f">學生 Agent（技能互補）</text>
+<text x="822" y="572" font-size="14" fill="#515154">學生 Skill × 其他學生 Skill × 組隊需求</text>
+<text x="822" y="594" font-size="14" fill="#515154">→ 互補隊友、互補原因、團隊缺口、</text>
+<text x="822" y="616" font-size="14" fill="#515154">　 建議組合</text>
+<rect x="804" y="658" width="364" height="126" rx="12" fill="#ffffff" stroke="#c7c7cc" stroke-width="1.5"/>
+<text x="822" y="688" font-size="17" font-weight="700" fill="#1d1d1f">教師 Agent（專長媒合）</text>
+<text x="822" y="714" font-size="14" fill="#515154">學生需求 × 教師專長 × 研究方向 × 指導經驗</text>
+<text x="822" y="736" font-size="14" fill="#515154">→ 推薦教師、專長契合原因、</text>
+<text x="822" y="758" font-size="14" fill="#515154">　 待確認條件</text>
+<rect x="1290" y="190" width="270" height="104" rx="12" fill="#fff7e6" stroke="#f0c36d" stroke-width="1.5"/>
+<text x="1308" y="220" font-size="17" font-weight="700" fill="#1d1d1f">待確認動作</text>
+<text x="1308" y="246" font-size="14" fill="#515154">使用者按「確認」才執行</text>
+<text x="1308" y="268" font-size="14" fill="#515154">可取消；重複確認被擋</text>
+<rect x="1290" y="332" width="270" height="126" rx="12" fill="#ffffff" stroke="#c7c7cc" stroke-width="1.5"/>
+<text x="1308" y="362" font-size="17" font-weight="700" fill="#1d1d1f">案件閉環（既有）</text>
+<text x="1308" y="388" font-size="14" fill="#515154">建立案件、送出邀請、成案</text>
+<text x="1308" y="410" font-size="14" fill="#515154">結案投票、雙盲互評</text>
+<text x="1308" y="432" font-size="14" fill="#515154">互評公開 → 回寫結案證據</text>
+<path d="M1290,512 a135,16 0 0,1 270,0 v92 a135,16 0 0,1 -270,0 z" fill="#eaf7ee" stroke="#9fd3ad" stroke-width="1.5"/><path d="M1290,512 a135,16 0 0,0 270,0" fill="none" stroke="#9fd3ad" stroke-width="1.5"/>
+<text x="1308" y="552" font-size="17" font-weight="700" fill="#1d1d1f">共用 Skill 資料庫</text>
+<text x="1308" y="576" font-size="14" fill="#515154">57 個 Skill ID：學生技能、</text><text x="1308" y="597" font-size="14" fill="#515154">教師專長、競賽需求都參照它</text>
+<rect x="1290" y="658" width="270" height="126" rx="12" fill="#f3ecff" stroke="#c9b3f5" stroke-width="1.5"/>
+<text x="1308" y="688" font-size="17" font-weight="700" fill="#1d1d1f">AI 擷取</text>
+<text x="1308" y="714" font-size="14" fill="#515154">課綱 → 1–5 個技能</text>
+<text x="1308" y="736" font-size="14" fill="#515154">競賽簡章 → 草稿</text>
+<text x="1308" y="758" font-size="14" fill="#515154">信心未達門檻者人工核准</text>
+<text x="322" y="826" font-size="13.5" fill="#515154">資料：PostgreSQL 16（45 張表）・所有狀態變更寫入 event_logs</text>
+<path d="M250,300 L340,300" fill="none" stroke="#3a3a3c" stroke-width="1.8" marker-end="url(#a)"/>
+<rect x="260.0" y="274" width="70" height="22" rx="5" fill="#ffffff" opacity="0.92"/>
+<text x="295" y="290" font-size="13.5" fill="#1d1d1f" text-anchor="middle">說出目標</text>
+<path d="M145,370 L145,672 L790,672" fill="none" stroke="#3a3a3c" stroke-width="1.8" stroke-dasharray="7 5" marker-end="url(#a)"/>
+<rect x="407.0" y="650" width="126" height="22" rx="5" fill="#ffffff" opacity="0.92"/>
+<text x="470" y="666" font-size="13.5" fill="#1d1d1f" text-anchor="middle">各功能頁直接使用</text>
+<path d="M250,760 L300,760" fill="none" stroke="#3a3a3c" stroke-width="1.8" marker-end="url(#a)"/>
+<path d="M450,190 L450,108" fill="none" stroke="#3a3a3c" stroke-width="1.8" marker-end="url(#a)" marker-start="url(#b)"/>
+<rect x="466" y="138" width="182" height="22" rx="5" fill="#ffffff" opacity="0.92"/>
+<text x="472" y="154" font-size="13.5" fill="#1d1d1f" text-anchor="start">去識別化的訊息與工具結果</text>
+<path d="M708,300 L790,300" fill="none" stroke="#3a3a3c" stroke-width="1.8" marker-end="url(#a)"/>
+<rect x="714.0" y="270" width="70" height="22" rx="5" fill="#ffffff" opacity="0.92"/>
+<text x="749" y="286" font-size="13.5" fill="#1d1d1f" text-anchor="middle">工具呼叫</text>
+<path d="M640,190 L640,124 L1425,124 L1425,190" fill="none" stroke="#3a3a3c" stroke-width="1.8" marker-end="url(#a)"/>
+<rect x="954.0" y="102" width="212.0" height="22" rx="5" fill="#ffffff" opacity="0.92"/>
+<text x="1060" y="118" font-size="13.5" fill="#1d1d1f" text-anchor="middle">起草動作（draft_team_case）</text>
+<path d="M1425,294 L1425,332" fill="none" stroke="#3a3a3c" stroke-width="1.8" marker-end="url(#a)"/>
+<rect x="1442.0" y="302" width="56" height="22" rx="5" fill="#ffffff" opacity="0.92"/>
+<text x="1470" y="318" font-size="13.5" fill="#1d1d1f" text-anchor="middle">確認後</text>
+<path d="M1290,396 L1236,396 L1236,296 L1168,296" fill="none" stroke="#3a3a3c" stroke-width="1.8" marker-end="url(#a)"/>
+<path d="M1182,560 L1290,560" fill="none" stroke="#3a3a3c" stroke-width="1.8" marker-end="url(#a)"/>
+<rect x="1198.6" y="530" width="74.8" height="22" rx="5" fill="#ffffff" opacity="0.92"/>
+<text x="1236" y="546" font-size="13.5" fill="#1d1d1f" text-anchor="middle">Skill ID</text>
+<path d="M1425,658 L1425,622" fill="none" stroke="#3a3a3c" stroke-width="1.8" marker-end="url(#a)"/>
+<path d="M1650,720 L1560,720" fill="none" stroke="#3a3a3c" stroke-width="1.8" marker-end="url(#a)"/>
+</svg>

@@ -8,6 +8,7 @@ import tw.edu.fcu.campus.common.Db;
 import tw.edu.fcu.campus.config.DemoClock;
 import tw.edu.fcu.campus.config.JwtService;
 import tw.edu.fcu.campus.notify.NotificationService;
+import tw.edu.fcu.campus.profile.SkillProfileService;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -21,14 +22,18 @@ public class UserService {
     private final StatsService stats;
     private final DemoClock clock;
     private final NotificationService notify;
+    private final SkillProfileService profile;
 
-    public UserService(Db db, PasswordEncoder encoder, JwtService jwt, StatsService stats, DemoClock clock, NotificationService notify) {
-        this.db = db; this.encoder = encoder; this.jwt = jwt; this.stats = stats; this.clock = clock; this.notify = notify;
+    public UserService(Db db, PasswordEncoder encoder, JwtService jwt, StatsService stats, DemoClock clock, NotificationService notify, SkillProfileService profile) {
+        this.db = db; this.encoder = encoder; this.jwt = jwt; this.stats = stats; this.clock = clock; this.notify = notify; this.profile = profile;
     }
 
     // ---------- 註冊 / 登入 ----------
     public record RegisterIn(String studentNo, String name, String email, String password, String degree, Integer year,
-                             Integer departmentId, Integer entryYear, String expectedGraduation, Integer hoursPerWeek, Boolean consent) {}
+                             Integer departmentId, Integer entryYear, String expectedGraduation, Integer hoursPerWeek, Boolean consent, Boolean aiConsent) {}
+
+    /** 同意條款版本：v2 起加入「AI 助理」用途（技能檔以去識別化形式送至外部語言模型，D56） */
+    public static final String TERMS_VERSION = "v2";
 
     /** 目前學年度（民國）：8 月起算新學年 */
     public int currentAcademicYear() {
@@ -56,7 +61,8 @@ public class UserService {
                 "d", in.degree(), "y", in.year(), "dep", in.departmentId(), "ey", entryYear, "g", grad);
         LocalDate today = LocalDate.now(clock);
         db.exec("INSERT INTO user_availability VALUES (:u, :h, :f, :t)", "u", id, "h", in.hoursPerWeek() == null ? 8 : in.hoursPerWeek(), "f", today, "t", today.plusMonths(6));
-        db.exec("INSERT INTO consents (user_id, purpose, terms_version, agreed_at) VALUES (:u, 'MATCHING', 'v1', :t), (:u, 'RETENTION', 'v1', :t)", "u", id, "t", Db.ts(clock.instant()));
+        db.exec("INSERT INTO consents (user_id, purpose, terms_version, agreed_at) VALUES (:u, 'MATCHING', :v, :t), (:u, 'RETENTION', :v, :t)", "u", id, "v", TERMS_VERSION, "t", Db.ts(clock.instant()));
+        if (Boolean.TRUE.equals(in.aiConsent())) setAiConsent(id, true);
         notify.log(id, "user", id, "REGISTER", null);
         return Map.of("token", jwt.issue(id, "STUDENT", in.name().trim()), "user", me(id));
     }
@@ -83,11 +89,27 @@ public class UserService {
                        (SELECT string_agg(s.name, '、' ORDER BY s.name) FROM course_skill_map cm JOIN skills s ON s.id = cm.skill_id WHERE cm.course_id = co.id AND NOT cm.approved) "pendingSkills"
                 FROM user_grades g JOIN courses co ON co.id = g.course_id LEFT JOIN departments d ON d.id = co.department_id
                 WHERE g.user_id = :u ORDER BY g.semester DESC, co.requirement, co.name""", "u", uid));
-        m.put("skills", skills(uid));
+        m.put("skills", profile.ownerSkills(uid));
+        m.put("credentials", profile.credentials(uid));
         m.put("awards", awards(uid));
+        m.put("levelBands", profile.bandsOf(uid).list());
+        m.put("aiConsent", hasAiConsent(uid));
         m.put("stats", stats.of(uid).toMap());
         m.put("unreadNotifications", db.count("SELECT count(*) FROM notifications WHERE user_id = :u AND read_at IS NULL", "u", uid));
         return m;
+    }
+
+    // ---------- AI 助理同意（D56）：未同意時助理只用規則模式，不呼叫外部模型 ----------
+    public boolean hasAiConsent(int uid) {
+        var c = db.one("SELECT purpose FROM consents WHERE user_id = :u AND purpose IN ('AI_ASSISTANT','AI_ASSISTANT_REVOKED') ORDER BY agreed_at DESC, id DESC LIMIT 1", "u", uid);
+        return c != null && "AI_ASSISTANT".equals(c.get("purpose"));
+    }
+
+    public Map<String, Object> setAiConsent(int uid, boolean agree) {
+        db.exec("INSERT INTO consents (user_id, purpose, terms_version, agreed_at) VALUES (:u, :p, :v, :t)",
+                "u", uid, "p", agree ? "AI_ASSISTANT" : "AI_ASSISTANT_REVOKED", "v", TERMS_VERSION, "t", Db.ts(clock.instant()));
+        notify.log(uid, "user", uid, agree ? "AI_CONSENT" : "AI_CONSENT_REVOKE", null);
+        return Map.of("aiConsent", agree);
     }
 
     private Map<String, Object> basic(int uid) {
@@ -97,25 +119,19 @@ public class UserService {
                 FROM users u JOIN departments d ON d.id = u.department_id JOIN colleges c ON c.id = d.college_id WHERE u.id = :u""", "找不到使用者", "u", uid);
     }
 
-    public List<Map<String, Object>> skills(int uid) {
-        return db.list("""
-                SELECT us.skill_id "skillId", s.name, s.category, us.default_level "defaultLevel", us.level, us.source
-                FROM user_skills us JOIN skills s ON s.id = us.skill_id WHERE us.user_id = :u ORDER BY s.category, us.level DESC, s.name""", "u", uid);
-    }
-
     public List<Map<String, Object>> awards(int uid) {
         return db.list("""
-                SELECT a.id, a.competition, a.level, a.rank, a.award_date "awardDate", am.score,
+                SELECT a.id, a.competition, a.level, a.rank, a.award_date "awardDate", am.score, a.proof_url "proofUrl", a.verified,
                        (SELECT string_agg(s.name, '、') FROM award_skills ak JOIN skills s ON s.id = ak.skill_id WHERE ak.award_id = a.id) skills
                 FROM user_awards a JOIN award_matrix am ON am.rank = a.rank AND am.level = a.level WHERE a.user_id = :u ORDER BY a.award_date DESC""", "u", uid);
     }
 
-    /** 公開檔案：只有技能等級，沒有分數（D16） */
+    /** 公開檔案：只有技能階級與「自述／已驗證」，沒有分數與成績（D16） */
     public Map<String, Object> publicProfile(int uid) {
         var b = basic(uid);
         Map<String, Object> m = new LinkedHashMap<>();
         for (String k : List.of("id", "name", "degree", "year", "department", "college")) m.put(k, b.get(k));
-        m.put("skills", skills(uid).stream().map(s -> Map.of("skillId", s.get("skillId"), "name", s.get("name"), "category", s.get("category"), "level", s.get("level"))).toList());
+        m.put("skills", profile.publicSkills(uid));
         m.put("awards", awards(uid));
         m.put("stats", stats.of(uid).toMap());
         m.put("availability", db.one("SELECT hours_per_week \"hoursPerWeek\", available_from \"availableFrom\", available_to \"availableTo\" FROM user_availability WHERE user_id = :u", "u", uid));
@@ -148,83 +164,45 @@ public class UserService {
             if (g.skillIds() != null) for (Integer sk : g.skillIds()) if (sk != null)
                 db.exec("INSERT INTO course_skill_map (course_id, skill_id, source, confidence, approved) VALUES (:c, :s, 'SELF', 0.5, FALSE) ON CONFLICT DO NOTHING", "c", g.courseId(), "s", sk);
         }
-        recomputeDefaults(uid);
+        profile.rebuild(uid);
         return me(uid);
     }
 
     @Transactional
     public Map<String, Object> deleteGrade(int uid, int gradeId) {
         db.exec("DELETE FROM user_grades WHERE id = :g AND user_id = :u", "g", gradeId, "u", uid);
-        recomputeDefaults(uid);
+        profile.rebuild(uid);
         return me(uid);
     }
 
-    /** 每個技能的預設等級 = 對應課程成績換算後的最高等級；學生調整過的等級保留 */
-    public void recomputeDefaults(int uid) {
-        String degree = db.scalar(String.class, "SELECT degree FROM users WHERE id = :u", "u", uid);
-        String group = "BACHELOR".equals(degree) ? "BACHELOR" : "GRADUATE";
-        var rows = db.list("""
-                SELECT m.skill_id, max(lv.level) lvl FROM user_grades g
-                JOIN course_skill_map m ON m.course_id = g.course_id AND m.approved
-                JOIN LATERAL (SELECT level FROM grade_conversion gc WHERE gc.degree_group = :grp AND gc.min_score <= g.score ORDER BY gc.min_score DESC LIMIT 1) lv ON true
-                WHERE g.user_id = :u GROUP BY m.skill_id""", "grp", group, "u", uid);
-        Set<Integer> seen = new HashSet<>();
-        for (var r : rows) {
-            int skillId = Db.i(r.get("skill_id")), newDefault = Db.i(r.get("lvl"));
-            seen.add(skillId);
-            var ex = db.one("SELECT default_level, level FROM user_skills WHERE user_id = :u AND skill_id = :s", "u", uid, "s", skillId);
-            if (ex == null) {
-                db.exec("INSERT INTO user_skills VALUES (:u, :s, :d, :d, 'GRADE')", "u", uid, "s", skillId, "d", newDefault);
-                history(uid, skillId, null, newDefault, "GRADE");
-            } else {
-                Integer oldDefault = ex.get("default_level") == null ? null : Db.i(ex.get("default_level"));
-                int oldLevel = Db.i(ex.get("level"));
-                if (oldDefault != null && oldDefault == newDefault) continue;
-                boolean adjusted = oldDefault != null && oldLevel != oldDefault;
-                int newLevel = adjusted ? Math.max(oldLevel, newDefault) : newDefault;
-                db.exec("UPDATE user_skills SET default_level = :d, level = :l, source = 'GRADE' WHERE user_id = :u AND skill_id = :s", "d", newDefault, "l", newLevel, "u", uid, "s", skillId);
-                if (newLevel != oldLevel) history(uid, skillId, oldLevel, newLevel, "GRADE");
-            }
-        }
-        // 成績被刪除後，不再有課程支撐的 GRADE 技能改為自填
-        for (var r : db.list("SELECT skill_id FROM user_skills WHERE user_id = :u AND source = 'GRADE'", "u", uid)) {
-            int skillId = Db.i(r.get("skill_id"));
-            if (!seen.contains(skillId)) db.exec("UPDATE user_skills SET default_level = NULL, source = 'SELF' WHERE user_id = :u AND skill_id = :s", "u", uid, "s", skillId);
-        }
-    }
-
-    private void history(int uid, int skillId, Integer old, int nw, String reason) {
-        db.exec("INSERT INTO skill_level_history (user_id, skill_id, old_level, new_level, reason, changed_at) VALUES (:u, :s, :o, :n, :r, :t)",
-                "u", uid, "s", skillId, "o", old, "n", nw, "r", reason, "t", Db.ts(clock.instant()));
-    }
-
-    // ---------- 技能自評（D7、D10） ----------
+    // ---------- 自我評估（自述證據，D7、D54） ----------
+    /** level：1 初階／2 中階／3 進階。寫入一筆 SELF 證據；是否影響排序取決於統一規則（不疊加、自述可封頂） */
     public record SkillIn(Integer skillId, Integer level) {}
 
     @Transactional
     public Map<String, Object> upsertSkills(int uid, List<SkillIn> skills) {
         for (SkillIn s : skills) {
-            if (s.skillId() == null || s.level() == null || s.level() < 1 || s.level() > 5) throw ApiException.badRequest("技能與 1–5 等級為必填");
-            var ex = db.one("SELECT level FROM user_skills WHERE user_id = :u AND skill_id = :s", "u", uid, "s", s.skillId());
-            if (ex == null) {
-                db.exec("INSERT INTO user_skills VALUES (:u, :s, NULL, :l, 'SELF')", "u", uid, "s", s.skillId(), "l", s.level());
-                history(uid, s.skillId(), null, s.level(), "SELF_DECLARE");
-            } else if (Db.i(ex.get("level")) != s.level()) {
-                db.exec("UPDATE user_skills SET level = :l WHERE user_id = :u AND skill_id = :s", "l", s.level(), "u", uid, "s", s.skillId());
-                history(uid, s.skillId(), Db.i(ex.get("level")), s.level(), "SELF_ADJUST");
-            }
+            if (s.skillId() == null || s.level() == null) throw ApiException.badRequest("技能與階級（1 初階／2 中階／3 進階）為必填");
+            profile.selfAssess(uid, s.skillId(), s.level());
         }
         return me(uid);
     }
 
     @Transactional
     public Map<String, Object> deleteSkill(int uid, int skillId) {
-        db.exec("DELETE FROM user_skills WHERE user_id = :u AND skill_id = :s", "u", uid, "s", skillId);
+        profile.removeSelfAssessment(uid, skillId);
         return me(uid);
     }
 
+    // ---------- 證照、作品集（自述證據，D54） ----------
+    @Transactional
+    public Map<String, Object> addCredential(int uid, SkillProfileService.CredentialIn in) { profile.addCredential(uid, in); return me(uid); }
+
+    @Transactional
+    public Map<String, Object> deleteCredential(int uid, int id) { profile.deleteCredential(uid, id); return me(uid); }
+
     // ---------- 得獎（D8、D41） ----------
-    public record AwardIn(String competition, String level, String rank, String awardDate, List<Integer> skillIds) {}
+    public record AwardIn(String competition, String level, String rank, String awardDate, List<Integer> skillIds, String proofUrl) {}
 
     @Transactional
     public Map<String, Object> addAward(int uid, AwardIn in) {
@@ -232,15 +210,21 @@ public class UserService {
             throw ApiException.badRequest("競賽名稱、層級（CAMPUS／NATIONAL／INTERNATIONAL）、名次（FIRST／TOP3／HONORABLE／FINALIST）為必填");
         LocalDate date;
         try { date = LocalDate.parse(in.awardDate()); } catch (Exception e) { throw ApiException.badRequest("得獎日期格式須為 YYYY-MM-DD"); }
-        int id = db.insertReturningId("INSERT INTO user_awards (user_id, competition, level, rank, award_date) VALUES (:u, :c, :l, :r, :d) RETURNING id",
-                "u", uid, "c", in.competition().trim(), "l", in.level(), "r", in.rank(), "d", date);
+        int maxSkills = Math.max(1, profile.param("max_skills_per_evidence", 5));
+        if (in.skillIds() != null && in.skillIds().size() > maxSkills) throw ApiException.badRequest("每筆競賽最多對應 " + maxSkills + " 個技能");
+        String proof = in.proofUrl() == null || in.proofUrl().isBlank() ? null : in.proofUrl().trim();
+        if (proof != null && !proof.matches("^https?://\\S+$")) throw ApiException.badRequest("證明連結須為 http(s) 網址");
+        int id = db.insertReturningId("INSERT INTO user_awards (user_id, competition, level, rank, award_date, proof_url) VALUES (:u, :c, :l, :r, :d, :p) RETURNING id",
+                "u", uid, "c", in.competition().trim(), "l", in.level(), "r", in.rank(), "d", date, "p", proof);
         if (in.skillIds() != null) for (int s : in.skillIds()) db.exec("INSERT INTO award_skills VALUES (:a, :s) ON CONFLICT DO NOTHING", "a", id, "s", s);
+        profile.rebuild(uid);
         return me(uid);
     }
 
     @Transactional
     public Map<String, Object> deleteAward(int uid, int awardId) {
         db.exec("DELETE FROM user_awards WHERE id = :a AND user_id = :u", "a", awardId, "u", uid);
+        profile.rebuild(uid);
         return me(uid);
     }
 
@@ -290,6 +274,11 @@ public class UserService {
     public void purge(int uid) {
         db.exec("DELETE FROM user_grades WHERE user_id = :u", "u", uid);
         db.exec("DELETE FROM skill_level_history WHERE user_id = :u", "u", uid);
+        db.exec("DELETE FROM skill_evidence WHERE user_id = :u", "u", uid);
+        db.exec("DELETE FROM user_credentials WHERE user_id = :u", "u", uid);
+        db.exec("DELETE FROM agent_sessions WHERE user_id = :u", "u", uid);
+        db.exec("DELETE FROM agent_actions WHERE user_id = :u", "u", uid);
+        db.exec("UPDATE llm_calls SET user_id = NULL WHERE user_id = :u", "u", uid);        // 用量紀錄只留 token 與耗時，不再連到本人
         db.exec("DELETE FROM user_skills WHERE user_id = :u", "u", uid);
         db.exec("DELETE FROM award_skills WHERE award_id IN (SELECT id FROM user_awards WHERE user_id = :u)", "u", uid);
         db.exec("DELETE FROM user_awards WHERE user_id = :u", "u", uid);

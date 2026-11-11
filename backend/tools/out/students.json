@@ -39,7 +39,7 @@
         {
           "course": "創業管理",
           "score": 92,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "商業企劃"
           ]
@@ -47,7 +47,7 @@
         {
           "course": "財務管理",
           "score": 96,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "財務分析"
           ]
@@ -105,7 +105,23 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "簡報設計": 88,
+        "專案管理": 98,
+        "商業企劃": 92,
+        "財務分析": 96,
+        "統計": 86
+      },
+      "credentials": [
+        {
+          "type": "CERTIFICATE",
+          "catalog": "TOEIC 多益 750 分以上",
+          "verified": true,
+          "on": "2025-11-16",
+          "proof_url": "https://example.edu/portfolio/d1300101/cert-1"
+        }
+      ]
     },
     {
       "id": 2,
@@ -128,7 +144,7 @@
         {
           "course": "網頁程式設計",
           "score": 91,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "HTML/CSS",
             "JavaScript",
@@ -229,11 +245,42 @@
             "JavaScript",
             "Vue"
           ],
-          "score": 0.25
+          "score": 0.25,
+          "verified": false,
+          "proof_url": null
         }
       ],
       "award_score": 0.25,
-      "r_cold_start": 0.4375
+      "r_cold_start": 0.4375,
+      "course_best": {
+        "HTML/CSS": 91,
+        "JavaScript": 91,
+        "Vue": 91,
+        "Java": 82,
+        "Python": 87,
+        "機器學習": 87
+      },
+      "credentials": [
+        {
+          "type": "CERTIFICATE",
+          "catalog": "網頁設計乙級技術士",
+          "verified": true,
+          "on": "2025-08-09",
+          "proof_url": "https://example.edu/portfolio/d1300102/cert-1"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：社團活動報名前台（Vue 3）",
+          "tier": 3,
+          "skills": [
+            "Vue",
+            "JavaScript"
+          ],
+          "verified": false,
+          "on": "2026-03-02",
+          "proof_url": "https://example.edu/portfolio/d1300102/work-2"
+        }
+      ]
     },
     {
       "id": 3,
@@ -256,7 +303,7 @@
         {
           "course": "軟體工程",
           "score": 94,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "專案管理",
             "Spring Boot"
@@ -298,7 +345,7 @@
         {
           "course": "專業簡報",
           "score": 62,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "簡報設計"
           ]
@@ -395,11 +442,55 @@
             "Java",
             "Python"
           ],
-          "score": 0.8
+          "score": 0.8,
+          "verified": true,
+          "proof_url": "https://example.edu/portfolio/d1200103/award-2026-05-18"
         }
       ],
       "award_score": 0.8,
-      "r_cold_start": 0.575
+      "r_cold_start": 0.575,
+      "course_best": {
+        "專案管理": 94,
+        "Spring Boot": 94,
+        "SQL": 90,
+        "機器學習": 79,
+        "Python": 79,
+        "SwiftUI": 62,
+        "簡報設計": 62,
+        "Java": 92
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：JavaScript",
+          "tier": 1,
+          "skills": [
+            "JavaScript"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "AWS Certified Cloud Practitioner",
+          "verified": true,
+          "on": "2026-01-24",
+          "proof_url": "https://example.edu/portfolio/d1200103/cert-2"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：課程問答機器人（RAG＋Spring Boot）",
+          "tier": 3,
+          "skills": [
+            "生成式 AI 應用",
+            "Spring Boot",
+            "Python"
+          ],
+          "verified": true,
+          "on": "2026-06-08",
+          "proof_url": "https://example.edu/portfolio/d1200103/work-3"
+        }
+      ]
     },
     {
       "id": 4,
@@ -431,7 +522,7 @@
         {
           "course": "資料視覺化",
           "score": 93,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "資料視覺化"
           ]
@@ -439,7 +530,7 @@
         {
           "course": "迴歸分析",
           "score": 90,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "統計",
             "資料分析"
@@ -522,11 +613,41 @@
             "Java",
             "Python"
           ],
-          "score": 0.25
+          "score": 0.25,
+          "verified": false,
+          "proof_url": "https://example.edu/portfolio/d1300104/award-2026-02-16"
         }
       ],
       "award_score": 0.25,
-      "r_cold_start": 0.4375
+      "r_cold_start": 0.4375,
+      "course_best": {
+        "Python": 86,
+        "SQL": 86,
+        "資料視覺化": 93,
+        "統計": 90,
+        "資料分析": 90
+      },
+      "credentials": [
+        {
+          "type": "CERTIFICATE",
+          "catalog": "Tableau Desktop Specialist",
+          "verified": true,
+          "on": "2026-02-21",
+          "proof_url": "https://example.edu/portfolio/d1300104/cert-1"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：台中市 YouBike 站點儀表板",
+          "tier": 3,
+          "skills": [
+            "資料視覺化",
+            "資料分析"
+          ],
+          "verified": false,
+          "on": "2026-04-18",
+          "proof_url": "https://example.edu/portfolio/d1300104/work-2"
+        }
+      ]
     },
     {
       "id": 5,
@@ -549,7 +670,7 @@
         {
           "course": "設計簡報",
           "score": 76,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "簡報設計"
           ]
@@ -581,7 +702,7 @@
         {
           "course": "品質管理",
           "score": 83,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "統計"
           ]
@@ -662,11 +783,40 @@
             "JavaScript",
             "Vue"
           ],
-          "score": 0.15
+          "score": 0.15,
+          "verified": false,
+          "proof_url": "https://example.edu/portfolio/d1400105/award-2026-06-17"
         }
       ],
       "award_score": 0.15,
-      "r_cold_start": 0.4125
+      "r_cold_start": 0.4125,
+      "course_best": {
+        "簡報設計": 76,
+        "平面設計": 87,
+        "Figma": 92,
+        "資料分析": 81,
+        "統計": 83,
+        "UI/UX 設計": 94
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：Vue",
+          "tier": 3,
+          "skills": [
+            "Vue"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "Google UX Design Certificate",
+          "verified": false,
+          "on": "2026-05-30",
+          "proof_url": "https://example.edu/portfolio/d1400105/cert-2"
+        }
+      ]
     },
     {
       "id": 6,
@@ -722,7 +872,7 @@
         {
           "course": "數位行銷",
           "score": 75,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "行銷企劃",
             "資料分析"
@@ -731,7 +881,7 @@
         {
           "course": "品牌與設計",
           "score": 71,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "平面設計"
           ]
@@ -789,7 +939,16 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "Figma": 91,
+        "簡報設計": 92,
+        "UI/UX 設計": 91,
+        "平面設計": 80,
+        "行銷企劃": 75,
+        "資料分析": 75
+      },
+      "credentials": []
     },
     {
       "id": 7,
@@ -911,7 +1070,40 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "專案管理": 81,
+        "Spring Boot": 81,
+        "Python": 79,
+        "機器學習": 79,
+        "Figma": 72,
+        "Vue": 72
+      },
+      "credentials": [
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：資料分析 個人專案",
+          "tier": 3,
+          "skills": [
+            "資料分析"
+          ],
+          "verified": false,
+          "on": "2026-07-10",
+          "proof_url": "https://example.edu/portfolio/d1400107/work-1"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：Vue 電商前台",
+          "tier": 3,
+          "skills": [
+            "Vue",
+            "HTML/CSS"
+          ],
+          "verified": false,
+          "on": "2026-09-12",
+          "proof_url": "https://example.edu/portfolio/d1400107/work-2"
+        }
+      ]
     },
     {
       "id": 8,
@@ -942,7 +1134,7 @@
         {
           "course": "網頁程式設計",
           "score": 79,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "HTML/CSS",
             "JavaScript",
@@ -994,7 +1186,7 @@
         {
           "course": "程式設計",
           "score": 94,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "Java"
           ]
@@ -1002,7 +1194,7 @@
         {
           "course": "研究方法",
           "score": 93,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "研究方法"
           ]
@@ -1018,7 +1210,7 @@
         {
           "course": "學術英文寫作",
           "score": 73,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "英文寫作"
           ]
@@ -1026,7 +1218,7 @@
         {
           "course": "建築設計",
           "score": 77,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "平面設計"
           ]
@@ -1172,11 +1364,39 @@
             "JavaScript",
             "Vue"
           ],
-          "score": 0.15
+          "score": 0.15,
+          "verified": true,
+          "proof_url": "https://example.edu/portfolio/p1300108/award-2026-02-19"
         }
       ],
       "award_score": 0.15,
-      "r_cold_start": 0.4125
+      "r_cold_start": 0.4125,
+      "course_best": {
+        "SQL": 81,
+        "HTML/CSS": 69,
+        "JavaScript": 69,
+        "Vue": 69,
+        "Python": 87,
+        "機器學習": 87,
+        "專案管理": 67,
+        "Spring Boot": 67,
+        "SwiftUI": 79,
+        "Java": 91,
+        "研究方法": 90,
+        "統計": 76,
+        "英文寫作": 63,
+        "平面設計": 67,
+        "UI/UX 設計": 78
+      },
+      "credentials": [
+        {
+          "type": "CERTIFICATE",
+          "catalog": "TOEFL iBT 80 分以上",
+          "verified": true,
+          "on": "2024-12-07",
+          "proof_url": "https://example.edu/portfolio/p1300108/cert-1"
+        }
+      ]
     },
     {
       "id": 9,
@@ -1223,7 +1443,7 @@
         {
           "course": "品質管理",
           "score": 86,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "統計"
           ]
@@ -1288,7 +1508,34 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "專案管理": 99,
+        "資料分析": 91,
+        "UI/UX 設計": 81,
+        "統計": 86,
+        "SQL": 99
+      },
+      "credentials": [
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：React 個人專案",
+          "tier": 1,
+          "skills": [
+            "React"
+          ],
+          "verified": false,
+          "on": "2026-09-10",
+          "proof_url": "https://example.edu/portfolio/d1200109/work-1"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "SOLIDWORKS CSWA",
+          "verified": false,
+          "on": "2026-07-20",
+          "proof_url": "https://example.edu/portfolio/d1200109/cert-2"
+        }
+      ]
     },
     {
       "id": 10,
@@ -1311,7 +1558,7 @@
         {
           "course": "建築表現法",
           "score": 64,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "簡報設計"
           ]
@@ -1327,7 +1574,7 @@
         {
           "course": "建築設計",
           "score": 74,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "平面設計"
           ]
@@ -1343,7 +1590,7 @@
         {
           "course": "進階統計",
           "score": 68,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "統計"
           ]
@@ -1351,7 +1598,7 @@
         {
           "course": "計算機概論",
           "score": 65,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "Python"
           ]
@@ -1416,7 +1663,45 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "簡報設計": 55,
+        "UI/UX 設計": 56,
+        "平面設計": 64,
+        "研究方法": 57,
+        "統計": 58,
+        "Python": 56
+      },
+      "credentials": [
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：財務分析 個人專案",
+          "tier": 3,
+          "skills": [
+            "財務分析"
+          ],
+          "verified": false,
+          "on": "2026-06-19",
+          "proof_url": "https://example.edu/portfolio/m1500110/work-1"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "Autodesk Certified User：AutoCAD",
+          "verified": false,
+          "on": "2026-05-22",
+          "proof_url": "https://example.edu/portfolio/m1500110/cert-2"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：生成式 AI 應用",
+          "tier": 2,
+          "skills": [
+            "生成式 AI 應用"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        }
+      ]
     },
     {
       "id": 11,
@@ -1456,7 +1741,7 @@
         {
           "course": "資料結構",
           "score": 73,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "Java"
           ]
@@ -1582,7 +1867,62 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "SwiftUI": 83,
+        "機器學習": 77,
+        "Python": 77,
+        "Java": 73,
+        "HTML/CSS": 60,
+        "JavaScript": 60,
+        "Vue": 60,
+        "專案管理": 83,
+        "Spring Boot": 83,
+        "行銷企劃": 95,
+        "資料分析": 95
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：Vue",
+          "tier": 2,
+          "skills": [
+            "Vue"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "AWS Certified Cloud Practitioner",
+          "verified": true,
+          "on": "2025-09-10",
+          "proof_url": "https://example.edu/portfolio/d1200111/cert-2"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：LINE 客服聊天機器人（LLM API）",
+          "tier": 3,
+          "skills": [
+            "生成式 AI 應用",
+            "Python"
+          ],
+          "verified": false,
+          "on": "2026-02-21",
+          "proof_url": "https://example.edu/portfolio/d1200111/work-3"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：畢業專題成果報告",
+          "tier": 3,
+          "skills": [
+            "專題與實作"
+          ],
+          "verified": true,
+          "on": "2026-03-22",
+          "proof_url": "https://example.edu/portfolio/d1200111/work-4"
+        }
+      ]
     },
     {
       "id": 12,
@@ -1605,7 +1945,7 @@
         {
           "course": "嵌入式系統",
           "score": 72,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "Java"
           ]
@@ -1718,7 +2058,77 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "Java": 72,
+        "資料分析": 82,
+        "機器學習": 77,
+        "Python": 75,
+        "行銷企劃": 66,
+        "平面設計": 76
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：資料分析",
+          "tier": 3,
+          "skills": [
+            "資料分析"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：JavaScript",
+          "tier": 2,
+          "skills": [
+            "JavaScript"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：React",
+          "tier": 2,
+          "skills": [
+            "React"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "TQC+ 程式語言 Python",
+          "verified": false,
+          "on": "2025-08-03",
+          "proof_url": "https://example.edu/portfolio/d1300112/cert-4"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：中文新聞情緒分析（Transformer）",
+          "tier": 2,
+          "skills": [
+            "深度學習",
+            "機器學習"
+          ],
+          "verified": true,
+          "on": "2026-02-25",
+          "proof_url": "https://example.edu/portfolio/d1300112/work-5"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：畢業專題成果報告",
+          "tier": 2,
+          "skills": [
+            "專題與實作"
+          ],
+          "verified": false,
+          "on": "2026-05-07",
+          "proof_url": "https://example.edu/portfolio/d1300112/work-6"
+        }
+      ]
     },
     {
       "id": 13,
@@ -1741,7 +2151,7 @@
         {
           "course": "計算機程式",
           "score": 70,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "Python"
           ]
@@ -1773,7 +2183,7 @@
         {
           "course": "作業研究",
           "score": 75,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "資料分析"
           ]
@@ -1823,7 +2233,9 @@
             "平面設計",
             "UI/UX 設計"
           ],
-          "score": 0.3
+          "score": 0.3,
+          "verified": true,
+          "proof_url": "https://example.edu/portfolio/d1300113/award-2024-02-26"
         },
         {
           "competition": "全國資料科學競賽",
@@ -1834,11 +2246,20 @@
             "機器學習",
             "資料分析"
           ],
-          "score": 0.25
+          "score": 0.25,
+          "verified": false,
+          "proof_url": null
         }
       ],
       "award_score": 0.55,
-      "r_cold_start": 0.5125
+      "r_cold_start": 0.5125,
+      "course_best": {
+        "Python": 70,
+        "資料分析": 75,
+        "機器學習": 67,
+        "Java": 72
+      },
+      "credentials": []
     },
     {
       "id": 14,
@@ -1861,7 +2282,7 @@
         {
           "course": "文案企劃",
           "score": 87,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "行銷企劃"
           ]
@@ -1869,7 +2290,7 @@
         {
           "course": "文學寫作",
           "score": 76,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "簡報設計"
           ]
@@ -1877,7 +2298,7 @@
         {
           "course": "專業簡報",
           "score": 67,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "簡報設計"
           ]
@@ -1918,7 +2339,9 @@
             "JavaScript",
             "Vue"
           ],
-          "score": 0.15
+          "score": 0.15,
+          "verified": false,
+          "proof_url": null
         },
         {
           "competition": "全國 UI/UX 設計競賽",
@@ -1929,11 +2352,29 @@
             "UI/UX 設計",
             "Figma"
           ],
-          "score": 0.25
+          "score": 0.25,
+          "verified": false,
+          "proof_url": "https://example.edu/portfolio/d1400114/award-2026-01-18"
         }
       ],
       "award_score": 0.4,
-      "r_cold_start": 0.475
+      "r_cold_start": 0.475,
+      "course_best": {
+        "行銷企劃": 87,
+        "簡報設計": 76
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：專案管理",
+          "tier": 2,
+          "skills": [
+            "專案管理"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        }
+      ]
     },
     {
       "id": 15,
@@ -1964,7 +2405,7 @@
         {
           "course": "建築表現法",
           "score": 80,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "簡報設計"
           ]
@@ -2022,7 +2463,32 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "UI/UX 設計": 85,
+        "簡報設計": 80,
+        "平面設計": 88,
+        "統計": 72
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：簡報設計",
+          "tier": 3,
+          "skills": [
+            "簡報設計"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "Autodesk Certified User：AutoCAD",
+          "verified": true,
+          "on": "2025-05-25",
+          "proof_url": "https://example.edu/portfolio/d1400115/cert-2"
+        }
+      ]
     },
     {
       "id": 16,
@@ -2045,7 +2511,7 @@
         {
           "course": "財務管理",
           "score": 77,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "財務分析"
           ]
@@ -2061,7 +2527,7 @@
         {
           "course": "管理學",
           "score": 70,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "專案管理"
           ]
@@ -2135,7 +2601,9 @@
             "JavaScript",
             "Vue"
           ],
-          "score": 0.25
+          "score": 0.25,
+          "verified": true,
+          "proof_url": "https://example.edu/portfolio/d1200116/award-2023-06-06"
         },
         {
           "competition": "校園創新創業競賽",
@@ -2146,11 +2614,21 @@
             "商業企劃",
             "簡報設計"
           ],
-          "score": 0.15
+          "score": 0.15,
+          "verified": false,
+          "proof_url": null
         }
       ],
       "award_score": 0.4,
-      "r_cold_start": 0.475
+      "r_cold_start": 0.475,
+      "course_best": {
+        "財務分析": 77,
+        "商業企劃": 69,
+        "專案管理": 70,
+        "簡報設計": 74,
+        "問卷設計": 68
+      },
+      "credentials": []
     },
     {
       "id": 17,
@@ -2173,7 +2651,7 @@
         {
           "course": "數位行銷",
           "score": 86,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "行銷企劃",
             "資料分析"
@@ -2254,7 +2732,43 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "行銷企劃": 86,
+        "資料分析": 86,
+        "平面設計": 84,
+        "統計": 89
+      },
+      "credentials": [
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：問卷設計 個人專案",
+          "tier": 3,
+          "skills": [
+            "問卷設計"
+          ],
+          "verified": false,
+          "on": "2026-05-06",
+          "proof_url": "https://example.edu/portfolio/d1400117/work-1"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：SQL",
+          "tier": 2,
+          "skills": [
+            "SQL"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "Adobe Certified Professional（Photoshop／Illustrator）",
+          "verified": true,
+          "on": "2026-02-04",
+          "proof_url": "https://example.edu/portfolio/d1400117/cert-3"
+        }
+      ]
     },
     {
       "id": 18,
@@ -2301,7 +2815,7 @@
         {
           "course": "生產管理",
           "score": 99,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "專案管理"
           ]
@@ -2359,7 +2873,15 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "平面設計": 99,
+        "UI/UX 設計": 90,
+        "簡報設計": 99,
+        "專案管理": 99,
+        "資料分析": 99
+      },
+      "credentials": []
     },
     {
       "id": 19,
@@ -2390,7 +2912,7 @@
         {
           "course": "迴歸分析",
           "score": 65,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "統計",
             "資料分析"
@@ -2399,7 +2921,7 @@
         {
           "course": "資料視覺化",
           "score": 78,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "資料視覺化"
           ]
@@ -2416,7 +2938,7 @@
         {
           "course": "研究方法",
           "score": 74,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "研究方法"
           ]
@@ -2432,7 +2954,7 @@
         {
           "course": "計算機概論",
           "score": 75,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "Python"
           ]
@@ -2497,7 +3019,57 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "統計": 62,
+        "資料分析": 56,
+        "資料視覺化": 68,
+        "Python": 65,
+        "SQL": 62,
+        "研究方法": 64
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：Python",
+          "tier": 2,
+          "skills": [
+            "Python"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：專案管理 個人專案",
+          "tier": 2,
+          "skills": [
+            "專案管理"
+          ],
+          "verified": true,
+          "on": "2026-05-10",
+          "proof_url": "https://example.edu/portfolio/m1400119/work-2"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "iPAS 巨量資料分析師（初級）",
+          "verified": false,
+          "on": "2026-04-23",
+          "proof_url": "https://example.edu/portfolio/m1400119/cert-3"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：手寫數字辨識",
+          "tier": 2,
+          "skills": [
+            "深度學習",
+            "機器學習"
+          ],
+          "verified": false,
+          "on": "2026-04-02",
+          "proof_url": "https://example.edu/portfolio/m1400119/work-4"
+        }
+      ]
     },
     {
       "id": 20,
@@ -2520,7 +3092,7 @@
         {
           "course": "嵌入式系統",
           "score": 77,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "Java"
           ]
@@ -2536,7 +3108,7 @@
         {
           "course": "機器學習概論",
           "score": 82,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "機器學習"
           ]
@@ -2544,7 +3116,7 @@
         {
           "course": "訊號與系統",
           "score": 81,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "資料分析"
           ]
@@ -2552,7 +3124,7 @@
         {
           "course": "研究方法",
           "score": 71,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "研究方法"
           ]
@@ -2560,7 +3132,7 @@
         {
           "course": "進階統計",
           "score": 82,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "統計"
           ]
@@ -2576,7 +3148,7 @@
         {
           "course": "英文寫作",
           "score": 70,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "英文寫作"
           ]
@@ -2658,11 +3230,59 @@
             "機器學習",
             "資料分析"
           ],
-          "score": 0.4
+          "score": 0.4,
+          "verified": false,
+          "proof_url": null
         }
       ],
       "award_score": 0.4,
-      "r_cold_start": 0.475
+      "r_cold_start": 0.475,
+      "course_best": {
+        "Java": 67,
+        "Python": 64,
+        "機器學習": 73,
+        "資料分析": 72,
+        "研究方法": 61,
+        "統計": 73,
+        "簡報設計": 66,
+        "英文寫作": 60
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：Python",
+          "tier": 2,
+          "skills": [
+            "Python"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：LINE 客服聊天機器人（LLM API）",
+          "tier": 3,
+          "skills": [
+            "生成式 AI 應用",
+            "Python"
+          ],
+          "verified": false,
+          "on": "2026-05-09",
+          "proof_url": "https://example.edu/portfolio/m1500120/work-2"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：中文新聞情緒分析（Transformer）",
+          "tier": 3,
+          "skills": [
+            "深度學習",
+            "機器學習"
+          ],
+          "verified": false,
+          "on": "2026-10-25",
+          "proof_url": "https://example.edu/portfolio/m1500120/work-3"
+        }
+      ]
     },
     {
       "id": 21,
@@ -2685,7 +3305,7 @@
         {
           "course": "文案企劃",
           "score": 79,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "行銷企劃"
           ]
@@ -2743,11 +3363,38 @@
             "資料分析",
             "資料視覺化"
           ],
-          "score": 0.4
+          "score": 0.4,
+          "verified": false,
+          "proof_url": null
         }
       ],
       "award_score": 0.4,
-      "r_cold_start": 0.475
+      "r_cold_start": 0.475,
+      "course_best": {
+        "行銷企劃": 79,
+        "簡報設計": 77,
+        "Java": 86
+      },
+      "credentials": [
+        {
+          "type": "CERTIFICATE",
+          "catalog": "JLPT 日本語能力試驗 N3",
+          "verified": false,
+          "on": "2025-04-16",
+          "proof_url": "https://example.edu/portfolio/d1300121/cert-1"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：畢業專題成果報告",
+          "tier": 2,
+          "skills": [
+            "專題與實作"
+          ],
+          "verified": true,
+          "on": "2026-09-15",
+          "proof_url": "https://example.edu/portfolio/d1300121/work-2"
+        }
+      ]
     },
     {
       "id": 22,
@@ -2778,7 +3425,7 @@
         {
           "course": "創業管理",
           "score": 63,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "商業企劃"
           ]
@@ -2786,7 +3433,7 @@
         {
           "course": "財務管理",
           "score": 76,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "財務分析"
           ]
@@ -2810,7 +3457,7 @@
         {
           "course": "進階統計",
           "score": 73,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "統計"
           ]
@@ -2892,7 +3539,9 @@
             "Spring Boot",
             "SwiftUI"
           ],
-          "score": 0.5
+          "score": 0.5,
+          "verified": false,
+          "proof_url": null
         },
         {
           "competition": "全國資料科學競賽",
@@ -2903,11 +3552,23 @@
             "機器學習",
             "資料分析"
           ],
-          "score": 0.25
+          "score": 0.25,
+          "verified": false,
+          "proof_url": "https://example.edu/portfolio/m1400122/award-2026-03-03"
         }
       ],
       "award_score": 0.75,
-      "r_cold_start": 0.5625
+      "r_cold_start": 0.5625,
+      "course_best": {
+        "專案管理": 62,
+        "商業企劃": 54,
+        "財務分析": 66,
+        "簡報設計": 76,
+        "研究方法": 66,
+        "統計": 63,
+        "資料視覺化": 75
+      },
+      "credentials": []
     },
     {
       "id": 23,
@@ -2946,7 +3607,7 @@
         {
           "course": "演算法",
           "score": 74,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "Python"
           ]
@@ -2954,7 +3615,7 @@
         {
           "course": "程式設計",
           "score": 77,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "Java"
           ]
@@ -3004,7 +3665,9 @@
             "JavaScript",
             "Vue"
           ],
-          "score": 0.15
+          "score": 0.15,
+          "verified": true,
+          "proof_url": "https://example.edu/portfolio/d1200123/award-2024-08-08"
         },
         {
           "competition": "全國大專校院程式競賽",
@@ -3015,11 +3678,31 @@
             "Java",
             "Python"
           ],
-          "score": 0.4
+          "score": 0.4,
+          "verified": true,
+          "proof_url": "https://example.edu/portfolio/d1200123/award-2023-04-28"
         }
       ],
       "award_score": 0.55,
-      "r_cold_start": 0.5125
+      "r_cold_start": 0.5125,
+      "course_best": {
+        "行銷企劃": 88,
+        "簡報設計": 75,
+        "Python": 74,
+        "Java": 77
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：Python",
+          "tier": 3,
+          "skills": [
+            "Python"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        }
+      ]
     },
     {
       "id": 24,
@@ -3051,7 +3734,7 @@
         {
           "course": "人工智慧導論",
           "score": 90,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "機器學習",
             "Python"
@@ -3086,7 +3769,7 @@
         {
           "course": "設計簡報",
           "score": 96,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "簡報設計"
           ]
@@ -3184,7 +3867,9 @@
             "機器學習",
             "資料分析"
           ],
-          "score": 0.4
+          "score": 0.4,
+          "verified": false,
+          "proof_url": null
         },
         {
           "competition": "校園資料分析競賽",
@@ -3195,11 +3880,55 @@
             "資料分析",
             "資料視覺化"
           ],
-          "score": 0.15
+          "score": 0.15,
+          "verified": false,
+          "proof_url": null
         }
       ],
       "award_score": 0.55,
-      "r_cold_start": 0.5125
+      "r_cold_start": 0.5125,
+      "course_best": {
+        "專案管理": 84,
+        "Spring Boot": 84,
+        "機器學習": 90,
+        "Python": 90,
+        "HTML/CSS": 80,
+        "JavaScript": 80,
+        "Vue": 80,
+        "Java": 99,
+        "平面設計": 88,
+        "簡報設計": 96
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：Spring Boot",
+          "tier": 3,
+          "skills": [
+            "Spring Boot"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "電腦軟體設計丙級技術士",
+          "verified": true,
+          "on": "2026-01-13",
+          "proof_url": "https://example.edu/portfolio/d1300124/cert-2"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：畢業專題成果報告",
+          "tier": 2,
+          "skills": [
+            "專題與實作"
+          ],
+          "verified": false,
+          "on": "2026-08-17",
+          "proof_url": "https://example.edu/portfolio/d1300124/work-3"
+        }
+      ]
     },
     {
       "id": 25,
@@ -3230,7 +3959,7 @@
         {
           "course": "建築表現法",
           "score": 73,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "簡報設計"
           ]
@@ -3238,7 +3967,7 @@
         {
           "course": "建築設計",
           "score": 80,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "平面設計"
           ]
@@ -3254,7 +3983,7 @@
         {
           "course": "計算機概論",
           "score": 92,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "Python"
           ]
@@ -3319,11 +4048,59 @@
             "Spring Boot",
             "SwiftUI"
           ],
-          "score": 0.8
+          "score": 0.8,
+          "verified": false,
+          "proof_url": "https://example.edu/portfolio/d1300125/award-2025-06-05"
         }
       ],
       "award_score": 0.8,
-      "r_cold_start": 0.575
+      "r_cold_start": 0.575,
+      "course_best": {
+        "UI/UX 設計": 87,
+        "簡報設計": 73,
+        "平面設計": 80,
+        "資料分析": 87,
+        "Python": 92
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：簡報設計",
+          "tier": 3,
+          "skills": [
+            "簡報設計"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：Java",
+          "tier": 2,
+          "skills": [
+            "Java"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "Autodesk Certified User：AutoCAD",
+          "verified": false,
+          "on": "2025-01-07",
+          "proof_url": "https://example.edu/portfolio/d1300125/cert-3"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：生成式 AI 應用",
+          "tier": 1,
+          "skills": [
+            "生成式 AI 應用"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        }
+      ]
     },
     {
       "id": 26,
@@ -3362,7 +4139,7 @@
         {
           "course": "生產管理",
           "score": 75,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "專案管理"
           ]
@@ -3370,7 +4147,7 @@
         {
           "course": "行銷管理",
           "score": 75,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "行銷企劃"
           ]
@@ -3419,7 +4196,45 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "統計": 67,
+        "資料分析": 79,
+        "專案管理": 75,
+        "行銷企劃": 75
+      },
+      "credentials": [
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：Figma 個人專案",
+          "tier": 3,
+          "skills": [
+            "Figma"
+          ],
+          "verified": true,
+          "on": "2026-09-07",
+          "proof_url": "https://example.edu/portfolio/d1400126/work-1"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "TOEIC 多益 750 分以上",
+          "verified": true,
+          "on": "2026-01-25",
+          "proof_url": "https://example.edu/portfolio/d1400126/cert-2"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：手寫數字辨識",
+          "tier": 2,
+          "skills": [
+            "深度學習",
+            "機器學習"
+          ],
+          "verified": false,
+          "on": "2026-10-14",
+          "proof_url": "https://example.edu/portfolio/d1400126/work-3"
+        }
+      ]
     },
     {
       "id": 27,
@@ -3442,7 +4257,7 @@
         {
           "course": "計算機程式",
           "score": 75,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "Python"
           ]
@@ -3458,7 +4273,7 @@
         {
           "course": "機器學習概論",
           "score": 76,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "機器學習"
           ]
@@ -3490,7 +4305,7 @@
         {
           "course": "學術英文寫作",
           "score": 77,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "英文寫作"
           ]
@@ -3587,11 +4402,97 @@
             "JavaScript",
             "Vue"
           ],
-          "score": 0.4
+          "score": 0.4,
+          "verified": false,
+          "proof_url": "https://example.edu/portfolio/p1300127/award-2025-03-21"
         }
       ],
       "award_score": 0.4,
-      "r_cold_start": 0.475
+      "r_cold_start": 0.475,
+      "course_best": {
+        "Python": 65,
+        "Java": 51,
+        "機器學習": 66,
+        "資料分析": 48,
+        "研究方法": 63,
+        "統計": 66,
+        "英文寫作": 67,
+        "SwiftUI": 68
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：Java",
+          "tier": 1,
+          "skills": [
+            "Java"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：機器學習",
+          "tier": 2,
+          "skills": [
+            "機器學習"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：SwiftUI",
+          "tier": 2,
+          "skills": [
+            "SwiftUI"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：商業企劃 個人專案",
+          "tier": 3,
+          "skills": [
+            "商業企劃"
+          ],
+          "verified": false,
+          "on": "2026-02-26",
+          "proof_url": "https://example.edu/portfolio/p1300127/work-4"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "Microsoft Azure AI Fundamentals（AI-900）",
+          "verified": false,
+          "on": "2026-03-02",
+          "proof_url": "https://example.edu/portfolio/p1300127/cert-5"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：課程筆記問答機器人（RAG）",
+          "tier": 1,
+          "skills": [
+            "生成式 AI 應用",
+            "Python"
+          ],
+          "verified": false,
+          "on": "2026-02-27",
+          "proof_url": "https://example.edu/portfolio/p1300127/work-6"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：研究計畫成果報告",
+          "tier": 2,
+          "skills": [
+            "專題與實作",
+            "研究方法"
+          ],
+          "verified": true,
+          "on": "2026-08-15",
+          "proof_url": "https://example.edu/portfolio/p1300127/work-7"
+        }
+      ]
     },
     {
       "id": 28,
@@ -3614,7 +4515,7 @@
         {
           "course": "人因工程",
           "score": 83,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "UI/UX 設計"
           ]
@@ -3638,7 +4539,7 @@
         {
           "course": "管理學",
           "score": 70,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "專案管理"
           ]
@@ -3687,7 +4588,37 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "UI/UX 設計": 83,
+        "資料分析": 76,
+        "財務分析": 74,
+        "專案管理": 70
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：Spring Boot",
+          "tier": 1,
+          "skills": [
+            "Spring Boot"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：課程筆記問答機器人（RAG）",
+          "tier": 3,
+          "skills": [
+            "生成式 AI 應用",
+            "Python"
+          ],
+          "verified": true,
+          "on": "2026-05-13",
+          "proof_url": "https://example.edu/portfolio/d1500128/work-2"
+        }
+      ]
     },
     {
       "id": 29,
@@ -3710,7 +4641,7 @@
         {
           "course": "使用者經驗設計",
           "score": 71,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "UI/UX 設計",
             "Figma"
@@ -3719,7 +4650,7 @@
         {
           "course": "介面原型",
           "score": 70,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "Figma"
           ]
@@ -3792,7 +4723,35 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "UI/UX 設計": 71,
+        "Figma": 71,
+        "簡報設計": 83,
+        "平面設計": 86
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：Figma",
+          "tier": 3,
+          "skills": [
+            "Figma"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：英文寫作",
+          "tier": 2,
+          "skills": [
+            "英文寫作"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        }
+      ]
     },
     {
       "id": 30,
@@ -3815,7 +4774,7 @@
         {
           "course": "機器學習概論",
           "score": 75,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "機器學習"
           ]
@@ -3839,7 +4798,7 @@
         {
           "course": "財務管理",
           "score": 72,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "財務分析"
           ]
@@ -3881,7 +4840,27 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "機器學習": 75,
+        "Python": 69,
+        "商業企劃": 58,
+        "財務分析": 72
+      },
+      "credentials": [
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：課程筆記問答機器人（RAG）",
+          "tier": 2,
+          "skills": [
+            "生成式 AI 應用",
+            "Python"
+          ],
+          "verified": false,
+          "on": "2026-07-07",
+          "proof_url": "https://example.edu/portfolio/d1500130/work-1"
+        }
+      ]
     },
     {
       "id": 31,
@@ -3912,7 +4891,7 @@
         {
           "course": "人因工程",
           "score": 79,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "UI/UX 設計"
           ]
@@ -3920,7 +4899,7 @@
         {
           "course": "建築設計",
           "score": 81,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "平面設計"
           ]
@@ -3962,7 +4941,28 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "統計": 94,
+        "UI/UX 設計": 88,
+        "平面設計": 81
+      },
+      "credentials": [
+        {
+          "type": "CERTIFICATE",
+          "catalog": "SOLIDWORKS CSWA",
+          "verified": false,
+          "on": "2025-01-24",
+          "proof_url": "https://example.edu/portfolio/d1500131/cert-1"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "TOEIC 多益 750 分以上",
+          "verified": true,
+          "on": "2025-05-22",
+          "proof_url": "https://example.edu/portfolio/d1500131/cert-2"
+        }
+      ]
     },
     {
       "id": 32,
@@ -3985,7 +4985,7 @@
         {
           "course": "專業簡報",
           "score": 88,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "簡報設計"
           ]
@@ -3993,7 +4993,7 @@
         {
           "course": "英文寫作",
           "score": 87,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "英文寫作"
           ]
@@ -4050,7 +5050,9 @@
             "平面設計",
             "UI/UX 設計"
           ],
-          "score": 0.5
+          "score": 0.5,
+          "verified": true,
+          "proof_url": "https://example.edu/portfolio/d1300132/award-2024-02-09"
         },
         {
           "competition": "校園創新創業競賽",
@@ -4061,11 +5063,41 @@
             "商業企劃",
             "簡報設計"
           ],
-          "score": 0.4
+          "score": 0.4,
+          "verified": false,
+          "proof_url": "https://example.edu/portfolio/d1300132/award-2025-01-10"
         }
       ],
       "award_score": 0.9,
-      "r_cold_start": 0.6
+      "r_cold_start": 0.6,
+      "course_best": {
+        "簡報設計": 88,
+        "英文寫作": 87,
+        "財務分析": 89
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：研究方法",
+          "tier": 1,
+          "skills": [
+            "研究方法"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：畢業專題成果報告",
+          "tier": 3,
+          "skills": [
+            "專題與實作"
+          ],
+          "verified": false,
+          "on": "2026-02-04",
+          "proof_url": "https://example.edu/portfolio/d1300132/work-2"
+        }
+      ]
     },
     {
       "id": 33,
@@ -4096,7 +5128,7 @@
         {
           "course": "數位行銷",
           "score": 72,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "行銷企劃",
             "資料分析"
@@ -4105,7 +5137,7 @@
         {
           "course": "消費者行為",
           "score": 67,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "問卷設計"
           ]
@@ -4113,7 +5145,7 @@
         {
           "course": "建築表現法",
           "score": 76,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "簡報設計"
           ]
@@ -4163,7 +5195,36 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "平面設計": 72,
+        "行銷企劃": 72,
+        "資料分析": 72,
+        "問卷設計": 67,
+        "簡報設計": 76
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：平面設計",
+          "tier": 3,
+          "skills": [
+            "平面設計"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：簡報設計",
+          "tier": 3,
+          "skills": [
+            "簡報設計"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        }
+      ]
     },
     {
       "id": 34,
@@ -4186,7 +5247,7 @@
         {
           "course": "英文寫作",
           "score": 79,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "英文寫作"
           ]
@@ -4194,7 +5255,7 @@
         {
           "course": "專業簡報",
           "score": 66,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "簡報設計"
           ]
@@ -4210,7 +5271,7 @@
         {
           "course": "進階統計",
           "score": 70,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "統計"
           ]
@@ -4218,7 +5279,7 @@
         {
           "course": "學術英文寫作",
           "score": 67,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "英文寫作"
           ]
@@ -4300,11 +5361,54 @@
             "機器學習",
             "資料分析"
           ],
-          "score": 0.65
+          "score": 0.65,
+          "verified": true,
+          "proof_url": "https://example.edu/portfolio/p1500134/award-2026-02-25"
         }
       ],
       "award_score": 0.65,
-      "r_cold_start": 0.5375
+      "r_cold_start": 0.5375,
+      "course_best": {
+        "英文寫作": 69,
+        "簡報設計": 57,
+        "研究方法": 70,
+        "統計": 60,
+        "Python": 62,
+        "SQL": 62
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：研究方法",
+          "tier": 3,
+          "skills": [
+            "研究方法"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：統計",
+          "tier": 2,
+          "skills": [
+            "統計"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：React 個人專案",
+          "tier": 3,
+          "skills": [
+            "React"
+          ],
+          "verified": false,
+          "on": "2026-06-23",
+          "proof_url": "https://example.edu/portfolio/p1500134/work-3"
+        }
+      ]
     },
     {
       "id": 35,
@@ -4335,7 +5439,7 @@
         {
           "course": "文案企劃",
           "score": 63,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "行銷企劃"
           ]
@@ -4343,7 +5447,7 @@
         {
           "course": "消費者行為",
           "score": 78,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "問卷設計"
           ]
@@ -4377,7 +5481,31 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "簡報設計": 78,
+        "行銷企劃": 63,
+        "問卷設計": 78
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：簡報設計",
+          "tier": 3,
+          "skills": [
+            "簡報設計"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "TOEIC 多益 550 分以上",
+          "verified": false,
+          "on": "2025-09-19",
+          "proof_url": "https://example.edu/portfolio/d1400135/cert-2"
+        }
+      ]
     },
     {
       "id": 36,
@@ -4400,7 +5528,7 @@
         {
           "course": "機器學習概論",
           "score": 77,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "機器學習"
           ]
@@ -4513,7 +5641,9 @@
             "UI/UX 設計",
             "Figma"
           ],
-          "score": 0.25
+          "score": 0.25,
+          "verified": false,
+          "proof_url": null
         },
         {
           "competition": "全國大專創業提案競賽",
@@ -4524,11 +5654,84 @@
             "商業企劃",
             "財務分析"
           ],
-          "score": 0.65
+          "score": 0.65,
+          "verified": false,
+          "proof_url": "https://example.edu/portfolio/d1200136/award-2025-05-23"
         }
       ],
       "award_score": 0.9,
-      "r_cold_start": 0.6
+      "r_cold_start": 0.6,
+      "course_best": {
+        "機器學習": 77,
+        "Python": 60,
+        "Java": 71,
+        "資料分析": 72,
+        "財務分析": 68,
+        "簡報設計": 77
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：Python",
+          "tier": 2,
+          "skills": [
+            "Python"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：財務分析",
+          "tier": 2,
+          "skills": [
+            "財務分析"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：問卷設計 個人專案",
+          "tier": 3,
+          "skills": [
+            "問卷設計"
+          ],
+          "verified": true,
+          "on": "2026-08-27",
+          "proof_url": "https://example.edu/portfolio/d1200136/work-3"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "ITS Python",
+          "verified": false,
+          "on": "2026-01-22",
+          "proof_url": "https://example.edu/portfolio/d1200136/cert-4"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：中文新聞情緒分析（Transformer）",
+          "tier": 2,
+          "skills": [
+            "深度學習",
+            "機器學習"
+          ],
+          "verified": false,
+          "on": "2026-10-19",
+          "proof_url": "https://example.edu/portfolio/d1200136/work-5"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：畢業專題成果報告",
+          "tier": 2,
+          "skills": [
+            "專題與實作"
+          ],
+          "verified": true,
+          "on": "2026-02-07",
+          "proof_url": "https://example.edu/portfolio/d1200136/work-6"
+        }
+      ]
     },
     {
       "id": 37,
@@ -4551,7 +5754,7 @@
         {
           "course": "工程數學",
           "score": 81,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "資料分析"
           ]
@@ -4559,7 +5762,7 @@
         {
           "course": "計算機概論",
           "score": 79,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "Python"
           ]
@@ -4583,7 +5786,7 @@
         {
           "course": "管理學",
           "score": 90,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "專案管理"
           ]
@@ -4632,7 +5835,25 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "資料分析": 81,
+        "Python": 79,
+        "專案管理": 90,
+        "商業企劃": 76
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：問卷設計",
+          "tier": 1,
+          "skills": [
+            "問卷設計"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        }
+      ]
     },
     {
       "id": 38,
@@ -4655,7 +5876,7 @@
         {
           "course": "英文寫作",
           "score": 71,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "英文寫作"
           ]
@@ -4719,7 +5940,54 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "英文寫作": 71,
+        "簡報設計": 69,
+        "專案管理": 76
+      },
+      "credentials": [
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：行銷企劃 個人專案",
+          "tier": 2,
+          "skills": [
+            "行銷企劃"
+          ],
+          "verified": true,
+          "on": "2026-07-02",
+          "proof_url": "https://example.edu/portfolio/d1200138/work-1"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：平面設計 個人專案",
+          "tier": 3,
+          "skills": [
+            "平面設計"
+          ],
+          "verified": true,
+          "on": "2026-09-09",
+          "proof_url": "https://example.edu/portfolio/d1200138/work-2"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "TOEFL iBT 80 分以上",
+          "verified": true,
+          "on": "2025-01-25",
+          "proof_url": "https://example.edu/portfolio/d1200138/cert-3"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：畢業專題成果報告",
+          "tier": 2,
+          "skills": [
+            "專題與實作"
+          ],
+          "verified": false,
+          "on": "2026-10-04",
+          "proof_url": "https://example.edu/portfolio/d1200138/work-4"
+        }
+      ]
     },
     {
       "id": 39,
@@ -4742,7 +6010,7 @@
         {
           "course": "文案企劃",
           "score": 83,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "行銷企劃"
           ]
@@ -4758,7 +6026,7 @@
         {
           "course": "研究方法",
           "score": 85,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "研究方法"
           ]
@@ -4766,7 +6034,7 @@
         {
           "course": "進階統計",
           "score": 97,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "統計"
           ]
@@ -4774,7 +6042,7 @@
         {
           "course": "企業簡報實務",
           "score": 88,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "簡報設計"
           ]
@@ -4823,7 +6091,46 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "行銷企劃": 75,
+        "簡報設計": 90,
+        "研究方法": 78,
+        "統計": 96
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：行銷企劃",
+          "tier": 3,
+          "skills": [
+            "行銷企劃"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：研究方法",
+          "tier": 3,
+          "skills": [
+            "研究方法"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：專案管理 個人專案",
+          "tier": 3,
+          "skills": [
+            "專案管理"
+          ],
+          "verified": false,
+          "on": "2026-07-26",
+          "proof_url": "https://example.edu/portfolio/m1400139/work-3"
+        }
+      ]
     },
     {
       "id": 40,
@@ -4846,7 +6153,7 @@
         {
           "course": "文案企劃",
           "score": 96,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "行銷企劃"
           ]
@@ -4854,7 +6161,7 @@
         {
           "course": "文學寫作",
           "score": 91,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "簡報設計"
           ]
@@ -4870,7 +6177,7 @@
         {
           "course": "統計學",
           "score": 92,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "統計"
           ]
@@ -4934,11 +6241,53 @@
             "Spring Boot",
             "SwiftUI"
           ],
-          "score": 0.8
+          "score": 0.8,
+          "verified": false,
+          "proof_url": null
         }
       ],
       "award_score": 0.8,
-      "r_cold_start": 0.575
+      "r_cold_start": 0.575,
+      "course_best": {
+        "行銷企劃": 96,
+        "簡報設計": 91,
+        "資料視覺化": 83,
+        "統計": 92
+      },
+      "credentials": [
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：商業企劃 個人專案",
+          "tier": 2,
+          "skills": [
+            "商業企劃"
+          ],
+          "verified": false,
+          "on": "2026-05-01",
+          "proof_url": "https://example.edu/portfolio/d1500140/work-1"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：UI/UX 設計 個人專案",
+          "tier": 2,
+          "skills": [
+            "UI/UX 設計"
+          ],
+          "verified": true,
+          "on": "2026-08-24",
+          "proof_url": "https://example.edu/portfolio/d1500140/work-2"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：生成式 AI 應用",
+          "tier": 1,
+          "skills": [
+            "生成式 AI 應用"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        }
+      ]
     },
     {
       "id": 41,
@@ -4969,7 +6318,7 @@
         {
           "course": "嵌入式系統",
           "score": 64,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "Java"
           ]
@@ -4985,7 +6334,7 @@
         {
           "course": "機器學習概論",
           "score": 81,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "機器學習"
           ]
@@ -4993,7 +6342,7 @@
         {
           "course": "研究方法",
           "score": 61,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "研究方法"
           ]
@@ -5017,7 +6366,7 @@
         {
           "course": "專業簡報",
           "score": 71,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "簡報設計"
           ]
@@ -5106,11 +6455,50 @@
             "商業企劃",
             "財務分析"
           ],
-          "score": 0.25
+          "score": 0.25,
+          "verified": true,
+          "proof_url": "https://example.edu/portfolio/p1400141/award-2025-07-26"
         }
       ],
       "award_score": 0.25,
-      "r_cold_start": 0.4375
+      "r_cold_start": 0.4375,
+      "course_best": {
+        "資料分析": 91,
+        "Java": 55,
+        "Python": 65,
+        "機器學習": 72,
+        "研究方法": 52,
+        "統計": 61,
+        "英文寫作": 76,
+        "簡報設計": 61
+      },
+      "credentials": [
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：UI/UX 設計 個人專案",
+          "tier": 1,
+          "skills": [
+            "UI/UX 設計"
+          ],
+          "verified": false,
+          "on": "2026-09-02",
+          "proof_url": "https://example.edu/portfolio/p1400141/work-1"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "ITS Python",
+          "verified": false,
+          "on": "2026-09-06",
+          "proof_url": "https://example.edu/portfolio/p1400141/cert-2"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "Microsoft Azure AI Fundamentals（AI-900）",
+          "verified": false,
+          "on": "2026-08-21",
+          "proof_url": "https://example.edu/portfolio/p1400141/cert-3"
+        }
+      ]
     },
     {
       "id": 42,
@@ -5141,7 +6529,7 @@
         {
           "course": "文案企劃",
           "score": 95,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "行銷企劃"
           ]
@@ -5149,7 +6537,7 @@
         {
           "course": "研究方法",
           "score": 85,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "研究方法"
           ]
@@ -5165,7 +6553,7 @@
         {
           "course": "視覺傳達",
           "score": 89,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "平面設計"
           ]
@@ -5237,11 +6625,50 @@
             "Java",
             "Python"
           ],
-          "score": 0.8
+          "score": 0.8,
+          "verified": false,
+          "proof_url": "https://example.edu/portfolio/m1400142/award-2026-09-13"
         }
       ],
       "award_score": 0.8,
-      "r_cold_start": 0.575
+      "r_cold_start": 0.575,
+      "course_best": {
+        "簡報設計": 88,
+        "行銷企劃": 93,
+        "研究方法": 78,
+        "統計": 79,
+        "平面設計": 84
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：Java",
+          "tier": 1,
+          "skills": [
+            "Java"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：UI/UX 設計 個人專案",
+          "tier": 1,
+          "skills": [
+            "UI/UX 設計"
+          ],
+          "verified": true,
+          "on": "2026-06-10",
+          "proof_url": "https://example.edu/portfolio/m1400142/work-2"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "TOEIC 多益 550 分以上",
+          "verified": false,
+          "on": "2025-07-15",
+          "proof_url": "https://example.edu/portfolio/m1400142/cert-3"
+        }
+      ]
     },
     {
       "id": 43,
@@ -5264,7 +6691,7 @@
         {
           "course": "文學寫作",
           "score": 78,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "簡報設計"
           ]
@@ -5272,7 +6699,7 @@
         {
           "course": "文案企劃",
           "score": 84,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "行銷企劃"
           ]
@@ -5280,7 +6707,7 @@
         {
           "course": "研究方法",
           "score": 79,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "研究方法"
           ]
@@ -5288,7 +6715,7 @@
         {
           "course": "進階統計",
           "score": 77,
-          "semester": "115-1",
+          "semester": "114-1",
           "skills": [
             "統計"
           ]
@@ -5361,7 +6788,47 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "簡報設計": 68,
+        "行銷企劃": 76,
+        "研究方法": 69,
+        "統計": 67,
+        "UI/UX 設計": 61
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：研究方法",
+          "tier": 2,
+          "skills": [
+            "研究方法"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：UI/UX 設計",
+          "tier": 2,
+          "skills": [
+            "UI/UX 設計"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：Java 個人專案",
+          "tier": 2,
+          "skills": [
+            "Java"
+          ],
+          "verified": false,
+          "on": "2026-06-01",
+          "proof_url": "https://example.edu/portfolio/m1400143/work-3"
+        }
+      ]
     },
     {
       "id": 44,
@@ -5400,7 +6867,7 @@
         {
           "course": "迴歸分析",
           "score": 92,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "統計",
             "資料分析"
@@ -5418,7 +6885,7 @@
         {
           "course": "文案企劃",
           "score": 86,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "行銷企劃"
           ]
@@ -5483,7 +6950,28 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "統計": 93,
+        "資料視覺化": 88,
+        "資料分析": 92,
+        "Python": 99,
+        "SQL": 99,
+        "行銷企劃": 86
+      },
+      "credentials": [
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：英文寫作 個人專案",
+          "tier": 2,
+          "skills": [
+            "英文寫作"
+          ],
+          "verified": false,
+          "on": "2026-08-20",
+          "proof_url": "https://example.edu/portfolio/d1300144/work-1"
+        }
+      ]
     },
     {
       "id": 45,
@@ -5506,7 +6994,7 @@
         {
           "course": "建築設計",
           "score": 77,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "平面設計"
           ]
@@ -5514,7 +7002,7 @@
         {
           "course": "數位建築",
           "score": 68,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "UI/UX 設計"
           ]
@@ -5522,7 +7010,7 @@
         {
           "course": "建築表現法",
           "score": 83,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "簡報設計"
           ]
@@ -5538,7 +7026,7 @@
         {
           "course": "進階統計",
           "score": 83,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "統計"
           ]
@@ -5603,7 +7091,64 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "平面設計": 67,
+        "UI/UX 設計": 58,
+        "簡報設計": 75,
+        "研究方法": 76,
+        "統計": 75
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：簡報設計",
+          "tier": 3,
+          "skills": [
+            "簡報設計"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：研究方法",
+          "tier": 3,
+          "skills": [
+            "研究方法"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：HTML/CSS 個人專案",
+          "tier": 1,
+          "skills": [
+            "HTML/CSS"
+          ],
+          "verified": false,
+          "on": "2026-06-21",
+          "proof_url": "https://example.edu/portfolio/m1500145/work-3"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "Autodesk Certified User：AutoCAD",
+          "verified": true,
+          "on": "2026-07-24",
+          "proof_url": "https://example.edu/portfolio/m1500145/cert-4"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：生成式 AI 應用",
+          "tier": 2,
+          "skills": [
+            "生成式 AI 應用"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        }
+      ]
     },
     {
       "id": 46,
@@ -5626,7 +7171,7 @@
         {
           "course": "企業簡報實務",
           "score": 83,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "簡報設計"
           ]
@@ -5634,7 +7179,7 @@
         {
           "course": "管理學",
           "score": 83,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "專案管理"
           ]
@@ -5642,7 +7187,7 @@
         {
           "course": "消費者行為",
           "score": 86,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "問卷設計"
           ]
@@ -5699,7 +7244,26 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "簡報設計": 83,
+        "專案管理": 83,
+        "問卷設計": 86,
+        "行銷企劃": 78
+      },
+      "credentials": [
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：機器學習 個人專案",
+          "tier": 1,
+          "skills": [
+            "機器學習"
+          ],
+          "verified": false,
+          "on": "2026-05-03",
+          "proof_url": "https://example.edu/portfolio/d1500146/work-1"
+        }
+      ]
     },
     {
       "id": 47,
@@ -5722,7 +7286,7 @@
         {
           "course": "嵌入式系統",
           "score": 76,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "Java"
           ]
@@ -5754,7 +7318,7 @@
         {
           "course": "研究方法",
           "score": 82,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "研究方法"
           ]
@@ -5770,7 +7334,7 @@
         {
           "course": "品牌與設計",
           "score": 82,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "平面設計"
           ]
@@ -5860,11 +7424,42 @@
             "UI/UX 設計",
             "Figma"
           ],
-          "score": 0.25
+          "score": 0.25,
+          "verified": false,
+          "proof_url": "https://example.edu/portfolio/m1500147/award-2026-04-02"
         }
       ],
       "award_score": 0.25,
-      "r_cold_start": 0.4375
+      "r_cold_start": 0.4375,
+      "course_best": {
+        "Java": 66,
+        "資料分析": 67,
+        "Python": 99,
+        "機器學習": 66,
+        "研究方法": 73,
+        "統計": 75,
+        "平面設計": 73,
+        "行銷企劃": 99
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：研究方法",
+          "tier": 3,
+          "skills": [
+            "研究方法"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "ITS Python",
+          "verified": false,
+          "on": "2026-06-22",
+          "proof_url": "https://example.edu/portfolio/m1500147/cert-2"
+        }
+      ]
     },
     {
       "id": 48,
@@ -5903,7 +7498,7 @@
         {
           "course": "行銷管理",
           "score": 76,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "行銷企劃"
           ]
@@ -5951,7 +7546,42 @@
       ],
       "awards": [],
       "award_score": 0,
-      "r_cold_start": 0.375
+      "r_cold_start": 0.375,
+      "course_best": {
+        "資料分析": 66,
+        "專案管理": 66,
+        "行銷企劃": 76
+      },
+      "credentials": [
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：機器學習 個人專案",
+          "tier": 3,
+          "skills": [
+            "機器學習"
+          ],
+          "verified": false,
+          "on": "2026-07-06",
+          "proof_url": "https://example.edu/portfolio/d1500148/work-1"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：JavaScript",
+          "tier": 2,
+          "skills": [
+            "JavaScript"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "TOEIC 多益 550 分以上",
+          "verified": true,
+          "on": "2026-09-09",
+          "proof_url": "https://example.edu/portfolio/d1500148/cert-3"
+        }
+      ]
     },
     {
       "id": 49,
@@ -5998,7 +7628,7 @@
         {
           "course": "嵌入式系統",
           "score": 85,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "Java"
           ]
@@ -6006,7 +7636,7 @@
         {
           "course": "研究方法",
           "score": 72,
-          "semester": "115-2",
+          "semester": "114-2",
           "skills": [
             "研究方法"
           ]
@@ -6143,11 +7773,73 @@
             "Java",
             "Python"
           ],
-          "score": 0.25
+          "score": 0.25,
+          "verified": false,
+          "proof_url": null
         }
       ],
       "award_score": 0.25,
-      "r_cold_start": 0.4375
+      "r_cold_start": 0.4375,
+      "course_best": {
+        "機器學習": 62,
+        "資料分析": 63,
+        "Python": 58,
+        "Java": 78,
+        "研究方法": 62,
+        "統計": 62,
+        "英文寫作": 81,
+        "行銷企劃": 63,
+        "平面設計": 53
+      },
+      "credentials": [
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：HTML/CSS 個人專案",
+          "tier": 1,
+          "skills": [
+            "HTML/CSS"
+          ],
+          "verified": false,
+          "on": "2026-05-04",
+          "proof_url": "https://example.edu/portfolio/p1200149/work-1"
+        },
+        {
+          "type": "SELF",
+          "title": "自我評估：財務分析",
+          "tier": 3,
+          "skills": [
+            "財務分析"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "Microsoft Azure AI Fundamentals（AI-900）",
+          "verified": true,
+          "on": "2025-06-26",
+          "proof_url": "https://example.edu/portfolio/p1200149/cert-3"
+        },
+        {
+          "type": "CERTIFICATE",
+          "catalog": "TQC+ 程式語言 Python",
+          "verified": true,
+          "on": "2025-08-28",
+          "proof_url": "https://example.edu/portfolio/p1200149/cert-4"
+        },
+        {
+          "type": "PORTFOLIO",
+          "title": "作品集：研究計畫成果報告",
+          "tier": 3,
+          "skills": [
+            "專題與實作",
+            "研究方法"
+          ],
+          "verified": true,
+          "on": "2026-09-09",
+          "proof_url": "https://example.edu/portfolio/p1200149/work-5"
+        }
+      ]
     },
     {
       "id": 50,
@@ -6179,7 +7871,7 @@
         {
           "course": "消費者行為",
           "score": 74,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "問卷設計"
           ]
@@ -6187,7 +7879,7 @@
         {
           "course": "行銷管理",
           "score": 82,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "行銷企劃"
           ]
@@ -6195,7 +7887,7 @@
         {
           "course": "品牌與設計",
           "score": 83,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "平面設計"
           ]
@@ -6219,7 +7911,7 @@
         {
           "course": "人因工程",
           "score": 83,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "UI/UX 設計"
           ]
@@ -6227,7 +7919,7 @@
         {
           "course": "作業研究",
           "score": 67,
-          "semester": "115-2",
+          "semester": "115-1",
           "skills": [
             "資料分析"
           ]
@@ -6301,7 +7993,9 @@
             "平面設計",
             "UI/UX 設計"
           ],
-          "score": 0.5
+          "score": 0.5,
+          "verified": false,
+          "proof_url": "https://example.edu/portfolio/m1500150/award-2026-01-08"
         },
         {
           "competition": "國際學生軟體創新競賽",
@@ -6312,11 +8006,34 @@
             "Spring Boot",
             "SwiftUI"
           ],
-          "score": 0.8
+          "score": 0.8,
+          "verified": false,
+          "proof_url": null
         }
       ],
       "award_score": 1.0,
-      "r_cold_start": 0.625
+      "r_cold_start": 0.625,
+      "course_best": {
+        "行銷企劃": 73,
+        "資料分析": 61,
+        "問卷設計": 64,
+        "平面設計": 75,
+        "研究方法": 58,
+        "統計": 67,
+        "UI/UX 設計": 75
+      },
+      "credentials": [
+        {
+          "type": "SELF",
+          "title": "自我評估：行銷企劃",
+          "tier": 3,
+          "skills": [
+            "行銷企劃"
+          ],
+          "verified": false,
+          "on": "2026-09-20"
+        }
+      ]
     }
   ]
 }

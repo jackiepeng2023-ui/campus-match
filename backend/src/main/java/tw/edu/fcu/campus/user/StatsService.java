@@ -42,9 +42,11 @@ public class StatsService {
             peer.put(Db.i(r.get("uid")), new double[]{Db.d(r.get("r")), Db.d(r.get("m")), Db.d(r.get("n"))});
 
         Map<Integer, Double> award = new HashMap<>();
+        // 同一競賽（去掉年份與屆次後同名）不疊加，取最高名次
         for (var r : db.list("""
-                SELECT a.user_id uid, sum(am.score) s FROM user_awards a
-                JOIN award_matrix am ON am.rank = a.rank AND am.level = a.level GROUP BY a.user_id"""))
+                SELECT uid, sum(s) s FROM (
+                  SELECT a.user_id uid, lower(regexp_replace(a.competition, '\\s|[0-9]{4}|第[0-9]+屆', '', 'g')) k, max(am.score) s
+                  FROM user_awards a JOIN award_matrix am ON am.rank = a.rank AND am.level = a.level GROUP BY 1, 2) x GROUP BY uid"""))
             award.put(Db.i(r.get("uid")), Db.d(r.get("s")));
 
         // 回應率：以「應回應者」計 —— APPLY 由發案方回應，INVITE 由被邀請者回應；互評逾時未填也算未回應

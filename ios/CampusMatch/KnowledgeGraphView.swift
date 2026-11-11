@@ -1,32 +1,6 @@
 import SwiftUI
 
-// 知識圖譜（GET /me/growth/graph）：科目 → 技能 → 分類，加上得獎與結案案件對技能的驗證；與網頁、Obsidian 匯出為同一份資料
-struct GraphNode: Codable, Identifiable {
-    let id: String; let type: String; let label: String; let data: [String: JSONValue]
-    func str(_ k: String) -> String? { data[k]?.stringValue }
-    func num(_ k: String) -> Double? { data[k]?.doubleValue }
-}
-struct GraphEdge: Codable { let source: String; let target: String; let kind: String; let weight: Double }
-struct GraphData: Codable { let nodes: [GraphNode]; let edges: [GraphEdge]; let summary: [String: Int] }
-
-/// 後端 data 欄位為混合型別（數字／字串／布林／null）
-enum JSONValue: Codable {
-    case string(String), number(Double), bool(Bool), null
-    init(from decoder: Decoder) throws {
-        let c = try decoder.singleValueContainer()
-        if c.decodeNil() { self = .null }
-        else if let b = try? c.decode(Bool.self) { self = .bool(b) }
-        else if let d = try? c.decode(Double.self) { self = .number(d) }
-        else if let s = try? c.decode(String.self) { self = .string(s) }
-        else { self = .null }
-    }
-    func encode(to encoder: Encoder) throws {
-        var c = encoder.singleValueContainer()
-        switch self { case .string(let s): try c.encode(s); case .number(let d): try c.encode(d); case .bool(let b): try c.encode(b); case .null: try c.encodeNil() }
-    }
-    var stringValue: String? { switch self { case .string(let s): return s; case .number(let d): return d.truncatingRemainder(dividingBy: 1) == 0 ? String(Int(d)) : String(d); case .bool(let b): return b ? "true" : "false"; case .null: return nil } }
-    var doubleValue: Double? { if case .number(let d) = self { return d }; return nil }
-}
+// 知識圖譜：資料型別 GraphData／GraphNode／GraphEdge 定義在 Models.swift
 
 /// 力導向佈局（純 Swift，節點數 < 200 時每次 tick 約 1 ms）
 final class GraphLayout: ObservableObject {
@@ -83,7 +57,7 @@ struct KnowledgeGraphView: View {
     @State private var scale: CGFloat = 1
     @State private var exportURL: URL?
     @State private var exporting = false
-    private let types: [(String, String, Color)] = [("COURSE", "科目", .blue), ("SKILL", "技能", .green), ("CATEGORY", "分類", .indigo), ("AWARD", "得獎", .orange), ("CASE", "案件", .gray)]
+    private let types: [(String, String, Color)] = [("COURSE", "科目", .blue), ("SKILL", "技能", .green), ("CATEGORY", "分類", .indigo), ("CREDENTIAL", "證照與作品", .teal), ("AWARD", "得獎", .orange), ("CASE", "案件", .gray)]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -106,7 +80,7 @@ struct KnowledgeGraphView: View {
                     Canvas { ctx, sz in
                         let k = fitScale(size: sz) * scale, cx = sz.width / 2, cy = sz.height / 2
                         let nb = selected.map { neighborIds(of: $0.id) }
-                        func pt(_ id: String) -> CGPoint? { layout.pos[id].map { CGPoint(x: cx + $0.x * k, y: cy + $0.y * k) } }
+                        let pt: (String) -> CGPoint? = { id in layout.pos[id].map { CGPoint(x: cx + $0.x * k, y: cy + $0.y * k) } }   // 用閉包而不是區域函式：閉包沿用主執行緒隔離
                         for (s, t, _) in layout.edges {
                             guard let a = pt(s), let b = pt(t), !hidden.contains(typeOf(s)), !hidden.contains(typeOf(t)) else { continue }
                             let lit = nb == nil || (s == selected?.id || t == selected?.id)
@@ -182,7 +156,7 @@ struct KnowledgeGraphView: View {
     private func color(_ t: String) -> Color { types.first { $0.0 == t }?.2 ?? .gray }
     private func typeLabel(_ t: String) -> String { types.first { $0.0 == t }?.1 ?? t }
     private func radius(_ n: GraphNode) -> CGFloat {
-        switch n.type { case "CATEGORY": return 12; case "SKILL": return 5 + CGFloat(n.num("level") ?? 1) * 1.3; case "COURSE": return 3.5 + CGFloat(n.num("score") ?? 60) / 28; default: return 6.5 }
+        switch n.type { case "CATEGORY": return 12; case "SKILL": return 5 + CGFloat(n.num("level") ?? 0) * 2.0; case "COURSE": return 3.5 + CGFloat(n.num("score") ?? 60) / 28; default: return 6.5 }
     }
     private func neighborIds(of id: String) -> Set<String> { Set(layout.edges.compactMap { $0.0 == id ? $0.1 : ($0.1 == id ? $0.0 : nil) }) }
     private func fitScale(size: CGSize) -> CGFloat {
@@ -202,8 +176,9 @@ struct KnowledgeGraphView: View {
     private func detail(_ n: GraphNode) -> String {
         switch n.type {
         case "COURSE": return "分數 \(n.str("score") ?? "—")　學期 \(n.str("semester") ?? "—")　\(Labels.requirement[n.str("requirement") ?? ""] ?? "")" + (n.str("department").map { "　" + $0 } ?? "")
-        case "SKILL": return "等級 \(n.str("level") ?? "—")／5（預設 \(n.str("defaultLevel") ?? "—")，\(n.str("source") == "GRADE" ? "成績換算" : n.str("source") == "CASE" ? "結案驗證" : "自填")）　分類 \(n.str("category") ?? "")"
-        case "CATEGORY": return "平均等級 \(n.str("avgLevel") ?? "—")　\(n.str("n") ?? "0") 項技能"
+        case "SKILL": return "\(n.str("tier") ?? "—")（\(n.str("score") ?? "—") 分・\(n.str("trustLabel") ?? "")）　最高分證據：\(n.str("source") ?? "—")，共 \(n.str("evidenceCount") ?? "0") 筆（不疊加）　分類 \(n.str("category") ?? "")"
+        case "CATEGORY": return "平均 \(n.str("avgScore") ?? "—") 分　\(n.str("n") ?? "0") 項技能"
+        case "CREDENTIAL": return "\(n.str("kind") ?? "")　\(n.str("tier") ?? "")（\(n.str("verified") == "true" ? "已驗證" : "自述，尚未驗證")）　\(n.str("issuer") ?? "") \(n.str("date") ?? "")"
         case "AWARD": return "\(Labels.level[n.str("level") ?? ""] ?? "")・\(Labels.rank[n.str("rank") ?? ""] ?? "")　\(n.str("date") ?? "")　得獎分 +\(n.str("score") ?? "")"
         default: return "角色 \(n.str("role") ?? "—")　\(n.str("result") == "COMPLETED" ? "完成" : "未完成")　結案 \(String((n.str("closedAt") ?? "").prefix(10)))"
         }
