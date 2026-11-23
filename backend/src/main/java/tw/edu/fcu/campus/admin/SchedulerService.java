@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tw.edu.fcu.campus.cases.CaseService;
+import tw.edu.fcu.campus.cases.TeamService;
 import tw.edu.fcu.campus.common.Db;
 import tw.edu.fcu.campus.config.DemoClock;
 import tw.edu.fcu.campus.notify.NotificationService;
@@ -16,28 +17,35 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.IntSupplier;
 
-/** 六個排程工作（D21、D24、D27–D29、D34、D40）；每分鐘執行，也可由 /admin/clock 立即觸發 */
+/** 七個排程工作（D21、D24、D27–D29、D34、D40，加上 3.1 的報名提醒）；每分鐘執行，也可由 /admin/clock 立即觸發 */
 @Service
 public class SchedulerService {
     private static final Logger log = LoggerFactory.getLogger(SchedulerService.class);
     private final CaseService cases;
+    private final TeamService teams;
     private final ReviewService reviews;
     private final UserService users;
     private final NotificationService notify;
     private final Db db;
     private final DemoClock clock;
 
-    public SchedulerService(CaseService cases, ReviewService reviews, UserService users, NotificationService notify, Db db, DemoClock clock) {
-        this.cases = cases; this.reviews = reviews; this.users = users; this.notify = notify; this.db = db; this.clock = clock;
+    public SchedulerService(CaseService cases, TeamService teams, ReviewService reviews, UserService users, NotificationService notify, Db db, DemoClock clock) {
+        this.cases = cases; this.teams = teams; this.reviews = reviews; this.users = users; this.notify = notify; this.db = db; this.clock = clock;
     }
 
+    private boolean started;
+
     @Scheduled(fixedDelay = 60_000, initialDelay = 30_000)
-    public void tick() { runAll(); }
+    public void tick() {
+        if (!started) { started = true; log.info("排程已啟動：每 60 秒執行一次"); }
+        runAll();
+    }
 
     public synchronized Map<String, Object> runAll() {
         Map<String, Object> out = new LinkedHashMap<>();
         out.put("remind", safe("remind", cases::remindDue));
         out.put("expire", safe("expire", cases::expireDue));
+        out.put("registrationReminder", safe("registrationReminder", teams::registrationReminders));
         out.put("closeVoteTimeout", safe("closeVoteTimeout", reviews::closeVoteTimeout));
         out.put("autoClose", safe("autoClose", reviews::autoClose));
         out.put("reviewTimeout", safe("reviewTimeout", reviews::reviewTimeout));

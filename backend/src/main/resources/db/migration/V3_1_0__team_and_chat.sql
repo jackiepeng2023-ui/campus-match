@@ -41,7 +41,8 @@ CREATE TABLE conversation_members (
   conversation_id INT NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
   user_id INT NOT NULL REFERENCES users(id),
   joined_at TIMESTAMPTZ NOT NULL,
-  left_at TIMESTAMPTZ,                                           -- 退出或被請離的時間；之後的訊息看不到
+  left_at TIMESTAMPTZ,                                           -- 退出或被請離的時間；之後整個對話都看不到
+  since_message_id BIGINT NOT NULL DEFAULT 0,                    -- 加入時對話的最後一則訊息；只看得到編號比它大的（看不到加入前的討論）
   last_read_message_id BIGINT NOT NULL DEFAULT 0,                -- 未讀數由它計算
   PRIMARY KEY (conversation_id, user_id));
 CREATE INDEX ix_conversation_members_user ON conversation_members (user_id);
@@ -57,6 +58,7 @@ CREATE TABLE messages (
   deleted_at TIMESTAMPTZ);                                       -- 到期清空內容時填入
 CREATE INDEX ix_messages_conversation ON messages (conversation_id, id);
 CREATE UNIQUE INDEX uq_message_client ON messages (sender_id, client_id) WHERE client_id IS NOT NULL;
+CREATE INDEX ix_messages_sender ON messages (sender_id, created_at);                     -- 每分鐘則數上限的檢查
 
 -- 既有的進行中隊伍補上隊伍群組
 DO $$
@@ -75,6 +77,11 @@ END $$;
 -- ===== 可調參數 =====
 INSERT INTO system_params (key, value, label) VALUES
   ('default_role_hours', 4, '開隊時預設的每週需求時數'),
+  ('team_days_without_event_date', 120, '比賽沒有公告日期時，報名截止後幾天視為比賽結束'),
   ('message_rate_per_minute', 30, '每人每分鐘可送出的訊息數'),
   ('message_retention_days', 90, '隊伍結束後訊息內容保留天數')
 ON CONFLICT (key) DO NOTHING;
+-- 2.0 的參數沿用，說明改成 3.1 的用語；比賽結束隔天就結束隊伍並開始互評（2.0 是結束日後 7 天自動結案）
+UPDATE system_params SET label = '每人同時招募中的隊伍上限（0 = 不設限）' WHERE key = 'max_open_cases';
+UPDATE system_params SET label = '每人等待回覆的申請上限（0 = 不設限）' WHERE key = 'max_pending_applications';
+UPDATE system_params SET value = 1, label = '比賽結束後幾天自動結束隊伍並開始互評' WHERE key = 'auto_close_days';

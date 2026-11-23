@@ -1,10 +1,12 @@
 package tw.edu.fcu.campus.cases;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tw.edu.fcu.campus.common.ApiException;
 import tw.edu.fcu.campus.common.Db;
+import tw.edu.fcu.campus.common.events.TeamEvents.*;
 import tw.edu.fcu.campus.config.DemoClock;
 import tw.edu.fcu.campus.notify.NotificationService;
 import tw.edu.fcu.campus.ranking.RankingEngine;
@@ -18,8 +20,10 @@ import java.util.*;
 
 /**
  * 隊伍（程式裡稱 case）與申請／邀請。3.1 只建立比賽隊伍；精簡的開隊表單與隊伍牆在 {@link TeamService}。
- * 案件狀態：DRAFT → OPEN → FORMED → IN_PROGRESS → CLOSING → CLOSED；OPEN 可 EXPIRED；DRAFT/OPEN/FORMED 可 CANCELLED。
+ * 隊伍狀態：OPEN 招募中 → FORMED 已成隊 → IN_PROGRESS 已報名 → CLOSED 已結束；OPEN 可 EXPIRED（截止未成隊）；OPEN、FORMED 可 CANCELLED（解散）。
+ * DRAFT、CLOSING 是 2.0 的完整表單與結案投票留下來的狀態，3.1 的畫面不會產生。
  * 申請與邀請共用 engagements（D17），名額在同一交易內以 FOR UPDATE 鎖定（D25）。
+ * 流程上發生的事以事件發布（{@link tw.edu.fcu.campus.common.events.TeamEvents}），即時通訊在同一筆交易內接手。
  */
 @Service
 public class CaseService {
@@ -27,10 +31,11 @@ public class CaseService {
     private final DemoClock clock;
     private final NotificationService notify;
     private final RankingService ranking;
+    private final ApplicationEventPublisher events;
     private static final ZoneId TZ = ZoneId.of("Asia/Taipei");
 
-    public CaseService(Db db, DemoClock clock, NotificationService notify, RankingService ranking) {
-        this.db = db; this.clock = clock; this.notify = notify; this.ranking = ranking;
+    public CaseService(Db db, DemoClock clock, NotificationService notify, RankingService ranking, ApplicationEventPublisher events) {
+        this.db = db; this.clock = clock; this.notify = notify; this.ranking = ranking; this.events = events;
     }
 
     int param(String key, int dflt) {
@@ -121,8 +126,8 @@ public class CaseService {
     }
 
     private Map<String, Object> owned(int caseId, int uid) {
-        var c = db.required("SELECT id, owner_id, status, title, type, start_date, end_date, apply_deadline FROM cases WHERE id = :id", "找不到案件", "id", caseId);
-        if (Db.i(c.get("owner_id")) != uid) throw ApiException.forbidden("只有發案方可以執行此操作");
+        var c = db.required("SELECT id, owner_id, status, title, type, start_date, end_date, apply_deadline FROM cases WHERE id = :id FOR UPDATE", "找不到隊伍", "id", caseId);
+        if (Db.i(c.get("owner_id")) != uid) throw ApiException.forbidden("只有隊長可以這樣做");
         return c;
     }
 
@@ -150,12 +155,27 @@ public class CaseService {
     }
 
     /** 隊伍開始招募（開隊，或舊流程的發布）。即時通訊在這裡接上：建立隊伍群組。 */
-    void opened(int caseId, int ownerId, String title) {
-        // 由 M3 的事件接手
-    }
+    void opened(int caseId, int ownerId, String title) { events.publishEvent(new TeamOpened(caseId, ownerId, title)); }
 
-    /** 隊伍取消、過期、結束後，成員資格不再計入「同一場比賽一人一隊」 */
-    void releaseMembers(int caseId) { db.exec("UPDATE case_members SET active = FALSE WHERE case_id = :c", "c", caseId); }
+    /** 隊伍解散、截止、結束後，成員資格不再計入「同一場比賽一人一隊」 */
+    public void releaseMembers(int caseId) { db.exec("UPDATE case_members SET active = FALSE WHERE case_id = :c", "c", caseId); }
+
+    /**
+     * 把這支隊伍還在等回覆的申請與邀請全部結束（解散、提前成隊、標記報名、截止時用）。
+     * status 寫進 engagements；reason 給對話的系統訊息用（TEAM_ENDED 隊伍停止招募、FULL 隊伍已成隊）。
+     */
+    void closePending(int caseId, int ownerId, String title, String status, String reason) {
+        boolean ended = "TEAM_ENDED".equals(reason);
+        for (var e : db.list("""
+                SELECT e.id, e.user_id, e.direction FROM engagements e JOIN case_roles r ON r.id = e.case_role_id
+                WHERE r.case_id = :c AND e.status = 'PENDING' ORDER BY e.id FOR UPDATE OF e""", "c", caseId)) {
+            int id = Db.i(e.get("id")), joiner = Db.i(e.get("user_id"));
+            db.exec("UPDATE engagements SET status = :s, decided_at = :t WHERE id = :id", "s", status, "t", Db.ts(clock.instant()), "id", id);
+            notify.notify(joiner, ended ? "CASE_CANCELLED" : "FULL", ended ? "隊伍已停止招募" : "隊伍已經成隊",
+                    "「" + title + "」" + (ended ? "已停止招募" : "已經成隊，不再收人") + "，你的" + ("INVITE".equals(e.get("direction")) ? "邀請" : "申請") + "已結束", "/messages?e=" + id);
+            events.publishEvent(new EngagementClosed(id, caseId, joiner, ownerId, (String) e.get("direction"), reason, null, title));
+        }
+    }
 
     // ---------- 狀態轉移 ----------
     @Transactional
@@ -175,15 +195,14 @@ public class CaseService {
     @Transactional
     public Map<String, Object> cancel(int caseId, int uid) {
         var c = owned(caseId, uid);
-        if (!Set.of("DRAFT", "OPEN", "FORMED").contains((String) c.get("status"))) throw ApiException.conflict("INVALID_STATE", "此狀態不能取消");
+        String status = (String) c.get("status"), title = (String) c.get("title");
+        if (!Set.of("DRAFT", "OPEN", "FORMED").contains(status)) throw ApiException.conflict("INVALID_STATE", "隊伍已經報名或已經結束，不能解散");
         db.exec("UPDATE cases SET status = 'CANCELLED' WHERE id = :id", "id", caseId);
         releaseMembers(caseId);
-        for (var e : db.list("SELECT e.id, e.user_id, e.direction FROM engagements e JOIN case_roles r ON r.id = e.case_role_id WHERE r.case_id = :c AND e.status = 'PENDING'", "c", caseId)) {
-            db.exec("UPDATE engagements SET status = 'DECLINED', decided_at = :t WHERE id = :id", "t", Db.ts(clock.instant()), "id", e.get("id"));
-            notify.notify(Db.i(e.get("user_id")), "CASE_CANCELLED", "案件已取消", "「" + c.get("title") + "」已由發案方取消", "/cases/" + caseId);
-        }
+        closePending(caseId, uid, title, "DECLINED", "TEAM_ENDED");
         for (var m : db.list("SELECT user_id FROM case_members WHERE case_id = :c AND NOT is_owner", "c", caseId))
-            notify.notify(Db.i(m.get("user_id")), "CASE_CANCELLED", "案件已取消", "「" + c.get("title") + "」已由發案方取消", "/cases/" + caseId);
+            notify.notify(Db.i(m.get("user_id")), "CASE_CANCELLED", "隊伍已解散", "「" + title + "」已由隊長解散", "/cases/" + caseId);
+        if (!"DRAFT".equals(status)) events.publishEvent(new TeamEnded(caseId, "CANCELLED", title));
         notify.log(uid, "case", caseId, "CANCEL", null);
         return detail(caseId, uid, false);
     }
@@ -233,9 +252,9 @@ public class CaseService {
                        c.advisor_teacher_id "advisorTeacherId", t.name "advisorName", t.title "advisorTitle", td.name "advisorDepartment"
                 FROM cases c JOIN users u ON u.id = c.owner_id JOIN departments d ON d.id = u.department_id JOIN colleges col ON col.id = d.college_id
                 LEFT JOIN competitions cp ON cp.id = c.competition_id LEFT JOIN teachers t ON t.id = c.advisor_teacher_id LEFT JOIN departments td ON td.id = t.department_id
-                WHERE c.id = :id""", "找不到案件", "id", caseId);
+                WHERE c.id = :id""", "找不到隊伍", "id", caseId);
         boolean isOwner = Db.i(c.get("ownerId")) == uid;
-        if ("DRAFT".equals(c.get("status")) && !isOwner && !isAdmin) throw ApiException.notFound("找不到案件");
+        if ("DRAFT".equals(c.get("status")) && !isOwner && !isAdmin) throw ApiException.notFound("找不到隊伍");
         Map<String, Object> m = new LinkedHashMap<>(c);
         m.put("isOwner", isOwner);
         if (c.get("competitionDeadline") != null)
@@ -250,6 +269,7 @@ public class CaseService {
             r.put("invitable", Math.max(0, Db.i(r.get("headcount")) - Db.i(r.get("filledCount")) - Db.i(r.get("pendingInvites"))));
         }
         m.put("roles", roles);
+        m.put("need", roles.stream().mapToInt(r -> Db.i(r.get("headcount")) - Db.i(r.get("filledCount"))).sum());
         m.put("members", db.list("""
                 SELECT m.user_id "userId", u.name, d.name department, col.name college, u.degree, u.year, m.is_owner "isOwner", r.role_name "roleName", m.joined_at "joinedAt"
                 FROM case_members m JOIN users u ON u.id = m.user_id JOIN departments d ON d.id = u.department_id JOIN colleges col ON col.id = d.college_id
@@ -293,31 +313,45 @@ public class CaseService {
     // ---------- 申請 / 邀請（D17、D19、D20、D25） ----------
     public record EngagementIn(String direction, Integer userId, String message) {}
 
+    /**
+     * 鎖的順序固定：先隊伍列，再缺口與申請列，最後才是對話列。
+     * 隊伍層級的寫入（申請、接受、解散、成隊、退出、標記報名、排程）都照這個順序，兩個請求同時進來不會互相卡死。
+     */
+    private void lockTeamOfRole(int roleId) {
+        db.one("SELECT id FROM cases WHERE id = (SELECT case_id FROM case_roles WHERE id = :r) FOR UPDATE", "r", roleId);
+    }
+
+    private void lockTeamOfEngagement(int engagementId) {
+        db.one("SELECT id FROM cases WHERE id = (SELECT r.case_id FROM engagements e JOIN case_roles r ON r.id = e.case_role_id WHERE e.id = :e) FOR UPDATE", "e", engagementId);
+    }
+
     @Transactional
     public Map<String, Object> createEngagement(int roleId, int actorId, EngagementIn in) {
+        lockTeamOfRole(roleId);
         var role = db.required("""
                 SELECT r.id, r.case_id, r.headcount, r.filled_count, c.owner_id, c.status, c.title, c.apply_deadline, c.competition_id, c.roster_locked
-                FROM case_roles r JOIN cases c ON c.id = r.case_id WHERE r.id = :id FOR UPDATE OF r""", "找不到角色", "id", roleId);
+                FROM case_roles r JOIN cases c ON c.id = r.case_id WHERE r.id = :id FOR UPDATE OF r""", "找不到隊伍", "id", roleId);
         int caseId = Db.i(role.get("case_id")), ownerId = Db.i(role.get("owner_id"));
-        if (!"OPEN".equals(role.get("status"))) throw ApiException.conflict("INVALID_STATE", "案件不在招募中");
+        if (!"OPEN".equals(role.get("status"))) throw ApiException.conflict("INVALID_STATE", "這支隊伍已經不在招募");
+        if (in.message() != null && in.message().length() > 300) throw ApiException.badRequest("附的那句話最多 300 個字");
         boolean invite = "INVITE".equals(in.direction());
         int joiner;
         if (invite) {
-            if (actorId != ownerId) throw ApiException.forbidden("只有發案方可以邀請");
+            if (actorId != ownerId) throw ApiException.forbidden("只有隊長可以邀請");
             if (in.userId() == null) throw ApiException.badRequest("邀請需指定 userId");
             joiner = in.userId();
             int pendingInvites = db.count("SELECT count(*) FROM engagements WHERE case_role_id = :r AND direction = 'INVITE' AND status = 'PENDING'", "r", roleId);
             int invitable = Db.i(role.get("headcount")) - Db.i(role.get("filled_count")) - pendingInvites;
-            if (invitable <= 0) throw ApiException.conflict("NO_SEAT", "此角色的可邀請名額已用完（名額 − 已加入 − 待處理邀請 = 0）");
+            if (invitable <= 0) throw ApiException.conflict("NO_SEAT", "可以邀請的名額用完了（還在等回覆的邀請也算名額）");
         } else {
             if (!"APPLY".equals(in.direction())) throw ApiException.badRequest("direction 須為 APPLY 或 INVITE");
             joiner = actorId;
             int maxPending = param("max_pending_applications", 0);
             if (maxPending > 0 && db.count("SELECT count(*) FROM engagements WHERE user_id = :u AND direction = 'APPLY' AND status = 'PENDING'", "u", joiner) >= maxPending)
-                throw ApiException.conflict("LIMIT", "待處理的申請已達上限 " + maxPending + " 筆");
+                throw ApiException.conflict("LIMIT", "等待回覆的申請已經有 " + maxPending + " 筆，先等對方回覆，或取消其中一筆");
         }
         RankingEngine.Result r = ranking.evaluateOne(roleId, joiner);
-        if (!r.passed()) throw ApiException.blocked(invite ? "這位同學目前不符合條件，無法邀請" : "目前不符合這支隊伍的條件，無法申請", r.blockedBy());
+        if (!r.passed()) throw ApiException.blocked(invite ? "這位同學目前不符合條件，無法邀請" : "目前不符合這支隊伍的條件，無法申請", TeamService.plain(r.blockedBy(), invite));
         if (role.get("competition_id") != null) {
             try { assertNotInCompetition(joiner, Db.i(role.get("competition_id")), caseId); }
             catch (ApiException ex) { throw ApiException.blocked(invite ? "這位同學已經在這場比賽的另一支隊伍" : "你已經在這場比賽的另一支隊伍", List.of(ex.getMessage())); }
@@ -330,22 +364,25 @@ public class CaseService {
         int id = db.insertReturningId("""
                 INSERT INTO engagements (case_role_id, user_id, direction, status, message, score_snapshot, due_at, created_at)
                 VALUES (:r, :u, :d, 'PENDING', :m, :s, :due, :now) RETURNING id""",
-                "r", roleId, "u", joiner, "d", in.direction(), "m", in.message() == null ? "" : in.message(), "s", r.score(), "due", Db.ts(due), "now", Db.ts(now));
+                "r", roleId, "u", joiner, "d", in.direction(), "m", in.message() == null ? "" : in.message().strip(), "s", r.score(), "due", Db.ts(due), "now", Db.ts(now));
         String title = (String) role.get("title");
-        if (invite) notify.notify(joiner, "INVITE", "收到組隊邀請", "「" + title + "」邀請你加入，請在期限內回覆", "/cases/" + caseId);
-        else notify.notify(ownerId, "APPLY", "收到新申請", "有人申請加入「" + title + "」，請在期限內審核", "/cases/" + caseId);
+        if (invite) notify.notify(joiner, "INVITE", "收到組隊邀請", "「" + title + "」邀請你加入。可以先聊聊，再決定要不要接受", "/messages?e=" + id);
+        else notify.notify(ownerId, "APPLY", "有人想加入你的隊伍", "有同學申請加入「" + title + "」。可以先聊聊，再決定要不要接受", "/messages?e=" + id);
+        // 即時通訊在同一筆交易內建立洽談對話；附的那句話成為對話的第一則訊息
+        events.publishEvent(new EngagementCreated(id, caseId, joiner, ownerId, in.direction(), in.message(), title));
         // 建立時若距到期已不足提醒時數，立即提醒（D24）
         if (due.minusSeconds(param("reminder_hours", 24) * 3600L).isBefore(now)) remind(id, invite ? joiner : ownerId, title, caseId);
         notify.log(actorId, "engagement", id, in.direction(), "{\"score\":" + r.score() + "}");
-        return Map.of("id", id, "status", "PENDING", "dueAt", due.toString(), "score", r.score(), "reasons", r.reasons());
+        return Map.of("id", id, "caseId", caseId, "status", "PENDING", "dueAt", due.toString(), "score", r.score(), "reasons", r.reasons());
     }
 
     void remind(int engagementId, int responderId, String caseTitle, int caseId) {
-        notify.notify(responderId, "REMINDER", "待回覆即將到期", "「" + caseTitle + "」的申請／邀請將在 24 小時內到期，逾時自動視為放棄", "/cases/" + caseId);
+        notify.notify(responderId, "REMINDER", "有一筆在等你回覆", "「" + caseTitle + "」的申請或邀請快到期了，逾時會自動失效", "/messages?e=" + engagementId);
         db.exec("UPDATE engagements SET reminded_at = :t WHERE id = :id", "t", Db.ts(clock.instant()), "id", engagementId);
     }
 
     private Map<String, Object> engagement(int id) {
+        lockTeamOfEngagement(id);
         return db.required("""
                 SELECT e.id, e.case_role_id, e.user_id, e.direction, e.status, r.case_id, r.headcount, r.filled_count, c.owner_id, c.status case_status, c.title,
                        c.competition_id, c.roster_locked
@@ -359,9 +396,9 @@ public class CaseService {
     @Transactional
     public Map<String, Object> accept(int engagementId, int uid) {
         var e = engagement(engagementId);
-        if (responder(e) != uid) throw ApiException.forbidden("你不是這筆申請／邀請的確認方");
-        if (!"PENDING".equals(e.get("status"))) throw ApiException.conflict("INVALID_STATE", "此筆已不是待處理狀態");
-        if (!"OPEN".equals(e.get("case_status"))) throw ApiException.conflict("INVALID_STATE", "案件已不在招募中");
+        if (responder(e) != uid) throw ApiException.forbidden("這一筆不是由你回覆");
+        if (!"PENDING".equals(e.get("status"))) throw ApiException.conflict("INVALID_STATE", "這一筆已經處理過了");
+        if (!"OPEN".equals(e.get("case_status"))) throw ApiException.conflict("INVALID_STATE", "這支隊伍已經不在招募");
         int caseId = Db.i(e.get("case_id")), roleId = Db.i(e.get("case_role_id")), joiner = Db.i(e.get("user_id"));
         Instant now = clock.instant();
         if (Db.i(e.get("filled_count")) >= Db.i(e.get("headcount"))) {
@@ -369,27 +406,31 @@ public class CaseService {
             throw ApiException.conflict("NO_SEAT", "名額已滿");
         }
         if (db.count("SELECT count(*) FROM case_members WHERE case_id = :c AND user_id = :u", "c", caseId, "u", joiner) > 0)
-            throw ApiException.conflict("ALREADY_MEMBER", "此人已是成員");
+            throw ApiException.conflict("ALREADY_MEMBER", "這位同學已經是隊友");
         Integer competitionId = e.get("competition_id") == null ? null : Db.i(e.get("competition_id"));
         assertNotInCompetition(joiner, competitionId, caseId);
         db.exec("UPDATE engagements SET status = 'ACCEPTED', decided_at = :t WHERE id = :id", "t", Db.ts(now), "id", engagementId);
         db.exec("UPDATE case_roles SET filled_count = filled_count + 1 WHERE id = :r", "r", roleId);
         addMember(caseId, joiner, roleId, false, competitionId);
         String title = (String) e.get("title");
-        notify.notify(initiator(e), "ACCEPTED", "申請／邀請已成立", "你與「" + title + "」的組隊已成立", "/cases/" + caseId);
-        // 角色額滿：其他待處理者以「額滿」結束
+        int ownerId = Db.i(e.get("owner_id"));
+        notify.notify(initiator(e), "ACCEPTED", "成為隊友了", "你和「" + title + "」的組隊成立了，可以到隊伍群組討論", "/cases/" + caseId);
+        events.publishEvent(new EngagementAccepted(engagementId, caseId, joiner, ownerId, (String) e.get("direction"), uid, title));
+        // 這個缺口收滿了：其他還在等回覆的以「額滿」結束
         int filled = Db.i(e.get("filled_count")) + 1;
         if (filled >= Db.i(e.get("headcount"))) {
-            for (var o : db.list("SELECT id, user_id, direction FROM engagements WHERE case_role_id = :r AND status = 'PENDING'", "r", roleId)) {
+            for (var o : db.list("SELECT id, user_id, direction FROM engagements WHERE case_role_id = :r AND status = 'PENDING' ORDER BY id FOR UPDATE", "r", roleId)) {
                 db.exec("UPDATE engagements SET status = 'FULL', decided_at = :t WHERE id = :id", "t", Db.ts(now), "id", o.get("id"));
-                notify.notify(Db.i(o.get("user_id")), "FULL", "名額已滿", "「" + title + "」的該角色名額已滿", "/cases/" + caseId);
+                notify.notify(Db.i(o.get("user_id")), "FULL", "名額已滿", "「" + title + "」已經收滿人", "/messages?e=" + o.get("id"));
+                events.publishEvent(new EngagementClosed(Db.i(o.get("id")), caseId, Db.i(o.get("user_id")), ownerId, (String) o.get("direction"), "FULL", null, title));
             }
         }
-        // 全部角色額滿 → 自動成案
+        // 全部缺口收滿 → 自動成隊
         if (db.count("SELECT count(*) FROM case_roles WHERE case_id = :c AND filled_count < headcount", "c", caseId) == 0) {
             db.exec("UPDATE cases SET status = 'FORMED' WHERE id = :c", "c", caseId);
             for (var m : db.list("SELECT user_id FROM case_members WHERE case_id = :c", "c", caseId))
-                notify.notify(Db.i(m.get("user_id")), "FORMED", "成案了", "「" + title + "」所有角色已到齊，正式成案", "/cases/" + caseId);
+                notify.notify(Db.i(m.get("user_id")), "FORMED", "成隊了", "「" + title + "」人到齊了。下一步：到比賽官網完成報名", "/cases/" + caseId);
+            events.publishEvent(new TeamFormed(caseId, title, false, false, null));
             notify.log(uid, "case", caseId, "FORMED", null);
         }
         notify.log(uid, "engagement", engagementId, "ACCEPT", null);
@@ -399,11 +440,13 @@ public class CaseService {
     @Transactional
     public Map<String, Object> decline(int engagementId, int uid) {
         var e = engagement(engagementId);
-        if (responder(e) != uid) throw ApiException.forbidden("你不是這筆申請／邀請的確認方");
-        if (!"PENDING".equals(e.get("status"))) throw ApiException.conflict("INVALID_STATE", "此筆已不是待處理狀態");
+        if (responder(e) != uid) throw ApiException.forbidden("這一筆不是由你回覆");
+        if (!"PENDING".equals(e.get("status"))) throw ApiException.conflict("INVALID_STATE", "這一筆已經處理過了");
         db.exec("UPDATE engagements SET status = 'DECLINED', decided_at = :t WHERE id = :id", "t", Db.ts(clock.instant()), "id", engagementId);
         int caseId = Db.i(e.get("case_id"));
-        notify.notify(initiator(e), "DECLINED", "對方已拒絕", "「" + e.get("title") + "」的申請／邀請未被接受", "/cases/" + caseId);
+        String what = "INVITE".equals(e.get("direction")) ? "邀請" : "申請";
+        notify.notify(initiator(e), "DECLINED", "對方婉拒了", "「" + e.get("title") + "」的" + what + "沒有成立", "/messages?e=" + engagementId);
+        events.publishEvent(new EngagementClosed(engagementId, caseId, Db.i(e.get("user_id")), Db.i(e.get("owner_id")), (String) e.get("direction"), "DECLINED", uid, (String) e.get("title")));
         notify.log(uid, "engagement", engagementId, "DECLINE", null);
         return detail(caseId, uid, false);
     }
@@ -411,9 +454,12 @@ public class CaseService {
     @Transactional
     public Map<String, Object> withdraw(int engagementId, int uid) {
         var e = engagement(engagementId);
-        if (initiator(e) != uid) throw ApiException.forbidden("只有發起方可以撤回");
-        if (!"PENDING".equals(e.get("status"))) throw ApiException.conflict("INVALID_STATE", "此筆已不是待處理狀態");
+        if (initiator(e) != uid) throw ApiException.forbidden("只有送出的人可以取消");
+        if (!"PENDING".equals(e.get("status"))) throw ApiException.conflict("INVALID_STATE", "這一筆已經處理過了");
         db.exec("UPDATE engagements SET status = 'WITHDRAWN', decided_at = :t WHERE id = :id", "t", Db.ts(clock.instant()), "id", engagementId);
+        String what = "INVITE".equals(e.get("direction")) ? "邀請" : "申請";
+        notify.notify(responder(e), "WITHDRAWN", "對方取消了", "「" + e.get("title") + "」的" + what + "已由對方取消", "/messages?e=" + engagementId);
+        events.publishEvent(new EngagementClosed(engagementId, Db.i(e.get("case_id")), Db.i(e.get("user_id")), Db.i(e.get("owner_id")), (String) e.get("direction"), "WITHDRAWN", uid, (String) e.get("title")));
         notify.log(uid, "engagement", engagementId, "WITHDRAW", null);
         return detail(Db.i(e.get("case_id")), uid, false);
     }
@@ -438,18 +484,32 @@ public class CaseService {
                 JOIN case_roles r ON r.id = e.case_role_id JOIN cases c ON c.id = r.case_id
                 WHERE e.status = 'PENDING' AND e.due_at <= :t""", "t", Db.ts(now));
         for (var e : rows) {
-            db.exec("UPDATE engagements SET status = 'EXPIRED', decided_at = :t WHERE id = :id", "t", Db.ts(now), "id", e.get("id"));
-            int caseId = Db.i(e.get("case_id"));
-            notify.notify(responder(e), "EXPIRED", "逾時未回覆，已自動放棄", "「" + e.get("title") + "」的申請／邀請已逾期，計入回應率", "/cases/" + caseId);
-            notify.notify(initiator(e), "EXPIRED", "對方逾時未回覆", "「" + e.get("title") + "」的申請／邀請已逾期，名額已釋放", "/cases/" + caseId);
-            notify.log(null, "engagement", Db.i(e.get("id")), "EXPIRE", null);
+            int id = Db.i(e.get("id")), caseId = Db.i(e.get("case_id"));
+            lockTeamOfEngagement(id);
+            // 帶著狀態條件更新：排程和使用者同時動同一筆時，只會有一邊成立
+            if (db.exec("UPDATE engagements SET status = 'EXPIRED', decided_at = :t WHERE id = :id AND status = 'PENDING'", "t", Db.ts(now), "id", id) == 0) continue;
+            String what = "INVITE".equals(e.get("direction")) ? "邀請" : "申請";
+            notify.notify(responder(e), "EXPIRED", "逾時未回覆，已自動失效", "「" + e.get("title") + "」的" + what + "超過回覆期限（會計入回應率）", "/messages?e=" + id);
+            notify.notify(initiator(e), "EXPIRED", "對方逾時未回覆", "「" + e.get("title") + "」的" + what + "已失效，名額已釋放", "/messages?e=" + id);
+            events.publishEvent(new EngagementClosed(id, caseId, Db.i(e.get("user_id")), Db.i(e.get("owner_id")), (String) e.get("direction"), "EXPIRED", null, (String) e.get("title")));
+            notify.log(null, "engagement", id, "EXPIRE", null);
         }
-        // 招募截止仍未成案 → EXPIRED
-        for (var c : db.list("SELECT id, title FROM cases WHERE status = 'OPEN' AND apply_deadline <= :t", "t", Db.ts(now))) {
-            db.exec("UPDATE cases SET status = 'EXPIRED' WHERE id = :id", "id", c.get("id"));
-            releaseMembers(Db.i(c.get("id")));
-            for (var m : db.list("SELECT user_id FROM case_members WHERE case_id = :c", "c", c.get("id")))
-                notify.notify(Db.i(m.get("user_id")), "CASE_EXPIRED", "案件招募截止未成案", "「" + c.get("title") + "」在截止日前未湊齊成員", "/cases/" + c.get("id"));
+        // 報名截止時還在招募的隊伍：人數夠（至少 2 人，而且達到比賽的每隊下限）就以目前名單成隊，之後照常追蹤報名；不夠的結束
+        for (var c : db.list("""
+                SELECT c.id, c.title, c.owner_id, (SELECT count(*) FROM case_members m WHERE m.case_id = c.id) members, coalesce(cp.team_min, 2) team_min
+                FROM cases c LEFT JOIN competitions cp ON cp.id = c.competition_id
+                WHERE c.status = 'OPEN' AND c.apply_deadline <= :t ORDER BY c.id FOR UPDATE OF c""", "t", Db.ts(now))) {
+            int caseId = Db.i(c.get("id"));
+            String title = (String) c.get("title");
+            closePending(caseId, Db.i(c.get("owner_id")), title, "EXPIRED", "TEAM_ENDED");
+            boolean enough = Db.i(c.get("members")) >= Math.max(2, Db.i(c.get("team_min")));
+            db.exec("UPDATE cases SET status = :s WHERE id = :id", "s", enough ? "FORMED" : "EXPIRED", "id", caseId);
+            if (!enough) releaseMembers(caseId);
+            for (var m : db.list("SELECT user_id FROM case_members WHERE case_id = :c", "c", caseId))
+                notify.notify(Db.i(m.get("user_id")), enough ? "FORMED" : "CASE_EXPIRED", enough ? "報名截止，以目前名單成隊" : "隊伍沒有在截止前成隊",
+                        enough ? "「" + title + "」以目前的名單成隊。已經報名的話，請隊長按「已報名」" : "「" + title + "」在報名截止前沒有找到隊友", "/cases/" + caseId);
+            events.publishEvent(enough ? new TeamFormed(caseId, title, false, true, null) : new TeamEnded(caseId, "EXPIRED", title));
+            notify.log(null, "case", caseId, enough ? "FORMED_AT_DEADLINE" : "EXPIRE", null);
         }
         return rows.size();
     }

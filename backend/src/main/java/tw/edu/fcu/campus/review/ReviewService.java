@@ -1,10 +1,12 @@
 package tw.edu.fcu.campus.review;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tw.edu.fcu.campus.cases.CaseService;
 import tw.edu.fcu.campus.common.ApiException;
 import tw.edu.fcu.campus.common.Db;
+import tw.edu.fcu.campus.common.events.TeamEvents.TeamEnded;
 import tw.edu.fcu.campus.config.DemoClock;
 import tw.edu.fcu.campus.notify.NotificationService;
 import tw.edu.fcu.campus.profile.SkillProfileService;
@@ -22,9 +24,10 @@ public class ReviewService {
     private final NotificationService notify;
     private final CaseService cases;
     private final SkillProfileService profile;
+    private final ApplicationEventPublisher events;
 
-    public ReviewService(Db db, DemoClock clock, NotificationService notify, CaseService cases, SkillProfileService profile) {
-        this.db = db; this.clock = clock; this.notify = notify; this.cases = cases; this.profile = profile;
+    public ReviewService(Db db, DemoClock clock, NotificationService notify, CaseService cases, SkillProfileService profile, ApplicationEventPublisher events) {
+        this.db = db; this.clock = clock; this.notify = notify; this.cases = cases; this.profile = profile; this.events = events;
     }
 
     private int param(String k, int d) { Integer v = db.scalar(Integer.class, "SELECT value FROM system_params WHERE key = :k", "k", k); return v == null ? d : v; }
@@ -101,7 +104,10 @@ public class ReviewService {
         for (int a : members) for (int b : members) if (a != b)
             db.exec("INSERT INTO reviews (case_id, reviewer_id, reviewee_id, due_at) VALUES (:c, :a, :b, :d) ON CONFLICT DO NOTHING", "c", caseId, "a", a, "b", b, "d", Db.ts(due));
         var c = db.one("SELECT title FROM cases WHERE id = :c", "c", caseId);
-        for (int m : members) notify.notify(m, "REVIEW", "案件已結案，請完成互評", "「" + c.get("title") + "」已結案（" + ("COMPLETED".equals(result) ? "完成" : "未完成") + "），請在 72 小時內評價隊友；雙方都送出後才會同時公開", "/cases/" + caseId + "/review");
+        cases.releaseMembers(caseId);
+        events.publishEvent(new TeamEnded(caseId, "CLOSED", (String) c.get("title")));
+        if (members.size() > 1)
+            for (int m : members) notify.notify(m, "REVIEW", "比賽結束了，給隊友一點回饋", "「" + c.get("title") + "」已經結束，請在 72 小時內評價隊友；雙方都送出後才會同時公開", "/cases/" + caseId + "/review");
         // 結案證據（CASE）要等互評雙盲公開、隊友相符度達門檻才產生：見 submit() 與 reviewTimeout()
         notify.log(null, "case", caseId, "CLOSED", "{\"result\":\"" + result + "\"}");
     }
@@ -186,12 +192,17 @@ public class ReviewService {
     public int autoClose() {
         int days = param("auto_close_days", 7);
         LocalDate today = LocalDate.now(clock);
-        var rows = db.list("SELECT id, end_date FROM cases WHERE status = 'IN_PROGRESS' AND end_date + cast(:d AS int) <= :today", "d", days, "today", today);
+        // 3.1：比賽結束後自動結束隊伍（取代 2.0 的結案投票）。已標記報名的算完成；成隊但沒有標記報名的算未完成。
+        var rows = db.list("""
+                SELECT id, competition_id, registered_at FROM cases
+                WHERE status IN ('FORMED','IN_PROGRESS') AND end_date + cast(:d AS int) <= cast(:today AS date) ORDER BY id FOR UPDATE""", "d", days, "today", today);
         for (var r : rows) {
             int caseId = Db.i(r.get("id"));
             Instant now = clock.instant();
-            int reqId = db.insertReturningId("INSERT INTO close_requests (case_id, result, auto, status, requested_at, due_at, decided_at) VALUES (:c, 'COMPLETED', TRUE, 'PASSED', :t, :t, :t) RETURNING id", "c", caseId, "t", Db.ts(now));
-            finalizeClose(caseId, "COMPLETED", now, reqId);
+            String result = r.get("competition_id") == null || r.get("registered_at") != null ? "COMPLETED" : "INCOMPLETE";
+            int reqId = db.insertReturningId("INSERT INTO close_requests (case_id, result, auto, status, requested_at, due_at, decided_at) VALUES (:c, :r, TRUE, 'PASSED', :t, :t, :t) RETURNING id",
+                    "c", caseId, "r", result, "t", Db.ts(now));
+            finalizeClose(caseId, result, now, reqId);
         }
         return rows.size();
     }

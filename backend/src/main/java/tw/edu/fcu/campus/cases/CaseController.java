@@ -50,6 +50,13 @@ public class CaseController {
     @PostMapping("/cases/{id}/publish") public Map<String, Object> publish(@PathVariable int id) { return cases.publish(id, Current.id()); }
     @PostMapping("/cases/{id}/cancel") public Map<String, Object> cancel(@PathVariable int id) { return cases.cancel(id, Current.id()); }
     @PostMapping("/cases/{id}/start") public Map<String, Object> start(@PathVariable int id) { return cases.start(id, Current.id()); }
+
+    // 主線的後半段：提前成隊、退出、請離、標記已報名
+    @PostMapping("/cases/{id}/form") public Map<String, Object> form(@PathVariable int id) { return teams.form(id, Current.id()); }
+    @PostMapping("/cases/{id}/leave") public Map<String, Object> leave(@PathVariable int id) { return teams.leave(id, Current.id()); }
+    @DeleteMapping("/cases/{id}/members/{userId}") public Map<String, Object> remove(@PathVariable int id, @PathVariable int userId) { return teams.remove(id, Current.id(), userId); }
+    @PostMapping("/cases/{id}/registration") public Map<String, Object> register(@PathVariable int id) { return teams.markRegistered(id, Current.id()); }
+    @DeleteMapping("/cases/{id}/registration") public Map<String, Object> unregister(@PathVariable int id) { return teams.unmarkRegistered(id, Current.id()); }
     @GetMapping("/cases/{id}/engagements") public List<Map<String, Object>> engagements(@PathVariable int id) {
         cases.detail(id, Current.id(), Current.isAdmin());
         return cases.engagementsOfCase(id);

@@ -1,9 +1,11 @@
 package tw.edu.fcu.campus.cases;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tw.edu.fcu.campus.common.ApiException;
 import tw.edu.fcu.campus.common.Db;
+import tw.edu.fcu.campus.common.events.TeamEvents.*;
 import tw.edu.fcu.campus.config.DemoClock;
 import tw.edu.fcu.campus.notify.NotificationService;
 import tw.edu.fcu.campus.ranking.RankingEngine;
@@ -32,9 +34,10 @@ public class TeamService {
     private final NotificationService notify;
     private final RankingService ranking;
     private final CaseService cases;
+    private final ApplicationEventPublisher events;
 
-    public TeamService(Db db, DemoClock clock, NotificationService notify, RankingService ranking, CaseService cases) {
-        this.db = db; this.clock = clock; this.notify = notify; this.ranking = ranking; this.cases = cases;
+    public TeamService(Db db, DemoClock clock, NotificationService notify, RankingService ranking, CaseService cases, ApplicationEventPublisher events) {
+        this.db = db; this.clock = clock; this.notify = notify; this.ranking = ranking; this.cases = cases; this.events = events;
     }
 
     // ---------- 開隊（FR-06）：隊名、還缺幾人、想找的技能、一句話；截止日與人數上限由比賽帶入 ----------
@@ -82,8 +85,9 @@ public class TeamService {
             throw ApiException.conflict("LIMIT", "同時招募中的隊伍已達上限 " + max + " 支");
 
         Instant now = clock.instant();
-        LocalDate end = comp.get("event_date") == null ? deadline : ((java.sql.Date) comp.get("event_date")).toLocalDate();
-        if (end.isBefore(today)) end = today;
+        // 隊伍的結束日 = 比賽日期；比賽還沒公告日期時，先抓報名截止後一段時間（可調參數），免得報名一截止群組就變唯讀
+        LocalDate end = comp.get("event_date") == null ? deadline.plusDays(cases.param("team_days_without_event_date", 120)) : ((java.sql.Date) comp.get("event_date")).toLocalDate();
+        if (end.isBefore(deadline)) end = deadline;
         int id = db.insertReturningId("""
                 INSERT INTO cases (owner_id, title, type, description, team_size, apply_deadline, start_date, end_date, status, created_at, competition_id)
                 VALUES (:o, :t, 'COMPETITION', :d, :n, :dl, :s, :e, 'OPEN', :c, :comp) RETURNING id""",
@@ -209,6 +213,142 @@ public class TeamService {
         return out;
     }
 
+    // ---------- 成隊、退出、請離、報名追蹤（主線的後半段） ----------
+    /** 鎖住隊伍列；隊伍層級的寫入都先做這一步（鎖的順序見 CaseService） */
+    private Map<String, Object> locked(int caseId) {
+        return db.required("""
+                SELECT c.id, c.owner_id, c.status, c.title, c.apply_deadline, c.registered_at, c.roster_locked, cp.team_min, cp.team_max
+                FROM cases c LEFT JOIN competitions cp ON cp.id = c.competition_id WHERE c.id = :id FOR UPDATE OF c""", "找不到隊伍", "id", caseId);
+    }
+
+    private int memberCount(int caseId) { return db.count("SELECT count(*) FROM case_members WHERE case_id = :c", "c", caseId); }
+
+    /** 人數要落在比賽規定的每隊人數之內；比賽沒有寫下限時不擋 */
+    private void checkSize(Map<String, Object> c, int members) {
+        if (c.get("team_min") != null && members < Db.i(c.get("team_min")))
+            throw ApiException.conflict("TEAM_TOO_SMALL", "這場比賽每隊至少 " + c.get("team_min") + " 人，目前 " + members + " 人");
+        if (c.get("team_max") != null && members > Db.i(c.get("team_max")))
+            throw ApiException.conflict("TEAM_TOO_LARGE", "這場比賽每隊最多 " + c.get("team_max") + " 人，目前 " + members + " 人");
+    }
+
+    private void notifyOthers(int caseId, int exceptUserId, String type, String title, String body) {
+        for (var m : db.list("SELECT user_id FROM case_members WHERE case_id = :c AND user_id <> :u", "c", caseId, "u", exceptUserId))
+            notify.notify(Db.i(m.get("user_id")), type, title, body, "/cases/" + caseId);
+    }
+
+    /** 提前成隊（FR-13）：名額還沒滿，隊長決定就用目前的名單。還在等回覆的申請與邀請一併結束。 */
+    @Transactional
+    public Map<String, Object> form(int caseId, int uid) {
+        var c = locked(caseId);
+        if (Db.i(c.get("owner_id")) != uid) throw ApiException.forbidden("只有隊長可以確認成隊");
+        if (!"OPEN".equals(c.get("status"))) throw ApiException.conflict("INVALID_STATE", "隊伍不在招募中，不需要再確認成隊");
+        int members = memberCount(caseId);
+        checkSize(c, members);
+        String title = (String) c.get("title");
+        cases.closePending(caseId, uid, title, "FULL", "FULL");
+        db.exec("UPDATE cases SET status = 'FORMED' WHERE id = :c", "c", caseId);
+        events.publishEvent(new TeamFormed(caseId, title, true, false, uid));
+        notifyOthers(caseId, uid, "FORMED", "成隊了", "「" + title + "」隊長確認成隊。下一步：到比賽官網完成報名");
+        notify.log(uid, "case", caseId, "FORM_EARLY", "{\"members\":" + members + "}");
+        return cases.detail(caseId, uid, false);
+    }
+
+    /** 退出隊伍（FR-14）：報名前可以退出；隊長不能退出，只能解散 */
+    @Transactional
+    public Map<String, Object> leave(int caseId, int uid) {
+        var c = locked(caseId);
+        if (Db.i(c.get("owner_id")) == uid) throw ApiException.conflict("OWNER_CANNOT_LEAVE", "隊長不能退出。不打算參加的話，可以解散隊伍");
+        String name = db.scalar(String.class, "SELECT name FROM users WHERE id = :u", "u", uid);
+        boolean reopened = removeMember(c, uid, false);
+        notify.notify(Db.i(c.get("owner_id")), "MEMBER_LEFT", "有隊友退出", name + " 退出了「" + c.get("title") + "」" + (reopened ? "，隊伍回到招募中" : ""), "/cases/" + caseId);
+        return Map.of("left", true, "caseId", caseId);
+    }
+
+    /** 請人離開（FR-14）：報名前隊長可以調整名單 */
+    @Transactional
+    public Map<String, Object> remove(int caseId, int uid, int targetId) {
+        var c = locked(caseId);
+        if (Db.i(c.get("owner_id")) != uid) throw ApiException.forbidden("只有隊長可以調整名單");
+        if (targetId == uid) throw ApiException.badRequest("不能把自己移出隊伍；不打算參加的話，可以解散隊伍");
+        removeMember(c, targetId, true);
+        notify.notify(targetId, "MEMBER_REMOVED", "你已離開隊伍", "隊長調整了「" + c.get("title") + "」的名單，你已不在這支隊伍", "/");
+        return cases.detail(caseId, uid, false);
+    }
+
+    /** 回傳隊伍是否因此回到招募中 */
+    private boolean removeMember(Map<String, Object> c, int userId, boolean removed) {
+        int caseId = Db.i(c.get("id"));
+        String status = (String) c.get("status");
+        if (Boolean.TRUE.equals(c.get("roster_locked"))) throw ApiException.conflict("ROSTER_LOCKED", "已經報名、名單鎖定，不能再調整成員");
+        if (!Set.of("OPEN", "FORMED").contains(status)) throw ApiException.conflict("INVALID_STATE", "隊伍已經結束，不能再調整成員");
+        var m = db.one("SELECT case_role_id FROM case_members WHERE case_id = :c AND user_id = :u", "c", caseId, "u", userId);
+        if (m == null) throw ApiException.notFound(removed ? "這位同學不在隊伍裡" : "你不在這支隊伍裡");
+        // 成員資格直接刪除：同一場比賽可以再加入別隊，這支隊伍也空出一個名額
+        db.exec("DELETE FROM case_members WHERE case_id = :c AND user_id = :u", "c", caseId, "u", userId);
+        if (m.get("case_role_id") != null) db.exec("UPDATE case_roles SET filled_count = greatest(filled_count - 1, 0) WHERE id = :r", "r", m.get("case_role_id"));
+        boolean reopened = "FORMED".equals(status) && Db.instant(c.get("apply_deadline")).isAfter(clock.instant());
+        if (reopened) db.exec("UPDATE cases SET status = 'OPEN' WHERE id = :c", "c", caseId);
+        events.publishEvent(new MemberLeft(caseId, userId, removed, reopened, (String) c.get("title")));
+        notify.log(userId, "case", caseId, removed ? "MEMBER_REMOVED" : "MEMBER_LEFT", "{\"reopened\":" + reopened + "}");
+        return reopened;
+    }
+
+    /**
+     * 標記已報名（FR-15）：報名是在比賽官網做的，這裡只記錄「隊長說已經報好了」，並鎖定名單。
+     * 還在招募中就按，等於同時確認成隊。
+     */
+    @Transactional
+    public Map<String, Object> markRegistered(int caseId, int uid) {
+        var c = locked(caseId);
+        if (Db.i(c.get("owner_id")) != uid) throw ApiException.forbidden("只有隊長可以標記已報名");
+        if (c.get("registered_at") != null) return cases.detail(caseId, uid, false);
+        String status = (String) c.get("status"), title = (String) c.get("title");
+        if (!Set.of("OPEN", "FORMED").contains(status)) throw ApiException.conflict("INVALID_STATE", "隊伍已經結束，不能標記報名");
+        int members = memberCount(caseId);
+        checkSize(c, members);
+        if ("OPEN".equals(status)) cases.closePending(caseId, uid, title, "FULL", "FULL");
+        db.exec("UPDATE cases SET status = 'IN_PROGRESS', registered_at = :t, registered_by = :u, roster_locked = TRUE WHERE id = :c", "t", Db.ts(clock.instant()), "u", uid, "c", caseId);
+        events.publishEvent(new RegistrationMarked(caseId, uid, true, title));
+        notifyOthers(caseId, uid, "REGISTERED", "隊伍已報名", "「" + title + "」隊長已標記完成報名，名單鎖定");
+        notify.log(uid, "case", caseId, "REGISTERED", "{\"members\":" + members + "}");
+        return cases.detail(caseId, uid, false);
+    }
+
+    /** 取消「已報名」的標記（按錯時用）：名單解鎖，回到已成隊 */
+    @Transactional
+    public Map<String, Object> unmarkRegistered(int caseId, int uid) {
+        var c = locked(caseId);
+        if (Db.i(c.get("owner_id")) != uid) throw ApiException.forbidden("只有隊長可以取消標記");
+        if (c.get("registered_at") == null || !"IN_PROGRESS".equals(c.get("status"))) throw ApiException.conflict("INVALID_STATE", "這支隊伍沒有標記已報名");
+        db.exec("UPDATE cases SET status = 'FORMED', registered_at = NULL, registered_by = NULL, roster_locked = FALSE WHERE id = :c", "c", caseId);
+        events.publishEvent(new RegistrationMarked(caseId, uid, false, (String) c.get("title")));
+        notify.log(uid, "case", caseId, "UNREGISTERED", null);
+        return cases.detail(caseId, uid, false);
+    }
+
+    /** 排程：報名截止前 7、3、1 天，提醒還沒標記已報名的隊伍（FR-16）。每個門檻只提醒一次。 */
+    @Transactional
+    public int registrationReminders() {
+        LocalDate today = LocalDate.now(clock);
+        int n = 0;
+        for (var c : db.list("""
+                SELECT c.id, c.title, c.owner_id, c.reminded_days, cp.apply_deadline FROM cases c JOIN competitions cp ON cp.id = c.competition_id
+                WHERE c.status IN ('OPEN','FORMED') AND c.registered_at IS NULL AND cp.apply_deadline IS NOT NULL
+                  AND cp.apply_deadline - cast(:today AS date) BETWEEN 0 AND 7 ORDER BY c.id FOR UPDATE OF c""", "today", today)) {
+            int daysLeft = (int) ChronoUnit.DAYS.between(today, ((java.sql.Date) c.get("apply_deadline")).toLocalDate());
+            int threshold = daysLeft <= 1 ? 1 : daysLeft <= 3 ? 3 : 7;
+            if (c.get("reminded_days") != null && Db.i(c.get("reminded_days")) <= threshold) continue;     // 這個門檻（或更近的）已經提醒過
+            int caseId = Db.i(c.get("id"));
+            String title = (String) c.get("title");
+            db.exec("UPDATE cases SET reminded_days = :d WHERE id = :c", "d", threshold, "c", caseId);
+            events.publishEvent(new RegistrationReminder(caseId, daysLeft, title));
+            notify.notify(Db.i(c.get("owner_id")), "REG_REMINDER", "報名快截止了",
+                    "「" + title + "」" + (daysLeft == 0 ? "今天報名截止" : "距離報名截止還有 " + daysLeft + " 天") + "，記得到比賽官網報名", "/cases/" + caseId);
+            n++;
+        }
+        return n;
+    }
+
     /** 卡片上的白話理由：不顯示分數，也不出現「閘門」「契合度」這些詞（規格書第 11 節的友善標準） */
     private static List<String> fitTags(Map<String, Object> role, Map<String, Object> me, Map<String, Object> team) {
         List<String> tags = new ArrayList<>();
@@ -226,18 +366,22 @@ public class TeamService {
     private static final Pattern BELOW = Pattern.compile("^G2：(.+) (未達初階|初階|中階|進階)，未達 (初階|中階|進階)$");
     private static final Pattern HOURS = Pattern.compile("^G3：每週可投入 (\\d+) 小時，低於需求 (\\d+) 小時$");
 
-    /** 把排序引擎的原因改寫成給學生看的白話 */
-    public static List<String> plain(List<String> blockedBy) {
+    /** 把排序引擎的原因改寫成給學生看的白話（對象是登入者自己） */
+    public static List<String> plain(List<String> blockedBy) { return plain(blockedBy, false); }
+
+    /** aboutOther：原因講的是別人（隊長邀請時），主詞從「你」換成「這位同學」 */
+    public static List<String> plain(List<String> blockedBy, boolean aboutOther) {
         List<String> out = new ArrayList<>();
+        String who = aboutOther ? "這位同學" : "你";
         for (String b : blockedBy) {
             Matcher m;
-            if (b.startsWith("G1：發案方")) out.add("這是你自己的隊伍");
-            else if (b.startsWith("G1：已是本案成員")) out.add("你已經在這支隊伍裡");
+            if (b.startsWith("G1：發案方")) out.add(aboutOther ? "不能邀請自己" : "這是你自己的隊伍");
+            else if (b.startsWith("G1：已是本案成員")) out.add(who + "已經在這支隊伍裡");
             else if (b.startsWith("G1：已有待處理")) out.add("已經有一筆申請或邀請在等回覆");
             else if ((m = MISSING.matcher(b)).matches()) out.add("一定要會「" + m.group(1) + "」");
             else if ((m = BELOW.matcher(b)).matches()) out.add("「" + m.group(1) + "」需要" + m.group(3) + "以上");
             else if ((m = HOURS.matcher(b)).matches()) out.add("每週可投入的時間不夠（需要 " + m.group(2) + " 小時）");
-            else if (b.startsWith("G3：可用期間")) out.add("你的可用期間和比賽期間對不上");
+            else if (b.startsWith("G3：可用期間")) out.add(who + "的可用期間和比賽期間對不上");
             else if (b.startsWith("G4：案件不在招募中")) out.add("這支隊伍已經不在招募");
             else if (b.startsWith("G4：")) out.add("名額已滿");
             else out.add(b.replaceFirst("^G\\d：", ""));
