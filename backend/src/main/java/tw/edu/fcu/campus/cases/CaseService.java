@@ -1,5 +1,6 @@
 package tw.edu.fcu.campus.cases;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tw.edu.fcu.campus.common.ApiException;
@@ -16,7 +17,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 /**
- * M2 案件與申請／邀請。
+ * 隊伍（程式裡稱 case）與申請／邀請。3.1 只建立比賽隊伍；精簡的開隊表單與隊伍牆在 {@link TeamService}。
  * 案件狀態：DRAFT → OPEN → FORMED → IN_PROGRESS → CLOSING → CLOSED；OPEN 可 EXPIRED；DRAFT/OPEN/FORMED 可 CANCELLED。
  * 申請與邀請共用 engagements（D17），名額在同一交易內以 FOR UPDATE 鎖定（D25）。
  */
@@ -47,6 +48,7 @@ public class CaseService {
     @Transactional
     public Map<String, Object> create(int uid, CaseIn in) {
         validate(in);
+        assertNotInCompetition(uid, in.competitionId(), null);
         int id = db.insertReturningId("""
                 INSERT INTO cases (owner_id, title, type, description, team_size, apply_deadline, start_date, end_date, attribution, status, created_at, competition_id, advisor_teacher_id)
                 VALUES (:o, :t, :ty, :d, :n, :dl, :s, :e, :a, 'DRAFT', :c, :comp, :adv) RETURNING id""",
@@ -54,7 +56,7 @@ public class CaseService {
                 "o", uid, "t", in.title().trim(), "ty", in.type(), "d", in.description() == null ? "" : in.description(), "n", in.teamSize(),
                 "dl", Db.ts(parseDeadline(in.applyDeadline())), "s", LocalDate.parse(in.startDate()), "e", LocalDate.parse(in.endDate()),
                 "a", "RESEARCH".equals(in.type()) ? in.attribution() : null, "c", Db.ts(clock.instant()));
-        db.exec("INSERT INTO case_members (case_id, user_id, is_owner, joined_at) VALUES (:c, :u, TRUE, :t)", "c", id, "u", uid, "t", Db.ts(clock.instant()));
+        addMember(id, uid, null, true, in.competitionId());
         saveRoles(id, in.roles());
         notify.log(uid, "case", id, "CREATE", null);
         return detail(id, uid, false);
@@ -89,9 +91,10 @@ public class CaseService {
 
     private void validate(CaseIn in) {
         if (in.title() == null || in.title().isBlank()) throw ApiException.badRequest("標題為必填");
-        if (!Set.of("PROJECT", "COMPETITION", "SHORT_TERM", "RESEARCH").contains(in.type())) throw ApiException.badRequest("案件類型錯誤");
-        if (in.teamSize() == null || in.teamSize() < 2) throw ApiException.badRequest("每隊人數至少 2 人（含發案方）");
-        if ("RESEARCH".equals(in.type()) && !Set.of("AUTHORSHIP", "ACK", "NONE").contains(in.attribution())) throw ApiException.badRequest("研究協作必須註明成果歸屬（AUTHORSHIP／ACK／NONE）");
+        // 3.1 只做比賽（D62）：專題、短期支援、研究協作不再建立；資料表的類型欄位與舊資料保留
+        if (!"COMPETITION".equals(in.type())) throw ApiException.badRequest("這一版只開放比賽隊伍（專題、短期支援、研究協作已停用）");
+        if (in.competitionId() == null) throw ApiException.badRequest("請先選一場比賽");
+        if (in.teamSize() == null || in.teamSize() < 2) throw ApiException.badRequest("每隊人數至少 2 人（含隊長）");
         LocalDate s, e;
         try { s = LocalDate.parse(in.startDate()); e = LocalDate.parse(in.endDate()); parseDeadline(in.applyDeadline()); }
         catch (ApiException ex) { throw ex; } catch (Exception ex) { throw ApiException.badRequest("日期格式錯誤"); }
@@ -123,6 +126,37 @@ public class CaseService {
         return c;
     }
 
+    // ---------- 同一場比賽一人一隊（D69） ----------
+    /** 先給清楚的訊息；真正的保證在 case_members 的部分唯一索引 uq_member_competition */
+    void assertNotInCompetition(int userId, Integer competitionId, Integer exceptCaseId) {
+        if (competitionId == null) return;
+        var other = db.one("""
+                SELECT c.title FROM case_members m JOIN cases c ON c.id = m.case_id
+                WHERE m.user_id = :u AND m.competition_id = :comp AND m.active AND (cast(:x AS int) IS NULL OR m.case_id <> :x) LIMIT 1""",
+                "u", userId, "comp", competitionId, "x", exceptCaseId);
+        if (other != null) throw ApiException.conflict("ALREADY_IN_COMPETITION", "同一場比賽只能參加一隊：已經在「" + other.get("title") + "」");
+    }
+
+    /** 加入成員；同一場比賽已有另一隊時由唯一索引擋下 */
+    void addMember(int caseId, int userId, Integer roleId, boolean owner, Integer competitionId) {
+        try {
+            db.exec("""
+                    INSERT INTO case_members (case_id, user_id, case_role_id, is_owner, joined_at, competition_id, active)
+                    VALUES (:c, :u, :r, :o, :t, :comp, TRUE)""",
+                    "c", caseId, "u", userId, "r", roleId, "o", owner, "t", Db.ts(clock.instant()), "comp", competitionId);
+        } catch (DuplicateKeyException e) {
+            throw ApiException.conflict("ALREADY_IN_COMPETITION", "同一場比賽只能參加一隊");
+        }
+    }
+
+    /** 隊伍開始招募（開隊，或舊流程的發布）。即時通訊在這裡接上：建立隊伍群組。 */
+    void opened(int caseId, int ownerId, String title) {
+        // 由 M3 的事件接手
+    }
+
+    /** 隊伍取消、過期、結束後，成員資格不再計入「同一場比賽一人一隊」 */
+    void releaseMembers(int caseId) { db.exec("UPDATE case_members SET active = FALSE WHERE case_id = :c", "c", caseId); }
+
     // ---------- 狀態轉移 ----------
     @Transactional
     public Map<String, Object> publish(int caseId, int uid) {
@@ -134,6 +168,7 @@ public class CaseService {
             throw ApiException.conflict("LIMIT", "同時開放的案件已達上限 " + max + " 件");
         db.exec("UPDATE cases SET status = 'OPEN' WHERE id = :id", "id", caseId);
         notify.log(uid, "case", caseId, "PUBLISH", null);
+        opened(caseId, uid, (String) c.get("title"));
         return detail(caseId, uid, false);
     }
 
@@ -142,6 +177,7 @@ public class CaseService {
         var c = owned(caseId, uid);
         if (!Set.of("DRAFT", "OPEN", "FORMED").contains((String) c.get("status"))) throw ApiException.conflict("INVALID_STATE", "此狀態不能取消");
         db.exec("UPDATE cases SET status = 'CANCELLED' WHERE id = :id", "id", caseId);
+        releaseMembers(caseId);
         for (var e : db.list("SELECT e.id, e.user_id, e.direction FROM engagements e JOIN case_roles r ON r.id = e.case_role_id WHERE r.case_id = :c AND e.status = 'PENDING'", "c", caseId)) {
             db.exec("UPDATE engagements SET status = 'DECLINED', decided_at = :t WHERE id = :id", "t", Db.ts(clock.instant()), "id", e.get("id"));
             notify.notify(Db.i(e.get("user_id")), "CASE_CANCELLED", "案件已取消", "「" + c.get("title") + "」已由發案方取消", "/cases/" + caseId);
@@ -190,7 +226,10 @@ public class CaseService {
                 SELECT c.id, c.title, c.type, c.description, c.status, c.team_size "teamSize", c.apply_deadline "applyDeadline", c.start_date "startDate", c.end_date "endDate",
                        c.attribution, c.close_result "closeResult", c.created_at "createdAt", c.closed_at "closedAt",
                        u.id "ownerId", u.name "ownerName", d.name "ownerDepartment", col.name "ownerCollege",
-                       c.competition_id "competitionId", cp.name "competitionName", cp.url "competitionUrl", cp.apply_deadline "competitionDeadline",
+                       c.competition_id "competitionId", coalesce(nullif(cp.short_name, ''), cp.name) "competitionName", cp.url "competitionUrl", cp.apply_deadline "competitionDeadline",
+                       cp.event_date "competitionEventDate", cp.team_min "competitionTeamMin", cp.team_max "competitionTeamMax", cp.advisor_required "competitionAdvisorRequired",
+                       cp.category "competitionCategory", cp.checked_at "competitionCheckedAt",
+                       c.registered_at "registeredAt", c.roster_locked "rosterLocked",
                        c.advisor_teacher_id "advisorTeacherId", t.name "advisorName", t.title "advisorTitle", td.name "advisorDepartment"
                 FROM cases c JOIN users u ON u.id = c.owner_id JOIN departments d ON d.id = u.department_id JOIN colleges col ON col.id = d.college_id
                 LEFT JOIN competitions cp ON cp.id = c.competition_id LEFT JOIN teachers t ON t.id = c.advisor_teacher_id LEFT JOIN departments td ON td.id = t.department_id
@@ -199,6 +238,8 @@ public class CaseService {
         if ("DRAFT".equals(c.get("status")) && !isOwner && !isAdmin) throw ApiException.notFound("找不到案件");
         Map<String, Object> m = new LinkedHashMap<>(c);
         m.put("isOwner", isOwner);
+        if (c.get("competitionDeadline") != null)
+            m.put("daysLeft", (int) java.time.temporal.ChronoUnit.DAYS.between(LocalDate.now(clock), ((java.sql.Date) c.get("competitionDeadline")).toLocalDate()));
         List<Map<String, Object>> roles = db.list("""
                 SELECT r.id, r.role_name "roleName", r.headcount, r.filled_count "filledCount", r.hours_per_week "hoursPerWeek",
                        (SELECT count(*) FROM engagements e WHERE e.case_role_id = r.id AND e.direction = 'INVITE' AND e.status = 'PENDING') "pendingInvites",
@@ -210,7 +251,7 @@ public class CaseService {
         }
         m.put("roles", roles);
         m.put("members", db.list("""
-                SELECT m.user_id "userId", u.name, d.name department, col.name college, m.is_owner "isOwner", r.role_name "roleName", m.joined_at "joinedAt"
+                SELECT m.user_id "userId", u.name, d.name department, col.name college, u.degree, u.year, m.is_owner "isOwner", r.role_name "roleName", m.joined_at "joinedAt"
                 FROM case_members m JOIN users u ON u.id = m.user_id JOIN departments d ON d.id = u.department_id JOIN colleges col ON col.id = d.college_id
                 LEFT JOIN case_roles r ON r.id = m.case_role_id WHERE m.case_id = :c ORDER BY m.is_owner DESC, m.joined_at""", "c", caseId));
         m.put("isMember", db.count("SELECT count(*) FROM case_members WHERE case_id = :c AND user_id = :u", "c", caseId, "u", uid) > 0);
@@ -255,7 +296,7 @@ public class CaseService {
     @Transactional
     public Map<String, Object> createEngagement(int roleId, int actorId, EngagementIn in) {
         var role = db.required("""
-                SELECT r.id, r.case_id, r.headcount, r.filled_count, c.owner_id, c.status, c.title, c.apply_deadline
+                SELECT r.id, r.case_id, r.headcount, r.filled_count, c.owner_id, c.status, c.title, c.apply_deadline, c.competition_id, c.roster_locked
                 FROM case_roles r JOIN cases c ON c.id = r.case_id WHERE r.id = :id FOR UPDATE OF r""", "找不到角色", "id", roleId);
         int caseId = Db.i(role.get("case_id")), ownerId = Db.i(role.get("owner_id"));
         if (!"OPEN".equals(role.get("status"))) throw ApiException.conflict("INVALID_STATE", "案件不在招募中");
@@ -276,7 +317,11 @@ public class CaseService {
                 throw ApiException.conflict("LIMIT", "待處理的申請已達上限 " + maxPending + " 筆");
         }
         RankingEngine.Result r = ranking.evaluateOne(roleId, joiner);
-        if (!r.passed()) throw ApiException.blocked(invite ? "此人未通過閘門，無法邀請" : "未通過閘門，無法申請", r.blockedBy());
+        if (!r.passed()) throw ApiException.blocked(invite ? "這位同學目前不符合條件，無法邀請" : "目前不符合這支隊伍的條件，無法申請", r.blockedBy());
+        if (role.get("competition_id") != null) {
+            try { assertNotInCompetition(joiner, Db.i(role.get("competition_id")), caseId); }
+            catch (ApiException ex) { throw ApiException.blocked(invite ? "這位同學已經在這場比賽的另一支隊伍" : "你已經在這場比賽的另一支隊伍", List.of(ex.getMessage())); }
+        }
 
         Instant now = clock.instant();
         Instant due = now.plusSeconds(param("response_hours", 72) * 3600L);
@@ -302,7 +347,8 @@ public class CaseService {
 
     private Map<String, Object> engagement(int id) {
         return db.required("""
-                SELECT e.id, e.case_role_id, e.user_id, e.direction, e.status, r.case_id, r.headcount, r.filled_count, c.owner_id, c.status case_status, c.title
+                SELECT e.id, e.case_role_id, e.user_id, e.direction, e.status, r.case_id, r.headcount, r.filled_count, c.owner_id, c.status case_status, c.title,
+                       c.competition_id, c.roster_locked
                 FROM engagements e JOIN case_roles r ON r.id = e.case_role_id JOIN cases c ON c.id = r.case_id WHERE e.id = :id FOR UPDATE OF e, r""", "找不到申請或邀請", "id", id);
     }
 
@@ -324,9 +370,11 @@ public class CaseService {
         }
         if (db.count("SELECT count(*) FROM case_members WHERE case_id = :c AND user_id = :u", "c", caseId, "u", joiner) > 0)
             throw ApiException.conflict("ALREADY_MEMBER", "此人已是成員");
+        Integer competitionId = e.get("competition_id") == null ? null : Db.i(e.get("competition_id"));
+        assertNotInCompetition(joiner, competitionId, caseId);
         db.exec("UPDATE engagements SET status = 'ACCEPTED', decided_at = :t WHERE id = :id", "t", Db.ts(now), "id", engagementId);
         db.exec("UPDATE case_roles SET filled_count = filled_count + 1 WHERE id = :r", "r", roleId);
-        db.exec("INSERT INTO case_members (case_id, user_id, case_role_id, joined_at) VALUES (:c, :u, :r, :t)", "c", caseId, "u", joiner, "r", roleId, "t", Db.ts(now));
+        addMember(caseId, joiner, roleId, false, competitionId);
         String title = (String) e.get("title");
         notify.notify(initiator(e), "ACCEPTED", "申請／邀請已成立", "你與「" + title + "」的組隊已成立", "/cases/" + caseId);
         // 角色額滿：其他待處理者以「額滿」結束
@@ -399,6 +447,7 @@ public class CaseService {
         // 招募截止仍未成案 → EXPIRED
         for (var c : db.list("SELECT id, title FROM cases WHERE status = 'OPEN' AND apply_deadline <= :t", "t", Db.ts(now))) {
             db.exec("UPDATE cases SET status = 'EXPIRED' WHERE id = :id", "id", c.get("id"));
+            releaseMembers(Db.i(c.get("id")));
             for (var m : db.list("SELECT user_id FROM case_members WHERE case_id = :c", "c", c.get("id")))
                 notify.notify(Db.i(m.get("user_id")), "CASE_EXPIRED", "案件招募截止未成案", "「" + c.get("title") + "」在截止日前未湊齊成員", "/cases/" + c.get("id"));
         }

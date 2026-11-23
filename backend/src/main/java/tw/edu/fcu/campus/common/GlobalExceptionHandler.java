@@ -41,9 +41,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(404).body(Map.of("code", "NOT_FOUND", "message", "找不到資源"));
     }
 
+    /** 未預期的錯誤：細節只寫進紀錄，回給用戶端的是固定訊息加追蹤編號（不把例外訊息帶出去） */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> other(Exception e) {
-        log.error("unhandled", e);
-        return ResponseEntity.status(500).body(Map.of("code", "INTERNAL", "message", String.valueOf(e.getMessage())));
+        String trace = java.util.UUID.randomUUID().toString().substring(0, 8);
+        log.error("unhandled [{}]", trace, e);
+        return ResponseEntity.status(500).body(Map.of("code", "INTERNAL", "message", "系統發生錯誤，請稍後再試（追蹤編號 " + trace + "）", "trace", trace));
     }
 }

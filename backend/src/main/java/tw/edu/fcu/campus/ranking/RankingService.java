@@ -124,6 +124,21 @@ public class RankingService {
         return engine.evaluate(ctx.role(), candidate(us.get(0), levels, st, ctx, members(ctx.caseId()), pendingForRole(roleId)), weights());
     }
 
+    /** 一位學生對多個缺口（隊伍牆的「適合我」）：學生的技能與統計只讀一次。不是學生（管理員）時回傳空集合。 */
+    public Map<Integer, RankingEngine.Result> evaluateRoles(int userId, Collection<Integer> roleIds) {
+        List<UserRow> us = loadStudents(userId);
+        if (us.isEmpty() || roleIds.isEmpty()) return Map.of();
+        var skills = loadSkills(userId).get(userId);
+        var st = stats.of(userId);
+        var w = weights();
+        Map<Integer, RankingEngine.Result> out = new LinkedHashMap<>();
+        for (int roleId : roleIds) {
+            RoleCtx ctx = loadRole(roleId);
+            out.put(roleId, engine.evaluate(ctx.role(), candidate(us.get(0), skills, st, ctx, members(ctx.caseId()), pendingForRole(roleId)), w));
+        }
+        return out;
+    }
+
     /** 發案方看：此角色的推薦人選（含被擋下者與原因），並存快照 */
     @Transactional
     public Map<String, Object> recommendForRole(int roleId, int requesterId, boolean isAdmin) {

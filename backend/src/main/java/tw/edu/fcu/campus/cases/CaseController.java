@@ -1,6 +1,9 @@
 package tw.edu.fcu.campus.cases;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.*;
+import tw.edu.fcu.campus.common.ApiException;
 import tw.edu.fcu.campus.common.Current;
 
 import java.util.List;
@@ -10,10 +13,30 @@ import java.util.Map;
 @RequestMapping("/api/v1")
 public class CaseController {
     private final CaseService cases;
+    private final TeamService teams;
+    private final ObjectMapper json;
 
-    public CaseController(CaseService cases) { this.cases = cases; }
+    public CaseController(CaseService cases, TeamService teams, ObjectMapper json) { this.cases = cases; this.teams = teams; this.json = json; }
 
-    @PostMapping("/cases") public Map<String, Object> create(@RequestBody CaseService.CaseIn in) { return cases.create(Current.id(), in); }
+    /**
+     * 開隊。3.1 的精簡表單（competitionId、title、need、skills、intro）直接建立招募中的比賽隊伍；
+     * 沒有 need 欄位的是 2.0 的完整表單（AI 助理的待確認動作與 iOS 仍在用），建立草稿後再發布。
+     */
+    @PostMapping("/cases")
+    public Map<String, Object> create(@RequestBody JsonNode body) {
+        try {
+            if (body.has("need")) return teams.create(Current.id(), json.treeToValue(body, TeamService.TeamIn.class));
+            return cases.create(Current.id(), json.treeToValue(body, CaseService.CaseIn.class));
+        } catch (com.fasterxml.jackson.core.JsonProcessingException e) { throw ApiException.badRequest("請求格式錯誤"); }
+    }
+
+    /** 隊伍牆：招募中的比賽隊伍；fit=true 只看「適合我」並依排序分數由高到低；mine=true 看我參加的隊伍 */
+    @GetMapping("/cases/wall")
+    public List<Map<String, Object>> wall(@RequestParam(required = false) Integer competitionId, @RequestParam(required = false) Integer skillId,
+                                          @RequestParam(required = false) String q, @RequestParam(defaultValue = "false") boolean fit,
+                                          @RequestParam(defaultValue = "false") boolean mine) {
+        return teams.wall(Current.id(), competitionId, skillId, q, fit, mine);
+    }
     @PutMapping("/cases/{id}") public Map<String, Object> update(@PathVariable int id, @RequestBody CaseService.CaseIn in) { return cases.update(id, Current.id(), in); }
 
     @GetMapping("/cases")

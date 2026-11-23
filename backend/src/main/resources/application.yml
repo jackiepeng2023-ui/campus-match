@@ -11,6 +11,8 @@ spring:
     serialization:
       write-dates-as-timestamps: false
     time-zone: Asia/Taipei
+  flyway:
+    enabled: false          # 遷移由 DbInit 依啟動模式呼叫（重建 → 種子 → 遷移），不用 Spring Boot 的自動執行
 app:
   seed-mode: ${APP_SEED_MODE:demo}             # demo：載入 50 位示範學生＋劇本資料；reference：正式上線，只載入學校參考資料（科目表、技能表）
   reset-on-start: ${APP_RESET_ON_START:true}   # true：每次啟動重建 schema（Demo）；false：沿用現有資料，只在資料表不存在時初始化（正式）
@@ -20,6 +22,8 @@ app:
   jwt-secret: ${APP_JWT_SECRET:campus-match-demo-secret-key-change-me-in-production-2026}
   demo-password: ${APP_DEMO_PASSWORD:demo1234}
   demo-clock: ${APP_DEMO_CLOCK:true}           # 允許 /admin/clock 快轉時間
+  allow-destructive-reset: ${APP_ALLOW_DESTRUCTIVE_RESET:false}   # 正式模式下，資料庫已有學生帳號時仍允許重建（只給可丟棄的測試資料庫用）
+  allowed-origins: ${APP_ALLOWED_ORIGINS:*}    # 允許呼叫 API 與 WebSocket 的來源網域，逗號分隔；正式環境請填自己的網域
   llm:                                          # Claude API（AI 助理入口、課綱／簡章／教師專長的 AI 擷取）；沒有金鑰時全部以規則模式運作
     # 屬性刻意放在 app.llm.* 之下、只讀 APP_ANTHROPIC_* 環境變數：避免 Spring 的寬鬆綁定把主機上其他用途的 ANTHROPIC_* 變數當成本系統的設定
     api-key: ${APP_ANTHROPIC_API_KEY:}
