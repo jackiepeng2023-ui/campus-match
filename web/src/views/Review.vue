@@ -1,17 +1,17 @@
 <template>
   <div v-if="p" style="max-width:760px">
-    <h1>互評：{{ p.caseTitle }}</h1>
+    <h1>給隊友回饋：{{ p.caseTitle }}</h1>
     <p class="sub">四題各 1–5 分。第 2 題「能力與檔案相符」會影響對方自填資料在推薦中的權重（D9）。評價匿名，雙方都送出或 72 小時到期才同時公開（D40）。</p>
-    <div v-if="!todo.length" class="card empty">你在本案的互評都已送出</div>
+    <div v-if="!todo.length" class="card empty">這支隊伍的回饋你都送出了</div>
     <form v-else @submit.prevent="submit" class="stack">
       <div class="card" v-for="it in todo" :key="it.id">
-        <h3>{{ it.name }} <span class="sub small">{{ it.department }}{{ it.isOwner ? ' · 發案方' : '' }}</span></h3>
+        <h3>{{ it.name }} <span class="sub small">{{ it.department }}{{ it.isOwner ? ' · 隊長' : '' }}</span></h3>
         <table>
           <tr><td style="width:45%">整體合作滿意度</td><td><Stars v-model="it.satisfaction" /></td></tr>
           <tr><td>實際能力與檔案相符嗎</td><td><Stars v-model="it.matchScore" /></td></tr>
           <tr><td>是否準時完成分內工作</td><td><Stars v-model="it.onTime" /></td></tr>
           <tr><td>溝通與回應是否及時</td><td><Stars v-model="it.communication" /></td></tr>
-          <tr v-if="p.askAttribution && it.isOwner"><td>發案時承諾的成果歸屬是否兌現</td><td><select v-model="it.attributionKept"><option value="YES">是</option><option value="PARTIAL">部分</option><option value="NO">否</option></select></td></tr>
+          <tr v-if="p.askAttribution && it.isOwner"><td>當初說好的成果歸屬有沒有兌現</td><td><select v-model="it.attributionKept"><option value="YES">是</option><option value="PARTIAL">部分</option><option value="NO">否</option></select></td></tr>
           <tr><td>評語（選填，只有對方本人看得到）</td><td><input v-model="it.comment" placeholder="具體說明做得好或可以改進的地方" /></td></tr>
         </table>
       </div>

@@ -3,7 +3,8 @@
 正式模式（APP_SEED_MODE=reference）的冒煙測試：沒有示範學生，從註冊開始走一遍
   註冊（條款 v2、AI 同意分開記錄）→ 從正式科目表填成績 → 能力盤點 → 自述證據與管理員驗證 → 三個 Agent → 規則模式的 AI 助理 → 待確認動作
 
-  APP_SEED_MODE=reference APP_RESET_ON_START=true APP_DEMO_CLOCK=false APP_ADMIN_EMAIL=admin@campus.test APP_ADMIN_PASSWORD='Ref-Mode-Check-1' java -jar target/campus-match-1.0.0.jar
+  （3.1 起正式模式必須換掉 JWT 密鑰；資料庫裡已經有學生帳號時要重建，還得加 APP_ALLOW_DESTRUCTIVE_RESET=true）
+  APP_SEED_MODE=reference APP_RESET_ON_START=true APP_DEMO_CLOCK=false APP_JWT_SECRET=<至少 32 字元> APP_ADMIN_EMAIL=admin@campus.test APP_ADMIN_PASSWORD='Ref-Mode-Check-1' java -jar target/campus-match-1.0.0.jar
   python3 tools/reference_smoke.py [--base http://localhost:8080] [--admin admin@campus.test] [--password Ref-Mode-Check-1]
 
 會註冊兩位測試學生並建立案件：只能對剛重建、可丟棄的資料庫執行，不要對正式資料庫執行。後端不要設定 APP_ANTHROPIC_API_KEY（這裡驗證的是沒有金鑰時的規則模式）。
@@ -73,6 +74,24 @@ act=[c for c in m["cards"] if c["type"]=="action"]
 if act:
     done=call("POST",f'/assistant/actions/{act[0]["actionId"]}/confirm',{},TA,200)[1]
     ok("確認後建立案件", done["status"]=="DONE" and done["result"]["caseId"], str(done["result"].get("invited")))
+# ---- 3.1 主線：正式模式從空的資料庫開始也走得通（開隊 → 隊伍牆 → 申請 → 洽談 → 接受 → 隊伍群組） ----
+mine={t["competition"]["id"] for t in call("GET","/cases/wall?mine=true",None,TA,200)[1]}
+comp=[c for c in call("GET","/competitions?status=open",None,TB,200)[1] if c["id"] not in mine and (c.get("teamMax") or 9)>1][0]
+team=call("POST","/cases",{"competitionId":comp["id"],"title":"冒煙測試隊","need":1,"intro":"","skills":[{"skillId":meA["skills"][0]["skillId"],"required":False}]},TB,200)[1]
+ok("3.1 開隊：直接招募中，截止日由比賽帶入", team["status"]=="OPEN" and team["competitionId"]==comp["id"], f'{comp.get("shortName") or comp["name"]}，剩 {team["daysLeft"]} 天')
+card=[t for t in call("GET",f'/cases/wall?competitionId={comp["id"]}',None,TA,200)[1] if t["id"]==team["id"]][0]
+ok("3.1 隊伍牆與適合我", card["fit"] and card["fit"]["passed"], "、".join(card["fit"]["tags"]))
+e=call("POST",f'/roles/{card["fit"]["roleId"]}/engagements',{"direction":"APPLY","message":"冒煙測試：想加入"},TA,200)[1]
+conv=[c for c in call("GET","/conversations",None,TB,200)[1] if c["kind"]=="TALK" and c["engagement"]["id"]==e["id"]][0]
+ok("3.1 申請時建立洽談對話，隊長看到未讀", conv["unread"]==2 and conv["peer"]["name"]=="測試生甲")
+call("POST",f'/conversations/{conv["id"]}/messages',{"body":"歡迎，先聊聊"},TB,200)
+ok("3.1 訊息送達對方（未讀 1）", [c for c in call("GET","/conversations",None,TA,200)[1] if c["id"]==conv["id"]][0]["unread"]==1)
+d=call("POST",f'/engagements/{e["id"]}/accept',{},TB,200)[1]
+ok("3.1 接受後名額收滿、自動成隊", d["status"]=="FORMED" and len(d["members"])==2)
+gid=call("GET",f'/cases/{team["id"]}/conversation',None,TA,200)[1]["conversationId"]
+ok("3.1 新成員進了隊伍群組", any("成隊" in m["body"] for m in call("GET",f'/conversations/{gid}/messages',None,TA,200)[1]))
+s,r=call("POST",f'/cases/{team["id"]}/registration',{},TB)
+ok("3.1 標記已報名（人數不到比賽下限時會說明）", (s==200 and r["rosterLocked"]) or (s==409 and r["code"]=="TEAM_TOO_SMALL"), "已鎖定名單" if s==200 else r["message"])
 s,r=call("POST","/admin/clock",{"hours":1},admin); ok("正式模式不能快轉時間", s in (400,403,404), str(s))
 s,r=call("POST","/admin/reset",{},admin); ok("正式模式不能重置資料", s in (400,403,404), str(s))
 ex=call("GET","/admin/extract/status",None,admin,200)[1]

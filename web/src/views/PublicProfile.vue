@@ -7,7 +7,7 @@
       <div class="stat"><div class="k">檔案相符度</div><div class="v">{{ u.stats.avgMatch ?? '—' }}</div></div>
       <div class="stat"><div class="k">可信度係數</div><div class="v">{{ u.stats.credibility }}</div></div>
       <div class="stat"><div class="k">回應率</div><div class="v">{{ Math.round(u.stats.responseRate * 100) }}%</div></div>
-      <div class="stat"><div class="k">完成案件</div><div class="v">{{ u.stats.closedCases }}</div></div>
+      <div class="stat"><div class="k">完成的隊伍</div><div class="v">{{ u.stats.closedCases }}</div></div>
     </div>
     <div class="grid grid-2">
       <div class="card"><h3>技能 <span class="sub small">（只顯示階級與可信狀態，不顯示分數與成績，D16）</span></h3>

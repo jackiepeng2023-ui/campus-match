@@ -38,6 +38,7 @@ public class UserController {
                 Map.entry("levelBands", db.list("SELECT degree_group \"degreeGroup\", tier, name, min_score \"minScore\" FROM level_bands ORDER BY degree_group, tier")),
                 Map.entry("maxSkillsPerEvidence", db.scalar(Integer.class, "SELECT value FROM system_params WHERE key = 'max_skills_per_evidence'")),
                 Map.entry("termsVersion", UserService.TERMS_VERSION),
+                Map.entry("demo", dbInit.isDemo()),                                   // 登入頁只在 Demo 模式列出示範帳號
                 Map.entry("certificateCatalog", db.list("""
                         SELECT c.id, c.name, c.issuer, c.score, c.note,
                                (SELECT string_agg(s.name, '、' ORDER BY s.name) FROM certificate_catalog_skills cs JOIN skills s ON s.id = cs.skill_id WHERE cs.catalog_id = c.id) skills

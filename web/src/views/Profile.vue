@@ -1,6 +1,6 @@
 <template>
   <div v-if="me">
-    <div class="row between"><div><h1>我的檔案</h1><div class="sub">{{ me.studentNo }} · {{ me.college }}／{{ me.department }} · {{ labels.degree[me.degree] }}{{ me.year }}年級{{ me.entryYear ? '（' + me.entryYear + ' 學年度入學）' : '' }} · 預計畢業 {{ me.expectedGraduation }}</div></div>
+    <div class="row between"><div><h1>個人頁</h1><div class="sub">{{ me.studentNo }} · {{ me.college }}／{{ me.department }} · {{ labels.degree[me.degree] }}{{ me.year }}年級{{ me.entryYear ? '（' + me.entryYear + ' 學年度入學）' : '' }} · 預計畢業 {{ me.expectedGraduation }}</div></div>
       <router-link :to="'/users/' + me.id" class="btn secondary">別人看到的我</router-link></div>
 
     <div class="card" style="margin-top:16px">
@@ -21,7 +21,9 @@
         </template></table>
     </div>
 
-    <div class="grid grid-2" style="margin-top:16px">
+    <GrowthPrompt style="margin-top:18px" />
+
+    <div class="grid grid-2" style="margin-top:18px;align-items:start">
       <div class="stack">
         <div class="card">
           <div class="row between"><h3 style="margin:0">修課成績 <span class="sub small">只有你看得到</span></h3>
@@ -103,6 +105,7 @@ import { get, put, post, del } from '../api'
 import { store, labels, tierColor, trustColor, bandsText } from '../store'
 import CoursePicker from '../components/CoursePicker.vue'
 import SkillPicker from '../components/SkillPicker.vue'
+import GrowthPrompt from '../components/GrowthPrompt.vue'
 const me = ref(null), reviews = ref(null), picker = ref(false), open = reactive({})
 const max = computed(() => store.meta?.maxSkillsPerEvidence || 5)
 const blankAward = () => ({ competition: '', level: 'CAMPUS', rank: 'TOP3', awardDate: '', proofUrl: '', skillIds: [] })

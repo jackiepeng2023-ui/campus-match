@@ -86,13 +86,14 @@ public class DbInit implements InitializingBean {
 
     /** 重建 schema 與資料（Demo 彩排之間亦由 /admin/reset 呼叫） */
     public void reload() throws Exception {
+        ready = false;                                                    // 重建期間排程先停（資料表會暫時回到 2.0 的樣子）
         log.info("重建 schema（seed-mode={}）…", seedMode);
         db.jdbc.getJdbcOperations().execute(read("db/reset-3.sql"));     // 3.x 遷移新增的資料表與遷移紀錄：先刪，才能回到 2.0 基準版
         db.jdbc.getJdbcOperations().execute(read("db/schema.sql"));
         if (isDemo()) {
             db.jdbc.getJdbcOperations().execute(read("db/data.sql"));
             int n = db.exec("UPDATE users SET password_hash = :h WHERE password_hash = '{RESET_ON_BOOT}'", "h", encoder.encode(demoPassword));
-            log.info("Demo 資料載入完成：{} 位示範帳號密碼為 {}", n, demoPassword);
+            log.info("Demo 資料載入完成：{} 位示範帳號，密碼取自 APP_DEMO_PASSWORD", n);
         }
         loadReference();
         if (isDemo()) {
@@ -104,11 +105,12 @@ public class DbInit implements InitializingBean {
         }
         migrate();
         if (isDemo()) {
-            // 3.1 的示範資料：比賽隊伍（對應到競賽清單）、開放被邀請、已驗證信箱；要在遷移之後才有這些欄位
+            // 3.1 的示範資料：比賽隊伍（對應到競賽清單）、隊伍群組的訊息、一筆等待回覆的邀請；要在遷移之後才有這些資料表與欄位
             db.jdbc.getJdbcOperations().execute(read("db/data-3.1.sql"));
             log.info("3.1 示範資料：{} 支比賽隊伍招募中", db.count("SELECT count(*) FROM cases WHERE status = 'OPEN' AND competition_id IS NOT NULL"));
         }
         ensureAdmin();
+        ready = true;
     }
 
     /** 執行尚未套用的遷移腳本。沒有遷移紀錄的既有資料庫視為 2.0 基準版（schema.sql）。 */

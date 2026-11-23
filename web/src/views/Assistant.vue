@@ -4,7 +4,7 @@
       <div class="card" style="padding:14px" v-if="st">
         <div class="row between"><strong>AI 助理</strong><span class="pill" :class="st.mode === 'LLM' ? 'purple' : ''">{{ st.mode === 'LLM' ? 'Claude' : '規則模式' }}</span></div>
         <p class="sub small" style="margin:6px 0 0">{{ st.mode === 'LLM' ? '由 ' + st.model + ' 規劃步驟、呼叫工具。' : st.notice }}</p>
-        <p class="sub small" style="margin:6px 0 0" v-if="!st.aiConsent && st.llmEnabled"><router-link to="/profile">到「我的檔案」同意後可改用 Claude</router-link></p>
+        <p class="sub small" style="margin:6px 0 0" v-if="!st.aiConsent && st.llmEnabled"><router-link to="/profile">到「個人頁」同意後可改用 Claude</router-link></p>
         <div class="sub small" style="margin-top:8px">可用工具（白名單）：<div v-for="(names, agent) in toolGroups" :key="agent">· {{ agent }}</div></div>
         <div class="sub small" style="margin-top:8px">今日 {{ st.usedToday }}／{{ st.dailyLimit }} 則 · 單則最多 {{ st.maxSteps }} 輪工具呼叫</div>
       </div>
@@ -21,7 +21,7 @@
     <div class="stack">
       <div class="card" v-if="!messages.length">
         <h2>說出你的目標，我來拆步驟</h2>
-        <p class="sub">我會依序呼叫「能力盤點模組」與三個媒合 Agent（競賽、學生、教師），每一步都看得到；要建立案件或邀請隊友時，我只會準備草稿，由你按確認。</p>
+        <p class="sub">我會依序呼叫「能力盤點模組」與三個媒合 Agent（競賽、學生、教師），每一步都看得到；要開隊或邀請隊友時，我只會準備草稿，由你按確認。</p>
         <div class="suggest" style="margin-top:12px"><button v-for="q in starters" :key="q" @click="send(q)">{{ q }}</button></div>
       </div>
       <template v-for="m in messages" :key="m.id">

@@ -19,6 +19,11 @@ export async function api(method, path, body) {
   }
   return data
 }
+/** WebSocket 端點：和 API 同一個主機；用 VITE_API_BASE 指到別的主機時跟著換 */
+export function wsUrl() {
+  const base = import.meta.env.VITE_API_BASE || location.origin
+  return base.replace(/^http/, 'ws').replace(/\/$/, '') + '/ws'
+}
 export const get = (p) => api('GET', p)
 export const post = (p, b = {}) => api('POST', p, b)
 export const put = (p, b) => api('PUT', p, b)

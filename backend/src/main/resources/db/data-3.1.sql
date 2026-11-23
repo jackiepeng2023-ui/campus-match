@@ -1,6 +1,7 @@
 -- 3.1 的示範資料（只在 Demo 模式載入，於遷移之後執行）
 -- 內容：把 2.0 遺留的非比賽招募結束掉；建立 8 支對應到競賽清單的比賽隊伍；補上隊伍群組、幾則群組訊息、一筆等待回覆的邀請。
 -- 人名、隊名、介紹都是虛構的；比賽取自 ref-competitions.sql，只對報名尚未截止的比賽建立隊伍。
+-- AI 助理的端到端測試（tools/napai_e2e.py）用 student002 與他的第一位推薦隊友在 AI CUP 開新隊，這兩個人不要放進 AI CUP 的示範隊伍。
 
 -- 2.0 的招募中案件沒有對應到競賽清單（專題、短期支援、研究協作，或未連結比賽的競賽）。3.1 只做比賽，示範資料把它們結束掉。
 UPDATE engagements e SET status = 'DECLINED', decided_at = now()
@@ -48,9 +49,9 @@ BEGIN
   END IF;
 END $$ LANGUAGE plpgsql;
 
-SELECT demo_team('student002@example.edu', 'AI CUP 2026 秋季賽（太陽能板瑕疵檢測）', '太陽能小隊',
+SELECT demo_team('student012@example.edu', 'AI CUP 2026 秋季賽（太陽能板瑕疵檢測）', '太陽能小隊',
   '想把瑕疵檢測做到能上線，缺會訓練模型的人。每週固定討論兩次。', 2, 5,
-  ARRAY['深度學習:2:Y', '資料分析:1:N'], ARRAY['student020@example.edu']);
+  ARRAY['深度學習:2:Y', '資料分析:1:N'], ARRAY['student019@example.edu']);
 SELECT demo_team('student039@example.edu', '為桃園做研究', '桃園觀察隊',
   '做桃園青年返鄉的研究，缺會跑統計、整理問卷的夥伴。', 2, 4,
   ARRAY['統計:1:Y', '問卷設計:1:N'], NULL);
@@ -102,9 +103,9 @@ BEGIN
   UPDATE conversation_members SET last_read_message_id = v_msg WHERE conversation_id = v_conv AND user_id = v_uid;
 END $$ LANGUAGE plpgsql;
 
-SELECT demo_say('太陽能小隊', 'student002@example.edu', '資料集我先整理好放雲端了，瑕疵類別有六種。', 2900);
-SELECT demo_say('太陽能小隊', 'student020@example.edu', '收到。我這週先跑一版基準模型，週四給大家看結果。', 2860);
-SELECT demo_say('太陽能小隊', 'student002@example.edu', '好，還缺一個人幫忙做資料前處理，我繼續找。', 2850);
+SELECT demo_say('太陽能小隊', 'student012@example.edu', '資料集我先整理好放雲端了，瑕疵類別有六種。', 2900);
+SELECT demo_say('太陽能小隊', 'student019@example.edu', '收到。我這週先跑一版基準模型，週四給大家看結果。', 2860);
+SELECT demo_say('太陽能小隊', 'student012@example.edu', '好，還缺一個人幫忙做資料前處理，我繼續找。', 2850);
 SELECT demo_say('奇想工作室', 'student005@example.edu', '草模照片傳上去了，大家看一下握把的比例。', 4300);
 SELECT demo_say('奇想工作室', 'student029@example.edu', '握把可以再短一點。另外成本那一頁我不太會算。', 4250);
 SELECT demo_say('奇想工作室', 'student005@example.edu', '所以才要找會寫企劃的隊友，我已經開缺了。', 4240);

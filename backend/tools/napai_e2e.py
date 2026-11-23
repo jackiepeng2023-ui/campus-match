@@ -12,11 +12,11 @@ NAPAI 版端到端測試：AI 助理入口＋三個媒合 Agent＋能力盤點�
 輸出檢核、去識別化（送出的請求不含任何學生姓名／學號／Email）、同意與撤回、每日上限、人工確認才執行、重複確認與越權、
 操作軌跡匯出、評測指標、競賽與教師資料的管理。
 """
-import datetime, json, re, sys, time, urllib.parse, urllib.request
+import datetime, json, os, re, sys, time, urllib.parse, urllib.request
 
 BASE = (sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8080") + "/api/v1"
 MOCK = sys.argv[2] if len(sys.argv) > 2 else "http://localhost:8089"
-PW = "demo1234"
+PW = os.environ.get("APP_DEMO_PASSWORD", "demo1234")
 PASSED = []
 
 

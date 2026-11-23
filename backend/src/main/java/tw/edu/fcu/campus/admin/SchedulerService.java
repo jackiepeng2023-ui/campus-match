@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import tw.edu.fcu.campus.cases.CaseService;
 import tw.edu.fcu.campus.cases.TeamService;
 import tw.edu.fcu.campus.common.Db;
+import tw.edu.fcu.campus.config.DbInit;
 import tw.edu.fcu.campus.config.DemoClock;
 import tw.edu.fcu.campus.notify.NotificationService;
 import tw.edu.fcu.campus.review.ReviewService;
@@ -28,9 +29,10 @@ public class SchedulerService {
     private final NotificationService notify;
     private final Db db;
     private final DemoClock clock;
+    private final DbInit dbInit;
 
-    public SchedulerService(CaseService cases, TeamService teams, ReviewService reviews, UserService users, NotificationService notify, Db db, DemoClock clock) {
-        this.cases = cases; this.teams = teams; this.reviews = reviews; this.users = users; this.notify = notify; this.db = db; this.clock = clock;
+    public SchedulerService(CaseService cases, TeamService teams, ReviewService reviews, UserService users, NotificationService notify, Db db, DemoClock clock, DbInit dbInit) {
+        this.cases = cases; this.teams = teams; this.reviews = reviews; this.users = users; this.notify = notify; this.db = db; this.clock = clock; this.dbInit = dbInit;
     }
 
     private boolean started;
@@ -43,6 +45,7 @@ public class SchedulerService {
 
     public synchronized Map<String, Object> runAll() {
         Map<String, Object> out = new LinkedHashMap<>();
+        if (!dbInit.ready) { out.put("skipped", "資料重建中"); return out; }      // Demo 重置或啟動初始化期間不跑排程
         out.put("remind", safe("remind", cases::remindDue));
         out.put("expire", safe("expire", cases::expireDue));
         out.put("registrationReminder", safe("registrationReminder", teams::registrationReminders));
