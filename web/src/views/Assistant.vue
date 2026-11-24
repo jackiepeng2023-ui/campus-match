@@ -20,9 +20,14 @@
 
     <div class="stack">
       <div class="card" v-if="!messages.length">
-        <h2>說出你的目標，我來拆步驟</h2>
-        <p class="sub">我會依序呼叫「能力盤點模組」與三個媒合 Agent（競賽、學生、教師），每一步都看得到；要開隊或邀請隊友時，我只會準備草稿，由你按確認。</p>
-        <div class="suggest" style="margin-top:12px"><button v-for="q in starters" :key="q" @click="send(q)">{{ q }}</button></div>
+        <div class="with-art intro" style="align-items:flex-start">
+          <Squirrel pose="wink" :size="84" />
+          <div style="min-width:0">
+            <h2>說出你的目標，我來拆步驟</h2>
+            <p class="sub" style="margin:0">我會依序呼叫「能力盤點模組」與三個媒合 Agent（競賽、學生、教師），每一步都看得到；要開隊或邀請隊友時，我只會準備草稿，由你按確認。</p>
+          </div>
+        </div>
+        <div class="suggest" style="margin-top:14px"><button v-for="q in starters" :key="q" @click="send(q)">{{ q }}</button></div>
       </div>
       <template v-for="m in messages" :key="m.id">
         <div v-if="m.role === 'user'" class="bubble">{{ m.content }}</div>
@@ -82,6 +87,7 @@ import TeammatesCard from '../components/TeammatesCard.vue'
 import TeachersCard from '../components/TeachersCard.vue'
 import ActionCard from '../components/ActionCard.vue'
 import AgentTrace from '../components/AgentTrace.vue'
+import Squirrel from '../components/Squirrel.vue'
 const st = ref(null), sessions = ref([]), sid = ref(null), messages = ref([]), text = ref(''), busy = ref(false), bottom = ref(null)
 const starters = ['我想參加比賽，幫我規劃', '我的技能強弱項是什麼？', '推薦我可以參加的比賽', '幫我找互補的隊友', '誰可以指導？']
 const toolGroups = computed(() => { const g = {}; for (const t of st.value?.tools || []) (g[t.agent] ||= []).push(t.name); return g })

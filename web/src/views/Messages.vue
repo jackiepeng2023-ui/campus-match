@@ -7,7 +7,7 @@
       <div class="im-list" aria-label="對話列表">
         <label style="margin:0"><span class="sr">搜尋對話或成員</span><input v-model="kw" type="search" placeholder="搜尋對話或成員" /></label>
         <div v-if="!store.convLoaded" class="empty">載入中…</div>
-        <div v-else-if="!store.conversations.length" class="empty"><b>還沒有對話</b>申請加入一隊、開隊，或收到邀請之後，對話會出現在這裡。
+        <div v-else-if="!store.conversations.length" class="empty"><Squirrel pose="phone" :size="124" class="only-narrow" /><b>還沒有對話</b>申請加入一隊、開隊，或收到邀請之後，對話會出現在這裡。
           <div style="margin-top:12px"><router-link to="/" class="btn sm">去找隊友</router-link></div></div>
         <template v-for="g in groups" :key="g.key">
           <template v-if="g.items.length">
@@ -29,7 +29,9 @@
 
       <!-- 對話內容 -->
       <div class="im-main">
-        <div v-if="!currentId" class="empty" style="margin:auto"><b>選一個對話</b>左邊是你的隊伍群組和洽談中的對話。</div>
+        <div v-if="!currentId" class="empty" style="margin:auto"><Squirrel pose="phone" :size="156" />
+          <template v-if="store.convLoaded && !store.conversations.length"><b>找到隊伍就能開始聊</b>申請、邀請和隊伍群組的訊息都會出現在這裡。</template>
+          <template v-else><b>選一個對話</b>左邊是你的隊伍群組和洽談中的對話。</template></div>
         <div v-else-if="!conv" class="empty" style="margin:auto">載入中…</div>
         <template v-else>
           <div class="im-head">
@@ -103,6 +105,7 @@ import { onEvent } from '../realtime'
 import Ico from '../components/Ico.vue'
 import ConfirmButton from '../components/ConfirmButton.vue'
 import RegistrationTrack from '../components/RegistrationTrack.vue'
+import Squirrel from '../components/Squirrel.vue'
 
 const route = useRoute(), router = useRouter()
 const currentId = computed(() => route.params.id ? +route.params.id : null)

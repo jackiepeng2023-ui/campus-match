@@ -2,11 +2,12 @@
   <div>
     <header class="top" v-if="store.user">
       <div class="top-in">
-        <router-link to="/" class="logo" aria-label="Fomo鬆 首頁">FOMO<b>鬆</b></router-link>
+        <router-link to="/" class="logo" aria-label="Fomo鬆 首頁"><Squirrel pose="head" :size="40" /><span>FOMO<b>鬆</b></span></router-link>
         <nav class="mainnav" aria-label="主選單">
           <router-link v-for="t in tabs" :key="t.to" :to="t.to" :class="{ on: t.on }" :aria-current="t.on ? 'page' : null">{{ t.label }}<span v-if="t.badge" class="badge">{{ t.badge }}</span></router-link>
         </nav>
         <div class="tools">
+          <router-link v-if="store.user.role !== 'ADMIN'" to="/assistant" class="round ai" aria-label="AI 助理"><Squirrel pose="wink" :size="40" /></router-link>
           <button type="button" class="round" :aria-label="store.unread ? `通知，${store.unread} 則未讀` : '通知'" @click="toggleBell">
             <Ico name="bell" /><span v-if="store.unread" class="badge">{{ store.unread > 99 ? '99+' : store.unread }}</span>
           </button>
@@ -37,7 +38,7 @@
     <nav class="tabbar" v-if="store.user" aria-label="主選單">
       <router-link v-for="t in tabs" :key="t.to" :to="t.to" :class="{ on: t.on }"><Ico :name="t.icon" :size="22" />{{ t.label }}<span v-if="t.badge" class="badge">{{ t.badge }}</span></router-link>
     </nav>
-    <router-link v-if="showFab" to="/assistant" class="fab" aria-label="AI 助理"><Ico name="spark" /><span class="lbl">AI 助理</span></router-link>
+    <router-link v-if="showFab" to="/assistant" class="fab" aria-label="AI 助理"><Squirrel pose="wink" :size="42" /><span class="lbl">AI 助理</span></router-link>
     <div v-if="store.toast" class="toast" :class="store.toast.kind" role="status">{{ store.toast.message }}</div>
   </div>
 </template>
@@ -48,6 +49,7 @@ import { store, fmtTime, initial } from './store'
 import { get, post } from './api'
 import { rt, connect, disconnect, onEvent } from './realtime'
 import Ico from './components/Ico.vue'
+import Squirrel from './components/Squirrel.vue'
 
 const route = useRoute(), router = useRouter()
 const bell = ref(false), menu = ref(false), notifs = ref([])
@@ -63,7 +65,7 @@ const tabs = computed(() => {
 })
 // 訊息頁切換對話時不要整頁重建（列表會閃）；其他頁面換網址就重新載入
 const viewKey = computed(() => route.path.startsWith('/messages') ? 'messages' : route.fullPath)
-// 訊息頁的右下角是「傳送」按鈕，不放浮動按鈕（AI 助理在頭像選單裡也進得去）
+// 訊息頁的右下角是「傳送」按鈕，不放浮動按鈕（AI 助理在頭像選單裡也進得去）。手機上浮動按鈕會擋到卡片的按鈕，改放頁首（.round.ai）
 const showFab = computed(() => store.user && store.user.role !== 'ADMIN' && route.path !== '/assistant' && !route.path.startsWith('/messages'))
 
 async function toggleBell() {

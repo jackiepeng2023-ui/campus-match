@@ -1,9 +1,12 @@
 <template>
-  <div style="max-width:470px;margin:0 auto;padding:44px 16px 60px">
-    <div class="center" style="margin-bottom:22px">
-      <div class="logo" style="font-size:44px">FOMO<b>鬆</b></div>
-      <p class="strong" style="margin:6px 0 2px">找隊友打比賽</p>
-      <p class="sub small">選比賽、開隊或找隊、聊一聊、成隊、報名。</p>
+  <div class="login">
+    <div class="login-brand">
+      <Squirrel pose="stand" :size="184" />
+      <div class="txt">
+        <div class="logo"><span>FOMO<b>鬆</b></span></div>
+        <p class="strong">找隊友打比賽</p>
+        <p class="sub small">選比賽、開隊或找隊、聊一聊、成隊、報名。</p>
+      </div>
     </div>
     <div class="card">
       <div class="segment" style="margin-bottom:18px"><button type="button" :class="{ on: mode === 'login' }" @click="mode = 'login'">登入</button><button type="button" :class="{ on: mode === 'register' }" @click="mode = 'register'">註冊</button></div>
@@ -47,6 +50,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { post, setToken } from '../api'
 import { store } from '../store'
+import Squirrel from '../components/Squirrel.vue'
 const router = useRouter()
 const mode = ref('login'), account = ref(''), password = ref(''), busy = ref(false), error = ref(''), meta = ref(null)
 const r = ref({ studentNo: '', name: '', email: '', password: '', degree: 'BACHELOR', year: 1, departmentId: 1, entryYear: null, expectedGraduation: '2030-06-30', hoursPerWeek: 8, consent: false, aiConsent: false })

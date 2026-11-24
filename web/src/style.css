@@ -26,7 +26,7 @@ p { margin: 0 0 10px; }
 /* ---------- 外框：頁首、導覽、手機底部分頁 ---------- */
 .top { background: var(--paper); border-bottom: 2px solid var(--ink); position: sticky; top: 0; z-index: 30; }
 .top-in { max-width: 1250px; min-height: 72px; margin: 0 auto; padding: 0 22px; display: flex; align-items: center; justify-content: space-between; gap: 6px 22px; }
-.logo { font-size: 27px; font-weight: 900; letter-spacing: -2px; white-space: nowrap; text-decoration: none; padding: 5px 0; color: var(--ink); }
+.logo { display: inline-flex; align-items: center; gap: 10px; font-size: 27px; font-weight: 900; letter-spacing: -2px; white-space: nowrap; text-decoration: none; padding: 5px 0; color: var(--ink); }
 .logo b { color: var(--orange); }
 .mainnav { display: flex; align-items: center; gap: 4px; }
 .mainnav a { position: relative; padding: 14px 16px; font-weight: 900; border-bottom: 4px solid transparent; text-decoration: none; white-space: nowrap; color: var(--ink); }
@@ -37,7 +37,11 @@ p { margin: 0 0 10px; }
 .round { position: relative; width: 44px; height: 44px; padding: 0; border: 2px solid var(--ink); border-radius: 50%; background: #fff; color: var(--ink); display: grid; place-items: center; cursor: pointer; font-weight: 900; }
 .round .badge { position: absolute; right: -7px; top: -8px; border-color: #fff; }
 .round.me { background: var(--yellow); }
-.page { max-width: 1250px; margin: 0 auto; padding: 34px 22px 90px; }
+.round.ai { display: none; overflow: hidden; text-decoration: none; }                      /* 手機才顯示，取代右下角的浮動按鈕 */
+.round.ai .sq-frame { border: 0; border-radius: 0; width: 100% !important; height: 100% !important; }
+.round.ai.router-link-active { box-shadow: 0 0 0 3px var(--yellow); }
+.page { max-width: 1250px; margin: 0 auto; padding: 34px 22px 100px; }
+.page:has(.msg-page) { padding-bottom: 90px; }                               /* 訊息頁沒有那顆按鈕 */
 .page.narrow { max-width: 900px; }
 .tabbar { display: none; }
 .menu { position: absolute; right: 0; top: 54px; width: 360px; max-width: calc(100vw - 28px); max-height: 440px; overflow: auto; background: #fff; border: 2px solid var(--ink); border-radius: 16px; box-shadow: 4px 5px 0 var(--yellow); padding: 8px; z-index: 40; }
@@ -45,7 +49,10 @@ p { margin: 0 0 10px; }
 .menu .item:hover { background: var(--bg); } .menu .item.unread { background: var(--cream); }
 .menu .linkrow { display: block; padding: 11px 12px; border-radius: 10px; text-decoration: none; font-weight: 800; cursor: pointer; background: none; border: 0; width: 100%; text-align: left; }
 .menu .linkrow:hover { background: var(--bg); }
-.fab { position: fixed; right: 22px; bottom: 22px; z-index: 20; border: 2px solid var(--ink); border-radius: 18px; background: var(--orange); color: var(--ink); box-shadow: 4px 5px 0 var(--yellow); padding: 10px 16px; min-height: 52px; font-weight: 900; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+/* AI 助理的浮動按鈕（桌機）。內容欄最寬 1250，畫面不夠寬時按鈕會壓到卡片右側的按鈕，所以預設用窄版貼在角落（1280 寬時只碰到卡片邊框）；
+   1400 以上右邊有空位，改用大一點的 */
+.fab { position: fixed; right: 6px; bottom: 10px; z-index: 20; border: 2px solid var(--ink); border-radius: 16px; background: var(--orange); color: var(--ink); box-shadow: 2px 3px 0 var(--yellow); width: 54px; padding: 5px 0 4px; font-size: 11px; font-weight: 900; line-height: 1.2; text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 2px; white-space: nowrap; }
+@media (min-width: 1400px) { .fab { right: 10px; bottom: 14px; width: 84px; padding: 8px 4px 7px; font-size: 13px; border-radius: 20px; gap: 4px; box-shadow: 3px 4px 0 var(--yellow); } .fab .sq-frame { width: 58px !important; height: 58px !important; } }
 .fab:hover { color: var(--ink); filter: brightness(1.04); }
 .toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 11px 18px; border-radius: 13px; font-size: 14px; font-weight: 700; box-shadow: 4px 5px 0 var(--yellow); z-index: 100; max-width: 90vw; }
 .toast.error { background: var(--red); } .toast.success { background: var(--green); }
@@ -91,14 +98,31 @@ p { margin: 0 0 10px; }
 .between { justify-content: space-between; }
 .head { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin-bottom: 22px; }
 .head > div:first-child { flex: 1 1 420px; }
+.title-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; } .title-row h1 { margin: 0; }
 .empty { color: var(--muted); text-align: center; padding: 30px 12px; }
 .empty b { display: block; color: var(--ink); font-size: 17px; margin-bottom: 4px; }
 .crumb { font-size: 13px; color: var(--muted); margin-bottom: 14px; } .crumb a { font-weight: 800; }
-.hero { border: 2px solid var(--ink); border-radius: 20px; background: var(--yellow); box-shadow: 5px 6px 0 var(--ink); padding: 26px 28px; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; gap: 18px 30px; flex-wrap: wrap; }
-.hero h1 { font-size: 34px; margin: 0 0 4px; } .hero p { margin: 0; font-weight: 700; }
-.hero .steps { display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; font-weight: 800; }
-.hero .steps span { background: #fff; border: 1.5px solid var(--ink); border-radius: 20px; padding: 4px 10px; }
-.hero .steps i { font-style: normal; align-self: center; }
+.steps { display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; font-weight: 800; margin-top: 12px; }
+.steps span { background: #fff; border: 1.5px solid var(--ink); border-radius: 20px; padding: 4px 10px; }
+.steps i { font-style: normal; align-self: center; }
+
+/* ---------- 品牌圖：橫幅與松鼠（圖檔在 src/assets/brand，元件是 Squirrel.vue） ---------- */
+.banner { margin: 0 0 30px; border: 2px solid var(--ink); border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; background: var(--cream); }
+.banner img { display: block; width: 100%; height: auto; aspect-ratio: 2048 / 682; }
+.mascot { display: block; flex: 0 0 auto; height: auto; max-width: 100%; }
+.sticker { display: block; flex: 0 0 auto; border: 2px solid var(--ink); border-radius: 50%; box-shadow: 3px 4px 0 var(--yellow); object-fit: cover; background: var(--cream); }
+.sq-frame { display: block; flex: 0 0 auto; border: 2px solid var(--ink); border-radius: 50%; background: #fff; overflow: hidden; }
+.sq-frame img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
+.empty .mascot, .empty .sticker { margin: 0 auto 14px; }
+.head.art { flex-wrap: nowrap; align-items: center; } .head.art > div:first-child { flex: 1 1 auto; min-width: 0; }
+.with-art { display: flex; align-items: center; gap: 16px; } .with-art > div { min-width: 0; }
+.only-narrow { display: none; }
+.login { max-width: 470px; margin: 0 auto; padding: 30px 16px 60px; }
+.login-brand { display: flex; align-items: flex-end; gap: 16px; padding: 0 10px; position: relative; z-index: 1; }
+.login-brand .mascot { margin-bottom: -9px; }
+.login-brand .txt { padding-bottom: 22px; min-width: 0; }
+.login-brand .logo { font-size: 44px; line-height: 1.15; padding: 0; }
+.login-brand p { margin: 4px 0 0; }
 
 /* 隊伍卡片（找隊友）與比賽卡片 */
 .tcard { display: flex; flex-direction: column; gap: 11px; min-height: 236px; }
@@ -228,15 +252,18 @@ ul.tight { margin: 4px 0 0; padding-left: 18px; font-size: 13px; color: var(--mu
 @media (max-width: 980px) { .split { grid-template-columns: 1fr; } }
 @media (max-width: 860px) { .chat { grid-template-columns: 1fr; } .chat-side { position: static; } .chat .bubble { max-width: 92%; } }
 @media (max-width: 760px) {
-  h1 { font-size: 28px; } .hero h1 { font-size: 26px; } .hero { padding: 20px; }
-  .top-in { min-height: 60px; padding: 0 14px; } .mainnav { display: none; } .logo { font-size: 24px; }
+  h1 { font-size: 28px; }
+  .top-in { min-height: 60px; padding: 0 14px; } .mainnav { display: none; } .logo { font-size: 24px; gap: 8px; }
   .page, .container { padding: 20px 14px 110px; }
+  .banner { margin-bottom: 20px; border-radius: 14px; box-shadow: 3px 4px 0 var(--yellow); }
+  .head.art .sticker { width: 76px; height: 76px; } .only-narrow { display: block; } .logo .sq-frame { width: 36px !important; height: 36px !important; }
+  .login { padding-top: 18px; } .login-brand { gap: 12px; padding: 0 4px; } .login-brand .mascot { width: 104px; } .login-brand .logo { font-size: 38px; }
   .tabbar { display: grid; grid-template-columns: repeat(4, 1fr); position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; background: var(--paper); border-top: 2px solid var(--ink); padding-bottom: env(safe-area-inset-bottom); }
   .tabbar a { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 58px; font-size: 12px; font-weight: 900; text-decoration: none; color: var(--muted); }
   .tabbar a.on { color: var(--ink); box-shadow: inset 0 4px 0 var(--orange); }
   .tabbar .badge { position: absolute; top: 5px; left: calc(50% + 8px); }
-  .fab { bottom: 72px; right: 12px; min-height: 48px; width: 48px; padding: 0; justify-content: center; border-radius: 50%; }
-  .fab .lbl { display: none; }
+  .fab { display: none; } .round.ai { display: grid; }
+  .with-art.intro { gap: 12px; } .with-art.intro .sq-frame { width: 60px !important; height: 60px !important; }
     .toast { bottom: 84px; }
   .card { padding: 18px; }
   .tiles { grid-template-columns: repeat(3, 1fr); } .tile .v { font-size: 17px; }

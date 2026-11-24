@@ -1,5 +1,7 @@
 # Fomo鬆／跨系資源媒合平台（CampusMatch）
 
+![Fomo鬆 橫幅：找到跨系夥伴，讓你的創意有人一起完成](web/src/assets/brand/banner-teammates-1024.webp)
+
 > **3.1 開發中（分支 `fomo-3.1`，2026-11-23）**
 >
 > 3.1 只做比賽，主線七步：選比賽 → 開隊 → 推薦／找隊 → 申請／邀請 → 洽談 → 成隊 → 報名追蹤，並加上即時通訊與新的介面（Fomo鬆）。
@@ -9,7 +11,7 @@
 > | [`docs/3.1/產品規格書-3.1.md`](docs/3.1/產品規格書-3.1.md) | 範圍、功能需求、決策 |
 > | [`docs/3.1/軟體工程架構-3.1.md`](docs/3.1/軟體工程架構-3.1.md) | 模組、資料、API、即時通訊、部署 |
 > | [`docs/3.1/實作紀錄-M0-M4.md`](docs/3.1/實作紀錄-M0-M4.md) | 已經做了什麼、怎麼驗證、和設計哪裡不一樣、還沒做的 |
-> | [`docs/3.1/screenshots/`](docs/3.1/screenshots) | 目前的畫面（16 張） |
+> | [`docs/3.1/screenshots/`](docs/3.1/screenshots) | 目前的畫面（17 張） |
 >
 > 已完成：M0（遷移工具、啟動檢查）、M1（只做比賽、開隊、隊伍牆）、M3（即時通訊）、M4 核心（提前成隊、退出與請離、報名追蹤）、新的網頁。
 > 還沒做：帳號精簡與信箱驗證、排序新定義與權重調整器進管理頁、檢舉與停權、iOS。
@@ -17,7 +19,7 @@
 > 和 2.0 不同、啟動前要知道的事：
 > 1. 專題、短期支援、研究協作已停用；成長儀表板與知識圖譜的畫面已移除（AI 成長建議 Prompt 搬到個人頁）。
 > 2. 正式模式（`APP_SEED_MODE=reference`）必須設 `APP_JWT_SECRET`、`APP_DEMO_CLOCK=false`、`APP_RESET_ON_START=false`，否則拒絕啟動。
-> 3. 測試改成 `backend/tools/fomo_e2e.py`（主線，89 項）與 `web/tools/fomo_ui.cjs`（網頁，26 項）；2.0 的 `demo_e2e.py`、`ui_smoke.cjs` 已移除。
+> 3. 測試改成 `backend/tools/fomo_e2e.py`（主線，89 項）與 `web/tools/fomo_ui.cjs`（網頁，33 項）；2.0 的 `demo_e2e.py`、`ui_smoke.cjs` 已移除。
 > 4. 網頁開發時 WebSocket 也走代理；後端不在 8080 時用 `VITE_PROXY_TARGET` 指定。
 >
 > **以下是 2.0 的說明**，提到案件類型、成長儀表板、`demo_e2e.py`、`ui_smoke.cjs` 的段落還沒改寫（排在 M7）。

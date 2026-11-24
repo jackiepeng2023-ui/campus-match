@@ -150,7 +150,7 @@
   </div>
 </template>
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js'
 import { get, put, post, del } from '../api'
 import { store, labels, fmtTime } from '../store'
@@ -177,6 +177,7 @@ async function load() {
   clock.value = await get('/admin/clock'); q.value = await get('/analytics/recommendation-quality'); network.value = await get('/analytics/network'); logs.value = await get('/admin/event-logs?limit=40')
   const funnel = await get('/analytics/funnel'), gap = (await get('/analytics/skill-gap')).slice(0, 12)
   await nextTick()
+  if (!funnelEl.value || !gapEl.value) return                // 資料還沒回來就離開這一頁：畫布已經不在，不畫圖
   funnelChart?.destroy(); gapChart?.destroy()
   funnelChart = new Chart(funnelEl.value, { type: 'bar', data: { labels: funnel.map(f => f.stage), datasets: [{ label: '案件數', data: funnel.map(f => f.n), backgroundColor: '#0a84ff', borderRadius: 6 }] }, options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } } })
   gapChart = new Chart(gapEl.value, { type: 'bar', data: { labels: gap.map(g => g.skill), datasets: [{ label: '供給（中階以上人數）', data: gap.map(g => g.supply), backgroundColor: '#34c759', borderRadius: 6 }, { label: '需求（尚缺名額）', data: gap.map(g => g.demand), backgroundColor: '#ff9f0a', borderRadius: 6 }] }, options: { indexAxis: 'y', plugins: { legend: { position: 'bottom' } }, scales: { x: { beginAtZero: true, ticks: { precision: 0 } } } } })
@@ -211,4 +212,5 @@ async function advance(h) { try { const r = await post('/admin/clock', { hours: 
 async function resetClock() { await post('/admin/clock/reset'); jobs.value = ''; await load() }
 async function reset() { if (!confirm('重建 schema 與 50 位示範學生？所有操作紀錄會清除。')) return; await post('/admin/reset'); store.notify('已重置', 'success'); await load() }
 onMounted(async () => { await load(); await loadCourses(); await Promise.all([loadEvidence(), loadCatalog(), loadMetrics(), loadExtract()]) })
+onBeforeUnmount(() => { funnelChart?.destroy(); gapChart?.destroy() })
 </script>

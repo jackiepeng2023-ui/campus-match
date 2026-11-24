@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="head">
+    <div class="head art">
       <div><h1>比賽</h1><p class="sub">先選一場比賽，再開隊或找隊。報名是在主辦單位的網站完成；日期與資格以官方公告為準。</p></div>
+      <Squirrel pose="cheer" :size="108" />
     </div>
     <div class="row" style="margin-bottom:16px">
       <label style="flex:1 1 280px;margin:0"><span class="sr">搜尋比賽名稱或主辦單位</span><input v-model="q" type="search" placeholder="搜尋比賽名稱、主辦單位…" /></label>
@@ -14,7 +15,7 @@
     <div class="sub small" style="margin-bottom:16px" role="status">{{ loaded ? `${shown.length} 場${closed ? '' : '還能報名的'}比賽，快截止的排前面` : '' }}</div>
 
     <div v-if="!loaded" class="empty">載入中…</div>
-    <div v-else-if="!shown.length" class="card soft empty"><b>沒有符合條件的比賽</b>換個關鍵字，或把分類改回「全部」。</div>
+    <div v-else-if="!shown.length" class="card soft empty"><Squirrel pose="stand" :size="132" /><b>沒有符合條件的比賽</b>換個關鍵字，或把分類改回「全部」。</div>
     <div v-else class="cards few">
       <article v-for="c in shown" :key="c.id" class="card tcard">
         <div class="top-line">
@@ -45,6 +46,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { get } from '../api'
 import { store, labels, md, leftText, teamSizeText } from '../store'
+import Squirrel from '../components/Squirrel.vue'
 
 const all = ref([]), loaded = ref(false), q = ref(''), category = ref(''), closed = ref(false), counts = ref({}), mine = ref({})
 const categories = computed(() => [...new Set(all.value.filter(c => closed.value || c.status !== 'CLOSED').map(c => c.category))])

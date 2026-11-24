@@ -1,10 +1,13 @@
 <template>
   <section class="track" :class="{ plain, folded: !open }" aria-label="報名追蹤">
     <template v-if="open">
-      <div>
-        <div class="small strong">報名追蹤</div>
-        <div class="big">{{ headline }}</div>
-        <div class="sub small">報名截止 {{ mdw(team.competitionDeadline) }}</div>
+      <div class="with-art">
+        <Squirrel v-if="team.registeredAt" pose="cheer" :size="68" />
+        <div>
+          <div class="small strong">報名追蹤</div>
+          <div class="big">{{ headline }}</div>
+          <div class="sub small">報名截止 {{ mdw(team.competitionDeadline) }}</div>
+        </div>
       </div>
       <ul class="checks">
         <li :class="sizeOk ? 'ok' : 'todo'"><span class="mark">{{ sizeOk ? '✓' : '' }}</span><span>隊伍 {{ team.members.length }} 人，{{ sizeRule }}</span></li>
@@ -38,6 +41,7 @@ import { post, del } from '../api'
 import { store, md, mdw, leftText } from '../store'
 import Ico from './Ico.vue'
 import ConfirmButton from './ConfirmButton.vue'
+import Squirrel from './Squirrel.vue'
 const props = defineProps({ team: { type: Object, required: true }, plain: Boolean })
 const emit = defineEmits(['changed'])
 const busy = ref(false), open = ref(props.plain || window.innerWidth > 760)

@@ -1,15 +1,18 @@
 <template>
   <div>
-    <section class="hero">
+    <div class="banner">
+      <img :src="banner" :srcset="`${bannerSmall} 1024w, ${banner} 2048w`" sizes="(max-width: 1250px) 100vw, 1206px" width="2048" height="682"
+           alt="Fomo鬆 橫幅：找到跨系夥伴，讓你的創意有人一起完成" fetchpriority="high" />
+    </div>
+    <div class="head">
       <div>
-        <h1>找隊友</h1>
-        <p>這些隊伍正在找人。看到想加入的就申請，直接和隊長聊。</p>
-        <div class="steps" style="margin-top:12px" aria-label="流程">
+        <div class="title-row"><h1>找隊友</h1><router-link v-if="!admin" to="/competitions" class="btn">＋ 我要開隊</router-link></div>
+        <p class="sub">這些隊伍正在找人。看到想加入的就申請，直接和隊長聊。</p>
+        <div class="steps" aria-label="流程">
           <span>選比賽</span><i>→</i><span>開隊或找隊</span><i>→</i><span>申請或邀請</span><i>→</i><span>聊一聊</span><i>→</i><span>成隊</span><i>→</i><span>報名</span>
         </div>
       </div>
-      <router-link v-if="!admin" to="/competitions" class="btn white">＋ 我要開隊</router-link>
-    </section>
+    </div>
 
     <form class="row" style="margin-bottom:16px" @submit.prevent="load">
       <label style="flex:1 1 280px;margin:0"><span class="sr">搜尋比賽、隊名或技能</span><input v-model="q" type="search" placeholder="搜尋比賽、隊名、技能…" /></label>
@@ -18,16 +21,15 @@
     <div class="fpills" style="margin-bottom:22px">
       <button type="button" class="fpill" :class="{ on: !fit && !category && !mine }" :aria-pressed="!fit && !category && !mine" @click="reset">全部</button>
       <button v-if="!admin" type="button" class="fpill" :class="{ on: fit }" :aria-pressed="fit" @click="fit = !fit; mine = false; load()">適合我</button>
+      <button v-if="!admin" type="button" class="fpill" :class="{ on: mine }" :aria-pressed="mine" @click="mine = !mine; fit = false; load()">我的隊伍</button>
       <button v-for="c in categories" :key="c" type="button" class="fpill" :class="{ on: category === c }" :aria-pressed="category === c" @click="category = category === c ? '' : c">{{ c }}</button>
     </div>
 
-    <div class="row between" style="margin-bottom:16px">
-      <div class="sub small" role="status">{{ summary }}</div>
-      <button v-if="!admin" type="button" class="btn sm" :class="{ white: !mine }" :aria-pressed="mine" @click="mine = !mine; fit = false; load()">我的隊伍</button>
-    </div>
+    <div class="sub small" style="margin-bottom:16px" role="status">{{ summary }}</div>
 
     <div v-if="!loaded" class="empty">載入中…</div>
     <div v-else-if="!shown.length" class="card soft empty">
+      <Squirrel pose="stand" :size="132" />
       <b>{{ mine ? '你還沒有加入任何隊伍' : filtered ? '沒有符合條件的隊伍' : '目前沒有隊伍在找人' }}</b>
       {{ mine ? '到「比賽」選一場開隊，或在這裡找一隊申請。' : filtered ? '換個關鍵字，或清除篩選看看全部。' : '當第一個開隊的人：到「比賽」選一場，開隊只要填隊名和想找的技能。' }}
       <div class="row" style="justify-content:center;margin-top:14px">
@@ -69,6 +71,9 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { get } from '../api'
 import { store, labels, md, leftText, statusTag } from '../store'
 import { onEvent } from '../realtime'
+import Squirrel from '../components/Squirrel.vue'
+import banner from '../assets/brand/banner-teammates.webp'
+import bannerSmall from '../assets/brand/banner-teammates-1024.webp'
 
 const admin = store.user.role === 'ADMIN'
 const teams = ref([]), loaded = ref(false), q = ref(''), fit = ref(false), mine = ref(false), category = ref('')
